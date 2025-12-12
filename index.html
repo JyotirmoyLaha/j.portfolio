@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Future Software Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.hidden.css">
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',    // Deep Blue/Black
+                            card: '#1e293b',    // Lighter card
+                            accent: '#38bdf8',  // Sky blue
+                            purple: '#818cf8',  // AI purple
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'type': 'typing 3.5s steps(40, end)',
+                        'float': 'float 6s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-slate-300 font-sans selection:bg-brand-accent selection:text-brand-dark overflow-x-hidden relative">
+
+    <!-- ADD ON: Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+    
+    <!-- ADD ON: Cursor Glow -->
+    <div id="cursor-glow" class="hidden md:block"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 transition-all duration-500 nav-transparent" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white tracking-tighter hover:scale-105 transition-transform">
+                J.L<span class="text-brand-accent">.PORTFOLIO</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-brand-accent transition-colors relative group">
+                    About
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#mindset" class="hover:text-brand-accent transition-colors relative group">
+                    Mindset
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="hover:text-brand-accent transition-colors relative group">
+                    Skills
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="hover:text-brand-accent transition-colors relative group">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#future" class="hover:text-brand-accent transition-colors relative group">
+                    Future AI
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white focus:outline-none transform active:scale-95 transition-transform" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-card border-b border-gray-700 px-6 py-4 space-y-4 shadow-xl">
+            <a href="#about" class="block hover:text-brand-accent" onclick="toggleMenu()">About</a>
+            <a href="#mindset" class="block hover:text-brand-accent" onclick="toggleMenu()">Mindset</a>
+            <a href="#skills" class="block hover:text-brand-accent" onclick="toggleMenu()">Skills</a>
+            <a href="#projects" class="block hover:text-brand-accent" onclick="toggleMenu()">Projects</a>
+            <a href="#future" class="block hover:text-brand-accent" onclick="toggleMenu()">Future Goals</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-12">
+        
+        <!-- ADD ON: Particles Background Container -->
+        <div id="particles-js"></div>
+
+        <!-- Animated Background Blobs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-brand-purple opacity-20 rounded-full blur-3xl animate-blob"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-accent opacity-10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 opacity-10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10" data-aos="fade-up" data-aos-duration="1000">
+            
+            <!-- PROFILE PICTURE FRAME -->
+            <div class="mb-8 relative inline-block animate-float group cursor-pointer" data-aos="zoom-in" data-aos-delay="100">
+                <!-- Glowing Background Ring -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-brand-accent to-brand-purple rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                
+                <!-- Image Container (REVERTED TO IMAGE) -->
+                <div class="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-slate-800 shadow-2xl">
+                    <img src="profile.jpg" 
+                         alt="Jyotirmoy Laha" 
+                         class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110">
+                </div>
+                
+                <!-- Small Floating Icon -->
+                <div class="absolute bottom-4 right-2 bg-brand-card border border-brand-accent p-2 rounded-full text-brand-accent shadow-lg animate-bounce">
+                    <i class="fa-solid fa-code text-lg"></i>
+                </div>
+            </div>
+            <!-- END PROFILE PICTURE -->
+
+            <div class="block">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-brand-accent uppercase bg-brand-accent/10 rounded-full border border-brand-accent/20" data-aos="zoom-in" data-aos-delay="200">
+                    Building the Future
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                    <!-- Monster Video Positioned on Hello -->
+                    <span class="relative inline-block">
+                        <!-- Floating Monster Container - Positioned to the Left -->
+                        <div class="absolute -top-8 md:-top-12 -left-24 md:-left-36 w-32 h-32 md:w-40 md:h-40 z-20 pointer-events-none">
+                             <video autoplay loop muted playsinline 
+                                    class="w-full h-full object-contain animate-float"> 
+                                 <source src="19675-Picsart-BackgroundRemover.mp4.webm" type="video/webm">
+                             </video>
+                        </div>
+                        Hello,
+                    </span> 
+                    I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-purple">JYOTIRMOY LAHA</span>
+                </h1>
+                
+                <!-- Typing Effect Container -->
+                <div class="h-8 mb-8">
+                    <p class="text-xl text-slate-400 max-w-2xl mx-auto typing-cursor" id="typing-text"></p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#projects" class="px-8 py-3 bg-brand-accent text-brand-dark font-bold rounded-lg hover:bg-white hover:scale-105 transition-all shadow-lg shadow-brand-accent/25">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="px-8 py-3 border border-slate-600 rounded-lg hover:border-white hover:text-white hover:scale-105 transition-all">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 z-10">
+            <i class="fa-solid fa-chevron-down text-xl"></i>
+        </div>
+    </header>
+
+    <!-- ABOUT & EDUCATION SECTION -->
+    <section id="about" class="py-20 bg-brand-dark relative z-10">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left: Text -->
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-graduation-cap text-brand-accent"></i> Academic Background
+                </h2>
+                <div class="bg-brand-card p-6 rounded-xl border border-slate-700 hover:border-brand-accent/50 transition-all mb-6 hover:-translate-y-1 hover:shadow-xl">
+                    <h3 class="text-xl font-semibold text-white">Bachelor of Computer Applications (BCA)</h3>
+                    <p class="text-brand-purple text-sm mb-2">2nd Year Student</p>
+                    <p class="text-slate-400">Dr. B.C. Roy Academy of Professional Courses</p>
+                    <p class="mt-4 text-sm text-slate-500">Currently building a strong foundation in Core Computing, Algorithms, and Modern Web Technologies.</p>
+                </div>
+
+                <div class="space-y-4 pl-2">
+                    <div class="flex items-start gap-3" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fa-solid fa-check-circle text-brand-accent mt-1"></i>
+                        <p>Consistent academic performer with a focus on practical application.</p>
+                    </div>
+                    <div class="flex items-start gap-3" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fa-solid fa-check-circle text-brand-accent mt-1"></i>
+                        <p>Active participant in coding workshops and tech seminars.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: The "Thinker" Card (Your Unique Selling Point) -->
+            <!-- ADD ON: Added data-tilt and data-tilt-glare for 3D effect -->
+            <div id="mindset" 
+                 data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5"
+                 data-aos="fade-left" data-aos-duration="1000" 
+                 class="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-2xl border border-slate-700 shadow-2xl relative overflow-hidden group hover:shadow-brand-purple/20 transition-all duration-500 transform-gpu">
+                
+                <!-- Glowing effect on hover -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-purple/20 rounded-full blur-3xl group-hover:bg-brand-purple/40 transition-all duration-500"></div>
+                
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:rotate-12 duration-700">
+                    <i class="fa-solid fa-brain text-9xl text-white"></i>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-white mb-4 relative z-10 transform translate-z-10">The Problem Solver Mindset</h2>
+                <p class="text-slate-300 mb-6 leading-relaxed relative z-10">
+                    "I am a thinker." Beyond just writing code, my strength lies in analytical thinking. When faced with a tough situation or a complex bug, I don't panic,I break it down.
+                </p>
+                
+                <div class="grid grid-cols-1 gap-4 relative z-10">
+                    <div class="bg-brand-dark/50 p-3 rounded border border-slate-700 flex items-center gap-3 hover:bg-brand-dark transition-colors" data-aos="zoom-in-left" data-aos-delay="300">
+                        <i class="fa-solid fa-magnifying-glass text-brand-purple"></i>
+                        <span class="text-sm">Root Cause Analysis</span>
+                    </div>
+                    <div class="bg-brand-dark/50 p-3 rounded border border-slate-700 flex items-center gap-3 hover:bg-brand-dark transition-colors" data-aos="zoom-in-left" data-aos-delay="400">
+                        <i class="fa-solid fa-chess-knight text-brand-purple"></i>
+                        <span class="text-sm">Strategic Solution Finding</span>
+                    </div>
+                    <div class="bg-brand-dark/50 p-3 rounded border border-slate-700 flex items-center gap-3 hover:bg-brand-dark transition-colors" data-aos="zoom-in-left" data-aos-delay="500">
+                        <i class="fa-solid fa-layer-group text-brand-purple"></i>
+                        <span class="text-sm">Algorithmic Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-20 bg-brand-card/30 z-10 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white mb-10 text-center" data-aos="fade-up">Technical Arsenal</h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Coding Languages -->
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-semibold text-slate-200 mb-6 border-l-4 border-brand-accent pl-3">Languages & Logic</h3>
+                    <div class="space-y-6">
+                        
+                        <!-- Skill 1 -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-accent transition-colors">C Programming (Core)</span>
+                                <span class="text-sm text-brand-accent">Advanced</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-accent h-2.5 rounded-full transition-all duration-1000 ease-out w-0" data-aos="slide-right" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 2 -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-accent transition-colors">Data Structures (DSA)</span>
+                                <span class="text-sm text-brand-accent">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-accent h-2.5 rounded-full transition-all duration-1000 ease-out delay-100 w-0" data-aos="slide-right" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 3 -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-accent transition-colors">Python</span>
+                                <span class="text-sm text-brand-accent">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-accent h-2.5 rounded-full transition-all duration-1000 ease-out delay-200 w-0" data-aos="slide-right" style="width: 80%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Web Technologies -->
+                <div data-aos="fade-left">
+                    <h3 class="text-xl font-semibold text-slate-200 mb-6 border-l-4 border-brand-purple pl-3">Web Technologies</h3>
+                    <div class="space-y-6">
+                        
+                        <!-- Skill 1 -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-purple transition-colors">HTML5 & CSS3</span>
+                                <span class="text-sm text-brand-purple">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-purple h-2.5 rounded-full transition-all duration-1000 ease-out w-0" data-aos="slide-right" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 2 -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-purple transition-colors">JavaScript</span>
+                                <span class="text-sm text-brand-purple">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-purple h-2.5 rounded-full transition-all duration-1000 ease-out delay-100 w-0" data-aos="slide-right" style="width: 60%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 3: Creative -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-purple transition-colors">Photo/Video Editing</span>
+                                <span class="text-sm text-brand-purple">Creative</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-purple h-2.5 rounded-full transition-all duration-1000 ease-out delay-200 w-0" data-aos="slide-right" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 4: GitHub (ADDED) -->
+                        <div class="group">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-white group-hover:text-brand-purple transition-colors">Git & GitHub</span>
+                                <span class="text-sm text-brand-purple">Essential</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 overflow-hidden">
+                                <div class="bg-brand-purple h-2.5 rounded-full transition-all duration-1000 ease-out delay-300 w-0" data-aos="slide-right" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-20 bg-brand-dark z-10 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-white">Featured Projects</h2>
+                <p class="text-slate-400 mt-2">A growing collection of my technical experiments.</p>
+            </div>
+
+            <!-- Bento Grid Layout for Projects -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- PROJECT CARD 1 -->
+                <!-- ADD ON: Added data-tilt -->
+                <div data-tilt data-tilt-scale="1.05"
+                     class="bg-brand-card rounded-xl overflow-hidden border border-slate-800 hover:border-brand-accent hover:shadow-lg hover:shadow-brand-accent/20 transition-all duration-300 group" 
+                     data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-40 bg-slate-800 flex items-center justify-center relative overflow-hidden group-hover:bg-slate-700 transition-colors">
+                        <i class="fa-solid fa-calculator text-5xl text-slate-600 group-hover:text-brand-accent group-hover:scale-110 transition-all duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Portfolio Website</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Responsive personal portfolio built with HTML5 and Tailwind CSS. Showcases my skills, education, and future goals in a modern dark-mode layout.
+                        </p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="px-2 py-1 bg-slate-700 text-xs rounded text-slate-300">HTML</span>
+                            <span class="px-2 py-1 bg-slate-700 text-xs rounded text-slate-300">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT CARD 2 -->
+                <!-- ADD ON: Added data-tilt -->
+                <div data-tilt data-tilt-scale="1.05"
+                     class="bg-brand-card rounded-xl overflow-hidden border border-slate-800 hover:border-brand-accent hover:shadow-lg hover:shadow-brand-accent/20 transition-all duration-300 group" 
+                     data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-40 bg-slate-800 flex items-center justify-center relative overflow-hidden group-hover:bg-slate-700 transition-colors">
+                        <i class="fa-solid fa-cloud-sun-rain text-5xl text-slate-600 group-hover:text-brand-purple group-hover:scale-110 transition-all duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-brand-purple transition-colors">Live Weather App</h3>
+                        <p class="text-slate-400 text-sm mb-4">
+                            Real-time weather tracking application. Fetches live data from OpenWeatherMap API and dynamically updates the UI based on current weather conditions.
+                        </p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="px-2 py-1 bg-slate-700 text-xs rounded text-slate-300">JavaScript</span>
+                            <span class="px-2 py-1 bg-slate-700 text-xs rounded text-slate-300">API Integration</span>
+                        </div>
+                        
+                        <!-- ADDED: LINK TO WEATHER APP -->
+                        <a href="https://j-weather.onrender.com" target="_blank" class="inline-flex items-center gap-2 text-brand-purple font-semibold hover:text-white transition-colors mt-2 group/link">
+                            <i class="fa-solid fa-play-circle"></i>
+                            <span>View Live Demo</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-0 group-hover/link:opacity-100 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Future Project Placeholder -->
+                 <div class="bg-brand-card/50 rounded-xl border border-dashed border-slate-700 flex flex-col items-center justify-center p-6 text-center hover:bg-brand-card/80 transition-all cursor-pointer group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-plus-circle text-3xl text-slate-500 mb-3 group-hover:text-brand-accent"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-300 group-hover:text-white">Future Project</h3>
+                    <p class="text-slate-500 text-xs mt-1">This space is reserved for my future AI experiments.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FUTURE TRENDS / AI SECTION -->
+    <section id="future" class="py-20 bg-gradient-to-b from-brand-dark to-black relative overflow-hidden z-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <span class="text-brand-purple font-bold tracking-widest text-sm uppercase mb-2 block" data-aos="fade-down">Career Vision</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8" data-aos="zoom-in">
+                Targeting: AI & Software Engineering
+            </h2>
+            <p class="text-slate-400 mb-10 text-lg" data-aos="fade-up" data-aos-delay="100">
+                The future is intelligent automation. I am actively upskilling to bridge the gap between traditional software development and modern Artificial Intelligence.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="p-5 border-l-2 border-brand-purple bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="text-white font-bold mb-2">Current Focus</h4>
+                    <p class="text-sm text-slate-400">Mastering Data Structures & Algorithms (DSA) to build efficient logic for software systems.</p>
+                </div>
+                <div class="p-5 border-l-2 border-brand-accent bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="text-white font-bold mb-2">Next Step</h4>
+                    <p class="text-sm text-slate-400">Building Full Stack Web Apps (React/Node) to understand system architecture.</p>
+                </div>
+                <div class="p-5 border-l-2 border-pink-500 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all" data-aos="fade-up" data-aos-delay="400">
+                    <h4 class="text-white font-bold mb-2">The Goal</h4>
+                    <p class="text-sm text-slate-400">Integrating ML models into web applications to create smart user experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="py-12 border-t border-slate-800 bg-black relative z-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="text-center md:text-left">
+                <h3 class="text-2xl font-bold text-white">Let's Connect</h3>
+                <p class="text-slate-500 text-sm mt-1">Open to internships and collaborative projects.</p>
+            </div>
+
+            <div class="flex gap-6">
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-brand-accent hover:text-brand-dark hover:-translate-y-1 transition-all">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                
+                <!-- GitHub (Placeholder - add later if you have one) -->
+                <a href="https://github.com/Jyotirmoyyyyyy" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-brand-purple hover:text-brand-dark hover:-translate-y-1 transition-all">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                
+                <!-- Email -->
+                <a href="mailto:jyotirmoy713128@gmail.com" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-white hover:text-black hover:-translate-y-1 transition-all">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        <div class="text-center mt-10 text-slate-700 text-xs">
+            &copy; 2025. Built by a BCA Future Engineer.
+        </div>
+    </footer>
+
+    <!-- AOS JS Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- ADD ON: Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- ADD ON: Vanilla Tilt Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
+    <!-- Main Logic -->
+    <script src="monster.cutie.script.js"></script>
+</body>
+</html>
