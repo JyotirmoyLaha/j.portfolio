@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jyotirmoy Laha | Portfolio</title>
+    <title>Jyotirmoy Laha | Portfolio & Blog</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,8 +11,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts: Inter & Plus Jakarta Sans for Premium Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -56,7 +56,7 @@
         
         /* Glass Navigation */
         .nav-glass {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(0,0,0,0.03);
         }
@@ -67,8 +67,8 @@
             background-size: 40px 40px;
         }
 
-        /* Particles Container */
-        #particles-js {
+        /* Particles Containers */
+        #particles-js, #blog-particles {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -89,6 +89,17 @@
             -webkit-user-drag: none;
             user-drag: none;
         }
+
+        /* Blog Typography (Prose) */
+        .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #475569; font-size: 1.125rem; }
+        .prose h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.75rem; font-weight: 700; color: #1e293b; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #475569; font-size: 1.125rem; }
+        .prose li { margin-bottom: 0.5rem; }
+
+        /* Utility for hiding views */
+        .view-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden" oncontextmenu="return false;">
@@ -96,16 +107,24 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-display text-xl font-bold text-slate-900 tracking-tight hover:text-accent-primary transition-colors">
+            <a href="javascript:void(0)" onclick="switchView('portfolio')" class="font-display text-xl font-bold text-slate-900 tracking-tight hover:text-accent-primary transition-colors">
                 JYOTIRMOY<span class="text-accent-primary">.DEV</span>
             </a>
             
-            <div class="hidden md:flex space-x-10 text-sm font-medium text-slate-500">
-                <a href="#contact" class="hover:text-slate-900 transition-colors">Contact</a>
-                <a href="#projects" class="hover:text-slate-900 transition-colors">Projects</a>
-                <a href="#academic" class="hover:text-slate-900 transition-colors">Academic</a>
-                <!-- Blog Link Added -->
-                <a href="https://jyotirmoy-blog.onrender.com" class="hover:text-slate-900 transition-colors">Blog</a>
+            <div class="hidden md:block text-sm font-medium text-slate-500">
+                <!-- Portfolio Navigation Group (Visible by default) -->
+                <div id="desktop-portfolio-nav" class="flex space-x-10">
+                    <button onclick="navigateToSection('contact')" class="hover:text-slate-900 transition-colors">Contact</button>
+                    <button onclick="navigateToSection('projects')" class="hover:text-slate-900 transition-colors">Projects</button>
+                    <button onclick="navigateToSection('academic')" class="hover:text-slate-900 transition-colors">Academic</button>
+                    <button onclick="switchView('blog')" class="hover:text-slate-900 transition-colors text-accent-primary font-semibold">Blog</button>
+                </div>
+
+                <!-- Blog Navigation Group (Hidden by default) -->
+                <div id="desktop-blog-nav" class="hidden flex space-x-10">
+                    <button onclick="switchView('portfolio')" class="hover:text-slate-900 transition-colors">Portfolio</button>
+                    <span class="text-accent-primary font-semibold cursor-default">Blog</span>
+                </div>
             </div>
 
             <button class="md:hidden text-slate-900" onclick="toggleMenu()">
@@ -114,218 +133,281 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-6 py-4 space-y-4 shadow-lg">
-            <a href="#contact" class="block text-slate-600 hover:text-accent-primary font-medium" onclick="toggleMenu()">Contact</a>
-            <a href="#projects" class="block text-slate-600 hover:text-accent-primary font-medium" onclick="toggleMenu()">Projects</a>
-            <a href="#academic" class="block text-slate-600 hover:text-accent-primary font-medium" onclick="toggleMenu()">Academic</a>
-            <!-- Blog Link Added -->
-            <a href="https://jyotirmoy-blog.onrender.com" class="block text-slate-600 hover:text-accent-primary font-medium" onclick="toggleMenu()">Blog</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-6 py-4 space-y-4 shadow-lg absolute w-full">
+            <!-- Portfolio Mobile Links -->
+            <div id="mobile-portfolio-nav">
+                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('contact'); toggleMenu()">Contact</button>
+                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('projects'); toggleMenu()">Projects</button>
+                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('academic'); toggleMenu()">Academic</button>
+                <button class="block w-full text-left text-accent-primary font-bold" onclick="switchView('blog'); toggleMenu()">Blog</button>
+            </div>
+
+            <!-- Blog Mobile Links (Hidden by default) -->
+            <div id="mobile-blog-nav" class="hidden">
+                 <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="switchView('portfolio'); toggleMenu()">Portfolio</button>
+                 <button class="block w-full text-left text-accent-primary font-bold cursor-default">Blog</button>
+            </div>
         </div>
     </nav>
 
-    <!-- 1. INTRO & MINDSET SECTION -->
-    <header class="min-h-screen flex flex-col justify-center items-center relative pt-20 pb-10 overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 bg-grid-pattern opacity-[0.4] z-0"></div>
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+    <!-- ======================= PORTFOLIO VIEW ======================= -->
+    <div id="portfolio-view">
         
-        <div id="particles-js"></div>
-
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <!-- 1. INTRO & MINDSET SECTION -->
+        <header class="min-h-screen flex flex-col justify-center items-center relative pt-20 pb-10 overflow-hidden">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 bg-grid-pattern opacity-[0.4] z-0"></div>
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
             
-            <!-- Profile Image -->
-            <div class="mb-10 relative inline-block" data-aos="zoom-in" data-aos-duration="1000">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-lg opacity-20 transform scale-110"></div>
-                <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-[6px] border-white shadow-2xl relative z-10 mx-auto">
-                    <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+            <div id="particles-js"></div>
+
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                
+                <!-- Profile Image -->
+                <div class="mb-10 relative inline-block" data-aos="zoom-in" data-aos-duration="1000">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-lg opacity-20 transform scale-110"></div>
+                    <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-[6px] border-white shadow-2xl relative z-10 mx-auto">
+                        <!-- Placeholder Image Logic -->
+                        <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Intro Text -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h1 class="font-display text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">
+                        Hello, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jyotirmoy Laha</span>
+                    </h1>
+                    
+                    <!-- The Problem Solver Mindset Card -->
+                    <div class="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-8 shadow-premium mt-10 mx-auto max-w-2xl transform transition-all hover:scale-[1.02] hover:shadow-premium-hover hover:bg-white group text-center">
+                        <p class="text-slate-600 leading-relaxed text-lg font-light italic">
+                            "I am a thinker." Beyond just writing code, my strength lies in analytical thinking. When faced with a tough situation or a complex bug, I don't panic, I break it down.
+                        </p>
+                    </div>
                 </div>
             </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-400">
+                <i class="fa-solid fa-chevron-down text-lg"></i>
+            </div>
+        </header>
 
-            <!-- Intro Text -->
-            <div data-aos="fade-up" data-aos-delay="200">
-                <h1 class="font-display text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">
-                    Hello, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jyotirmoy Laha</span>
-                </h1>
+        <!-- 2. CONTACT STRIP -->
+        <section id="contact" class="py-16 bg-white relative z-20 border-y border-slate-100 shadow-sm">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-10">Let's Connect</h2>
                 
-                <!-- The Problem Solver Mindset Card -->
-                <div class="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-8 shadow-premium mt-10 mx-auto max-w-2xl transform transition-all hover:scale-[1.02] hover:shadow-premium-hover hover:bg-white group text-center">
-                    <p class="text-slate-600 leading-relaxed text-lg font-light italic">
-                        "I am a thinker." Beyond just writing code, my strength lies in analytical thinking. When faced with a tough situation or a complex bug, I don't panic, I break it down.
+                <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
+                    
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-blue-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#0077b5] group-hover:bg-[#0077b5] group-hover:text-white transition-colors">
+                            <i class="fa-brands fa-linkedin text-xl"></i>
+                        </div>
+                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">LinkedIn</span>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/Jyotirmoyyyyyy" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-slate-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-800 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                            <i class="fa-brands fa-github text-xl"></i>
+                        </div>
+                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">GitHub</span>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:jyotirmoy713128@gmail.com" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                        </div>
+                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">Email</span>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/8436866473" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-green-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </div>
+                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">WhatsApp</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROJECTS SECTION -->
+        <section id="projects" class="py-24 relative z-10 bg-slate-50">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
+                    <div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
+                        <p class="text-slate-500 text-lg max-w-xl">A curated selection of my technical experiments and production-ready applications.</p>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <span class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-400 tracking-wider uppercase shadow-sm">Portfolio 2024-25</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1: Portfolio Website -->
+                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
+                             <!-- Fixed Image Background -->
+                            <img src="nick-morrison-FHnnjk1Yj7Y-unsplash.jpg" alt="Portfolio" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
+                            <!-- Dark overlay to make icon pop -->
+                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
+                            <!-- Original Icon -->
+                            <i class="fa-solid fa-laptop-code text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-primary transition-colors">Portfolio Website</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                A minimalist, high-performance digital portfolio designed with HTML5 and Tailwind CSS, focusing on clean aesthetics and responsiveness.
+                            </p>
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">HTML5</span>
+                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Weather App -->
+                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
+                            <!-- Fixed Image Background (Unsplash) -->
+                            <img src="dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.jpg" alt="Weather App" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
+                            <!-- Dark overlay to make icon pop -->
+                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
+                            <!-- Original Icon -->
+                            <i class="fa-solid fa-cloud-bolt text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">Weather App</h3>
+                                <a href="https://j-weather.onrender.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                Dynamic weather tracking dashboard utilizing the OpenWeatherMap API for real-time meteorological data visualization.
+                            </p>
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">JavaScript</span>
+                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Future Project -->
+                    <div class="group bg-white rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-8 text-center hover:border-accent-primary hover:bg-blue-50/50 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-md transition-all">
+                            <i class="fa-solid fa-plus text-3xl text-slate-300 group-hover:text-accent-primary transition-colors"></i>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-slate-800">In Progress</h3>
+                        <p class="text-slate-500 text-sm mt-2 max-w-xs">Currently researching and developing new AI-integrated software solutions.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ACADEMIC DETAILS -->
+        <section id="academic" class="py-24 bg-white relative z-10 border-t border-slate-100">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold text-slate-900">Academic Background</h2>
+                    <div class="w-20 h-1 bg-accent-primary mx-auto mt-4 rounded-full"></div>
+                </div>
+                
+                <div class="relative pl-10 border-l-2 border-slate-100 space-y-16">
+                    
+                    <!-- Current Degree -->
+                    <div class="relative" data-aos="fade-left">
+                        <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-accent-primary shadow-md"></span>
+                        <h3 class="font-display text-2xl font-bold text-slate-900">Bachelor of Computer Applications (BCA)</h3>
+                        <div class="flex items-center gap-3 text-sm font-semibold mt-2 mb-4">
+                            <span class="text-accent-primary">2nd Year Student</span>
+                            <span class="text-slate-300">•</span>
+                            <span class="text-slate-500">Dr. B.C. Roy Academy of Professional Courses</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-100 rounded-xl p-6">
+                             <p class="text-slate-600 leading-relaxed">
+                                Specializing in core computer science fundamentals, advanced data structures, algorithm optimization, and modern web development technologies.
+                            </p>
+                            <div class="mt-4 flex gap-2">
+                                 <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs font-semibold text-slate-500">DSA</span>
+                                 <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs font-semibold text-slate-500">Web Tech</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continuous Learning -->
+                    <div class="relative" data-aos="fade-left" data-aos-delay="100">
+                         <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-slate-300 shadow-sm"></span>
+                        <h3 class="font-display text-xl font-bold text-slate-900">Continuous Learning</h3>
+                        <p class="text-slate-500 font-medium mt-1">Self-Directed Development</p>
+                        <p class="text-slate-600 mt-3 leading-relaxed">
+                            Supplementing formal education with rigorous self-study in Modern JavaScript frameworks (React), Cloud Computing basics, and Artificial Intelligence implementation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ======================= BLOG VIEW ======================= -->
+    <div id="blog-view" class="view-hidden">
+        <main class="min-h-screen pt-32 pb-24 px-6 relative">
+            <div id="blog-particles" class="absolute inset-0 pointer-events-none z-0 opacity-30"></div>
+
+            <!-- 1. BLOG LIST VIEW -->
+            <div id="blog-list" class="max-w-6xl mx-auto relative z-10">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-accent-primary uppercase bg-blue-50 rounded-full border border-blue-100">
+                        My Writings
+                    </span>
+                    <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                        Jyotirmoy & His Thoughts
+                    </h1>
+                    <p class="text-slate-500 text-lg max-w-2xl mx-auto">
+                        A deep dive into my coding journey, the mistakes I've made, and the lessons I've learned along the way.
                     </p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-400">
-            <i class="fa-solid fa-chevron-down text-lg"></i>
-        </div>
-    </header>
 
-    <!-- 2. CONTACT STRIP -->
-    <section id="contact" class="py-16 bg-white relative z-20 border-y border-slate-100 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-10">Let's Connect</h2>
-            
-            <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
+                <!-- Grid Container -->
+                <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Posts will be injected here by JS -->
+                </div>
+            </div>
+
+            <!-- 2. BLOG DETAIL VIEW (Hidden by default) -->
+            <div id="blog-detail" class="hidden w-full mx-auto relative z-10 bg-white rounded-2xl shadow-premium border border-slate-100 overflow-hidden">
+                <div class="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 py-4 flex justify-between items-center">
+                    <button onclick="showList()" class="text-slate-500 hover:text-accent-primary font-medium flex items-center gap-2 transition-colors">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Articles
+                    </button>
+                    <div class="text-sm font-bold text-slate-300 tracking-widest uppercase">Reading</div>
+                </div>
                 
-                <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-blue-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#0077b5] group-hover:bg-[#0077b5] group-hover:text-white transition-colors">
-                        <i class="fa-brands fa-linkedin text-xl"></i>
-                    </div>
-                    <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">LinkedIn</span>
-                </a>
-
-                <!-- GitHub -->
-                <a href="https://github.com/Jyotirmoyyyyyy" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-slate-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-800 group-hover:bg-slate-900 group-hover:text-white transition-colors">
-                        <i class="fa-brands fa-github text-xl"></i>
-                    </div>
-                    <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">GitHub</span>
-                </a>
-
-                <!-- Email -->
-                <a href="mailto:jyotirmoy713128@gmail.com" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
-                        <i class="fa-solid fa-envelope text-lg"></i>
-                    </div>
-                    <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">Email</span>
-                </a>
-
-                <!-- WhatsApp -->
-                <!-- Replace 1234567890 with your actual WhatsApp number -->
-                <a href="https://wa.me/8436866473" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-green-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                    </div>
-                    <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">WhatsApp</span>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. PROJECTS SECTION -->
-    <section id="projects" class="py-24 relative z-10 bg-slate-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
-                <div>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
-                    <p class="text-slate-500 text-lg max-w-xl">A curated selection of my technical experiments and production-ready applications.</p>
+                <div class="p-8 md:p-12 lg:p-16">
+                    <span id="detail-date" class="text-xs font-bold text-accent-primary uppercase tracking-wider mb-2 block"></span>
+                    <h1 id="detail-title" class="font-display text-3xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight"></h1>
+                    
+                    <!-- Content Injection Point -->
+                    <div id="detail-content" class="prose max-w-none"></div>
                 </div>
-                <div class="mt-6 md:mt-0">
-                    <span class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-400 tracking-wider uppercase shadow-sm">Portfolio 2024-25</span>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Project 1: Portfolio Website -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                         <!-- Fixed Image Background -->
-                        <img src="nick-morrison-FHnnjk1Yj7Y-unsplash.jpg" alt="Portfolio" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                        <!-- Dark overlay to make icon pop -->
-                        <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                        <!-- Original Icon -->
-                        <i class="fa-solid fa-laptop-code text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-display text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-primary transition-colors">Portfolio Website</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            A minimalist, high-performance digital portfolio designed with HTML5 and Tailwind CSS, focusing on clean aesthetics and responsiveness.
-                        </p>
-                        <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">HTML5</span>
-                            <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Tailwind</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: Weather App -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                        <!-- Fixed Image Background (Unsplash) -->
-                        <img src="dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.jpg" alt="Weather App" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                        <!-- Dark overlay to make icon pop -->
-                        <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                        <!-- Original Icon -->
-                        <i class="fa-solid fa-cloud-bolt text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-3">
-                            <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">Weather App</h3>
-                            <a href="https://j-weather.onrender.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                        </div>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Dynamic weather tracking dashboard utilizing the OpenWeatherMap API for real-time meteorological data visualization.
-                        </p>
-                        <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">JavaScript</span>
-                            <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">API</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Future Project -->
-                <div class="group bg-white rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-8 text-center hover:border-accent-primary hover:bg-blue-50/50 transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-md transition-all">
-                        <i class="fa-solid fa-plus text-3xl text-slate-300 group-hover:text-accent-primary transition-colors"></i>
-                    </div>
-                    <h3 class="font-display text-lg font-bold text-slate-800">In Progress</h3>
-                    <p class="text-slate-500 text-sm mt-2 max-w-xs">Currently researching and developing new AI-integrated software solutions.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. ACADEMIC DETAILS -->
-    <section id="academic" class="py-24 bg-white relative z-10 border-t border-slate-100">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-display text-3xl font-bold text-slate-900">Academic Background</h2>
-                <div class="w-20 h-1 bg-accent-primary mx-auto mt-4 rounded-full"></div>
-            </div>
-            
-            <div class="relative pl-10 border-l-2 border-slate-100 space-y-16">
-                
-                <!-- Current Degree -->
-                <div class="relative" data-aos="fade-left">
-                    <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-accent-primary shadow-md"></span>
-                    <h3 class="font-display text-2xl font-bold text-slate-900">Bachelor of Computer Applications (BCA)</h3>
-                    <div class="flex items-center gap-3 text-sm font-semibold mt-2 mb-4">
-                        <span class="text-accent-primary">2nd Year Student</span>
-                        <span class="text-slate-300">•</span>
-                        <span class="text-slate-500">Dr. B.C. Roy Academy of Professional Courses</span>
-                    </div>
-                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-6">
-                         <p class="text-slate-600 leading-relaxed">
-                            Specializing in core computer science fundamentals, advanced data structures, algorithm optimization, and modern web development technologies.
-                        </p>
-                        <div class="mt-4 flex gap-2">
-                             <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs font-semibold text-slate-500">DSA</span>
-                             <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs font-semibold text-slate-500">Web Tech</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continuous Learning -->
-                <div class="relative" data-aos="fade-left" data-aos-delay="100">
-                     <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-slate-300 shadow-sm"></span>
-                    <h3 class="font-display text-xl font-bold text-slate-900">Continuous Learning</h3>
-                    <p class="text-slate-500 font-medium mt-1">Self-Directed Development</p>
-                    <p class="text-slate-600 mt-3 leading-relaxed">
-                        Supplementing formal education with rigorous self-study in Modern JavaScript frameworks (React), Cloud Computing basics, and Artificial Intelligence implementation.
-                    </p>
+                <div class="bg-slate-50 px-8 py-6 border-t border-slate-100 text-center">
+                    <p class="text-slate-400 text-sm italic">- End of Article -</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 5. FOOTER -->
+        </main>
+    </div>
+
+    <!-- 5. SHARED FOOTER -->
     <footer class="py-10 bg-slate-900 text-center relative z-20">
         <p class="text-slate-400 text-sm font-medium tracking-wide">
             &copy; 2025 Built by Jyotirmoy Laha
@@ -338,9 +420,438 @@
     <!-- Particles Library -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <!-- Main Logic -->
+    <!-- MAIN LOGIC -->
     <script>
-        // Initialize Animations
+        // --- VIEW SWITCHING LOGIC ---
+        
+        function switchView(viewName) {
+            const portfolio = document.getElementById('portfolio-view');
+            const blog = document.getElementById('blog-view');
+            
+            // Nav Elements
+            const desktopPortfolioNav = document.getElementById('desktop-portfolio-nav');
+            const desktopBlogNav = document.getElementById('desktop-blog-nav');
+            const mobilePortfolioNav = document.getElementById('mobile-portfolio-nav');
+            const mobileBlogNav = document.getElementById('mobile-blog-nav');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewName === 'blog') {
+                // Show Blog View
+                portfolio.classList.add('view-hidden');
+                blog.classList.remove('view-hidden');
+
+                // Switch Navigation to Blog Mode
+                desktopPortfolioNav.classList.add('hidden');
+                desktopBlogNav.classList.remove('hidden');
+                mobilePortfolioNav.classList.add('hidden');
+                mobileBlogNav.classList.remove('hidden');
+                
+                // Initialize Blog Components if needed
+                setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            } else {
+                // Show Portfolio View
+                blog.classList.add('view-hidden');
+                portfolio.classList.remove('view-hidden');
+
+                // Switch Navigation to Portfolio Mode
+                desktopBlogNav.classList.add('hidden');
+                desktopPortfolioNav.classList.remove('hidden');
+                mobileBlogNav.classList.add('hidden');
+                mobilePortfolioNav.classList.remove('hidden');
+                
+                // Reset Blog to list view when leaving
+                showList();
+                
+                setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            }
+        }
+
+        function navigateToSection(sectionId) {
+            // First ensure we are in portfolio view
+            const portfolio = document.getElementById('portfolio-view');
+            
+            if (portfolio.classList.contains('view-hidden')) {
+                switchView('portfolio');
+                // Wait for switch then scroll
+                setTimeout(() => {
+                    const element = document.getElementById(sectionId);
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                // Already in portfolio view, just scroll
+                const element = document.getElementById(sectionId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- BLOG DATA & LOGIC ---
+
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Why I Focus More on Thinking Than Just Writing Code",
+                date: "03 December 2025",
+                category: "Philosophy",
+                image: "jakub-zerdzicki-WD7S-Lz12Es-unsplash.jpg",
+                content: `For me, coding starts before the keyboard. Understanding the problem comes first. That's why I prefer small, clear functions:
+
+\`\`\`
+function toggle Menu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
+\`\`\`
+
+Breaking big problems into smaller parts makes them easier to handle:
+
+\`\`\`
+AOS.init({
+    once: true,
+    offset: 50,
+    duration: 1000,
+    easing: 'ease-out-cubic',
+});
+\`\`\`
+
+I try to write logic that future-me can understand:
+
+\`\`\`
+if (items.length === 0) {
+    showEmptyState();
+} else {
+    renderltems(items);
+}
+\`\`\`
+
+Even small Ul features taught me performance and UX lessons:
+
+\`\`\`
+particlesJS("particles-js", {
+    particles: {
+        number: { value: 30 },
+        size: { value: 2 },
+        move: { speed: 1}
+    }
+});
+\`\`\`
+
+I build projects to improve thinking, not just to show skills. I'm still learning - and that's okay. Good thinking will always matter more than fast typing.`
+            },
+            {
+                id: 2,
+                title: "How I Built My Portfolio Website",
+                date: "05 December 2025",
+                category: "Project Breakdown",
+                image: "nick-morrison-FHnnjk1Yj7Y-unsplash.jpg",
+                content: `My portfolio website represents me as a learner and thinker. Before coding, I decided its purpose: simplicity, clarity, and professionalism.
+
+I used HTML, Tailwind CSS, JavaScript, and AOS for animations. Navigation was kept simple:
+
+\`\`\`
+function toggle Menu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
+\`\`\`
+
+Animations were controlled carefully:
+
+\`\`\`
+AOS.init({
+    once: true,
+    offset: 50,
+    duration: 1000,
+    easing: 'ease-out-cubic',
+});
+\`\`\`
+
+I added subtle particles for visual balance:
+
+\`\`\`
+particlesJS("particles-js", {
+    particles: {
+        number: { value: 30 },
+        color: { value: "#94a3b8" },
+        size: { value: 2 },
+        move: { speed: 1}
+    }
+});
+\`\`\`
+
+The design stays clean, readable, and content-focused. This project taught me planning, simplicity, and confidence.`
+            },
+            {
+                id: 3,
+                title: "Mistakes I Made While Building My Portfolio Website",
+                date: "07 December 2025",
+                category: "Reflection",
+                image: "kevin-ku-w7ZyuGYNpRQ-unsplash.jpg",
+                content: `One of my biggest mistakes was focusing too much on design before finalizing content. This caused unnecessary redesign later. Now I focus on structure and clarity first.
+
+I also tried to build everything in one sitting, which led to messy code. Breaking the website into sections made development easier.
+
+At one point, I added too many effects:
+
+\`\`\`
+particlesJS("particles-js", {
+    particles: {
+        number: { value: 30},
+        move: { speed: 1}
+    }
+});
+\`\`\`
+
+It looked cool but hurt performance. I learned that visuals should support content.
+
+Unclear variable names caused confusion later. Writing clear functions like this helped a lot:
+
+\`\`\`
+function toggle Menu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
+\`\`\`
+
+I also underestimated mobile users and performance issues. Fixing these taught me responsive design and optimization. Most importantly, I learned that portfolios don't need to be perfect - they need to evolve.`
+            },
+            {
+                id: 4,
+                title: "How I Built My Weather App (J.SkyCast)",
+                date: "10 December 2025",
+                category: "Project Breakdown",
+                image: "dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.jpg",
+                content: `Building this weather app was not just about showing temperature. I wanted it to feel modern, smooth, and alive. Before writing any code, I focused on user experience instead of data.
+
+I used a simple tech stack: HTML for structure, Tailwind CSS for styling, JavaScript for logic, and a weather API for real-time data. I avoided frameworks to strengthen my fundamentals.
+
+The search system was kept simple and reliable:
+
+\`\`\`
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (query) {
+        fetchWeather(query);
+    }
+});
+\`\`\`
+
+This logic prevents page reloads and ensures only valid input is processed.
+
+I also added live location support:
+
+\`\`\`
+navigator.geolocation.getCurrentPosition(
+    (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeather(\`\${latitude} , \${longitude}\`);
+    }
+);
+\`\`\`
+
+Fetching real-time weather data was the core of the app:
+
+\`\`\`
+const response = await fetch(
+    \`https://api.weatherapi.com/v1/current.json?key=\${decodedKey}&q=\${query}&aqi=yes\`
+);
+\`\`\`
+
+To avoid freezing the UI, I added a loading state and dynamic backgrounds:
+
+\`\`\`
+function update Background Theme(condition, isDay) {
+    if (condition.text.toLowerCase().includes ("rain")) {
+        bgContainer.classList.add('rain-active');
+    }
+}
+\`\`\`
+
+I also added air quality index information:
+
+\`\`\`
+function getAQIDetails (index) {
+    return {
+        text: "Good",
+        color: "text-green-400"
+    };
+}
+\`\`\`
+
+This project helped me understand APIs, Ul states, UX design, and readable JavaScript. It improved my confidence as a developer.`
+            },
+            {
+                id: 5,
+                title: "Mistakes I Made While Building This Weather App",
+                date: "12 December 2025",
+                category: "Development",
+                image: "image-3.jpeg",
+                content: `When people use my weather app, they see a smooth interface and real-time data. What they don't see are the mistakes and wrong assumptions I made while building it. This project taught me that mistakes are not failures they are lessons.
+
+One of my first mistakes was assuming the weather API would always work perfectly. In reality, APIs can fail due to invalid city names or network issues. That's why I added proper error handling like this:
+
+\`\`\`
+if (!response.ok) {
+    throw new Error("Failed to fetch weather data");
+}
+\`\`\`
+
+This taught me that error handling is not optional - it's necessary.
+
+Another mistake was not showing a loading state early. When users searched for a city, nothing happened for a few seconds, which felt broken. To fix this, I added a loader:
+
+\`\`\`
+function showLoading(msg) {
+    loadingText.textContent = msg;
+    loader.classList.remove('hidden');
+}
+\`\`\`
+
+Now users know that something is happening. I learned that good UX is about communication, not just speed.
+
+I also ignored edge cases in location access. I forgot that users can deny location permission, which caused errors. I fixed it by handling rejection properly:
+
+\`\`\`
+navigator.geolocation.getCurrentPosition(
+    successCallback,
+    () => showError("Location access denied.")
+);
+\`\`\`
+
+This taught me never to assume user behavior.
+
+At one point, I added too many animations and visual effects. The app looked cool but performance dropped. Reducing effects made the app feel cleaner and more professional.
+
+Another mistake was making background logic too complex. Simplifying conditions made the code easier to understand:
+
+\`\`\`
+if (text.includes("rain")) {
+    bgContainer.classList.add('rain-active');
+}
+\`\`\`
+
+Readable code saves a lot of time in the future.
+
+Users also make mistakes - wrong inputs, repeated clicks, and unrealistic expectations. That's why I added clear error messages:
+
+\`\`\`
+function showError(msg) {
+    errorMessage.textContent = msg;
+    errorDiv.classList.remove('hidden');
+}
+\`\`\`
+
+Finally, I waited too long trying to make the app perfect. I learned that it's better to release early and improve later. This project taught me how real APIs work, why Ul states matter, and how to think like a user.`
+            },
+            {
+                id: 6,
+                title: "How AI Helps Me Build Better Websites",
+                date: "15 December 2025",
+                category: "Workflow",
+                image: "igor-omilaev-FHgWFzDDAOs-unsplash.jpg",
+                content: `When people hear about Al in web development, they often imagine that Al builds websites automatically. That's not how I use Al. For me, Al works more like a smart assistant that helps me think clearly, learn faster, and avoid common mistakes while building websites. It supports my learning instead of replacing it.
+
+Many times, I know what I want to build, but I'm not fully sure how to approach it. That's where Al helps me the most. It helps me break a feature into steps, understand user flow, and think logically instead of guessing blindly. Al doesn't do the thinking for me it improves my thinking.
+
+Al also helps me write cleaner and more readable code. Sometimes my code works, but it's not very clean. Al suggestions help me improve variable names, simplify logic, and remove unnecessary lines. For example, instead of writing complex checks, I learned to write clearer logic like this:
+
+\`\`\`
+if (items?.length) {
+    showitems();
+}
+\`\`\`
+
+The logic stays the same, but the code becomes easier to understand. Debugging is another area where Al helps a lot. When errors appear, Al helps me understand error messages, find missing logic, and spot small mistakes. Instead of just fixing bugs, I also learn why the bug happened, which helps me avoid it next time.
+
+Al also helps me learn new concepts like APIs, animations, performance optimization, and responsive design. It explains things in simple language with examples, which builds my confidence as a student. It feels like having a patient teacher who is always available.
+
+Beyond coding, Al improves my UI and UX thinking. It helps me think about loading states, error handling, and user behavior. For example, I often ask myself questions like whether I should show a loader or what happens if a user clicks twice. These small details make a big difference in how professional a website feels.
+
+Al even helps me write better content, including blogs and project descriptions. But it's important to say what Al does not do. It does not build my website alone, make decisions for me, or replace my learning. I still design, code, test, and debug everything myself. Al is just a tool - how I use it defines the result.`
+            }
+        ];
+
+        function renderList() {
+            const grid = document.getElementById('posts-grid');
+            if(!grid) return;
+            grid.innerHTML = blogPosts.map(post => `
+                <article class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full cursor-pointer" onclick="showDetail(${post.id})">
+                    <div class="h-48 bg-slate-100 relative overflow-hidden">
+                        <img src="${post.image}" alt="${post.title}" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-slate-600 shadow-sm border border-slate-100">
+                            ${post.category}
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> ${post.date}
+                        </div>
+                        <h2 class="font-display text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-primary transition-colors">
+                            ${post.title}
+                        </h2>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
+                            ${post.content.replace(/```/g, '').substring(0, 100)}...
+                        </p>
+                        <div class="inline-flex items-center text-sm font-semibold text-accent-primary hover:text-blue-700 transition-colors group/link">
+                            Read Article <i class="fa-solid fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function showDetail(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+
+            // Updated Parsing Logic: Split by triple backticks
+            const parts = post.content.split('```');
+            let formattedContent = '';
+            
+            parts.forEach((part, index) => {
+                if (index % 2 === 1) {
+                    // This is a code block
+                    formattedContent += `<pre class="bg-slate-900 text-blue-200 p-6 rounded-xl my-6 font-mono text-sm overflow-x-auto shadow-inner leading-relaxed border border-slate-700">${part.trim()}</pre>`;
+                } else {
+                    // This is regular text
+                    const lines = part.split('\n');
+                    lines.forEach(line => {
+                        const trimmed = line.trim();
+                        if (trimmed.startsWith('- ')) {
+                            // List items
+                            formattedContent += `<li class="ml-4 list-disc marker:text-accent-primary">${trimmed.substring(2)}</li>`;
+                        } else if (trimmed.length > 0) {
+                            // Regular paragraphs
+                            formattedContent += `<p>${line}</p>`;
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('detail-title').innerText = post.title;
+            document.getElementById('detail-date').innerText = post.date;
+            document.getElementById('detail-content').innerHTML = formattedContent;
+
+            document.getElementById('blog-list').classList.add('hidden');
+            document.getElementById('blog-detail').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showList() {
+            document.getElementById('blog-detail').classList.add('hidden');
+            document.getElementById('blog-list').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- INIT SCRIPTS ---
+
+        // Initialize AOS
         AOS.init({
             once: true,
             offset: 50,
@@ -348,24 +859,24 @@
             easing: 'ease-out-cubic',
         });
 
-        // Mobile Menu
+        // Mobile Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         }
 
-        // Particles Config (Dark particles for light background)
+        // Particles Config (Header)
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 30, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#94a3b8" }, /* Slate-400 */
+                "color": { "value": "#94a3b8" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.3, "random": false },
                 "size": { "value": 2, "random": true },
                 "line_linked": { 
                     "enable": true, 
                     "distance": 150, 
-                    "color": "#cbd5e1", /* Slate-300 */
+                    "color": "#cbd5e1",
                     "opacity": 0.4, 
                     "width": 1 
                 },
@@ -379,6 +890,18 @@
             "retina_detect": true
         });
 
+        // Particles Config (Blog Background)
+        particlesJS("blog-particles", {
+            "particles": {
+                "number": { "value": 20 },
+                "color": { "value": "#94a3b8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3 },
+                "size": { "value": 3 },
+                "move": { "enable": true, "speed": 1 }
+            }
+        });
+
         // Security Scripts
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
@@ -386,6 +909,10 @@
             if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
             if(e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) return false;
         }
+
+        // Initialize Render
+        renderList();
+        
     </script>
 </body>
 </html>
