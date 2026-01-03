@@ -802,7 +802,105 @@ Al also helps me learn new concepts like APIs, animations, performance optimizat
 Beyond coding, Al improves my UI and UX thinking. It helps me think about loading states, error handling, and user behavior. For example, I often ask myself questions like whether I should show a loader or what happens if a user clicks twice. These small details make a big difference in how professional a website feels.
 
 Al even helps me write better content, including blogs and project descriptions. But it's important to say what Al does not do. It does not build my website alone, make decisions for me, or replace my learning. I still design, code, test, and debug everything myself. Al is just a tool - how I use it defines the result.`
-            }
+            },
+            {
+  id: 7,
+  title: "How I Built My AI Resume Analyzer Tool",
+  date: "3rd January 2026",
+  category: "Project Breakdown",
+  image: "ChatGPT Image Jan 3, 2026, 03_31_59 AM.png",
+  content: `
+Resumes play a very important role in today’s job market. In most cases, they are the first thing a recruiter or an automated system looks at before deciding whether a candidate should move forward. However, many people struggle to understand whether their resume actually matches the job they are applying for. I built my AI Resume Analyzer to solve this exact problem by giving clear, role-based feedback instead of guesswork.
+
+The main idea behind this project was to allow users to upload their resume, select a target job role, and instantly see how well their skills match that role. The system does not just show a score, but also highlights matched skills, missing skills, and practical recommendations. This makes resume improvement more structured and actionable instead of confusing or generic.
+
+On the backend, the first challenge was extracting clean text from uploaded PDF resumes. Since resumes come in different formats, this step needed to be reliable. I used a dedicated resume parser to safely extract and clean text before analysis.
+
+\`\`\`python
+def extract_text_from_resume(file):
+    extracted_text = []
+    with pdfplumber.open(file) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            if text:
+                extracted_text.append(text)
+
+    text = "\\n".join(extracted_text)
+    return text.lower().strip()
+\`\`\`
+
+This logic ensures that the system works even when resumes have multiple pages or inconsistent spacing.
+
+\`\`\`python
+def extract_skills(resume_text):
+    found_skills = set()
+    for skill, pattern in MASTER_SKILL_PATTERNS.items():
+        if pattern.search(resume_text):
+            found_skills.add(skill)
+    return sorted(found_skills)
+\`\`\`
+
+Once the resume text is extracted, the next step is identifying technical skills accurately. Instead of relying on simple keyword checks, I built a structured skill extraction system using predefined patterns and role-based filters. This allows the analyzer to detect skills like Python, JavaScript, React, Docker, and many others with higher accuracy.
+
+This approach makes the system flexible and easy to extend when new skills or roles are added.
+
+The most important part of the project is the skill gap analysis. This is where the AI logic compares the candidate’s skills with the required skills for a selected role. Instead of treating all skills equally, I introduced priority levels like critical, high, and medium to make the results more realistic.
+
+\`\`\`python
+matched_skills = candidate_skills & required_skills
+missing_skills = required_skills - candidate_skills
+
+match_percentage = round((earned_score / total_score) * 100, 2)
+\`\`\`
+
+This scoring system helps users understand not just what is missing, but how important those missing skills are for their target role.
+
+To make the analysis more helpful, I also added a feedback generator that converts raw numbers into human-readable career advice. Instead of technical output, users see simple guidance that feels personal and encouraging.
+
+\`\`\`python
+if match >= 85:
+    feedback = "You are strongly prepared for this role."
+elif match >= 65:
+    feedback = "You are moderately prepared, but need improvement."
+else:
+    feedback = "Focused upskilling is recommended."
+\`\`\`
+
+This step made the tool feel less like a machine and more like a mentor.
+
+The backend API is built using Flask and is designed to be clean and minimal. It handles resume uploads, role selection, and returns structured JSON data that the frontend can easily consume.
+
+\`\`\`python
+@app.route("/analyze", methods=["POST"])
+def analyze_resume():
+    resume_text = extract_text_from_resume(resume_file)
+    result = analyze_skill_gap(resume_text, role, include_resources=True)
+    return jsonify(result)
+\`\`\`
+
+This separation between frontend and backend keeps the system scalable and easy to maintain.
+
+On the frontend, my focus was clarity and simplicity. The interface allows users to select a role, upload a PDF resume, and view results without unnecessary distractions. I used a clean dashboard layout that highlights match score, skills, feedback, and next steps in a clear visual hierarchy.
+
+\`\`\`javascript
+const res = await fetch(\`\${API_BASE_URL}/analyze\`, {
+  method: "POST",
+  body: formData
+});
+const data = await res.json();
+renderResults(data);
+\`\`\`
+
+The UI is designed to feel calm and supportive, because resume analysis is a sensitive process for many users.
+
+Building this project taught me that AI is not just about complex models or buzzwords. The real value comes from solving a real problem in a way that users can understand and trust. Most of the effort went into thinking about what feedback actually helps people, not just how to calculate scores.
+
+This AI Resume Analyzer represents my interest in combining backend logic, AI concepts, and frontend usability into a single meaningful product. It is not perfect, but it is practical, honest, and continuously improving. As I learn more, I plan to add better role comparisons, smarter recommendations, and deeper analysis.
+
+— Jyotirmoy Laha
+`
+}
+
         ];
 
         function renderList() {
@@ -944,3 +1042,4 @@ Al even helps me write better content, including blogs and project descriptions.
     </script>
 </body>
 </html>
+
