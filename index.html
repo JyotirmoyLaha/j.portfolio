@@ -899,6 +899,95 @@ This AI Resume Analyzer represents my interest in combining backend logic, AI co
 
 — Jyotirmoy Laha
 `
+},
+
+            {
+  id: 8,
+  title: "Mistakes I Made While Building This AI Resume Analyzer",
+  date: "3rd January 2026",
+  category: "Lessons Learned",
+  image: "ChatGPT Image Jan 3, 2026, 10_38_47 PM.png",
+  content: `
+When I started building my AI Resume Analyzer, I was excited about the idea and features, but I underestimated how important clean structure, language separation, and proper API testing really are. Most of my mistakes were not about syntax errors, but about how I organized and tested my code. These mistakes slowed me down, but they taught me how real backend systems should be built.
+
+One of the biggest mistakes I made in the beginning was poor separation of responsibilities between different Python files. Initially, my logic felt scattered. Skill extraction, role mapping, scoring, and feedback generation were tightly connected in my head, and I didn’t clearly define where each responsibility should live. Over time, this made the code harder to debug and reason about.
+
+Later, I fixed this by clearly separating concerns. For example, all skill detection logic now lives only inside skill_extractor.py, while role comparison and scoring logic stays inside skill_gap.py. This made the system much cleaner and easier to maintain.
+
+\`\`\`python
+# skill_extractor.py
+def extract_skills(resume_text: str, role: Optional[str] = None) -> List[str]:
+    if not resume_text:
+        return []
+
+    resume_text = resume_text.lower()
+    found_skills = set()
+
+    for skill, pattern in MASTER_SKILL_PATTERNS.items():
+        if pattern.search(resume_text):
+            found_skills.add(skill)
+
+    if role and role in ROLE_SKILLS:
+        found_skills &= ROLE_SKILLS[role]
+
+    return sorted(found_skills)
+\`\`\`
+
+This separation helped me understand that each file should do one job well, not everything at once.
+
+Another major mistake was treating API testing as an afterthought. At first, I tested my backend only by clicking buttons on the frontend. If the UI worked, I assumed the API was fine. This was a bad habit. When something broke, I had no clear idea whether the problem was coming from the frontend request, backend validation, or resume parsing.
+
+Once I started reading my app.py carefully, I realized how important proper API validation really is. I improved my API by adding strict checks for file uploads and extracted text before running any analysis.
+
+\`\`\`python
+# app.py
+if "resume" not in request.files:
+    return jsonify({"error": "Resume file is required"}), 400
+
+resume_file = request.files.get("resume")
+if resume_file.filename == "":
+    return jsonify({"error": "Resume file is empty"}), 400
+\`\`\`
+
+After this, testing the API independently (without the UI) became much easier, and errors were clearer and more predictable.
+
+I also made mistakes while handling resume text extraction. In the beginning, I assumed that every PDF would return clean text. In reality, some resumes had missing text, broken formatting, or unexpected layouts. When extraction failed, the rest of the pipeline broke silently.
+
+To fix this, I added proper checks and cleaning logic inside resume_parser.py.
+
+\`\`\`python
+# resume_parser.py
+with pdfplumber.open(file) as pdf:
+    for page in pdf.pages:
+        text = page.extract_text()
+        if text:
+            extracted_text.append(text)
+
+if not extracted_text:
+    return None
+\`\`\`
+
+This taught me that data coming from users is never guaranteed to be clean, and defensive programming is necessary in real-world applications.
+
+Another mistake I made was not thinking deeply about scoring logic at first. Initially, all skills felt equal in my head. But that produced unrealistic results. Missing a core skill like Python should matter more than missing a secondary one. This pushed me to design a weighted scoring system using skill priorities.
+
+\`\`\`python
+# skill_gap.py
+for skill in required_skills:
+    weight = _priority_weight(SKILL_PRIORITY.get(skill, "low"))
+    total_score += weight
+    if skill in candidate_skills:
+        earned_score += weight
+\`\`\`
+
+This change completely improved the realism of the analyzer and made the results feel closer to real hiring expectations.
+
+Looking back, most of my mistakes came from trying to move fast instead of thinking clearly about structure and testing. I learned that good AI tools are not built only with smart logic, but with clean separation of concerns, strong validation, and proper API testing.
+
+This project taught me how backend systems actually behave in real usage. Every mistake forced me to slow down, refactor, and understand my own code better. Those lessons are far more valuable than a perfect first version.
+
+— Jyotirmoy Laha
+`
 }
 
         ];
@@ -1042,4 +1131,5 @@ This AI Resume Analyzer represents my interest in combining backend logic, AI co
     </script>
 </body>
 </html>
+
 
