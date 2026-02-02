@@ -1,188 +1,179 @@
-<div align="center">
+# My Portfolio & Projects 🚀
 
-# 🚀 Personal Portfolio + Blog
+Hey! I'm Jyotirmoy, a BCA student who loves coding and building stuff. This repo contains my portfolio website and some cool projects I've worked on.
 
-### _A Modern, Lightweight Web Experience_
+**Live Links:**
+- Portfolio: https://jyotirmoy-portfolio.onrender.com
+- Weather App: https://j-weather.onrender.com
+- AI Resume Analyzer: https://ai-resume-analyzer-hhhb.onrender.com/
+- Mess Manager: https://mess-maneger.onrender.com/
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://jyotirmoy-portfolio.onrender.com)
-[![Weather App](https://img.shields.io/badge/Weather-App-orange?style=for-the-badge&logo=cloudflare)](https://j-weather.onrender.com)
-[![AI Resume Analyzer](https://img.shields.io/badge/AI-Resume%20Analyzer-green?style=for-the-badge&logo=openai)](https://ai-resume-analyzer-hhhb.onrender.com/)
+## Tech Stack
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 
-</div>
+## What's This About?
 
----
+So basically I made this portfolio site using HTML, CSS (Tailwind) and JavaScript. No React or any framework, just plain vanilla JS because I wanted to understand the basics properly first. The site has my projects, a blog section where I write about tech stuff, and yeah it looks pretty decent I think.
 
-## 📖 Overview
+## Main Features
 
-A **single-page, high-performance** portfolio and blog built with pure web fundamentals. This project demonstrates mastery of HTML5, Tailwind CSS, and vanilla JavaScript — proving that you don't need heavy frameworks to create stunning, production-ready web applications.
+**Portfolio Section:**
+- Shows all my projects with descriptions
+- Has an about me section
+- Contact info and social links
+- Animations using AOS library (looks cool ngl)
 
-> **Philosophy:** Ship fast, learn continuously, and demonstrate end-to-end development skills without framework bloat.
+**Blog:**
+- I write about my coding journey and what I'm learning
+- Supports code snippets with syntax highlighting
+- All content renders client-side using JavaScript
 
----
 
-## ✨ Key Highlights
+## My Projects
 
-### 🎯 **What Recruiters Notice in 30 Seconds**
+### 1. Portfolio Website
+The website you're looking at! Built from scratch using:
+- HTML5 for structure
+- Tailwind CSS for styling (used CDN, no npm needed)
+- Vanilla JavaScript for interactivity
+- Particles.js for background effects
+- AOS for scroll animations
 
-<table>
-<tr>
-<td width="50%">
+It's fully responsive and works on mobile too. The blog section dynamically renders posts without any page reload which is pretty cool.
 
-**🔧 Technical Excellence**
-- Zero dependencies framework philosophy
-- HTML5 + Tailwind CSS (CDN) + Vanilla JS
-- Enhanced with AOS, Particles.js, Font Awesome
-- SPA-like experience with native JS
+### 2. Weather App 🌦️
+A real-time weather application that shows current weather and forecasts.
 
-</td>
-<td width="50%">
+**Features:**
+- Gets your location automatically
+- Shows temperature, humidity, wind speed etc.
+- 5-day forecast
+- Uses OpenWeatherMap API
+- Clean UI with weather icons
 
-**💼 Production Quality**
-- Real-world featured projects
-- Weather dashboard (OpenWeather API)
-- AI-powered resume analyzer (FastAPI + NLP)
-- Fully responsive & performance-tuned
+**Tech:** HTML, CSS, JavaScript, OpenWeather API
 
-</td>
-</tr>
-</table>
+**Live:** https://j-weather.onrender.com
 
----
+### 3. AI Resume Analyzer 📄
+This one was a bit challenging but fun! It's an AI-powered tool that analyzes resumes.
 
-## 🏗️ Architecture
+**What it does:**
+- Uploads PDF/Word resumes
+- Extracts text using NLP
+- Analyzes skills and experience
+- Gives suggestions for improvement
+- Shows skill gap analysis
 
-```
-┌─────────────────────────────────────────────────┐
-│  Single HTML Entry Point                        │
-│  ├─ Portfolio View (Projects + About)           │
-│  └─ Blog View (Dynamic Content Rendering)       │
-└─────────────────────────────────────────────────┘
-         ↓
-┌─────────────────────────────────────────────────┐
-│  Styling Layer: Tailwind CSS via CDN            │
-│  ├─ Custom typography & shadows                 │
-│  └─ Responsive breakpoints                      │
-└─────────────────────────────────────────────────┘
-         ↓
-┌─────────────────────────────────────────────────┐
-│  Interactive Layer: Vanilla JavaScript          │
-│  ├─ View switching & navigation                 │
-│  ├─ Blog content rendering engine               │
-│  └─ Animation & scroll management               │
-└─────────────────────────────────────────────────┘
-```
+**Tech Stack:**
+- Frontend: HTML, CSS, JS
+- Backend: Python, FastAPI
+- NLP libraries for text processing
 
-**Architecture Highlights:**
-- 📄 **Single Document Design** — Portfolio and blog coexist in one HTML file for ultimate simplicity
-- 🎨 **CDN-Based Styling** — Lightweight Tailwind implementation with custom configurations
-- ⚡ **Zero Build Process** — Open and run immediately; perfect for rapid iteration
-- 🔄 **Client-Side Rendering** — Blog posts rendered dynamically from in-memory data structures
+**Live:** https://ai-resume-analyzer-hhhb.onrender.com/
 
----
+### 4. Mess Manager System 🍽️
+Made this for our college mess management. Helps manage daily meals, attendance, and monthly bills.
 
-## 🎨 Featured Projects
+**Features:**
+- Student meal attendance tracking
+- Daily menu display
+- Monthly bill calculation
+- Admin panel for mess staff
+- Mess off requests
+- Generate monthly reports
 
-| Project | Description | Tech Stack | Status |
-|---------|-------------|------------|--------|
-| **Portfolio Website** | Minimalist, high-performance personal site | HTML5, Tailwind, JS | ✅ Live |
-| **Weather Dashboard** | Real-time weather data with geolocation | OpenWeatherMap API, JS | ✅ Live |
-| **AI Resume Analyzer** | NLP-driven resume insights & skill gap analysis | FastAPI, Python, NLP | ✅ Live |
-| **AI Experiments** | Upcoming ML/AI integrations | Python, TensorFlow | 🚧 In Progress |
+**Tech Stack:**
+- HTML, CSS, 
+- JavaScript(ES Modules)
+- Firebase(Auth + Firestore)
 
----
+**Live:** https://mess-maneger.onrender.com/
 
-## 🎭 UX & Engineering Highlights
+**Why I built this:** Our hostel mess had issues with manual attendance and billing, so I thought why not make something useful. Still working on adding more features like meal feedback system.
 
-### User Experience
-- ✨ **SPA-Like Navigation** — Seamless view transitions without page reloads
-- 📱 **Responsive Design** — Optimized for all devices and screen sizes
-- 🎬 **Motion System** — AOS scroll animations + Particles.js depth effects
-- 🧭 **Smart Scroll** — Section helpers with smooth scrolling behavior
+### 5. Other Small Projects
+- Sparse Matrix operations in C (DSA assignment)
+- Simple calculator using JS
+- To-do list app
+- Some college practical assignments
 
-### Engineering Touches
-- 🔍 **Blog Renderer** — Custom parser for inline code blocks with syntax styling
-- ⚡ **Performance Tuned** — Animations optimized for mobile devices
-- 🛡️ **Content Protection** — Context menu and dev tools restrictions
-- 🎯 **SEO Ready** — Semantic HTML with optimized metadata
 
----
+## How to Run
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Any modern web browser (Chrome, Firefox, Safari, Edge)
-- No additional tools required!
-
-### Installation
+It's super simple:
 
 ```bash
-# Clone the repository
+# Clone this repo
 git clone https://github.com/JyotirmoyLaha/j.portfolio.git
 
-# Navigate to project directory
+# Go to the folder
 cd j.portfolio
 
-# Open in browser (that's it!)
-# Simply double-click index.html or open it in your browser
+# Just open index.html in your browser
+# That's it! No npm install, no build process, nothing.
 ```
 
-**No servers. No databases. No build tools. Just pure web.**
+You can also just download the ZIP file and open index.html directly. Works right away.
 
----
+## What I'm Learning
 
-## 🗺️ Roadmap
+- JavaScript fundamentals (closures, promises, async/await)
+- API integration and handling responses
+- Making responsive designs that actually work
+- Python for backend stuff
+- Data structures (currently doing trees and graphs)
+- Trying to understand how frameworks work under the hood
 
-### Phase 1: Code Organization
-- [ ] Extract CSS into dedicated stylesheet
-- [ ] Modularize JavaScript into separate files
-- [ ] Implement proper file structure
+## Future Plans
 
-### Phase 2: Content Management
-- [ ] Markdown-driven blog system
-- [ ] CMS integration for easy updates
-- [ ] Tag and category system
+Things I want to add/improve:
 
-### Phase 3: Accessibility & SEO
-- [ ] WCAG 2.1 AA compliance
-- [ ] Enhanced ARIA labels
-- [ ] Keyboard navigation improvements
-- [ ] Social media preview cards
+**Portfolio Site:**
+- [ ] Make the blog system better, maybe use Markdown files
+- [ ] Add a contact form that actually sends emails
+- [ ] Dark mode toggle
+- [ ] More blog posts about my learning journey
+- [ ] Better SEO optimization
 
-### Phase 4: Backend Integration
-- [ ] Contact form with email delivery
-- [ ] Analytics integration
-- [ ] Comment system for blog posts
+**Mess Manager:**
+- [ ] QR code based attendance
+- [ ] Email notifications for monthly bills
 
----
-
-## 👨‍💻 About the Developer
-
-<div align="center">
-
-### **Jyotirmoy Laha**
-_BCA Student | Aspiring Software Engineer | Full-Stack Enthusiast_
-
-[![Email](https://img.shields.io/badge/Email-jyotirmoylaha713128%40gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jyotirmoylaha713128@gmail.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Now-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://jyotirmoy-portfolio.onrender.com)
-[![GitHub](https://img.shields.io/badge/GitHub-JyotirmoyLaha-black?style=for-the-badge&logo=github)](https://github.com/JyotirmoyLaha)
-
-</div>
-
-**Core Values:**
-- 🎯 **Fundamentals First** — Deep understanding over framework dependency
-- 💡 **Clear UX** — User experience is paramount
-- 🚢 **Ship & Iterate** — Build real products that solve real problems
-
----
+**New Projects:**
+- [ ] Working on some AI/ML stuff (just started learning)
+- [ ] Want to build a chatbot
+- [ ] Maybe a e-commerce site clone for practice
+- [ ] Some DSA visualizations using JavaScript
 
 
-<div align="center">
+## About Me
 
+I'm Jyotirmoy Laha, currently pursuing BCA (Bachelor of Computer Applications). I love building things and learning new technologies. Started with basic HTML/CSS and now exploring full-stack development, AI/ML, and competitive programming.
 
-Made by [Jyotirmoy Laha](https://jyotirmoy-portfolio.onrender.com)
+**What I know:**
+- Frontend: HTML, CSS, JavaScript, Tailwind, Bootstrap
+- Backend: Python (Flask, FastAPI), learning Node.js
+- Languages: C, Python, JavaScript
+- Tools: Git, GitHub, VS Code
+- Currently learning: React, DSA, Machine Learning basics
 
-</div>
+**Contact:**
+- Email: jyotirmoylaha713128@gmail.com
+- GitHub: [JyotirmoyLaha](https://github.com/JyotirmoyLaha)
+- Portfolio: https://jyotirmoy-portfolio.onrender.com
+
+Feel free to reach out if you want to collaborate on projects or just talk about tech!
+
+## Why I Built This
+
+Honestly, I wanted to learn web development properly and the best way is to build real projects. Started with simple HTML pages and kept adding features. Made mistakes, learned from them, and kept improving.
+
+The mess manager project happened because I saw a real problem in our hostel and thought "I can probably code a solution for this". That's what I like about programming - you can build stuff that actually helps people.
+
+## License
+
+MIT License - use it however you want!
