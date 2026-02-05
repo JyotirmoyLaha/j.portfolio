@@ -140,7 +140,7 @@ Things I want to add/improve:
 - [ ] Better SEO optimization
 
 **Mess Manager:**
-- [ ] QR code based attendance
+- [ ] Add a separte section to store Payemt of each Mess member 
 - [ ] Email notifications for monthly bills
 
 **New Projects:**
