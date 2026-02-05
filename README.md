@@ -79,7 +79,6 @@ Made this for our college mess management. Helps manage daily meals, attendance,
 
 **Features:**
 - Monthly bill calculation
-- Admin panel for mess staff
 - Generate monthly reports
 
 **Tech Stack:**
@@ -125,19 +124,6 @@ You can also just download the ZIP file and open index.html directly. Works righ
 - Trying to understand how frameworks work under the hood
 
 ## Future Plans
-
-Things I want to add/improve:
-
-**Portfolio Site:**
-- [ ] Make the blog system better, maybe use Markdown files
-- [ ] Add a contact form that actually sends emails
-- [ ] Dark mode toggle
-- [ ] More blog posts about my learning journey
-- [ ] Better SEO optimization
-
-**Mess Manager:**
-- [ ] Add a separte section to store Payemt of each Mess member 
-- [ ] Email notifications for monthly bills
 
 **New Projects:**
 - [ ] Working on some AI/ML stuff (just started learning)
