@@ -50,7 +50,6 @@ A real-time weather application that shows current weather and forecasts.
 **Features:**
 - Gets your location automatically
 - Shows temperature, humidity, wind speed etc.
-- 5-day forecast
 - Uses OpenWeatherMap API
 - Clean UI with weather icons
 
@@ -79,11 +78,8 @@ This one was a bit challenging but fun! It's an AI-powered tool that analyzes re
 Made this for our college mess management. Helps manage daily meals, attendance, and monthly bills.
 
 **Features:**
-- Student meal attendance tracking
-- Daily menu display
 - Monthly bill calculation
 - Admin panel for mess staff
-- Mess off requests
 - Generate monthly reports
 
 **Tech Stack:**
