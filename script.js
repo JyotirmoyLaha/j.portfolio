@@ -673,5 +673,70 @@ document.onkeydown = function(e) {
     if(e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) return false;
 }
 
+// ===================== DARK MODE TOGGLE =====================
+
+// Toggle Dark Mode Function
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const currentMode = html.classList.contains('dark');
+    
+    if (currentMode) {
+        // Switch to light mode
+        html.classList.remove('dark');
+        updateDarkModeIcon(false);
+        localStorage.setItem('darkMode', 'false');
+    } else {
+        // Switch to dark mode
+        html.classList.add('dark');
+        updateDarkModeIcon(true);
+        localStorage.setItem('darkMode', 'true');
+    }
+}
+
+// Update Dark Mode Icon
+function updateDarkModeIcon(isDark) {
+    const desktopIcon = document.getElementById('darkModeIcon');
+    const mobileIcon = document.getElementById('mobileDarkModeIcon');
+    
+    if (isDark) {
+        // Show sun icon for light mode option
+        desktopIcon.classList.remove('fa-moon');
+        desktopIcon.classList.add('fa-sun');
+        mobileIcon.classList.remove('fa-moon');
+        mobileIcon.classList.add('fa-sun');
+    } else {
+        // Show moon icon for dark mode option
+        desktopIcon.classList.remove('fa-sun');
+        desktopIcon.classList.add('fa-moon');
+        mobileIcon.classList.remove('fa-sun');
+        mobileIcon.classList.add('fa-moon');
+    }
+}
+
+// Load Dark Mode Preference on Page Load
+function loadDarkModePreference() {
+    const darkModePreference = localStorage.getItem('darkMode');
+    const html = document.documentElement;
+    
+    // Check for saved preference or system preference
+    if (darkModePreference === 'true') {
+        html.classList.add('dark');
+        updateDarkModeIcon(true);
+    } else if (darkModePreference === 'false') {
+        html.classList.remove('dark');
+        updateDarkModeIcon(false);
+    } else {
+        // Check system preference if no saved preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.classList.add('dark');
+            updateDarkModeIcon(true);
+            localStorage.setItem('darkMode', 'true');
+        }
+    }
+}
+
+// Initialize Dark Mode on Page Load
+loadDarkModePreference();
+
 // Initialize Render
 renderList();

@@ -116,3 +116,186 @@ img {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* ===================== DARK MODE STYLES ===================== */
+
+/* Dark mode base styles */
+.dark {
+    color-scheme: dark;
+}
+
+.dark body {
+    background-color: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Dark mode navigation */
+.dark .nav-glass {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark a[href="javascript:void(0)"] {
+    color: #f8fafc;
+}
+
+/* Dark mode sections */
+.dark header {
+    background-color: #0f172a;
+}
+
+.dark #contact {
+    background-color: #1e293b;
+    border-color: #334155;
+}
+
+.dark #projects {
+    background-color: #0f172a;
+}
+
+/* Dark mode text colors */
+.dark h1,
+.dark h2,
+.dark h3 {
+    color: #f8fafc;
+}
+
+.dark .text-slate-900 {
+    color: #f8fafc !important;
+}
+
+.dark .text-slate-800 {
+    color: #e2e8f0 !important;
+}
+
+.dark .text-slate-700 {
+    color: #cbd5e1 !important;
+}
+
+.dark .text-slate-600 {
+    color: #94a3b8 !important;
+}
+
+.dark .text-slate-500 {
+    color: #64748b !important;
+}
+
+.dark .text-slate-400 {
+    color: #475569 !important;
+}
+
+/* Dark mode backgrounds */
+.dark .bg-slate-50 {
+    background-color: #1e293b !important;
+}
+
+.dark .bg-white {
+    background-color: #1e293b !important;
+}
+
+.dark .bg-slate-100 {
+    background-color: #334155 !important;
+}
+
+.dark .bg-white\/70 {
+    background-color: rgba(30, 41, 59, 0.7) !important;
+}
+
+/* Dark mode borders */
+.dark .border-slate-100 {
+    border-color: #334155 !important;
+}
+
+.dark .border-slate-200 {
+    border-color: #475569 !important;
+}
+
+.dark .border-white {
+    border-color: #334155 !important;
+}
+
+.dark .border-white\/50 {
+    border-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+/* Dark mode hover effects */
+.dark .hover\:bg-white:hover {
+    background-color: #334155 !important;
+}
+
+.dark .hover\:bg-slate-100:hover {
+    background-color: #475569 !important;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Dark mode grid pattern */
+.dark .bg-grid-pattern {
+    background-image: radial-gradient(#334155 1px, transparent 1px);
+}
+
+/* Dark mode blobs */
+.dark .bg-blue-100 {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.dark .bg-indigo-100 {
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+/* Dark mode cards and elements */
+.dark .bg-slate-50 {
+    background-color: #1e293b !important;
+}
+
+.dark .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-premium {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-premium-hover {
+    box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.3);
+}
+
+/* Dark mode mobile menu */
+.dark #mobile-menu {
+    background-color: #1e293b;
+    border-color: #334155;
+}
+
+/* Dark mode prose */
+.dark .prose p {
+    color: #94a3b8;
+}
+
+.dark .prose h2 {
+    color: #f8fafc;
+}
+
+.dark .prose ul {
+    color: #94a3b8;
+}
+
+/* Smooth transition for dark mode */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}

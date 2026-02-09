@@ -59,25 +59,37 @@
                 JYOTIRMOY<span class="text-accent-primary">.DEV</span>
             </a>
             
-            <div class="hidden md:block text-sm font-medium text-slate-500">
-                <!-- Portfolio Navigation Group (Visible by default) -->
-                <div id="desktop-portfolio-nav" class="flex space-x-10">
-                    <button onclick="navigateToSection('contact')" class="hover:text-slate-900 transition-colors">Contact</button>
-                    <button onclick="navigateToSection('projects')" class="hover:text-slate-900 transition-colors">Projects</button>
-                    <button onclick="navigateToSection('academic')" class="hover:text-slate-900 transition-colors">Academic</button>
-                    <button onclick="switchView('blog')" class="hover:text-slate-900 transition-colors text-accent-primary font-semibold">Blog</button>
-                </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <div class="text-sm font-medium text-slate-500">
+                    <!-- Portfolio Navigation Group (Visible by default) -->
+                    <div id="desktop-portfolio-nav" class="flex space-x-10">
+                        <button onclick="navigateToSection('contact')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Contact</button>
+                        <button onclick="navigateToSection('projects')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Projects</button>
+                        <button onclick="navigateToSection('academic')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Academic</button>
+                        <button onclick="switchView('blog')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors text-accent-primary font-semibold">Blog</button>
+                    </div>
 
-                <!-- Blog Navigation Group (Hidden by default) -->
-                <div id="desktop-blog-nav" class="hidden flex space-x-10">
-                    <button onclick="switchView('portfolio')" class="hover:text-slate-900 transition-colors">Portfolio</button>
-                    <span class="text-accent-primary font-semibold cursor-default">Blog</span>
+                    <!-- Blog Navigation Group (Hidden by default) -->
+                    <div id="desktop-blog-nav" class="hidden flex space-x-10">
+                        <button onclick="switchView('portfolio')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Portfolio</button>
+                        <span class="text-accent-primary font-semibold cursor-default">Blog</span>
+                    </div>
                 </div>
+                
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle dark mode">
+                    <i id="darkModeIcon" class="fa-solid fa-moon text-slate-700 dark:text-slate-300"></i>
+                </button>
             </div>
 
-            <button class="md:hidden text-slate-900" onclick="toggleMenu()">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="mobileDarkModeToggle" onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle dark mode">
+                    <i id="mobileDarkModeIcon" class="fa-solid fa-moon text-slate-700 dark:text-slate-300"></i>
+                </button>
+                <button class="text-slate-900 dark:text-slate-100" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
         
         <!-- Mobile Menu -->

@@ -50,7 +50,6 @@ A real-time weather application that shows current weather and forecasts.
 **Features:**
 - Gets your location automatically
 - Shows temperature, humidity, wind speed etc.
-- 5-day forecast
 - Uses OpenWeatherMap API
 - Clean UI with weather icons
 
@@ -79,11 +78,7 @@ This one was a bit challenging but fun! It's an AI-powered tool that analyzes re
 Made this for our college mess management. Helps manage daily meals, attendance, and monthly bills.
 
 **Features:**
-- Student meal attendance tracking
-- Daily menu display
 - Monthly bill calculation
-- Admin panel for mess staff
-- Mess off requests
 - Generate monthly reports
 
 **Tech Stack:**
@@ -129,19 +124,6 @@ You can also just download the ZIP file and open index.html directly. Works righ
 - Trying to understand how frameworks work under the hood
 
 ## Future Plans
-
-Things I want to add/improve:
-
-**Portfolio Site:**
-- [ ] Make the blog system better, maybe use Markdown files
-- [ ] Add a contact form that actually sends emails
-- [ ] Dark mode toggle
-- [ ] More blog posts about my learning journey
-- [ ] Better SEO optimization
-
-**Mess Manager:**
-- [ ] QR code based attendance
-- [ ] Email notifications for monthly bills
 
 **New Projects:**
 - [ ] Working on some AI/ML stuff (just started learning)
