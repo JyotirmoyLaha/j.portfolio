@@ -156,6 +156,4 @@ Honestly, I wanted to learn web development properly and the best way is to buil
 
 The mess manager project happened because I saw a real problem in our hostel and thought "I can probably code a solution for this". That's what I like about programming - you can build stuff that actually helps people.
 
-## License
 
-MIT License - use it however you want!
