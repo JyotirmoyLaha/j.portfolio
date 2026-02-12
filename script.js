@@ -288,7 +288,7 @@ Al even helps me write better content, including blogs and project descriptions.
         title: "How I Built My AI Resume Analyzer Tool",
         date: "3rd January 2026",
         category: "Project Breakdown",
-        image: "ChatGPT Image Jan 3, 2026, 03_31_59 AM.png",
+        image: "chatgpt-resume-analyzer.png",
         content: `
 Resumes play a very important role in today's job market. In most cases, they are the first thing a recruiter or an automated system looks at before deciding whether a candidate should move forward. However, many people struggle to understand whether their resume actually matches the job they are applying for. I built my AI Resume Analyzer to solve this exact problem by giving clear, role-based feedback instead of guesswork.
 
@@ -385,7 +385,7 @@ This AI Resume Analyzer represents my interest in combining backend logic, AI co
         title: "Mistakes I Made While Building This AI Resume Analyzer",
         date: "6th January 2026",
         category: "Lessons Learned",
-        image: "ChatGPT Image Jan 3, 2026, 10_38_47 PM.png",
+        image: "chatgpt-resume-mistakes.png",
         content: `
 When I started building my AI Resume Analyzer, I was excited about the idea and features, but I underestimated how important clean structure, language separation, and proper API testing really are. Most of my mistakes were not about syntax errors, but about how I organized and tested my code. These mistakes slowed me down, but they taught me how real backend systems should be built.
 
@@ -665,13 +665,7 @@ particlesJS("blog-particles", {
     }
 });
 
-// Security Scripts
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.onkeydown = function(e) {
-    if(e.keyCode == 123) return false;
-    if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
-    if(e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) return false;
-}
+
 
 // ===================== DARK MODE TOGGLE =====================
 

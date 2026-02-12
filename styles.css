@@ -41,17 +41,7 @@
     pointer-events: none;
 }
 
-/* Security: Disable Selection */
-body {
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 
-img {
-    -webkit-user-drag: none;
-    user-drag: none;
-}
 
 /* Blog Typography (Prose) */
 .prose p {
