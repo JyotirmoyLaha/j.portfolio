@@ -289,3 +289,43 @@ body {
 nav {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
+
+/* ===================== SCROLL REVEAL (Storytelling) ===================== */
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(60px) scale(0.97);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-reveal.fade-out {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.98);
+}
+
+/* Stagger children inside a reveal group */
+.scroll-reveal .reveal-child {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.active .reveal-child {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal.active .reveal-child:nth-child(1) { transition-delay: 0.05s; }
+.scroll-reveal.active .reveal-child:nth-child(2) { transition-delay: 0.12s; }
+.scroll-reveal.active .reveal-child:nth-child(3) { transition-delay: 0.19s; }
+.scroll-reveal.active .reveal-child:nth-child(4) { transition-delay: 0.26s; }
+.scroll-reveal.active .reveal-child:nth-child(5) { transition-delay: 0.33s; }
+.scroll-reveal.active .reveal-child:nth-child(6) { transition-delay: 0.40s; }

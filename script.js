@@ -734,3 +734,32 @@ loadDarkModePreference();
 
 // Initialize Render
 renderList();
+
+// ===================== SCROLL REVEAL (Storytelling Effect) =====================
+
+(function initScrollReveal() {
+    const reveals = document.querySelectorAll('.scroll-reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                entry.target.classList.remove('fade-out');
+            } else {
+                // Only fade out if element is above the viewport (scrolled past)
+                const rect = entry.boundingClientRect;
+                if (rect.top < 0) {
+                    entry.target.classList.add('fade-out');
+                    entry.target.classList.remove('active');
+                } else {
+                    // Below viewport — reset to initial hidden state
+                    entry.target.classList.remove('active', 'fade-out');
+                }
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    reveals.forEach(el => observer.observe(el));
+})();
