@@ -154,6 +154,5 @@ Feel free to reach out if you want to collaborate on projects or just talk about
 
 Honestly, I wanted to learn web development properly and the best way is to build real projects. Started with simple HTML pages and kept adding features. Made mistakes, learned from them, and kept improving.
 
-The mess manager project happened because I saw a real problem in our hostel and thought "I can probably code a solution for this". That's what I like about programming - you can build stuff that actually helps people.
 
 
