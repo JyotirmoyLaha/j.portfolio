@@ -23,6 +23,116 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
 }
 
+/* ===================== GLASSMORPHISM THEME TOGGLE SWITCH ===================== */
+.theme-switch {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-switch-track {
+    position: relative;
+    width: 56px;
+    height: 28px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.theme-switch:hover .theme-switch-track {
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.12),
+        inset 0 1px 2px rgba(255, 255, 255, 0.45),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+/* Thumb / Knob */
+.theme-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    box-shadow:
+        0 2px 8px rgba(245, 158, 11, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+/* Icons inside the track */
+.theme-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sun-icon {
+    left: 7px;
+    color: #fbbf24;
+    opacity: 1;
+    transform: translateY(-50%) scale(1) rotate(0deg);
+}
+
+.moon-icon {
+    right: 7px;
+    color: #94a3b8;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5) rotate(90deg);
+}
+
+/* ---- DARK MODE STATE ---- */
+.dark .theme-switch-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.dark .theme-switch:hover .theme-switch-track {
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.dark .theme-switch-thumb {
+    left: 30px;
+    background: linear-gradient(135deg, #a5b4fc, #818cf8);
+    box-shadow:
+        0 2px 8px rgba(129, 140, 248, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.dark .sun-icon {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5) rotate(-90deg);
+}
+
+.dark .moon-icon {
+    opacity: 1;
+    color: #c4b5fd;
+    transform: translateY(-50%) scale(1) rotate(0deg);
+}
+
 /* Subtle Grid Pattern Background */
 .bg-grid-pattern {
     background-image: radial-gradient(#cbd5e1 1px, transparent 1px);

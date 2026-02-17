@@ -482,109 +482,36 @@ I chose a clean tech stack: HTML5 for structure, Tailwind CSS for styling, vanil
 
 The first major decision was using Firebase Firestore as a real-time NoSQL database. This meant every expense added by one member would instantly appear on everyone else's screen without refreshing. I set up two main data collections — one for expenses and one for the shared fund.
 
-\`\`\`
-// Firestore Data Architecture
-artifacts/{appId}/public/data/
-├── mess_expenses (collection)
-│   └── { item, cost, date, addedBy, userPhoto, userId }
-└── mess_fund/summary (document)
-    └── { amount, currentMonth, previousMonthSpent }
-\`\`\`
+I designed two main data collections — one for expenses and one for the shared fund. The expense collection stores each entry with fields like item name, cost, date, and the user who added it. The fund document tracks the current balance, active month, and previous month spending. This structure keeps expense records separate from fund management, making queries and updates clean and predictable.
 
-This structure keeps expense records separate from fund management, making queries and updates clean and predictable.
-
-Authentication was handled through Google OAuth 2.0 via Firebase Auth. But I did not want just anyone with a Google account to access our mess data. So I implemented an email whitelist — a hardcoded array of authorized emails that acts as the first security gate.
+Authentication was handled through Google OAuth 2.0 via Firebase Auth. But I did not want just anyone with a Google account to access our mess data. So I implemented an email whitelist — an array of authorized emails that acts as the first security gate.
 
 \`\`\`
 const AUTHORIZED_EMAILS = [
-    'jyotirmoy713128@gmail.com',
-    'soumikmondal6201@gmail.com',
-    'subhajit.kar16082006@gmail.com',
-    'debdeepmondal96@gmail.com',
+    'member1@example.com',
+    'member2@example.com',
+    'member3@example.com',
+    'member4@example.com',
 ];
 \`\`\`
 
 If someone tries to log in with an unauthorized email, they are immediately signed out and shown a clear error message. This prevents random users from accessing or corrupting the group's financial data.
 
-The real-time synchronization is probably the most satisfying part of the project. Using Firestore's onSnapshot listener, the app reacts to database changes instantly. When someone adds an expense from their phone, the dashboard updates on everyone else's screen within milliseconds.
+The real-time synchronization is probably the most satisfying part of the project. Using Firestore's onSnapshot listener, the app reacts to database changes instantly. When someone adds an expense from their phone, the dashboard updates on everyone else's screen within milliseconds. No polling, no manual refresh buttons — just clean, real-time data flow.
 
-\`\`\`
-onSnapshot(expensesRef, (snapshot) => {
-    const data = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-    }));
-    data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    state.expenses = data;
-    renderDashboardData();
-});
-\`\`\`
+One of the more complex features was automatic month-change detection. At the start of each new month, the app detects that the month has changed, saves the previous month's total spending, and resets the current month's counter. This happens automatically without any user intervention through a function that compares the stored month key with the current one and updates the database accordingly.
 
-No polling, no manual refresh buttons — just clean, real-time data flow.
-
-One of the more complex features was automatic month-change detection. At the start of each new month, the app detects that the month has changed, saves the previous month's total spending, and resets the current month's counter. This happens automatically without any user intervention.
-
-\`\`\`
-async function checkAndUpdateMonthChange() {
-    const currentMonth = getCurrentMonthKey();
-    if (state.currentMonth && state.currentMonth !== currentMonth) {
-        const totalSpent = state.expenses.reduce(
-            (acc, curr) => acc + (curr.cost || 0), 0
-        );
-        await setDoc(fundRef, {
-            amount: state.totalFund,
-            currentMonth: currentMonth,
-            previousMonthSpent: totalSpent,
-            monthChangedAt: new Date().toISOString()
-        }, { merge: true });
-    }
-}
-\`\`\`
-
-I also built an admin system where I, as the admin, have additional permissions like editing or deleting any expense. Regular members can only modify their own entries. This permission logic runs both on the frontend and inside Firestore security rules for defense in depth.
-
-\`\`\`
-function canModifyExpense(expense) {
-    if (!expense || !state.user) return false;
-    if (state.isAdmin) return true;
-    return expense.userId === state.user.uid;
-}
-\`\`\`
+I also built an admin system where I, as the admin, have additional permissions like editing or deleting any expense. Regular members can only modify their own entries. This permission logic runs both on the frontend and through database-level security rules for defense in depth.
 
 The expense form itself handles both creating and editing entries. When a user clicks edit on their own expense, the form switches to edit mode, pre-fills the values, and updates the existing Firestore document instead of creating a new one.
 
-\`\`\`
-if (state.editId) {
-    const docRef = doc(db, 'artifacts', appId,
-        'public', 'data', 'mess_expenses', state.editId);
-    await updateDoc(docRef, {
-        item: name,
-        cost: parseFloat(cost),
-        updatedAt: new Date().toISOString()
-    });
-} else {
-    await addDoc(collectionRef, {
-        item: name, cost: parseFloat(cost),
-        addedBy: state.username,
-        userId: state.user.uid,
-        date: new Date().toISOString()
-    });
-}
-\`\`\`
+When a user clicks edit, the form switches to edit mode, pre-fills the existing values, and updates the database document instead of creating a new one. For new entries, it writes the item name, cost, added-by info, and timestamp to the collection.
 
 The UI supports two view modes — daily and monthly. In daily mode, expenses are grouped by date with individual item details. In monthly mode, they are aggregated for a broader overview. Users can also download PDF reports for both views, which I built using the jsPDF library with custom headers, tables, and formatting.
 
 For the visual design, I used a dark-themed glassmorphism style with Tailwind CSS. The dashboard shows the current fund balance, total spent, a spending progress bar, and previous month stats — all updating in real time. I used Lucide icons for a clean, modern icon set.
 
-Security was a major focus throughout the project. Beyond the frontend email whitelist, I also wrote Firestore security rules that enforce authorization at the database level. Even if someone bypasses the frontend, they cannot read or write data without being on the approved list. Users can only delete their own expenses, and fund updates are restricted to authorized members only.
-
-\`\`\`
-// Firestore Security Rules
-allow delete: if request.auth != null
-    && resource.data.userId == request.auth.uid;
-\`\`\`
-
-This multi-layer approach — frontend whitelist, backend rules, and data validation — makes the system genuinely secure, not just superficially protected.
+Security was a major focus throughout the project. Beyond the frontend email whitelist, I also wrote database-level security rules that enforce authorization independently. Even if someone bypasses the frontend, they cannot read or write data without being on the approved list. Users can only delete their own expenses, and fund updates are restricted to authorized members only. This multi-layer approach — frontend whitelist, backend rules, and data validation — makes the system genuinely secure, not just superficially protected.
 
 Building Mess Manager taught me how real-world applications work beyond just displaying data. It taught me state management, real-time architecture, authentication flows, permission systems, and the importance of thinking about edge cases before they become bugs. This is not just a project — it is a system that my hostel group actually uses every single day.
 
@@ -617,56 +544,15 @@ Even something as simple as showing "Saving..." on the button was a lesson. With
 
 The second major lesson was about security. When I first deployed the app, I only had frontend-level protection. The email whitelist worked great in the browser, but I soon realized that anyone with basic developer tools knowledge could bypass it. That is when I learned about defense in depth — the idea that security must exist at every layer, not just the surface.
 
-I wrote Firestore security rules that independently verify authorization at the database level. This means even if someone strips away my frontend code, they still cannot read or write data without being on the approved list.
-
-\`\`\`
-// Firestore Security Rules
-allow create: if request.auth != null
-    && request.resource.data.userId == request.auth.uid
-    && request.resource.data.keys().hasAll(
-        ['item', 'cost', 'date']
-    );
-
-allow delete: if request.auth != null
-    && resource.data.userId == request.auth.uid;
-\`\`\`
+I wrote database-level security rules that independently verify authorization. This means even if someone strips away my frontend code, they still cannot read or write data without being on the approved list. The rules enforce that only authenticated and whitelisted users can create, read, update, or delete records — and users can only modify their own entries.
 
 This experience completely changed how I think about security. It is not something you add at the end — it is something you design from the start.
 
-State management was another area where I grew significantly. Mess Manager has a global state object that tracks the user, expenses, fund balance, current month, view mode, edit state, and delete targets. Managing all of these without a framework like React taught me what frameworks actually solve under the hood.
-
-\`\`\`
-let state = {
-    user: null,
-    username: '',
-    expenses: [],
-    totalFund: 0,
-    editId: null,
-    deleteTargetId: null,
-    viewMode: 'daily',
-    currentMonth: '',
-    previousMonthSpent: 0,
-    isAdmin: false
-};
-\`\`\`
-
-Every time the state changes, the UI needs to re-render the right parts. Getting this wrong meant stale data, broken buttons, or missing information. I learned how to think in terms of state transitions — what triggers a change, what depends on that change, and how to keep everything consistent.
+State management was another area where I grew significantly. Mess Manager has a global state object that tracks the user, expenses, fund balance, current month, view mode, edit state, and delete targets. Managing all of these without a framework like React taught me what frameworks actually solve under the hood. Every time the state changes, the UI needs to re-render the right parts. Getting this wrong meant stale data, broken buttons, or missing information. I learned how to think in terms of state transitions — what triggers a change, what depends on that change, and how to keep everything consistent.
 
 Real-time data synchronization was both the most exciting and the most humbling part of the project. Firestore's onSnapshot listeners make it feel magical when one person adds an expense and it instantly appears on everyone else's screen. But handling edge cases — like what happens when the internet drops, or when two people edit at the same time — requires careful thought.
 
-\`\`\`
-onSnapshot(fundRef, (doc) => {
-    if (doc.exists()) {
-        state.totalFund = doc.data().amount || 0;
-        state.currentMonth =
-            doc.data().currentMonth || getCurrentMonthKey();
-        state.previousMonthSpent =
-            doc.data().previousMonthSpent || 0;
-    }
-});
-\`\`\`
-
-I learned to always provide fallback values and to never assume the database document exists or contains the fields I expect. Defensive programming is not about being paranoid — it is about being realistic.
+The listener watches the fund document and updates the local state with the current balance, active month, and previous month's spending. But I learned to always provide fallback values and to never assume the database document exists or contains the fields I expect. Defensive programming is not about being paranoid — it is about being realistic.
 
 The month-change detection feature taught me about temporal logic in applications. I had to think about time zones, edge cases around midnight, and what happens when no one opens the app for several days. Building this feature made me appreciate how complex even simple-sounding requirements can become when they interact with real-world conditions.
 
@@ -933,24 +819,10 @@ function toggleDarkMode() {
     }
 }
 
-// Update Dark Mode Icon
+// Update Dark Mode Icon (handled via CSS now — no JS icon swap needed)
 function updateDarkModeIcon(isDark) {
-    const desktopIcon = document.getElementById('darkModeIcon');
-    const mobileIcon = document.getElementById('mobileDarkModeIcon');
-    
-    if (isDark) {
-        // Show sun icon for light mode option
-        desktopIcon.classList.remove('fa-moon');
-        desktopIcon.classList.add('fa-sun');
-        mobileIcon.classList.remove('fa-moon');
-        mobileIcon.classList.add('fa-sun');
-    } else {
-        // Show moon icon for dark mode option
-        desktopIcon.classList.remove('fa-sun');
-        desktopIcon.classList.add('fa-moon');
-        mobileIcon.classList.remove('fa-sun');
-        mobileIcon.classList.add('fa-moon');
-    }
+    // The sliding toggle is fully CSS-driven via the .dark class on <html>.
+    // No manual icon class changes required.
 }
 
 // Load Dark Mode Preference on Page Load
