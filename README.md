@@ -90,11 +90,7 @@ Made this for our college mess management. Helps manage daily meals, attendance,
 
 **Why I built this:** Our hostel mess had issues with manual attendance and billing, so I thought why not make something useful. Still working on adding more features like meal feedback system.
 
-### 5. Other Small Projects
-- Sparse Matrix operations in C (DSA assignment)
-- Simple calculator using JS
-- To-do list app
-- Some college practical assignments
+
 
 
 ## How to Run
