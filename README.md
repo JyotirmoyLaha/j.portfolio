@@ -90,11 +90,7 @@ Made this for our college mess management. Helps manage daily meals, attendance,
 
 **Why I built this:** Our hostel mess had issues with manual attendance and billing, so I thought why not make something useful. Still working on adding more features like meal feedback system.
 
-### 5. Other Small Projects
-- Sparse Matrix operations in C (DSA assignment)
-- Simple calculator using JS
-- To-do list app
-- Some college practical assignments
+
 
 
 ## How to Run
@@ -154,6 +150,5 @@ Feel free to reach out if you want to collaborate on projects or just talk about
 
 Honestly, I wanted to learn web development properly and the best way is to build real projects. Started with simple HTML pages and kept adding features. Made mistakes, learned from them, and kept improving.
 
-The mess manager project happened because I saw a real problem in our hostel and thought "I can probably code a solution for this". That's what I like about programming - you can build stuff that actually helps people.
 
 
