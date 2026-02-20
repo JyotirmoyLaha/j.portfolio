@@ -760,42 +760,48 @@ function toggleMenu() {
     menu.classList.toggle('hidden');
 }
 
-// Particles Config (Header)
-particlesJS("particles-js", {
-    "particles": {
-        "number": { "value": 30, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#94a3b8" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.3, "random": false },
-        "size": { "value": 2, "random": true },
-        "line_linked": { 
-            "enable": true, 
-            "distance": 150, 
-            "color": "#cbd5e1",
-            "opacity": 0.4, 
-            "width": 1 
-        },
-        "move": { "enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-    },
-    "interactivity": {
-        "detect_on": "canvas",
-        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false }, "resize": true },
-        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.8 } } }
-    },
-    "retina_detect": true
-});
+// ===================== CUSTOM CURSOR =====================
+(function initCustomCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
 
-// Particles Config (Blog Background)
-particlesJS("blog-particles", {
-    "particles": {
-        "number": { "value": 20 },
-        "color": { "value": "#94a3b8" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.3 },
-        "size": { "value": 3 },
-        "move": { "enable": true, "speed": 1 }
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(animateRing);
     }
-});
+    animateRing();
+
+    // Hover effect on interactive elements
+    const hoverTargets = document.querySelectorAll('a, button, [role="button"], .group, .project-card, .terminal-card, .social-icon-btn, .profile-img-wrapper');
+    hoverTargets.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
+    });
+})();
 
 
 
@@ -880,4 +886,100 @@ renderList();
     });
 
     reveals.forEach(el => observer.observe(el));
+})();
+
+// ===================== NAVIGATION BUBBLE INDICATOR =====================
+(function() {
+    const bubble = document.querySelector('.nav-bubble-indicator');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const logoLink = document.getElementById('logoLink');
+    
+    if (!bubble || !logoLink) return;
+    
+    let isHoveringNav = false;
+    
+    // Function to position bubble on an element
+    const positionBubble = (element) => {
+        const rect = element.getBoundingClientRect();
+        const navContainer = document.querySelector('nav .max-w-6xl');
+        const containerRect = navContainer.getBoundingClientRect();
+        
+        bubble.style.width = `${rect.width + 16}px`; // Add padding
+        bubble.style.left = `${rect.left - containerRect.left - 8}px`; // Center with padding
+        bubble.classList.add('active');
+    };
+    
+    // Set default position on logo
+    const setDefaultPosition = () => {
+        if (!isHoveringNav) {
+            positionBubble(logoLink);
+        }
+    };
+    
+    // Initialize on logo
+    setTimeout(() => {
+        positionBubble(logoLink);
+    }, 100);
+    
+    // Move bubble on nav link hover
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            isHoveringNav = true;
+            positionBubble(this);
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            isHoveringNav = false;
+            // Return to logo immediately
+            setTimeout(() => {
+                if (!isHoveringNav) {
+                    positionBubble(logoLink);
+                }
+            }, 50);
+        });
+    });
+    
+    // Reposition on window resize
+    window.addEventListener('resize', setDefaultPosition);
+})();
+
+// ===================== PROFILE IMAGE 3D TILT EFFECT =====================
+(function() {
+    const profileImage = document.getElementById('profileImage');
+    
+    if (!profileImage) return;
+    
+    profileImage.addEventListener('mouseenter', function() {
+        this.style.animation = 'none';
+    });
+    
+    profileImage.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+        
+        this.style.transform = `
+            perspective(1000px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            scale3d(1.05, 1.05, 1.05)
+        `;
+        
+        this.style.boxShadow = `
+            ${-rotateY * 2}px ${rotateX * 2}px 40px rgba(34, 211, 238, 0.3),
+            0 0 0 1px rgba(34, 211, 238, 0.1)
+        `;
+    });
+    
+    profileImage.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+        this.style.boxShadow = '';
+        this.style.animation = '';
+    });
 })();

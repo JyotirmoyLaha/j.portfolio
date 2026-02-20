@@ -16,6 +16,288 @@
     background: #94a3b8;
 }
 
+/* ===================== CUSTOM CURSOR ===================== */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: #a855f7;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s, height 0.15s, background 0.15s;
+}
+
+.cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 2.5px solid rgba(168, 85, 247, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+
+.cursor-hover .cursor-dot {
+    width: 14px;
+    height: 14px;
+    background: #c084fc;
+}
+
+.cursor-hover .cursor-ring {
+    width: 52px;
+    height: 52px;
+    border-color: rgba(192, 132, 252, 0.5);
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+    .cursor-dot, .cursor-ring {
+        display: none;
+    }
+}
+
+/* ===================== NAVIGATION BUBBLE INDICATOR ===================== */
+.nav-bubble-indicator {
+    position: absolute;
+    height: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(16, 185, 129, 0.15));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 18px;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    opacity: 0;
+    z-index: -1;
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.nav-bubble-indicator.active {
+    opacity: 1;
+}
+
+.dark .nav-bubble-indicator {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(16, 185, 129, 0.25));
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.nav-link {
+    position: relative;
+    z-index: 1;
+    padding: 8px 16px;
+}
+
+/* ===================== HERO SECTION ===================== */
+.hero-bg {
+    background-color: #f8fafc;
+    background-image:
+        linear-gradient(135deg, rgba(168, 85, 247, 0.02) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(34, 211, 238, 0.02) 0%, transparent 50%);
+}
+
+.dark .hero-bg {
+    background-color: #0f172a;
+    background-image:
+        linear-gradient(135deg, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(34, 211, 238, 0.04) 0%, transparent 50%);
+}
+
+.profile-img-wrapper {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    animation: float 3s ease-in-out infinite;
+    transform-style: preserve-3d;
+    will-change: transform;
+    cursor: pointer;
+}
+
+.profile-img-wrapper img {
+    object-position: top center;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(-1deg);
+    }
+}
+
+/* Watermark behind hero name (vineet-style) */
+.hero-watermark {
+    position: absolute;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(100px, 15vw, 180px);
+    font-weight: 700;
+    color: rgba(100, 116, 139, 0.06);
+    top: -30%;
+    left: -10%;
+    z-index: 0;
+    line-height: 1;
+    letter-spacing: -0.1em;
+}
+
+.dark .hero-watermark {
+    color: rgba(148, 163, 184, 0.05);
+}
+
+/* Social Icon Buttons (vineet-style) */
+.social-icon-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    transition: all 0.25s ease;
+    border-radius: 50%;
+    position: relative;
+}
+
+.social-icon-btn:hover {
+    color: #22d3ee;
+    transform: scale(1.15);
+}
+
+/* Social Link Tooltip */
+.social-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(15, 23, 42, 0.95);
+    color: #22d3ee;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.social-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.social-icon-btn:hover .social-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dark .social-tooltip {
+    background: rgba(226, 232, 240, 0.95);
+    color: #0f172a;
+}
+
+.dark .social-tooltip::after {
+    border-top-color: rgba(226, 232, 240, 0.95);
+}
+
+/* Footer Social Links */
+.footer-social-link {
+    color: #94a3b8;
+    transition: all 0.25s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-social-link:hover {
+    color: #22d3ee;
+    transform: translateY(-2px);
+}
+
+.footer-social-link:hover .social-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Terminal-style card (inspired by vineet's npx bar) */
+.terminal-card {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: rgba(30, 41, 59, 0.04);
+    border-radius: 1rem;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.terminal-card:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+}
+
+.terminal-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #22d3ee;
+    border-radius: 4px 0 0 4px;
+}
+
+.dark .terminal-card {
+    background: rgba(30, 41, 59, 0.3);
+    border-color: rgba(148, 163, 184, 0.1);
+}
+
+/* ===================== PROJECT CARDS (vineet-style) ===================== */
+.project-card {
+    padding: 24px;
+    border: 1px solid rgba(34, 211, 238, 0.15);
+    border-radius: 0.75rem;
+    background: rgba(30, 41, 59, 0.02);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 8px 24px -8px rgba(34, 211, 238, 0.08);
+}
+
+.dark .project-card {
+    background: rgba(30, 41, 59, 0.35);
+    border-color: rgba(34, 211, 238, 0.12);
+}
+
+.dark .project-card:hover {
+    border-color: rgba(34, 211, 238, 0.35);
+    box-shadow: 0 8px 24px -8px rgba(34, 211, 238, 0.12);
+}
+
 /* Glass Navigation */
 .nav-glass {
     background: rgba(255, 255, 255, 0.85);
@@ -139,18 +421,6 @@
     background-size: 40px 40px;
 }
 
-/* Particles Containers */
-#particles-js,
-#blog-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
 
 
 /* Blog Typography (Prose) */
@@ -162,7 +432,7 @@
 }
 
 .prose h2 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     color: #1e293b;
@@ -187,32 +457,13 @@
     display: none !important;
 }
 
-/* Blob animations */
-@keyframes blob {
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-    33% {
-        transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-        transform: translate(-20px, 20px) scale(0.9);
-    }
-}
-
-.animate-blob {
-    animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-    animation-delay: 2s;
-}
+/* Blob animations (unused - kept for reference) */
 
 /* Line clamp for text truncation */
 .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

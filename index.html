@@ -3,7 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jyotirmoy Laha | Portfolio & Blog</title>
+    <title>Jyotirmoy</title>
+    <link rel="icon" type="image/jpeg" href="profile.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="profile.jpg">
+    <link rel="apple-touch-icon" href="profile.jpg">
+    
+    <!-- Favicon canvas generator -->
+    <script>
+        (function() {
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = 32;
+                canvas.height = 32;
+                var ctx = canvas.getContext('2d');
+                // Draw top portion of image (head area)
+                var size = Math.min(img.width, img.height);
+                ctx.beginPath();
+                ctx.arc(16, 16, 16, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(img, 0, 0, size, size, 0, 0, 32, 32);
+                var link = document.querySelector("link[rel='icon']");
+                if (link) {
+                    link.type = 'image/png';
+                    link.href = canvas.toDataURL('image/png');
+                }
+            };
+            img.src = 'profile.jpg';
+        })();
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +42,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -27,7 +57,8 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         brand: {
@@ -51,28 +82,34 @@
     </script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
+    <!-- Custom Cursor -->
+    <div id="cursor-dot" class="cursor-dot"></div>
+    <div id="cursor-ring" class="cursor-ring"></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 nav-glass transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="javascript:void(0)" onclick="switchView('portfolio')" class="font-display text-xl font-bold text-slate-900 tracking-tight hover:text-accent-primary transition-colors">
-                JYOTIRMOY<span class="text-accent-primary">.DEV</span>
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center relative">
+            <!-- Navigation Bubble Indicator -->
+            <div class="nav-bubble-indicator"></div>
+
+            <a href="javascript:void(0)" onclick="switchView('portfolio')" class="font-display text-xl font-bold text-slate-900 tracking-tight hover:text-cyan-400 transition-colors relative" id="logoLink">
+                JYOTIRMOY<span class="text-cyan-400">.DEV</span>
             </a>
             
             <div class="hidden md:flex items-center space-x-6">
-                <div class="text-sm font-medium text-slate-500">
+                <div class="text-sm font-medium text-slate-500 relative">
+                    
                     <!-- Portfolio Navigation Group (Visible by default) -->
-                    <div id="desktop-portfolio-nav" class="flex space-x-10">
-                        <button onclick="navigateToSection('contact')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Contact</button>
-                        <button onclick="navigateToSection('projects')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Projects</button>
-                        <button onclick="navigateToSection('academic')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Academic</button>
-                        <button onclick="switchView('blog')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors text-accent-primary font-semibold">Blog</button>
+                    <div id="desktop-portfolio-nav" class="flex space-x-10 relative">
+                        <button onclick="navigateToSection('projects')" class="nav-link hover:text-cyan-400 transition-colors" data-nav="projects">Projects</button>
+                        <button onclick="navigateToSection('academic')" class="nav-link hover:text-cyan-400 transition-colors" data-nav="academic">Academic</button>
+                        <button onclick="switchView('blog')" class="nav-link hover:text-cyan-400 transition-colors text-cyan-400 font-semibold" data-nav="blog">Blog</button>
                     </div>
 
                     <!-- Blog Navigation Group (Hidden by default) -->
                     <div id="desktop-blog-nav" class="hidden flex space-x-10">
-                        <button onclick="switchView('portfolio')" class="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Portfolio</button>
-                        <span class="text-accent-primary font-semibold cursor-default">Blog</span>
+                        <button onclick="switchView('portfolio')" class="hover:text-cyan-400 transition-colors">Portfolio</button>
+                        <span class="text-cyan-400 font-semibold cursor-default">Blog</span>
                     </div>
                 </div>
                 
@@ -104,16 +141,15 @@
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-6 py-4 space-y-4 shadow-lg absolute w-full">
             <!-- Portfolio Mobile Links -->
             <div id="mobile-portfolio-nav">
-                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('contact'); toggleMenu()">Contact</button>
-                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('projects'); toggleMenu()">Projects</button>
-                <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="navigateToSection('academic'); toggleMenu()">Academic</button>
-                <button class="block w-full text-left text-accent-primary font-bold" onclick="switchView('blog'); toggleMenu()">Blog</button>
+                <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4" onclick="navigateToSection('projects'); toggleMenu()">Projects</button>
+                <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4" onclick="navigateToSection('academic'); toggleMenu()">Academic</button>
+                <button class="block w-full text-left text-cyan-400 font-bold" onclick="switchView('blog'); toggleMenu()">Blog</button>
             </div>
 
             <!-- Blog Mobile Links (Hidden by default) -->
             <div id="mobile-blog-nav" class="hidden">
-                 <button class="block w-full text-left text-slate-600 hover:text-accent-primary font-medium mb-4" onclick="switchView('portfolio'); toggleMenu()">Portfolio</button>
-                 <button class="block w-full text-left text-accent-primary font-bold cursor-default">Blog</button>
+                 <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4" onclick="switchView('portfolio'); toggleMenu()">Portfolio</button>
+                 <button class="block w-full text-left text-cyan-400 font-bold cursor-default">Blog</button>
             </div>
         </div>
     </nav>
@@ -122,35 +158,70 @@
     <div id="portfolio-view">
         
         <!-- 1. INTRO & MINDSET SECTION -->
-        <header class="min-h-screen flex flex-col justify-center items-center relative pt-20 pb-10 overflow-hidden">
-            <!-- Background Elements -->
-            <div class="absolute inset-0 bg-grid-pattern opacity-[0.4] z-0"></div>
-            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-            
-            <div id="particles-js"></div>
-
-            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-                
-                <!-- Profile Image -->
-                <div class="mb-10 relative inline-block" data-aos="zoom-in" data-aos-duration="1000">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-lg opacity-20 transform scale-110"></div>
-                    <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-[6px] border-white shadow-2xl relative z-10 mx-auto">
-                        <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+        <header class="min-h-screen flex items-center relative pt-20 pb-10 hero-bg">
+            <div class="max-w-6xl mx-auto px-6 w-full relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    
+                    <!-- LEFT: Profile Image -->
+                    <div class="flex-shrink-0 block" data-aos="fade-right" data-aos-duration="800">
+                        <div class="relative">
+                            <div class="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-60 lg:h-60 rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper" id="profileImage">
+                                <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- RIGHT: Intro Text & Description -->
+                    <div class="flex-1 text-left relative" data-aos="fade-left" data-aos-delay="200" data-aos-duration="800">
+                        <!-- Watermark behind name (vineet-style) -->
+                        <div class="hero-watermark select-none pointer-events-none" aria-hidden="true">///</div>
+                        
+                        <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 mb-2 tracking-tight leading-none relative z-10">
+                            Jyotirmoy
+                        </h1>
+                        <div class="flex flex-col gap-3 mt-3 md:pl-1">
+                            <h3 class="font-mono text-lg md:text-xl text-slate-500">BCA Student.</h3>
+                            <h3 class="font-mono text-lg md:text-xl text-slate-500">Problem Solver.</h3>
+                            <h3 class="font-mono text-lg md:text-xl text-slate-500">
+                                Converts <span class="text-emerald-400">ideas</span> into <span class="text-emerald-400">code</span>.
+                            </h3>
+                        </div>
+
+                        <!-- Social Icons Row (vineet-style) -->
+                        <div class="flex gap-5 mt-8 mb-6">
+                            <a href="https://github.com/JyotirmoyLaha" target="_blank" class="social-icon-btn" data-tooltip="GitHub">
+                                <i class="fa-brands fa-github text-xl"></i>
+                                <span class="social-tooltip">GitHub</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="social-icon-btn" data-tooltip="LinkedIn">
+                                <i class="fa-brands fa-linkedin text-xl"></i>
+                                <span class="social-tooltip">LinkedIn</span>
+                            </a>
+                            <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn" data-tooltip="Email">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                                <span class="social-tooltip">Email</span>
+                            </a>
+                            <a href="https://wa.me/8436866473" target="_blank" class="social-icon-btn" data-tooltip="WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span class="social-tooltip">WhatsApp</span>
+                            </a>
+                        </div>
+
+                        <!-- Terminal-style card (inspired by vineet's npx bar) -->
+                        <div class="terminal-card">
+                            <div class="terminal-accent"></div>
+                            <span class="font-mono text-lg md:text-xl text-cyan-400">jyotirmoy<span class="text-emerald-400">@</span>dev</span>
+                            <span class="font-mono text-slate-500 text-sm ml-auto">~ portfolio</span>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Intro Text -->
-                <div data-aos="fade-up" data-aos-delay="200">
-                    <h1 class="font-display text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">
-                        Hello, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jyotirmoy Laha</span>
-                    </h1>
-                    
-                    <!-- The Problem Solver Mindset Card -->
-                    <div class="bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-8 shadow-premium mt-10 mx-auto max-w-2xl transform transition-all hover:scale-[1.02] hover:shadow-premium-hover hover:bg-white group text-center">
-                        <p class="text-slate-600 leading-relaxed text-lg font-light italic">
-                            I am a thinker.Beyond just writing code, my strength lies in analytical thinking. When faced with a tough situation or a complex bug, I don't panic, I break it down.
-                        </p>
+                <!-- Bio Section below (like vineet's bio) -->
+                <div class="mt-16 md:mt-20 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
+                    <p class="font-mono text-sm text-cyan-400 mb-3">// bio</p>
+                    <div class="font-display text-base md:text-lg text-slate-600 leading-relaxed select-none">
+                        Hey, I'm Jyotirmoy — a BCA student from India. Beyond just writing code, my strength lies in analytical thinking. When faced with a tough situation or a complex bug, I don't panic — I break it down. I build projects to improve thinking, not just to show skills.
                     </div>
                 </div>
             </div>
@@ -161,209 +232,122 @@
             </div>
         </header>
 
-        <!-- 2. CONTACT STRIP -->
-        <section id="contact" class="py-16 bg-white relative z-20 border-y border-slate-100 shadow-sm scroll-reveal">
-            <div class="max-w-6xl mx-auto px-6 text-center">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-10">Let's Connect</h2>
-                
-                <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
-                    
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-blue-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#0077b5] group-hover:bg-[#0077b5] group-hover:text-white transition-colors">
-                            <i class="fa-brands fa-linkedin text-xl"></i>
-                        </div>
-                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">LinkedIn</span>
-                    </a>
-
-                    <!-- GitHub -->
-                    <a href="https://github.com/JyotirmoyLaha" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-slate-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-800 group-hover:bg-slate-900 group-hover:text-white transition-colors">
-                            <i class="fa-brands fa-github text-xl"></i>
-                        </div>
-                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">GitHub</span>
-                    </a>
-
-                    <!-- Email -->
-                    <a href="mailto:jyotirmoy713128@gmail.com" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-red-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-envelope text-lg"></i>
-                        </div>
-                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">Email</span>
-                    </a>
-
-                    <!-- WhatsApp -->
-                    <a href="https://wa.me/8436866473" target="_blank" class="group flex items-center gap-3 bg-slate-50 border border-slate-200 px-6 py-4 rounded-xl hover:bg-white hover:border-green-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                            <i class="fa-brands fa-whatsapp text-xl"></i>
-                        </div>
-                        <span class="font-display font-semibold text-slate-700 group-hover:text-slate-900">WhatsApp</span>
-                    </a>
-
-                </div>
-            </div>
-        </section>
+        <!-- 2. CONTACT (scroll target — links now in hero) -->
+        <section id="contact"></section>
 
         <!-- 3. PROJECTS SECTION -->
-        <section id="projects" class="py-24 relative z-10 bg-slate-50 scroll-reveal">
+        <section id="projects" class="py-24 relative z-10 scroll-reveal">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
-                    <div>
-                        <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
-                        <p class="text-slate-500 text-lg max-w-xl">A curated selection of my technical experiments and production-ready applications.</p>
-                    </div>
-                    <div class="mt-6 md:mt-0">
-                        <span class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-400 tracking-wider uppercase shadow-sm">Portfolio 2025-26</span>
-                    </div>
+                <div class="flex justify-center items-center flex-col mb-16" data-aos="fade-up">
+                    <h2 class="font-mono text-center text-3xl md:text-5xl mb-4">
+                        <span class="text-emerald-400">code</span><span class="text-slate-400">:</span><span class="text-cyan-400">projects</span>
+                    </h2>
+                    <p class="text-slate-500 text-base max-w-xl text-center font-mono">A curated selection of my work.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-2 gap-5">
                     
                     <!-- Project 1: Portfolio Website -->
-                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 reveal-child" data-aos="fade-up" data-aos-delay="100">
-                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                             <img src="nick-morrison-FHnnjk1Yj7Y-unsplash.jpg" alt="Portfolio" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                            <i class="fa-solid fa-laptop-code text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">Portfolio Website</h3>
                         </div>
-                        <div class="p-8">
-                            <h3 class="font-display text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-primary transition-colors">Portfolio Website</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                                A minimalist, high-performance digital portfolio designed with HTML5 and Tailwind CSS, focusing on clean aesthetics and responsiveness.
-                            </p>
-                            <div class="flex gap-2">
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">HTML5</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Tailwind</span>
-                            </div>
+                        <p class="font-display text-slate-500 text-sm md:text-base leading-relaxed mb-4">
+                            A minimalist, high-performance digital portfolio focusing on clean aesthetics and responsiveness.
+                        </p>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span class="font-mono text-sm text-emerald-400">HTML5, Tailwind, JavaScript</span>
                         </div>
                     </div>
 
                     <!-- Project 2: Weather App -->
-                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 reveal-child" data-aos="fade-up" data-aos-delay="200">
-                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                            <img src="dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.jpg" alt="Weather App" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                            <i class="fa-solid fa-cloud-bolt text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">J.SkyCast</h3>
+                            <a href="https://j-weather.onrender.com" target="_blank" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">Weather App</h3>
-                                <a href="https://j-weather.onrender.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                            </div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                                Dynamic weather tracking dashboard utilizing the OpenWeatherMap API for real-time meteorological data visualization.
-                            </p>
-                            <div class="flex gap-2">
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">JavaScript</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">API</span>
-                            </div>
+                        <p class="font-display text-slate-500 text-sm md:text-base leading-relaxed mb-4">
+                            Dynamic weather tracking dashboard utilizing API for real-time meteorological data visualization.
+                        </p>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span class="font-mono text-sm text-emerald-400">JavaScript, API, Tailwind</span>
                         </div>
                     </div>
 
-                    <!-- Project 3: AI Resume Analyzer & Skill Gap Finder -->
-                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 reveal-child" data-aos="fade-up" data-aos-delay="200">
-                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                            <img src="chatgpt-resume-analyzer.png" alt="AI Resume Analyzer & Skill Gap Finder" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                           <i class="fa-solid fa-file-lines text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                    <!-- Project 3: AI Resume Analyzer -->
+                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">AI Resume Analyzer</h3>
+                            <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">AI Resume Analyzer & Skill Gap Finder</h3>
-                                <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                            </div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                               Intelligent resume evaluation platform that analyzes candidate resumes using NLP and AI-driven logic to extract skills, identify gaps against target job roles, and provide personalized improvement recommendations for career growth.
-                            </p>
-                            <div class="flex gap-2">
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Python</span>
-                                 <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">FastAPI</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">NLP</span>
-                            </div>
+                        <p class="font-display text-slate-500 text-sm md:text-base leading-relaxed mb-4">
+                            Intelligent resume evaluation platform using NLP to extract skills and identify gaps against target job roles.
+                        </p>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span class="font-mono text-sm text-emerald-400">Python, FastAPI, NLP</span>
                         </div>
                     </div>
 
                     <!-- Project 4: Mess Manager -->
-                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 reveal-child" data-aos="fade-up" data-aos-delay="300">
-                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                            <img src="mess-manager.jpeg" alt="Mess Manager" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                            <i class="fa-solid fa-utensils text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">Mess Manager</h3>
+                            <a href="https://mess-maneger.onrender.com/" target="_blank" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">Mess Manager</h3>
-                                <a href="https://mess-maneger.onrender.com/" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all">
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                </a>
-                            </div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                                Firebase-powered Website for hostel groups to track shared mess expenses with real-time sync, Google authentication, live fund balance, and instant PDF reports.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">HTML5</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Tailwind CSS</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">JavaScript(ES Modules)</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Firebase(Auth + Firestore)</span>
-                            </div>
+                        <p class="font-display text-slate-500 text-sm md:text-base leading-relaxed mb-4">
+                            Firebase-powered real-time expense tracker for hostel groups with Google auth and instant PDF reports.
+                        </p>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span class="font-mono text-sm text-emerald-400">JavaScript, Firebase, Tailwind</span>
                         </div>
                     </div>
 
-                    <!-- Project 4: StudyVerse -->
-                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 reveal-child" data-aos="fade-up" data-aos-delay="300">
-                        <div class="h-56 bg-slate-100 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-                            <img src="studyverse.png" alt="StudyVerse" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors"></div>
-                            <i class="fa-solid fa-book text-6xl text-white drop-shadow-md group-hover:scale-110 transition-all duration-500 relative z-10"></i>
+                    <!-- Project 5: StudyVerse -->
+                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">StudyVerse</h3>
+                            <a href="https://studyverse-vlzh.onrender.com/" target="_blank" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-accent-primary transition-colors">StudyVerse</h3>
-                                <a href="https://studyverse-vlzh.onrender.com/" target="_blank" class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-accent-primary hover:text-white transition-all">
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                </a>
-                            </div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                               A zen-inspired personal journal with Firebase backend, cherry blossom aesthetics, and Google authentication.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">HTML</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500"> Vanilla CSS</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">JavaScript (ES6+)</span>
-                                <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-semibold text-slate-500">Firebase(Authentication + Cloud Firestore)</span>
-                            </div>
+                        <p class="font-display text-slate-500 text-sm md:text-base leading-relaxed mb-4">
+                            A zen-inspired personal journal with Firebase backend, cherry blossom aesthetics, and Google authentication.
+                        </p>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span class="font-mono text-sm text-emerald-400">HTML, CSS, JavaScript, Firebase</span>
                         </div>
                     </div>
 
                     <!-- Future Project -->
-                    <div class="group bg-white rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-8 text-center hover:border-accent-primary hover:bg-blue-50/50 transition-all duration-300 cursor-pointer reveal-child" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-md transition-all">
-                            <i class="fa-solid fa-plus text-3xl text-slate-300 group-hover:text-accent-primary transition-colors"></i>
-                        </div>
-                        <h3 class="font-display text-lg font-bold text-slate-800">In Progress</h3>
-                        <p class="text-slate-500 text-sm mt-2 max-w-xs">Currently researching and developing new AI-integrated software solutions.</p>
+                    <div class="project-card group reveal-child border-dashed !border-slate-300 dark:!border-slate-600 flex flex-col items-center justify-center text-center" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fa-solid fa-plus text-2xl text-slate-400 group-hover:text-cyan-400 transition-colors mb-3"></i>
+                        <h3 class="font-display text-lg font-bold text-slate-600">In Progress</h3>
+                        <p class="text-slate-500 text-sm mt-1 font-mono">building something new...</p>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <!-- 4. ACADEMIC DETAILS -->
-        <section id="academic" class="py-24 bg-white relative z-10 border-t border-slate-100 scroll-reveal">
+        <section id="academic" class="py-24 relative z-10 border-t border-slate-200/50 scroll-reveal">
             <div class="max-w-4xl mx-auto px-6">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="font-display text-3xl font-bold text-slate-900">Academic Background</h2>
-                    <div class="w-20 h-1 bg-accent-primary mx-auto mt-4 rounded-full"></div>
+                <div class="flex justify-center items-center flex-col mb-16" data-aos="fade-up">
+                    <h2 class="font-mono text-center text-3xl md:text-5xl mb-4">
+                        <span class="text-emerald-400">code</span><span class="text-slate-400">:</span><span class="text-cyan-400">academic</span>
+                    </h2>
                 </div>
                 
-                <div class="relative pl-10 border-l-2 border-slate-100 space-y-16">
+                <div class="relative pl-10 border-l-2 border-cyan-400/20 space-y-16">
                     
                     <!-- Current Degree -->
                     <div class="relative" data-aos="fade-left">
-                        <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-accent-primary shadow-md"></span>
+                        <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-slate-50 bg-cyan-400 shadow-md dark:border-slate-900"></span>
                         <h3 class="font-display text-2xl font-bold text-slate-900">Bachelor of Computer Applications (BCA)</h3>
                         <div class="flex items-center gap-3 text-sm font-semibold mt-2 mb-4">
-                            <span class="text-accent-primary">2nd Year Student</span>
+                            <span class="text-cyan-400">2nd Year Student</span>
                             <span class="text-slate-300">•</span>
                             <span class="text-slate-500">Dr. B.C. Roy Academy of Professional Courses</span>
                         </div>
@@ -380,7 +364,7 @@
 
                     <!-- Continuous Learning -->
                     <div class="relative" data-aos="fade-left" data-aos-delay="100">
-                         <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-white bg-slate-300 shadow-sm"></span>
+                         <span class="absolute -left-[49px] top-1.5 h-6 w-6 rounded-full border-4 border-slate-50 bg-emerald-400 shadow-sm dark:border-slate-900"></span>
                         <h3 class="font-display text-xl font-bold text-slate-900">Continuous Learning</h3>
                         <p class="text-slate-500 font-medium mt-1">Self-Directed Development</p>
                         <p class="text-slate-600 mt-3 leading-relaxed">
@@ -396,16 +380,16 @@
     <!-- ======================= BLOG VIEW ======================= -->
     <div id="blog-view" class="view-hidden">
         <main class="min-h-screen pt-32 pb-24 px-6 relative">
-            <div id="blog-particles" class="absolute inset-0 pointer-events-none z-0 opacity-30"></div>
+
 
             <!-- 1. BLOG LIST VIEW -->
             <div id="blog-list" class="max-w-6xl mx-auto relative z-10">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-accent-primary uppercase bg-blue-50 rounded-full border border-blue-100">
+                    <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-50 rounded-full border border-cyan-200 dark:bg-cyan-900/20 dark:border-cyan-800">
                         My Writings
                     </span>
                     <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                        Jyotirmoy & His Thoughts
+                        <span class="text-emerald-400">code</span><span class="text-slate-400">:</span><span class="text-cyan-400">thoughts</span>
                     </h1>
                     <p class="text-slate-500 text-lg max-w-2xl mx-auto">
                         A deep dive into my coding journey, the mistakes I've made, and the lessons I've learned along the way.
@@ -444,17 +428,32 @@
     </div>
 
     <!-- 5. SHARED FOOTER -->
-    <footer class="py-10 bg-slate-900 text-center relative z-20 scroll-reveal">
-        <p class="text-slate-400 text-sm font-medium tracking-wide">
-            &copy; 2026 Built by Jyotirmoy Laha
-        </p>
+    <footer class="py-10 border-t border-slate-200/30 relative z-20 scroll-reveal">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex justify-center items-center gap-8">
+                <a href="mailto:jyotirmoy713128@gmail.com" class="footer-social-link" data-tooltip="Email">
+                    <i class="fa-solid fa-envelope text-lg"></i>
+                    <span class="social-tooltip">Email</span>
+                </a>
+                <a href="https://github.com/JyotirmoyLaha" target="_blank" class="footer-social-link" data-tooltip="GitHub">
+                    <i class="fa-brands fa-github text-lg"></i>
+                    <span class="social-tooltip">GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/jyotirmoy-laha-416818319" target="_blank" class="footer-social-link" data-tooltip="LinkedIn">
+                    <i class="fa-brands fa-linkedin text-lg"></i>
+                    <span class="social-tooltip">LinkedIn</span>
+                </a>
+            </div>
+            <div class="text-slate-500 font-display text-sm">
+                Made with <span class="text-red-400">&lt;3</span>, by Jyotirmoy Laha
+            </div>
+        </div>
     </footer>
 
     <!-- AOS Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Particles Library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
