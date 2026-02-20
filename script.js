@@ -676,24 +676,24 @@ function renderList() {
     const grid = document.getElementById('posts-grid');
     if (!grid) return;
     grid.innerHTML = blogPosts.map(post => `
-        <article class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full cursor-pointer" onclick="showDetail(${post.id})">
-            <div class="h-48 bg-slate-100 relative overflow-hidden">
-                <img src="${post.image}" alt="${post.title}" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-slate-600 shadow-sm border border-slate-100">
+        <article class="group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full cursor-pointer" onclick="showDetail(${post.id})">
+            <div class="h-36 sm:h-48 bg-slate-100 relative overflow-hidden">
+                <img src="${post.image}" alt="${post.title}" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" loading="lazy">
+                <div class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold text-slate-600 shadow-sm border border-slate-100">
                     ${post.category}
                 </div>
             </div>
-            <div class="p-6 flex-1 flex flex-col">
-                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+            <div class="p-4 sm:p-6 flex-1 flex flex-col">
+                <div class="text-[10px] sm:text-xs text-slate-400 mb-2 sm:mb-3 flex items-center gap-2">
                     <i class="fa-regular fa-calendar"></i> ${post.date}
                 </div>
-                <h2 class="font-display text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-primary transition-colors">
+                <h2 class="font-display text-base sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 group-hover:text-accent-primary transition-colors leading-snug">
                     ${post.title}
                 </h2>
-                <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 flex-1 line-clamp-3">
                     ${post.content.replace(/```/g, '').substring(0, 100)}...
                 </p>
-                <div class="inline-flex items-center text-sm font-semibold text-accent-primary hover:text-blue-700 transition-colors group/link">
+                <div class="inline-flex items-center text-xs sm:text-sm font-semibold text-accent-primary hover:text-blue-700 transition-colors group/link">
                     Read Article <i class="fa-solid fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
                 </div>
             </div>
@@ -712,7 +712,7 @@ function showDetail(id) {
     parts.forEach((part, index) => {
         if (index % 2 === 1) {
             // This is a code block
-            formattedContent += `<pre class="bg-slate-900 text-blue-200 p-6 rounded-xl my-6 font-mono text-sm overflow-x-auto shadow-inner leading-relaxed border border-slate-700">${part.trim()}</pre>`;
+            formattedContent += `<pre class="bg-slate-900 text-blue-200 p-4 sm:p-6 rounded-lg sm:rounded-xl my-4 sm:my-6 font-mono text-xs sm:text-sm overflow-x-auto shadow-inner leading-relaxed border border-slate-700 whitespace-pre-wrap break-words sm:whitespace-pre sm:break-normal">${part.trim()}</pre>`;
         } else {
             // This is regular text
             const lines = part.split('\n');

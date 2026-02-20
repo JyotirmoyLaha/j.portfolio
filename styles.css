@@ -140,7 +140,7 @@
 .hero-watermark {
     position: absolute;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(100px, 15vw, 180px);
+    font-size: clamp(80px, 15vw, 180px);
     font-weight: 700;
     color: rgba(100, 116, 139, 0.06);
     top: -30%;
@@ -148,6 +148,15 @@
     z-index: 0;
     line-height: 1;
     letter-spacing: -0.1em;
+}
+
+@media (max-width: 640px) {
+    .hero-watermark {
+        font-size: 70px;
+        top: -20%;
+        left: -5%;
+        opacity: 0.5;
+    }
 }
 
 .dark .hero-watermark {
@@ -240,14 +249,22 @@
     max-width: 400px;
     border: 1px solid rgba(148, 163, 184, 0.15);
     background: rgba(30, 41, 59, 0.04);
-    border-radius: 1rem;
-    padding: 16px 24px;
+    border-radius: 0.75rem;
+    padding: 12px 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     position: relative;
     overflow: hidden;
     transition: border-color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+    .terminal-card {
+        border-radius: 1rem;
+        padding: 16px 24px;
+        gap: 12px;
+    }
 }
 
 .terminal-card:hover {
@@ -271,15 +288,22 @@
 
 /* ===================== PROJECT CARDS (vineet-style) ===================== */
 .project-card {
-    padding: 24px;
+    padding: 16px;
     border: 1px solid rgba(34, 211, 238, 0.15);
     border-radius: 0.75rem;
     background: rgba(30, 41, 59, 0.02);
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    min-height: 180px;
+    min-height: 150px;
     transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+    .project-card {
+        padding: 24px;
+        min-height: 180px;
+    }
 }
 
 .project-card:hover {
@@ -425,31 +449,71 @@
 
 /* Blog Typography (Prose) */
 .prose p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
     color: #475569;
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
+}
+
+@media (min-width: 640px) {
+    .prose p {
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        font-size: 1.125rem;
+    }
 }
 
 .prose h2 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1e293b;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .prose h2 {
+        font-size: 1.75rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .prose ul {
     list-style-type: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
     color: #475569;
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
+}
+
+@media (min-width: 640px) {
+    .prose ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.125rem;
+    }
 }
 
 .prose li {
     margin-bottom: 0.5rem;
+}
+
+/* Blog code blocks mobile fix */
+.prose pre {
+    font-size: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.625rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+    .prose pre {
+        font-size: 0.875rem;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+    }
 }
 
 /* Utility for hiding views */
@@ -690,3 +754,136 @@ nav {
 .scroll-reveal.active .reveal-child:nth-child(4) { transition-delay: 0.26s; }
 .scroll-reveal.active .reveal-child:nth-child(5) { transition-delay: 0.33s; }
 .scroll-reveal.active .reveal-child:nth-child(6) { transition-delay: 0.40s; }
+
+/* ===================== MOBILE RESPONSIVE ADDITIONS ===================== */
+
+/* Prevent horizontal overflow on mobile */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 768px) {
+    nav .max-w-6xl {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Hide nav bubble indicator on mobile */
+    .nav-bubble-indicator {
+        display: none;
+    }
+
+    /* Mobile menu improvements */
+    #mobile-menu {
+        padding: 1rem 1.25rem;
+    }
+
+    #mobile-menu button {
+        padding: 0.625rem 0;
+        font-size: 0.9375rem;
+    }
+
+    /* Hero section mobile centering */
+    .hero-bg .flex-col {
+        text-align: center;
+    }
+
+    .hero-bg .text-left {
+        text-align: center;
+    }
+
+    .hero-bg .flex.gap-4,
+    .hero-bg .flex.gap-5 {
+        justify-content: center;
+    }
+
+    .hero-bg .terminal-card {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .hero-bg .max-w-2xl {
+        text-align: left;
+    }
+
+    /* Profile image float animation - gentler on mobile */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    /* Academic timeline marker fix */
+    .border-l-2 .absolute.-left-\[33px\] {
+        left: -33px;
+    }
+
+    /* Footer mobile fix */
+    footer .flex-col {
+        gap: 1rem;
+    }
+}
+
+/* Small phones (below 375px) */
+@media (max-width: 374px) {
+    .font-display.text-4xl {
+        font-size: 2rem;
+    }
+
+    .terminal-card {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+
+    .project-card {
+        padding: 12px;
+        min-height: 130px;
+    }
+
+    .social-icon-btn {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    .social-icon-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Disable hover-only effects */
+    .project-card:hover {
+        transform: none;
+    }
+
+    .social-icon-btn:hover {
+        transform: none;
+    }
+
+    /* Hide tooltips on touch */
+    .social-tooltip {
+        display: none;
+    }
+
+    /* Smoother scrolling */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* Landscape phone orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    header.min-h-screen {
+        min-height: auto;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+    }
+}
