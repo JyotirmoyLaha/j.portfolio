@@ -827,6 +827,11 @@ html, body {
     footer .flex-col {
         gap: 1rem;
     }
+
+    /* Tighter section flow for mobile/desktop-mode-on-phone */
+    section {
+        scroll-margin-top: 60px;
+    }
 }
 
 /* Small phones (below 375px) */
@@ -881,9 +886,21 @@ html, body {
 
 /* Landscape phone orientation */
 @media (max-height: 500px) and (orientation: landscape) {
-    header.min-h-screen {
-        min-height: auto;
+    header {
         padding-top: 5rem;
+        padding-bottom: 1rem;
+    }
+}
+
+/* Desktop mode on phone — content should flow tightly */
+@media (min-width: 980px) and (max-height: 450px) {
+    header {
+        padding-top: 4.5rem;
+        padding-bottom: 1rem;
+    }
+
+    section {
+        padding-top: 2rem;
         padding-bottom: 2rem;
     }
 }
