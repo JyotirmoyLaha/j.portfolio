@@ -803,14 +803,15 @@ function showList() {
 
 // ===================== LENIS SMOOTH SCROLL =====================
 const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential easing
+    duration: 1.0,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
-    wheelMultiplier: 0.8,
-    touchMultiplier: 1.5,
+    wheelMultiplier: 0.7,
+    touchMultiplier: 1.2,
     infinite: false,
+    lerp: 0.1,
 });
 
 function raf(time) {
@@ -831,21 +832,18 @@ requestAnimationFrame(raf);
             requestAnimationFrame(() => {
                 const currentScroll = window.pageYOffset;
                 if (currentScroll <= 10) {
-                    // At top — always show
-                    nav.style.transform = 'translateY(0)';
+                    nav.style.transform = 'translateY(0) translateZ(0)';
                 } else if (currentScroll > lastScroll && currentScroll > 80) {
-                    // Scrolling down & past threshold — hide
-                    nav.style.transform = 'translateY(-100%)';
+                    nav.style.transform = 'translateY(-100%) translateZ(0)';
                 } else {
-                    // Scrolling up — show
-                    nav.style.transform = 'translateY(0)';
+                    nav.style.transform = 'translateY(0) translateZ(0)';
                 }
                 lastScroll = currentScroll;
                 ticking = false;
             });
             ticking = true;
         }
-    });
+    }, { passive: true });
 })();
 
 // Initialize AOS with smoother settings
@@ -888,24 +886,49 @@ function toggleMenu() {
     const ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
 
+    // Skip on touch devices
+    if (window.matchMedia('(hover: none)').matches) return;
+
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
+    let rafId = null;
+    let isMoving = false;
+    let moveTimeout;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         dot.style.left = mouseX + 'px';
         dot.style.top = mouseY + 'px';
-    });
+
+        // Start ring animation if not running
+        if (!isMoving) {
+            isMoving = true;
+            animateRing();
+        }
+
+        // Stop ring animation after mouse is idle for 100ms
+        clearTimeout(moveTimeout);
+        moveTimeout = setTimeout(() => {
+            isMoving = false;
+        }, 100);
+    }, { passive: true });
 
     function animateRing() {
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
+        if (!isMoving) {
+            // One final snap and stop
+            ringX += (mouseX - ringX) * 0.3;
+            ringY += (mouseY - ringY) * 0.3;
+            ring.style.left = ringX + 'px';
+            ring.style.top = ringY + 'px';
+            return;
+        }
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
         ring.style.left = ringX + 'px';
         ring.style.top = ringY + 'px';
         requestAnimationFrame(animateRing);
     }
-    animateRing();
 
     // Hover effect on interactive elements
     const hoverTargets = document.querySelectorAll('a, button, [role="button"], .group, .project-card, .terminal-card, .social-icon-btn, .profile-img-wrapper');
@@ -932,19 +955,26 @@ function toggleMenu() {
 // Toggle Dark Mode Function
 function toggleDarkMode() {
     const html = document.documentElement;
+    const body = document.body;
     const currentMode = html.classList.contains('dark');
     
+    // Enable transition only during toggle
+    body.classList.add('theme-transitioning');
+    
     if (currentMode) {
-        // Switch to light mode
         html.classList.remove('dark');
         updateDarkModeIcon(false);
         localStorage.setItem('darkMode', 'false');
     } else {
-        // Switch to dark mode
         html.classList.add('dark');
         updateDarkModeIcon(true);
         localStorage.setItem('darkMode', 'true');
     }
+    
+    // Remove transition class after animation completes
+    setTimeout(() => {
+        body.classList.remove('theme-transitioning');
+    }, 450);
 }
 
 // Update Dark Mode Icon (handled via CSS now — no JS icon swap needed)
