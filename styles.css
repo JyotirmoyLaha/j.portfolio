@@ -171,7 +171,8 @@
     align-items: center;
     justify-content: center;
     color: #94a3b8;
-    transition: all 0.25s ease;
+    transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     border-radius: 50%;
     position: relative;
 }
@@ -179,6 +180,10 @@
 .social-icon-btn:hover {
     color: #22d3ee;
     transform: scale(1.15);
+}
+
+.social-icon-btn:active {
+    transform: scale(0.9);
 }
 
 /* Social Link Tooltip */
@@ -256,7 +261,8 @@
     gap: 8px;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @media (min-width: 640px) {
@@ -296,7 +302,9 @@
     display: flex;
     flex-direction: column;
     min-height: 150px;
-    transition: all 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @media (min-width: 640px) {
@@ -307,9 +315,13 @@
 }
 
 .project-card:hover {
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(-2px) scale(1.02);
     border-color: rgba(34, 211, 238, 0.4);
     box-shadow: 0 8px 24px -8px rgba(34, 211, 238, 0.08);
+}
+
+.project-card:active {
+    transform: scale(0.98);
 }
 
 .dark .project-card {
@@ -516,8 +528,38 @@
     }
 }
 
-/* Utility for hiding views */
+/* Utility for hiding views — smooth fade */
 .view-hidden {
+    display: none !important;
+}
+
+/* View transition wrapper */
+#portfolio-view,
+#blog-view {
+    animation: viewFadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@keyframes viewFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Blog list/detail smooth switch */
+#blog-list,
+#blog-detail {
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#blog-list.hidden,
+#blog-detail.hidden {
     display: none !important;
 }
 
@@ -708,39 +750,36 @@
 
 /* Smooth transition for dark mode */
 body {
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 nav {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ===================== SCROLL REVEAL (Storytelling) ===================== */
 
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(60px) scale(0.97);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 1s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: opacity, transform;
 }
 
 .scroll-reveal.active {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
 
-.scroll-reveal.fade-out {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.98);
-}
+/* No fade-out — once visible, stays visible (like vineet's whileInView once:true) */
 
 /* Stagger children inside a reveal group */
 .scroll-reveal .reveal-child {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .scroll-reveal.active .reveal-child {
@@ -761,6 +800,26 @@ nav {
 html, body {
     overflow-x: hidden;
     max-width: 100vw;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+/* Mobile menu smooth transition */
+#mobile-menu {
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Mobile navigation improvements */

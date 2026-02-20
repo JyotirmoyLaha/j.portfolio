@@ -614,41 +614,64 @@ function switchView(viewName) {
     const mobilePortfolioNav = document.getElementById('mobile-portfolio-nav');
     const mobileBlogNav = document.getElementById('mobile-blog-nav');
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Close mobile menu if open
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        toggleMenu();
+    }
+
+    // Smooth scroll to top via Lenis
+    lenis.scrollTo(0, { duration: 0.8 });
 
     if (viewName === 'blog') {
-        // Show Blog View
-        portfolio.classList.add('view-hidden');
-        blog.classList.remove('view-hidden');
-
-        // Switch Navigation to Blog Mode
-        desktopPortfolioNav.classList.add('hidden');
-        desktopBlogNav.classList.remove('hidden');
-        mobilePortfolioNav.classList.add('hidden');
-        mobileBlogNav.classList.remove('hidden');
-        
-        // Initialize Blog Components if needed
+        // Fade out current view, then swap
+        portfolio.style.opacity = '0';
+        portfolio.style.transform = 'translateY(12px)';
         setTimeout(() => {
-            AOS.refresh();
-        }, 100);
+            portfolio.classList.add('view-hidden');
+            portfolio.style.opacity = '';
+            portfolio.style.transform = '';
+            blog.classList.remove('view-hidden');
+
+            // Switch Navigation to Blog Mode
+            desktopPortfolioNav.classList.add('hidden');
+            desktopBlogNav.classList.remove('hidden');
+            mobilePortfolioNav.classList.add('hidden');
+            mobileBlogNav.classList.remove('hidden');
+
+            // Re-trigger entrance animation
+            blog.style.animation = 'none';
+            blog.offsetHeight; // trigger reflow
+            blog.style.animation = '';
+
+            setTimeout(() => AOS.refresh(), 100);
+        }, 250);
     } else {
-        // Show Portfolio View
-        blog.classList.add('view-hidden');
-        portfolio.classList.remove('view-hidden');
-
-        // Switch Navigation to Portfolio Mode
-        desktopBlogNav.classList.add('hidden');
-        desktopPortfolioNav.classList.remove('hidden');
-        mobileBlogNav.classList.add('hidden');
-        mobilePortfolioNav.classList.remove('hidden');
-        
-        // Reset Blog to list view when leaving
-        showList();
-        
+        // Fade out current view, then swap
+        blog.style.opacity = '0';
+        blog.style.transform = 'translateY(12px)';
         setTimeout(() => {
-            AOS.refresh();
-        }, 100);
+            blog.classList.add('view-hidden');
+            blog.style.opacity = '';
+            blog.style.transform = '';
+            portfolio.classList.remove('view-hidden');
+
+            // Switch Navigation to Portfolio Mode
+            desktopBlogNav.classList.add('hidden');
+            desktopPortfolioNav.classList.remove('hidden');
+            mobileBlogNav.classList.add('hidden');
+            mobilePortfolioNav.classList.remove('hidden');
+
+            // Reset Blog to list view when leaving
+            showList();
+
+            // Re-trigger entrance animation
+            portfolio.style.animation = 'none';
+            portfolio.offsetHeight;
+            portfolio.style.animation = '';
+
+            setTimeout(() => AOS.refresh(), 100);
+        }, 250);
     }
 }
 
@@ -661,12 +684,12 @@ function navigateToSection(sectionId) {
         // Wait for switch then scroll
         setTimeout(() => {
             const element = document.getElementById(sectionId);
-            if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+            if (element) lenis.scrollTo(element, { duration: 1, offset: -80 });
+        }, 150);
     } else {
         // Already in portfolio view, just scroll
         const element = document.getElementById(sectionId);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        if (element) lenis.scrollTo(element, { duration: 1, offset: -80 });
     }
 }
 
@@ -733,31 +756,130 @@ function showDetail(id) {
     document.getElementById('detail-date').innerText = post.date;
     document.getElementById('detail-content').innerHTML = formattedContent;
 
-    document.getElementById('blog-list').classList.add('hidden');
-    document.getElementById('blog-detail').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const blogList = document.getElementById('blog-list');
+    const blogDetail = document.getElementById('blog-detail');
+
+    // Fade out list, then show detail
+    blogList.style.opacity = '0';
+    blogList.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+        blogList.classList.add('hidden');
+        blogList.style.opacity = '';
+        blogList.style.transform = '';
+        blogDetail.classList.remove('hidden');
+        blogDetail.style.opacity = '0';
+        blogDetail.style.transform = 'translateY(10px)';
+        requestAnimationFrame(() => {
+            blogDetail.style.opacity = '1';
+            blogDetail.style.transform = 'translateY(0)';
+        });
+    }, 250);
+    lenis.scrollTo(0, { duration: 0.6 });
 }
 
 function showList() {
-    document.getElementById('blog-detail').classList.add('hidden');
-    document.getElementById('blog-list').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const blogList = document.getElementById('blog-list');
+    const blogDetail = document.getElementById('blog-detail');
+
+    // Fade out detail, then show list
+    blogDetail.style.opacity = '0';
+    blogDetail.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+        blogDetail.classList.add('hidden');
+        blogDetail.style.opacity = '';
+        blogDetail.style.transform = '';
+        blogList.classList.remove('hidden');
+        blogList.style.opacity = '0';
+        blogList.style.transform = 'translateY(10px)';
+        requestAnimationFrame(() => {
+            blogList.style.opacity = '1';
+            blogList.style.transform = 'translateY(0)';
+        });
+    }, 250);
+    lenis.scrollTo(0, { duration: 0.6 });
 }
 
 // --- INIT SCRIPTS ---
 
-// Initialize AOS
-AOS.init({
-    once: true,
-    offset: 50,
-    duration: 1000,
-    easing: 'ease-out-cubic',
+// ===================== LENIS SMOOTH SCROLL =====================
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential easing
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 0.8,
+    touchMultiplier: 1.5,
+    infinite: false,
 });
 
-// Mobile Menu Toggle
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// ===================== SMART NAV HIDE ON SCROLL =====================
+(function() {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    let lastScroll = 0;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll <= 10) {
+                    // At top — always show
+                    nav.style.transform = 'translateY(0)';
+                } else if (currentScroll > lastScroll && currentScroll > 80) {
+                    // Scrolling down & past threshold — hide
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up — show
+                    nav.style.transform = 'translateY(0)';
+                }
+                lastScroll = currentScroll;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
+
+// Initialize AOS with smoother settings
+AOS.init({
+    once: true,
+    offset: 40,
+    duration: 700,
+    easing: 'ease-out-quart',
+    delay: 0,
+});
+
+// Mobile Menu Toggle (smooth)
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.style.maxHeight = '0';
+        menu.style.opacity = '0';
+        requestAnimationFrame(() => {
+            menu.style.transition = 'max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease';
+            menu.style.maxHeight = menu.scrollHeight + 'px';
+            menu.style.opacity = '1';
+        });
+    } else {
+        menu.style.transition = 'max-height 0.3s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.2s ease';
+        menu.style.maxHeight = '0';
+        menu.style.opacity = '0';
+        setTimeout(() => {
+            menu.classList.add('hidden');
+            menu.style.maxHeight = '';
+            menu.style.opacity = '';
+            menu.style.transition = '';
+        }, 350);
+    }
 }
 
 // ===================== CUSTOM CURSOR =====================
@@ -777,8 +899,8 @@ function toggleMenu() {
     });
 
     function animateRing() {
-        ringX += (mouseX - ringX) * 0.15;
-        ringY += (mouseY - ringY) * 0.15;
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
         ring.style.left = ringX + 'px';
         ring.style.top = ringY + 'px';
         requestAnimationFrame(animateRing);
@@ -859,7 +981,7 @@ loadDarkModePreference();
 // Initialize Render
 renderList();
 
-// ===================== SCROLL REVEAL (Storytelling Effect) =====================
+// ===================== SCROLL REVEAL (Smooth, one-way like vineet) =====================
 
 (function initScrollReveal() {
     const reveals = document.querySelectorAll('.scroll-reveal');
@@ -868,21 +990,12 @@ renderList();
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                entry.target.classList.remove('fade-out');
-            } else {
-                // Only fade out if element is above the viewport (scrolled past)
-                const rect = entry.boundingClientRect;
-                if (rect.top < 0) {
-                    entry.target.classList.add('fade-out');
-                    entry.target.classList.remove('active');
-                } else {
-                    // Below viewport — reset to initial hidden state
-                    entry.target.classList.remove('active', 'fade-out');
-                }
+                observer.unobserve(entry.target); // Once visible, stay visible (like Framer Motion once:true)
             }
         });
     }, {
-        threshold: 0.15
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
     });
 
     reveals.forEach(el => observer.observe(el));
@@ -951,6 +1064,7 @@ renderList();
     
     profileImage.addEventListener('mouseenter', function() {
         this.style.animation = 'none';
+        this.style.transition = 'transform 0.2s ease-out, box-shadow 0.2s ease-out';
     });
     
     profileImage.addEventListener('mousemove', function(e) {
@@ -978,8 +1092,12 @@ renderList();
     });
     
     profileImage.addEventListener('mouseleave', function() {
+        this.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
         this.style.transform = '';
         this.style.boxShadow = '';
-        this.style.animation = '';
+        setTimeout(() => {
+            this.style.transition = '';
+            this.style.animation = '';
+        }, 500);
     });
 })();
