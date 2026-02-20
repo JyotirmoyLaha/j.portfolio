@@ -1,154 +1,145 @@
-# My Portfolio & Projects 🚀
-
-Hey! I'm Jyotirmoy, a BCA student who loves coding and building stuff. This repo contains my portfolio website and some cool projects I've worked on.
-
-**Live Links:**
-- Portfolio: https://jyotirmoy-portfolio.onrender.com
-- Weather App: https://j-weather.onrender.com
-- AI Resume Analyzer: https://ai-resume-analyzer-hhhb.onrender.com/
-- Mess Manager: https://mess-maneger.onrender.com/
-
-## Tech Stack
+# Jyotirmoy Laha — Portfolio & Projects
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)
 
-## What's This About?
+BCA student building real-world web applications. This repository contains my personal portfolio website — a responsive, single-page site showcasing five production-deployed projects.
 
-So basically I made this portfolio site using HTML, CSS (Tailwind) and JavaScript. No React or any framework, just plain vanilla JS because I wanted to understand the basics properly first. The site has my projects, a blog section where I write about tech stuff, and yeah it looks pretty decent I think.
+| Project | Live Link | Repo |
+|---------|-----------|------|
+| Portfolio | [jyotirmoy-portfolio.onrender.com](https://jyotirmoy-portfolio.onrender.com) | You're here |
+| StudyVerse | [studyverse.onrender.com](https://studyverse.onrender.com) | [Repo](https://github.com/JyotirmoyLaha/studyverse) |
+| Mess Manager | [mess-maneger.onrender.com](https://mess-maneger.onrender.com/) | [Repo](https://github.com/JyotirmoyLaha/mess-maneger) |
+| AI Resume Analyzer | [ai-resume-analyzer-hhhb.onrender.com](https://ai-resume-analyzer-hhhb.onrender.com/) | [Frontend](https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend) · [Backend](https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend) |
+| J.SkyCast Weather | [j-weather.onrender.com](https://j-weather.onrender.com/) | [Repo](https://github.com/JyotirmoyLaha/j.weather) |
 
-## Main Features
+---
 
-**Portfolio Section:**
-- Shows all my projects with descriptions
-- Has an about me section
-- Contact info and social links
-- Animations using AOS library (looks cool ngl)
+## About This Portfolio
 
-**Blog:**
-- I write about my coding journey and what I'm learning
-- Supports code snippets with syntax highlighting
-- All content renders client-side using JavaScript
+A clean, modern portfolio site built from scratch — no frameworks, no bundlers.
 
+- **HTML5** semantic structure with **Tailwind CSS** (CDN) for styling
+- **Vanilla JavaScript** powering all interactivity, view switching, and blog rendering
+- **AOS** library for scroll-triggered animations and **Particles.js** for ambient backgrounds
+- Client-side blog engine with syntax-highlighted code snippets
+- Dark/light mode toggle with `localStorage` persistence
+- Fully responsive across mobile, tablet, and desktop
+- Custom cursor effects, glassmorphism cards, floating particles
 
-## My Projects
+---
 
-### 1. Portfolio Website
-The website you're looking at! Built from scratch using:
-- HTML5 for structure
-- Tailwind CSS for styling (used CDN, no npm needed)
-- Vanilla JavaScript for interactivity
-- Particles.js for background effects
-- AOS for scroll animations
+## Projects
 
-It's fully responsive and works on mobile too. The blog section dynamically renders posts without any page reload which is pretty cool.
+### 1. StudyVerse — Immersive Study Tracker 📚
 
-### 2. Weather App 🌦️
-A real-time weather application that shows current weather and forecasts.
-
-**Features:**
-- Gets your location automatically
-- Shows temperature, humidity, wind speed etc.
-- Uses OpenWeatherMap API
-- Clean UI with weather icons
-
-**Tech:** HTML, CSS, JavaScript, OpenWeather API
-
-**Live:** https://j-weather.onrender.com
-
-### 3. AI Resume Analyzer 📄
-This one was a bit challenging but fun! It's an AI-powered tool that analyzes resumes.
+A premium study tracker and daily journal with a futuristic **Ambient Spatial Glass** design system. Features floating 3D glass interfaces, neon accents, and deep atmospheric backgrounds.
 
 **What it does:**
-- Uploads PDF/Word resumes
-- Extracts text using NLP
-- Analyzes skills and experience
-- Gives suggestions for improvement
-- Shows skill gap analysis
+- Log subjects, progress levels, and study notes
+- Daily life journal with mood tracking and image gallery
+- Visual stats — streaks, total entries, progress via floating glass cards
+- Google Sign-In with personalized greeting for returning users
 
-**Tech Stack:**
-- Frontend: HTML, CSS, JS
-- Backend: Python, FastAPI
-- NLP libraries for text processing
+**Tech:** HTML5 · CSS3 (3D Transforms, Custom Properties) · Vanilla JS · Firebase (Firestore, Auth, Storage)
 
-**Live:** https://ai-resume-analyzer-hhhb.onrender.com/
+**Repo:** [JyotirmoyLaha/studyverse](https://github.com/JyotirmoyLaha/studyverse)
 
-### 4. Mess Manager System 🍽️
-Made this for our college mess management. Helps manage daily meals, attendance, and monthly bills.
+---
 
-**Features:**
-- Monthly bill calculation
-- Generate monthly reports
+### 2. Mess Manager — Real-Time Expense Tracker 🍽️
 
-**Tech Stack:**
-- HTML, CSS, 
-- JavaScript(ES Modules)
-- Firebase(Auth + Firestore)
+A production-grade collaborative expense tracking app built for hostel/mess management. Real-time multi-device sync with Firebase and secure Google OAuth authentication.
 
-**Live:** https://mess-maneger.onrender.com/
+**What it does:**
+- Add, edit, delete expenses with instant Firestore synchronization
+- Smart fund management — tracks collected funds vs. spending per month
+- Automatic month-change detection with historical data preservation
+- User attribution with Google profile photos
+- Daily/monthly toggle views with PDF export
+- Multi-layer security: frontend email whitelist + backend Firestore rules + data integrity validation
 
-**Why I built this:** Our hostel mess had issues with manual attendance and billing, so I thought why not make something useful. Still working on adding more features like meal feedback system.
+**Tech:** HTML5 · Tailwind CSS v3 · ES6+ JavaScript (Modules) · Firebase (Firestore + Auth) · Google OAuth 2.0 · Lucide Icons
 
+**Live:** [mess-maneger.onrender.com](https://mess-maneger.onrender.com/) · **Repo:** [JyotirmoyLaha/mess-maneger](https://github.com/JyotirmoyLaha/mess-maneger)
 
+---
 
+### 3. AI Resume Analyzer & Skill Gap Finder 📄
 
-## How to Run
+A full-stack AI-powered resume analysis tool. Upload a PDF resume, select a target role, and get a weighted skill match score, gap analysis, priority-based recommendations, and a structured learning roadmap.
 
-It's super simple:
+**What it does:**
+- Extracts text from PDF resumes using `pdfplumber`
+- Identifies skills via regex-based NLP pattern matching
+- Compares against role-specific requirements (Frontend, Backend, Full Stack, Data Science, DevOps)
+- Weighted scoring: Critical (3x) → High (2x) → Medium (1x)
+- Generates actionable recommendations with learning resources
+- Multi-role comparison to find best-fit career path
+
+**Frontend:** HTML5 · Tailwind CSS · Vanilla JS · Glassmorphism UI · Animated gradient mesh with floating orbs · Dark/light mode  
+**Backend:** Python · FastAPI · pdfplumber · Regex-based NLP · Modular skill analysis engine
+
+**Live:** [ai-resume-analyzer-hhhb.onrender.com](https://ai-resume-analyzer-hhhb.onrender.com/) · **Repos:** [Frontend](https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend) · [Backend](https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend)
+
+---
+
+### 4. J.SkyCast — Real-Time Weather Dashboard 🌤️
+
+A responsive weather dashboard with real-time data, air quality monitoring, and dynamic UI that adapts to weather conditions and time of day.
+
+**What it does:**
+- Real-time weather data for any location worldwide via WeatherAPI
+- One-click geolocation for local weather
+- Air quality monitoring — EPA standard AQI with pollutant breakdown (CO, NO₂, O₃)
+- Comprehensive metrics: temperature, humidity, wind, UV index, visibility, pressure
+- Dynamic background gradients that shift with weather conditions (rainy → blue/gray, sunny → warm tones)
+- Glassmorphism design with ambient floating particle animations
+
+**Tech:** HTML5 · Tailwind CSS · ES6+ JavaScript · WeatherAPI.com · Geolocation API · Font Awesome
+
+**Live:** [j-weather.onrender.com](https://j-weather.onrender.com/) · **Repo:** [JyotirmoyLaha/j.weather](https://github.com/JyotirmoyLaha/j.weather)
+
+---
+
+## Tech Stack Overview
+
+| Area | Technologies |
+|------|-------------|
+| **Frontend** | HTML5, CSS3, JavaScript (ES6+), Tailwind CSS |
+| **Backend** | Python, FastAPI |
+| **Database & Auth** | Firebase (Firestore, Auth, Storage), Google OAuth 2.0 |
+| **APIs** | WeatherAPI, Geolocation API, OpenWeatherMap |
+| **Libraries** | AOS, Particles.js, Lucide Icons, Font Awesome, pdfplumber |
+| **Design** | Glassmorphism, 3D Transforms, CSS Animations, Responsive/Mobile-First |
+| **Tools** | Git, GitHub, VS Code, Render (deployment) |
+
+---
+
+## Run Locally
 
 ```bash
-# Clone this repo
 git clone https://github.com/JyotirmoyLaha/j.portfolio.git
-
-# Go to the folder
 cd j.portfolio
-
-# Just open index.html in your browser
-# That's it! No npm install, no build process, nothing.
+# Open index.html in your browser — no build step required
 ```
 
-You can also just download the ZIP file and open index.html directly. Works right away.
-
-## What I'm Learning
-
-- JavaScript fundamentals (closures, promises, async/await)
-- API integration and handling responses
-- Making responsive designs that actually work
-- Python for backend stuff
-- Data structures (currently doing trees and graphs)
-- Trying to understand how frameworks work under the hood
-
-## Future Plans
-
-**New Projects:**
-- [ ] Working on some AI/ML stuff (just started learning)
-- [ ] Want to build a chatbot
-- [ ] Maybe a e-commerce site clone for practice
-- [ ] Some DSA visualizations using JavaScript
-
+---
 
 ## About Me
 
-I'm Jyotirmoy Laha, currently pursuing BCA (Bachelor of Computer Applications). I love building things and learning new technologies. Started with basic HTML/CSS and now exploring full-stack development, AI/ML, and competitive programming.
+I'm Jyotirmoy Laha, a BCA student focused on building production-ready web applications. I started with basic HTML/CSS and have since built full-stack projects involving real-time databases, authentication systems, API integrations, and AI-powered analysis tools.
 
-**What I know:**
-- Frontend: HTML, CSS, JavaScript, Tailwind, Bootstrap
-- Backend: Python (Flask, FastAPI), learning Node.js
-- Languages: C, Python, JavaScript
-- Tools: Git, GitHub, VS Code
-- Currently learning: React, DSA, Machine Learning basics
+**Currently exploring:** React, Data Structures & Algorithms, Machine Learning fundamentals
 
 **Contact:**
-- Email: jyotirmoylaha713128@gmail.com
+- Email: [jyotirmoy713128@gmail.com](mailto:jyotirmoy713128@gmail.com)
 - GitHub: [JyotirmoyLaha](https://github.com/JyotirmoyLaha)
-- Portfolio: https://jyotirmoy-portfolio.onrender.com
-
-Feel free to reach out if you want to collaborate on projects or just talk about tech!
-
-## Why I Built This
-
-Honestly, I wanted to learn web development properly and the best way is to build real projects. Started with simple HTML pages and kept adding features. Made mistakes, learned from them, and kept improving.
-
-
+- LinkedIn: [Jyotirmoy Laha](https://www.linkedin.com/in/jyotirmoy-laha-416818319)
+- Portfolio: [jyotirmoy-portfolio.onrender.com](https://jyotirmoy-portfolio.onrender.com)
 
