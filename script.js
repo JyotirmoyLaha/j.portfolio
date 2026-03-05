@@ -25,13 +25,20 @@
     /* ── Geometry helpers ── */
     function getGeometry() {
         const W = window.innerWidth, H = window.innerHeight;
-        const mob = W < 640;
+        /* Detect actual mobile devices even in "Request Desktop Site" mode */
+        const isMobileDevice = (navigator.maxTouchPoints > 0 || 'ontouchstart' in window)
+            && Math.min(screen.width, screen.height) < 768;
+        const mob = W < 640 || isMobileDevice;
         if (mob) {
+            /* Adjust orbit radius for normal mobile vs desktop-mode-on-mobile */
+            const r = W < 640
+                ? Math.min(W * 0.38, 145)
+                : Math.min(W * 0.18, H * 0.20, 200);
             return {
                 W, H, mob,
                 cx: W / 2,
                 cy: H * 0.50,               /* orbit centre = exact screen centre */
-                r: Math.min(W * 0.38, 145), /* orbit radius — fits all 12 cards */
+                r,                           /* orbit radius — fits all 12 cards */
             };
         }
         return {
