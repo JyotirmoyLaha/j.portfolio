@@ -16,59 +16,7 @@
     background: #94a3b8;
 }
 
-/* ===================== CUSTOM CURSOR ===================== */
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background: #a855f7;
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.15s, height 0.15s, background 0.15s;
-    will-change: transform;
-    contain: layout style;
-}
 
-.cursor-ring {
-    width: 36px;
-    height: 36px;
-    border: 2.5px solid rgba(168, 85, 247, 0.4);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
-    will-change: transform;
-    contain: layout style;
-}
-
-.cursor-hover .cursor-dot {
-    width: 14px;
-    height: 14px;
-    background: #c084fc;
-}
-
-.cursor-hover .cursor-ring {
-    width: 52px;
-    height: 52px;
-    border-color: rgba(192, 132, 252, 0.5);
-}
-
-/* Hide custom cursor on touch devices */
-@media (hover: none) {
-
-    .cursor-dot,
-    .cursor-ring {
-        display: none;
-    }
-}
 
 /* ===================== NAVIGATION BUBBLE INDICATOR ===================== */
 .nav-bubble-indicator {
