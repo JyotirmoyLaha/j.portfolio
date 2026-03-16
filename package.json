@@ -1,0 +1,26 @@
+{
+  "name": "j.portfolio.github",
+  "version": "1.0.0",
+  "description": "![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)\r ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)\r ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)\r ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)\r ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)\r ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)\r ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)",
+  "main": "script.js",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i src/input.css -o dist/tailwind.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i src/input.css -o dist/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JyotirmoyLaha/j.portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JyotirmoyLaha/j.portfolio/issues"
+  },
+  "homepage": "https://github.com/JyotirmoyLaha/j.portfolio#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}
