@@ -4,23 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jyotirmoy Laha — BCA student and web developer. Portfolio showcasing projects like J.SkyCast, AI Resume Analyzer, Mess Manager, and StudyVerse.">
-    <meta name="author" content="Jyotirmoy Laha">
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Jyotirmoy Laha — Developer Portfolio">
-    <meta property="og:description" content="BCA student and web developer. Projects, blog posts, and everything I'm building.">
-    <meta property="og:image" content="profile.jpg">
-    <meta property="og:url" content="https://jyotirmoylaha.github.io/j.portfolio.github/">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Jyotirmoy Laha — Developer Portfolio">
-    <meta name="twitter:description" content="BCA student and web developer. Projects, blog posts, and everything I'm building.">
-    <meta name="twitter:image" content="profile.jpg">
-
-    <title>Jyotirmoy Laha — Developer Portfolio</title>
+    <title>Jyotirmoy</title>
     <link rel="icon" type="image/jpeg" href="profile.jpg">
     <link rel="shortcut icon" type="image/jpeg" href="profile.jpg">
     <link rel="apple-touch-icon" href="profile.jpg">
@@ -52,8 +36,8 @@
         })();
     </script>
 
-    <!-- Tailwind CSS (built) -->
-    <link rel="stylesheet" href="dist/tailwind.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -72,25 +56,35 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfilePage",
-        "mainEntity": {
-            "@type": "Person",
-            "name": "Jyotirmoy Laha",
-            "url": "https://jyotirmoylaha.github.io/j.portfolio.github/",
-            "image": "profile.jpg",
-            "jobTitle": "Web Developer",
-            "description": "BCA student and web developer building projects with JavaScript, Python, React, and Firebase.",
-            "sameAs": [
-                "https://github.com/JyotirmoyLaha",
-                "https://www.linkedin.com/in/jyotirmoylaha2005/"
-            ],
-            "knowsAbout": ["JavaScript", "Python", "React", "HTML5", "CSS3", "Firebase", "FastAPI", "Node.js", "Git", "Tailwind CSS"]
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0f172a',
+                            dark: '#334155',
+                            gray: '#64748b',
+                            light: '#f8fafc',
+                        },
+                        accent: {
+                            primary: '#2563eb', // Royal Blue
+                            secondary: '#3b82f6', // Bright Blue
+                        }
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -15px rgba(0, 0, 0, 0.05)',
+                        'premium-hover': '0 25px 50px -12px rgba(37, 99, 235, 0.15)',
+                    }
+                }
+            }
         }
-    }
     </script>
 </head>
 
@@ -206,7 +200,7 @@
 
         <!-- 1. INTRO & MINDSET SECTION -->
         <header class="flex items-center relative pt-20 sm:pt-24 pb-6 sm:pb-10 hero-bg">
-            <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank"
                 class="absolute top-24 right-4 sm:right-6 z-30 w-14 h-14 sm:w-16 sm:h-16 bg-white/70 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 backdrop-blur-md rounded-full flex items-center justify-center text-base sm:text-lg font-display font-bold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 aria-label="View my CV">
                 <span class="group-hover:text-cyan-400 transition-colors">CV</span>
@@ -220,7 +214,7 @@
                         <div class="relative">
                             <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper"
                                 id="profileImage">
-                                <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover" width="1280" height="1599">
+                                <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
@@ -245,12 +239,12 @@
 
                         <!-- Social Icons Row (vineet-style) -->
                         <div class="flex gap-4 sm:gap-5 mt-6 sm:mt-8 mb-4 sm:mb-6">
-                            <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+                            <a href="https://github.com/JyotirmoyLaha" target="_blank" class="social-icon-btn"
                                 data-tooltip="GitHub">
                                 <i class="fa-brands fa-github text-xl"></i>
                                 <span class="social-tooltip">GitHub</span>
                             </a>
-                            <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank"
                                 class="social-icon-btn" data-tooltip="LinkedIn">
                                 <i class="fa-brands fa-linkedin text-xl"></i>
                                 <span class="social-tooltip">LinkedIn</span>
@@ -259,7 +253,7 @@
                                 <i class="fa-solid fa-envelope text-xl"></i>
                                 <span class="social-tooltip">Email</span>
                             </a>
-                            <a href="https://wa.me/8436866473" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+                            <a href="https://wa.me/8436866473" target="_blank" class="social-icon-btn"
                                 data-tooltip="WhatsApp">
                                 <i class="fa-brands fa-whatsapp text-xl"></i>
                                 <span class="social-tooltip">WhatsApp</span>
@@ -337,7 +331,7 @@
                             <h3
                                 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
                                 J.SkyCast</h3>
-                            <a href="https://j-weather.onrender.com" target="_blank" rel="noopener noreferrer"
+                            <a href="https://j-weather.onrender.com" target="_blank"
                                 class="text-slate-400 hover:text-cyan-400 transition-colors"><i
                                     class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
@@ -358,7 +352,7 @@
                             <h3
                                 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
                                 AI Resume Analyzer</h3>
-                            <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank"
                                 class="text-slate-400 hover:text-cyan-400 transition-colors"><i
                                     class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
@@ -379,7 +373,7 @@
                             <h3
                                 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
                                 Mess Manager</h3>
-                            <a href="https://mess-maneger.onrender.com/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://mess-maneger.onrender.com/" target="_blank"
                                 class="text-slate-400 hover:text-cyan-400 transition-colors"><i
                                     class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
@@ -401,7 +395,7 @@
                             <h3
                                 class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
                                 StudyVerse</h3>
-                            <a href="https://studyverse-vlzh.onrender.com/" target="_blank" rel="noopener noreferrer"
+                            <a href="https://studyverse-vlzh.onrender.com/" target="_blank"
                                 class="text-slate-400 hover:text-cyan-400 transition-colors"><i
                                     class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
                         </div>
@@ -542,12 +536,12 @@
                     <i class="fa-solid fa-envelope text-lg"></i>
                     <span class="social-tooltip">Email</span>
                 </a>
-                <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="footer-social-link"
+                <a href="https://github.com/JyotirmoyLaha" target="_blank" class="footer-social-link"
                     data-tooltip="GitHub">
                     <i class="fa-brands fa-github text-lg"></i>
                     <span class="social-tooltip">GitHub</span>
                 </a>
-                <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer" class="footer-social-link"
+                <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" class="footer-social-link"
                     data-tooltip="LinkedIn">
                     <i class="fa-brands fa-linkedin text-lg"></i>
                     <span class="social-tooltip">LinkedIn</span>
