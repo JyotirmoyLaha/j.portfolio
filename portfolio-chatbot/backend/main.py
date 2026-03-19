@@ -43,7 +43,73 @@ def check_rate_limit(ip: str) -> bool:
 
 # ─── Cache ───────────────────────────────────────────────────
 portfolio_cache = {"content": None, "timestamp": None}
-CACHE_TTL = 300  # 5 minutes
+CACHE_TTL = 300
+
+# ─── Hardcoded fallback (always included as base context) ────
+HARDCODED_CONTEXT = """
+[PERSONAL INFO]
+Full Name: Jyotirmoy Laha
+Role: BCA Student & Full-Stack Developer
+College: Dr. B.C. Roy Academy of Professional Courses (BCRAPC), Durgapur, West Bengal, India
+Year: 2nd Year BCA
+Email: jyotirmoy713128@gmail.com
+WhatsApp: +91 8436866473
+GitHub: https://github.com/JyotirmoyLaha
+LinkedIn: https://www.linkedin.com/in/jyotirmoylaha2005/
+Portfolio: https://jyotirmoy-portfolio.onrender.com/
+CV/Resume: https://jyotirmoy-portfolio.onrender.com/Jyotirmoy_Laha_Resume.pdf
+Bio: BCA student who converts ideas into code. Strength lies in analytical thinking.
+Breaks down tough problems methodically. Builds projects to improve thinking, not just to show skills.
+
+[EDUCATION]
+Degree: Bachelor of Computer Applications (BCA)
+Institution: Dr. B.C. Roy Academy of Professional Courses, Durgapur
+Year: 2nd Year
+Subjects: DSA, Web Technologies, Core CS fundamentals, Algorithm optimization
+
+[PROJECTS]
+1. Portfolio Website — HTML5, Tailwind CSS, JavaScript
+   Live: https://jyotirmoy-portfolio.onrender.com/
+
+2. J.SkyCast — Dynamic weather tracking dashboard with real-time API data
+   Stack: JavaScript, Weather API, Tailwind CSS
+
+3. AI Resume Analyzer — NLP-based resume evaluation platform, identifies skill gaps against job roles
+   Stack: Python, FastAPI, NLP
+
+4. Mess Manager — Firebase real-time expense tracker for hostel groups, Google auth, PDF reports
+   Stack: JavaScript, Firebase, Tailwind CSS
+
+5. StudyVerse — Zen-inspired personal journal, cherry blossom aesthetic, Firebase, Google auth
+   Stack: HTML, CSS, JavaScript, Firebase
+
+6. In Progress — Something new being built, details coming soon
+
+[SKILLS]
+Frontend: HTML5, CSS3, JavaScript, Tailwind CSS
+Backend: Python, FastAPI, Flask, Firebase, SQL (MySQL)
+Tools: Git, GitHub, Postman, Render, Netlify
+Exploring: AI/ML, LangChain, TensorFlow, NLP, Generative AI
+
+[METHODOLOGY]
+1. Understand — Define the problem clearly
+2. Design — Plan the architecture
+3. Build — Write clean, modular code
+4. Test — Break it before users do
+5. Ship — Deploy with confidence
+6. Iterate — Learn and improve
+
+[EXTRACURRICULARS]
+- Active member of Entrepreneurship Development Cell (EDC) at BCRAPC
+- Helps organize EDC events like "Ultimate Sales Challenge" (sales pitching competition)
+
+[CONTACT]
+Email: jyotirmoy713128@gmail.com
+WhatsApp: +91 8436866473
+LinkedIn: https://www.linkedin.com/in/jyotirmoylaha2005/
+GitHub: https://github.com/JyotirmoyLaha
+For availability/freelance: contact directly, Jyotirmoy will respond personally.
+"""
 
 # ─── Scraper ─────────────────────────────────────────────────
 async def scrape_portfolio_content() -> str:
@@ -63,42 +129,20 @@ async def scrape_portfolio_content() -> str:
 
         soup = BeautifulSoup(res.text, "html.parser")
 
-        for tag in soup.find_all(["script", "style", "noscript", "head", "meta", "link", "svg", "img"]):
+        for tag in soup.find_all(["script", "style", "noscript", "head",
+                                   "meta", "link", "svg", "img", "nav"]):
             tag.decompose()
 
-        section_keywords = {
-            "[PERSONAL INFO]":  ["hero", "intro", "about", "profile", "bio"],
-            "[PROJECTS]":       ["project", "work", "code:projects"],
-            "[SKILLS]":         ["skill", "stack", "tech", "tools"],
-            "[EDUCATION]":      ["academic", "education", "college", "degree"],
-            "[BLOGS]":          ["blog", "article", "thoughts", "code:thoughts"],
-            "[CONTACT]":        ["contact", "reach", "connect"],
-            "[EXPERIENCE]":     ["experience", "extracurricular", "activity"],
-        }
+        # Get all visible text from the page
+        raw_text = soup.get_text(separator="\n", strip=True)
 
-        sections = []
+        # Clean it up
+        lines = [line.strip() for line in raw_text.splitlines()]
+        lines = [line for line in lines if len(line) > 2]
+        cleaned = "\n".join(lines)[:6000]
 
-        for label, keywords in section_keywords.items():
-            for keyword in keywords:
-                found = soup.find_all(
-                    lambda tag, kw=keyword: (
-                        kw in tag.get("id", "").lower()
-                        or any(kw in c.lower() for c in tag.get("class", []))
-                    )
-                )
-                if found:
-                    text = " ".join(el.get_text(separator=" ", strip=True) for el in found)
-                    text = " ".join(text.split())
-                    if len(text) > 20:
-                        sections.append(f"{label}\n{text}")
-                    break
-
-        if not sections:
-            raw = soup.get_text(separator=" ", strip=True)
-            raw = " ".join(raw.split())
-            sections.append(f"[PORTFOLIO CONTENT]\n{raw}")
-
-        combined = "\n\n".join(sections)[:6000]
+        # Combine hardcoded base + scraped live content
+        combined = f"{HARDCODED_CONTEXT}\n\n[LIVE SCRAPED CONTENT FROM WEBSITE]\n{cleaned}"
 
         portfolio_cache["content"] = combined
         portfolio_cache["timestamp"] = now
@@ -106,42 +150,35 @@ async def scrape_portfolio_content() -> str:
         return combined
 
     except Exception:
-        return "SCRAPE_FAILED: Could not load portfolio content right now."
+        # If scraping fails, still return hardcoded context
+        return HARDCODED_CONTEXT
 
 
 # ─── System Prompt Builder ───────────────────────────────────
 def build_system_prompt(portfolio_content: str) -> str:
-    if portfolio_content.startswith("SCRAPE_FAILED"):
-        return (
-            "You are Jyotirmoy's portfolio assistant. You could not load his portfolio "
-            "content right now due to a technical issue. Politely tell visitors you are "
-            "having trouble loading the data and ask them to visit "
-            "https://jyotirmoy-portfolio.onrender.com/ directly or contact Jyotirmoy at "
-            "jyotirmoy713128@gmail.com"
-        )
+    return f"""You are Jyotirmoy's personal portfolio assistant — intelligent, friendly, 
+embedded on his developer portfolio website. Help visitors learn about Jyotirmoy 
+quickly and accurately.
 
-    return f"""You are Jyotirmoy's personal portfolio assistant — an intelligent, friendly
-chatbot embedded on his developer portfolio website. Help visitors (recruiters,
-collaborators, fellow students) learn about Jyotirmoy quickly and accurately.
-
-The following content was scraped LIVE from his portfolio website just now.
-This is your ONLY source of truth. Answer strictly based on this.
+Below is Jyotirmoy's complete information including hardcoded key details and 
+live scraped content from his website. Use ALL of it to answer questions.
 
 ============================================================
-LIVE PORTFOLIO CONTENT:
+JYOTIRMOY'S COMPLETE PROFILE:
 ============================================================
 {portfolio_content}
 ============================================================
 
-STRICT RULES:
-- Answer ONLY from the content above. Never fabricate anything.
-- If info is missing, say you don't have it and direct to jyotirmoy713128@gmail.com
-- For availability/freelance questions: direct to email or LinkedIn — don't confirm yourself.
-- For blog questions: summarise from [BLOGS] section above if present.
-- Tone: friendly, direct, slightly informal — match the terminal/dev vibe of the site.
+RULES:
+- Answer based on the above content. Be specific — include phone numbers, 
+  emails, links when asked.
+- If asked for contact details, always provide them directly.
+- For blog questions: summarise from the LIVE SCRAPED CONTENT section if present.
+- Tone: friendly, direct, slightly informal — match the terminal/dev vibe.
 - Keep answers short unless visitor clearly wants detail.
-- If asked something unrelated to Jyotirmoy, say:
-  "I'm Jyotirmoy's portfolio assistant — I can only help with questions about him and his work!"
+- Never fabricate anything not present above.
+- If asked something unrelated to Jyotirmoy: say "I'm Jyotirmoy's portfolio 
+  assistant — I can only help with questions about him and his work!"
 """
 
 
@@ -158,7 +195,7 @@ async def chat(request: Request):
     if not check_rate_limit(ip):
         return JSONResponse(
             status_code=429,
-            content={"error": "Too many requests. Please wait a while before trying again."},
+            content={"error": "Too many requests. Please wait before trying again."},
         )
 
     try:

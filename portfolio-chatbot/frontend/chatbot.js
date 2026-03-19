@@ -1,8 +1,6 @@
-// ── Change this after deploying backend on Render ──
 const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
 (function () {
-  // ── Inject HTML ──────────────────────────────────────────
   const html = `
     <div id="jchat-bubble" title="Ask about Jyotirmoy">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -35,7 +33,6 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   wrapper.innerHTML = html;
   document.body.appendChild(wrapper);
 
-  // ── Elements ─────────────────────────────────────────────
   const bubble   = document.getElementById("jchat-bubble");
   const window_  = document.getElementById("jchat-window");
   const closeBtn = document.getElementById("jchat-close");
@@ -45,6 +42,59 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
   let isOpen = false;
   let welcomeSent = false;
+
+  // ── Hide bubble initially ─────────────────────────────────
+  bubble.style.display = "none";
+  window_.style.display = "none";
+
+  // ── Wait for splash screen to finish ─────────────────────
+  function showChatbotWhenReady() {
+    const splash = document.getElementById("intro-splash");
+
+    if (!splash) {
+      // No splash screen found — show immediately
+      bubble.style.display = "flex";
+      window_.style.display = "flex";
+      return;
+    }
+
+    // Watch for splash to be hidden/removed
+    const observer = new MutationObserver(() => {
+      const isHidden =
+        splash.style.display === "none" ||
+        splash.style.opacity === "0" ||
+        splash.style.visibility === "hidden" ||
+        splash.classList.contains("hidden") ||
+        !document.body.contains(splash);
+
+      if (isHidden) {
+        bubble.style.display = "flex";
+        window_.style.display = "flex";
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+
+    // Fallback — show after 5 seconds no matter what
+    setTimeout(() => {
+      bubble.style.display = "flex";
+      window_.style.display = "flex";
+      observer.disconnect();
+    }, 5000);
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", showChatbotWhenReady);
+  } else {
+    showChatbotWhenReady();
+  }
 
   // ── Toggle ────────────────────────────────────────────────
   function openChat() {
