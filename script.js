@@ -1011,7 +1011,7 @@ Every line of code in this project exists because a real situation demanded it. 
 
 // --- VIEW SWITCHING LOGIC ---
 
-function switchView(viewName) {
+function switchView(viewName, pushHistory = true) {
     const portfolio = document.getElementById('portfolio-view');
     const blog = document.getElementById('blog-view');
 
@@ -1031,6 +1031,11 @@ function switchView(viewName) {
     lenis.scrollTo(0, { duration: 0.8 });
 
     if (viewName === 'blog') {
+        // Push history state for browser back button
+        if (pushHistory) {
+            history.pushState({ view: 'blog' }, '', '#blog');
+        }
+
         // Fade out current view, then swap
         portfolio.style.opacity = '0';
         portfolio.style.transform = 'translateY(12px)';
@@ -1054,6 +1059,11 @@ function switchView(viewName) {
             setTimeout(() => AOS.refresh(), 100);
         }, 250);
     } else {
+        // Push history state for browser back button
+        if (pushHistory) {
+            history.pushState({ view: 'portfolio' }, '', '#');
+        }
+
         // Fade out current view, then swap
         blog.style.opacity = '0';
         blog.style.transform = 'translateY(12px)';
@@ -1070,7 +1080,7 @@ function switchView(viewName) {
             mobilePortfolioNav.classList.remove('hidden');
 
             // Reset Blog to list view when leaving
-            showList();
+            showList(true);
 
             // Re-trigger entrance animation
             portfolio.style.animation = 'none';
@@ -1131,7 +1141,7 @@ function renderList() {
     `).join('');
 }
 
-function showDetail(id) {
+function showDetail(id, pushHistory = true) {
     const post = blogPosts.find(p => p.id === id);
     if (!post) return;
 
@@ -1166,6 +1176,11 @@ function showDetail(id) {
     const blogList = document.getElementById('blog-list');
     const blogDetail = document.getElementById('blog-detail');
 
+    // Push history state for browser back button
+    if (pushHistory) {
+        history.pushState({ view: 'blog-detail', postId: id }, '', `#blog/${id}`);
+    }
+
     // Fade out list, then show detail
     blogList.style.opacity = '0';
     blogList.style.transform = 'translateY(10px)';
@@ -1184,9 +1199,16 @@ function showDetail(id) {
     lenis.scrollTo(0, { duration: 0.6 });
 }
 
-function showList() {
+function showList(fromPopstate = false) {
     const blogList = document.getElementById('blog-list');
     const blogDetail = document.getElementById('blog-detail');
+
+    // If called manually (not from popstate) and we're in detail view, use history.back()
+    // This ensures browser back button works correctly after clicking "Back to Articles"
+    if (!fromPopstate && !blogDetail.classList.contains('hidden')) {
+        history.back();
+        return; // Let popstate handler call showList again with fromPopstate=true
+    }
 
     // Fade out detail, then show list
     blogDetail.style.opacity = '0';
@@ -1349,6 +1371,59 @@ loadDarkModePreference();
 
 // Initialize Render
 renderList();
+
+// ===================== BROWSER HISTORY HANDLING =====================
+(function initHistoryHandling() {
+    // Set initial state
+    history.replaceState({ view: 'portfolio' }, '', window.location.pathname);
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+        const state = event.state;
+
+        if (!state || state.view === 'portfolio') {
+            // Go back to portfolio
+            const portfolio = document.getElementById('portfolio-view');
+            if (portfolio.classList.contains('view-hidden')) {
+                switchView('portfolio', false);
+            }
+        } else if (state.view === 'blog') {
+            // Go to blog list
+            const blog = document.getElementById('blog-view');
+            if (blog.classList.contains('view-hidden')) {
+                switchView('blog', false);
+            } else {
+                // Already in blog view, just show list
+                showList(true);
+            }
+        } else if (state.view === 'blog-detail' && state.postId) {
+            // Go to specific blog post
+            const blog = document.getElementById('blog-view');
+            if (blog.classList.contains('view-hidden')) {
+                switchView('blog', false);
+                setTimeout(() => showDetail(state.postId, false), 300);
+            } else {
+                showDetail(state.postId, false);
+            }
+        }
+    });
+
+    // Handle initial URL hash on page load
+    const hash = window.location.hash;
+    if (hash.startsWith('#blog/')) {
+        const postId = parseInt(hash.replace('#blog/', ''));
+        if (!isNaN(postId)) {
+            switchView('blog', false);
+            setTimeout(() => {
+                showDetail(postId, false);
+                history.replaceState({ view: 'blog-detail', postId: postId }, '', hash);
+            }, 300);
+        }
+    } else if (hash === '#blog') {
+        switchView('blog', false);
+        history.replaceState({ view: 'blog' }, '', '#blog');
+    }
+})();
 
 // ===================== SCROLL REVEAL (Smooth, one-way like vineet) =====================
 
