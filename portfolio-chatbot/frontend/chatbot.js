@@ -58,25 +58,37 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   function showChatbotWhenReady() {
     const splash = document.getElementById("intro-splash");
 
-    if (!splash) {
-      // No splash screen found — show immediately
+    const revealChatbot = () => {
       bubble.style.display = "flex";
       window_.style.display = "flex";
+    };
+
+    const isSplashFullyGone = (splashEl) => {
+      if (!splashEl) return true;
+      return (
+        splashEl.classList.contains("splash-gone") ||
+        splashEl.style.display === "none" ||
+        !document.body.contains(splashEl)
+      );
+    };
+
+    if (!splash) {
+      // No splash screen found — show immediately
+      revealChatbot();
+      return;
+    }
+
+    if (isSplashFullyGone(splash)) {
+      revealChatbot();
       return;
     }
 
     // Watch for splash to be hidden/removed
     const observer = new MutationObserver(() => {
-      const isHidden =
-        splash.style.display === "none" ||
-        splash.style.opacity === "0" ||
-        splash.style.visibility === "hidden" ||
-        splash.classList.contains("hidden") ||
-        !document.body.contains(splash);
+      const isHidden = isSplashFullyGone(splash);
 
       if (isHidden) {
-        bubble.style.display = "flex";
-        window_.style.display = "flex";
+        revealChatbot();
         observer.disconnect();
       }
     });
@@ -88,12 +100,13 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       attributeFilter: ["style", "class"],
     });
 
-    // Fallback — show after 5 seconds no matter what
+    // Fallback — in case observer misses a mutation
     setTimeout(() => {
-      bubble.style.display = "flex";
-      window_.style.display = "flex";
+      if (isSplashFullyGone(splash)) {
+        revealChatbot();
+      }
       observer.disconnect();
-    }, 5000);
+    }, 12000);
   }
 
   // Run after DOM is ready
