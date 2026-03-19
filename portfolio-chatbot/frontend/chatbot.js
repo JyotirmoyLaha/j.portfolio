@@ -1,5 +1,5 @@
 // ── Change this after deploying backend on Render ──
-const CHATBOT_API_URL = "http://127.0.0.1:8000/chat";
+const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
 (function () {
   // ── Inject HTML ──────────────────────────────────────────
