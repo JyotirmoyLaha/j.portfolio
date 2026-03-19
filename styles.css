@@ -959,6 +959,504 @@ html.lenis body {
 }
 
 /* =====================================================================
+   HOW I WORK / PROCESS SECTION
+   ===================================================================== */
+
+.process-section {
+    background: #f8fafc;
+    position: relative;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.dark .process-section {
+    background: #0f172a;
+    border-top-color: rgba(51, 65, 85, 0.3);
+}
+
+.process-timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px 8px;
+    max-width: 140px;
+    flex-shrink: 0;
+}
+
+.process-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), rgba(34, 211, 238, 0.08));
+    border: 1.5px solid rgba(16, 185, 129, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #10b981;
+    margin-bottom: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.dark .process-icon-wrap {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 211, 238, 0.10));
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.process-step:hover .process-icon-wrap {
+    transform: translateY(-4px) scale(1.08);
+    border-color: rgba(16, 185, 129, 0.6);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+}
+
+.process-step-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.dark .process-step-title {
+    color: #f1f5f9;
+}
+
+.process-step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.process-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    font-size: 14px;
+    padding-top: 22px;
+    flex-shrink: 0;
+}
+
+.dark .process-arrow {
+    color: #334155;
+}
+
+@media (max-width: 768px) {
+    .process-timeline {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px 8px;
+    }
+
+    .process-arrow {
+        display: none;
+    }
+
+    .process-step {
+        max-width: 100%;
+        padding: 8px 4px;
+    }
+
+    .process-icon-wrap {
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 420px) {
+    .process-timeline {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =====================================================================
+   SKILLS & TOOLS SECTION
+   ===================================================================== */
+
+.skills-section {
+    background: #f8fafc;
+    position: relative;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.dark .skills-section {
+    background: #0f172a;
+    border-top-color: rgba(51, 65, 85, 0.3);
+}
+
+.skill-category-card {
+    background: rgba(241, 245, 249, 0.6);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.dark .skill-category-card {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(71, 85, 105, 0.4);
+}
+
+.skill-category-card:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 8px 32px rgba(34, 211, 238, 0.08);
+    transform: translateY(-2px);
+}
+
+.dark .skill-category-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.skill-category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.skill-category-icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+}
+
+.dark .skill-category-icon {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.skill-category-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.dark .skill-category-title {
+    color: #f1f5f9;
+}
+
+.skill-pills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    cursor: default;
+}
+
+.dark .skill-pill {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(71, 85, 105, 0.35);
+    color: #cbd5e1;
+}
+
+.skill-pill:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    background: rgba(34, 211, 238, 0.06);
+    transform: translateY(-1px);
+}
+
+.dark .skill-pill:hover {
+    background: rgba(34, 211, 238, 0.08);
+}
+
+.skill-pill-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.exploring-pill {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1.5px solid rgba(34, 211, 238, 0.45);
+    border-radius: 9999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0891b2;
+    background: rgba(34, 211, 238, 0.06);
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+}
+
+.dark .exploring-pill {
+    color: #22d3ee;
+}
+
+.exploring-pill:hover {
+    background: rgba(34, 211, 238, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(34, 211, 238, 0.12);
+}
+
+/* =====================================================================
+   GITHUB ACTIVITY SECTION
+   ===================================================================== */
+
+.github-section {
+    background: #f8fafc;
+    position: relative;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.dark .github-section {
+    background: #0f172a;
+    border-top-color: rgba(51, 65, 85, 0.3);
+}
+
+.github-card {
+    background: rgba(241, 245, 249, 0.6);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .github-card {
+    background: rgba(30, 41, 59, 0.45);
+    border-color: rgba(71, 85, 105, 0.4);
+}
+
+.github-card:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.06);
+}
+
+.dark .github-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.github-card img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.github-streak-img {
+    max-height: 180px;
+}
+
+/* Custom GitHub Contribution Graph */
+.contrib-graph-wrapper {
+    background: #0d1117;
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 16px;
+    padding: 20px 20px 16px;
+    overflow: hidden;
+}
+
+.contrib-graph-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.contrib-count-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #c9d1d9;
+}
+
+.contrib-year-selector {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.contrib-year-pill {
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #8b949e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.contrib-year-pill:hover {
+    color: #c9d1d9;
+}
+
+.contrib-year-pill.active {
+    background: #1f6feb;
+    color: #fff;
+    font-weight: 600;
+}
+
+.contrib-graph-body {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;
+}
+
+.contrib-loading {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #8b949e;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.contrib-heatmap {
+    display: flex;
+    gap: 3px;
+}
+
+.contrib-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.contrib-day {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: #161b22;
+    outline: 1px solid rgba(27, 31, 35, 0.06);
+}
+
+.contrib-day[data-level="0"] { background: #161b22; }
+.contrib-day[data-level="1"] { background: #0e4429; }
+.contrib-day[data-level="2"] { background: #006d32; }
+.contrib-day[data-level="3"] { background: #26a641; }
+.contrib-day[data-level="4"] { background: #39d353; }
+
+.contrib-day:hover {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: -1px;
+}
+
+.contrib-months {
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #8b949e;
+    margin-bottom: 6px;
+    padding-left: 0;
+}
+
+.contrib-month-label {
+    text-align: left;
+}
+
+.contrib-graph-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.contrib-legend-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #8b949e;
+    margin: 0 2px;
+}
+
+.contrib-legend-box {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+/* Tooltip for contribution day */
+.contrib-tooltip {
+    position: fixed;
+    background: #1b1f23;
+    color: #c9d1d9;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transform: translateX(-50%);
+}
+
+@media (max-width: 640px) {
+    .contrib-graph-wrapper {
+        padding: 14px 12px 12px;
+    }
+    .contrib-day {
+        width: 9px;
+        height: 9px;
+    }
+    .contrib-heatmap {
+        gap: 2px;
+    }
+    .contrib-week {
+        gap: 2px;
+    }
+}
+
+/* Dark mode overrides for Tailwind utility classes in new sections */
+.dark .process-section .text-slate-900,
+.dark .skills-section .text-slate-900,
+.dark .github-section .text-slate-900 {
+    color: #f1f5f9 !important;
+}
+
+.dark .process-section .text-slate-500,
+.dark .skills-section .text-slate-500,
+.dark .github-section .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+.dark .process-section .border-emerald-400\/30,
+.dark .skills-section .border-cyan-400\/30,
+.dark .github-section .border-emerald-400\/30 {
+    border-color: inherit;
+}
+
+/* =====================================================================
    INTRO SPLASH SCREEN
    ===================================================================== */
 

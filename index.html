@@ -132,6 +132,8 @@
                     <div id="desktop-portfolio-nav" class="flex space-x-10 relative">
                         <button onclick="navigateToSection('projects')"
                             class="nav-link hover:text-cyan-400 transition-colors" data-nav="projects">Projects</button>
+                        <button onclick="navigateToSection('skills')"
+                            class="nav-link hover:text-cyan-400 transition-colors" data-nav="skills">Skills</button>
                         <button onclick="navigateToSection('academic')"
                             class="nav-link hover:text-cyan-400 transition-colors" data-nav="academic">Academic</button>
                         <button onclick="switchView('blog')"
@@ -180,6 +182,8 @@
             <div id="mobile-portfolio-nav">
                 <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4"
                     onclick="navigateToSection('projects'); toggleMenu()">Projects</button>
+                <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4"
+                    onclick="navigateToSection('skills'); toggleMenu()">Skills</button>
                 <button class="block w-full text-left text-slate-600 hover:text-cyan-400 font-medium mb-4"
                     onclick="navigateToSection('academic'); toggleMenu()">Academic</button>
                 <button class="block w-full text-left text-cyan-400 font-bold"
@@ -276,7 +280,8 @@
                     <p class="font-mono text-sm text-cyan-400 mb-2 sm:mb-3">// bio</p>
                     <div
                         class="font-display text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed select-none">
-                        Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in analytical
+                        Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in
+                        analytical
                         thinking. When faced with a tough situation or a complex bug, I don't panic — I break it down. I
                         build projects to improve thinking, not just to show skills.
                     </div>
@@ -423,7 +428,234 @@
             </div>
         </section>
 
-        <!-- 4. ACADEMIC DETAILS -->
+        <!-- 4. HOW I WORK / PROCESS SECTION -->
+        <section id="how-i-work" class="process-section py-12 sm:py-20 md:py-28 relative z-10 scroll-reveal">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex justify-center items-center flex-col mb-10 sm:mb-14 md:mb-20" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 rounded-full border border-emerald-400/30">Methodology</span>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-3 text-center">
+                        How I Work</h2>
+                    <p class="text-slate-500 text-sm sm:text-base max-w-xl text-center">I think like an engineer, not
+                        just a coder.</p>
+                </div>
+
+                <div class="process-timeline">
+                    <!-- Step 1 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h4 class="process-step-title">Understand</h4>
+                        <p class="process-step-desc">Define the problem clearly</p>
+                    </div>
+                    <div class="process-arrow" data-aos="fade-up" data-aos-delay="150"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 2 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </div>
+                        <h4 class="process-step-title">Design</h4>
+                        <p class="process-step-desc">Plan the architecture</p>
+                    </div>
+                    <div class="process-arrow" data-aos="fade-up" data-aos-delay="250"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 3 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h4 class="process-step-title">Build</h4>
+                        <p class="process-step-desc">Write clean, modular code</p>
+                    </div>
+                    <div class="process-arrow" data-aos="fade-up" data-aos-delay="350"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 4 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <h4 class="process-step-title">Test</h4>
+                        <p class="process-step-desc">Break it before users do</p>
+                    </div>
+                    <div class="process-arrow" data-aos="fade-up" data-aos-delay="450"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 5 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="500">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <h4 class="process-step-title">Ship</h4>
+                        <p class="process-step-desc">Deploy with confidence</p>
+                    </div>
+                    <div class="process-arrow" data-aos="fade-up" data-aos-delay="550"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+
+                    <!-- Step 6 -->
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="600">
+                        <div class="process-icon-wrap">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h4 class="process-step-title">Iterate</h4>
+                        <p class="process-step-desc">Learn and improve</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SKILLS & TOOLS SECTION -->
+        <section id="skills" class="skills-section py-12 sm:py-20 md:py-28 relative z-10 scroll-reveal">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex justify-center items-center flex-col mb-10 sm:mb-14 md:mb-20" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-400/10 rounded-full border border-cyan-400/30">Tech
+                        Stack</span>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-3 text-center">
+                        Skills & Tools</h2>
+                    <p class="text-slate-500 text-sm sm:text-base max-w-xl text-center">Technologies I ship with daily
+                        and tools I'm exploring.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Frontend Card -->
+                    <div class="skill-category-card">
+                        <div class="skill-category-header">
+                            <span class="skill-category-icon">🌐</span>
+                            <h3 class="skill-category-title">Frontend</h3>
+                        </div>
+                        <div class="skill-pills-grid">
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                                    alt="HTML5" class="skill-pill-icon"><span>HTML5</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                                    alt="CSS3" class="skill-pill-icon"><span>CSS3</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                                    alt="JavaScript" class="skill-pill-icon"><span>JavaScript</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                                    alt="Tailwind" class="skill-pill-icon"><span>Tailwind</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Card -->
+                    <div class="skill-category-card">
+                        <div class="skill-category-header">
+                            <span class="skill-category-icon">🔧</span>
+                            <h3 class="skill-category-title">Backend</h3>
+                        </div>
+                        <div class="skill-pills-grid">
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                    alt="Python" class="skill-pill-icon"><span>Python</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+                                    alt="FastAPI" class="skill-pill-icon"><span>FastAPI</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"
+                                    alt="Flask" class="skill-pill-icon"><span>Flask</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
+                                    alt="Firebase" class="skill-pill-icon"><span>Firebase</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                    alt="SQL" class="skill-pill-icon"><span>SQL</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Tools & DevOps Card -->
+                    <div class="skill-category-card sm:col-span-2 lg:col-span-1">
+                        <div class="skill-category-header">
+                            <span class="skill-category-icon">🧰</span>
+                            <h3 class="skill-category-title">Tools & DevOps</h3>
+                        </div>
+                        <div class="skill-pills-grid">
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                                    alt="Git" class="skill-pill-icon"><span>Git</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                                    alt="GitHub" class="skill-pill-icon"><span>GitHub</span></div>
+                            <div class="skill-pill"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+                                    alt="Postman" class="skill-pill-icon"><span>Postman</span></div>
+                            <div class="skill-pill"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="Render"
+                                    class="skill-pill-icon"><span>Render</span></div>
+                            <div class="skill-pill"><img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="Netlify"
+                                    class="skill-pill-icon"><span>Netlify</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currently Exploring -->
+                <div class="mt-10 sm:mt-14 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <p class="text-slate-500 font-mono text-sm mb-4">// currently exploring</p>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="exploring-pill">AI / ML</span>
+                        <span class="exploring-pill">LangChain</span>
+                        <span class="exploring-pill">TensorFlow</span>
+                        <span class="exploring-pill">NLP</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. GITHUB ACTIVITY SECTION -->
+        <section id="github" class="github-section py-12 sm:py-20 md:py-28 relative z-10 scroll-reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="flex justify-center items-center flex-col mb-10 sm:mb-14 md:mb-20" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 rounded-full border border-emerald-400/30">Open
+                        Source</span>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-3 text-center">
+                        GitHub Activity</h2>
+                </div>
+
+                <!-- Contribution Graph -->
+                <div class="mb-4 sm:mb-5" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contrib-graph-wrapper">
+                        <div class="contrib-graph-header">
+                            <span class="contrib-count-text" id="contrib-count-text">Loading contributions...</span>
+                            <div class="contrib-year-selector" id="contrib-year-selector">
+                                <!-- Year pills generated by JS -->
+                            </div>
+                        </div>
+                        <div class="contrib-graph-body" id="contrib-graph-body">
+                            <div class="contrib-loading">Loading...</div>
+                        </div>
+                        <div class="contrib-graph-footer">
+                            <span class="contrib-legend-label">Less</span>
+                            <span class="contrib-legend-box" style="background:#161b22;"></span>
+                            <span class="contrib-legend-box" style="background:#0e4429;"></span>
+                            <span class="contrib-legend-box" style="background:#006d32;"></span>
+                            <span class="contrib-legend-box" style="background:#26a641;"></span>
+                            <span class="contrib-legend-box" style="background:#39d353;"></span>
+                            <span class="contrib-legend-label">More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Streak + Languages Row -->
+                <div class="grid sm:grid-cols-2 gap-4 sm:gap-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="github-card">
+                        <img src="https://github-readme-streak-stats.herokuapp.com/?user=JyotirmoyLaha&theme=transparent&hide_border=true&ring=22d3ee&fire=10b981&currStreakLabel=22d3ee&sideLabels=64748b&currStreakNum=f472b6&sideNums=f472b6&dates=94a3b8&background=00000000"
+                            alt="GitHub Streak" class="github-streak-img" loading="lazy">
+                    </div>
+                    <div class="github-card">
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JyotirmoyLaha&layout=compact&theme=transparent&hide_border=true&title_color=22d3ee&text_color=64748b&bg_color=00000000"
+                            alt="Most Used Languages" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. ACADEMIC DETAILS -->
         <section id="academic" class="py-8 sm:py-16 md:py-24 relative z-10 border-t border-slate-200/50 scroll-reveal">
             <div class="max-w-4xl mx-auto px-4 sm:px-6">
                 <div class="flex justify-center items-center flex-col mb-8 sm:mb-12 md:mb-16" data-aos="fade-up">
@@ -437,8 +669,6 @@
 
                     <!-- Current Degree -->
                     <div class="relative" data-aos="fade-left">
-                        <span
-                            class="absolute -left-[33px] sm:-left-[49px] top-1.5 h-5 w-5 sm:h-6 sm:w-6 rounded-full border-4 border-slate-50 bg-cyan-400 shadow-md dark:border-slate-900"></span>
                         <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">Bachelor of Computer
                             Applications (BCA)</h3>
                         <div class="flex items-center gap-3 text-sm font-semibold mt-2 mb-4">
@@ -559,6 +789,7 @@
 
 
     <!-- External JavaScript -->
+    <script src="blog-posts.js"></script>
     <script src="script.js"></script>
 </body>
 
