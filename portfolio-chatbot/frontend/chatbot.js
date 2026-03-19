@@ -15,9 +15,21 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
     <div id="jchat-window">
       <div id="jchat-header">
-        <div id="jchat-header-text">
-          <span id="jchat-header-title">⚡ Ask about Jyotirmoy</span>
-          <span id="jchat-header-subtitle">Online now • Real-time portfolio answers</span>
+        <div id="jchat-header-left">
+          <div id="jchat-header-avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="8" width="18" height="10" rx="2" ry="2"/>
+              <path d="M12 4v4"/>
+              <path d="M8 13h.01"/>
+              <path d="M16 13h.01"/>
+              <path d="M9 17h6"/>
+            </svg>
+          </div>
+          <div id="jchat-header-text">
+            <div id="jchat-header-title">⚡ Ask about Jyotirmoy</div>
+            <div id="jchat-header-subtitle">Online now • Real-time portfolio answers</div>
+          </div>
         </div>
         <button id="jchat-close">✕</button>
       </div>
@@ -73,7 +85,6 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     };
 
     if (!splash) {
-      // No splash screen found — show immediately
       revealChatbot();
       return;
     }
@@ -83,11 +94,8 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       return;
     }
 
-    // Watch for splash to be hidden/removed
     const observer = new MutationObserver(() => {
-      const isHidden = isSplashFullyGone(splash);
-
-      if (isHidden) {
+      if (isSplashFullyGone(splash)) {
         revealChatbot();
         observer.disconnect();
       }
@@ -109,7 +117,6 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     }, 12000);
   }
 
-  // Run after DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", showChatbotWhenReady);
   } else {
@@ -176,18 +183,19 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     sendBtn.disabled = state;
   }
 
+  // ── Page Context (blog aware) ─────────────────────────────
   function getCurrentPageContext() {
     const hash = window.location.hash || "";
     const isBlogRoute = hash.startsWith("#blog/");
 
     if (!isBlogRoute) return "";
 
-    const titleEl = document.getElementById("detail-title");
-    const dateEl = document.getElementById("detail-date");
+    const titleEl   = document.getElementById("detail-title");
+    const dateEl    = document.getElementById("detail-date");
     const contentEl = document.getElementById("detail-content");
 
-    const title = (titleEl?.innerText || "").trim();
-    const date = (dateEl?.innerText || "").trim();
+    const title      = (titleEl?.innerText || "").trim();
+    const date       = (dateEl?.innerText || "").trim();
     const domContent = (contentEl?.innerText || "").trim();
 
     let fallbackContent = "";
@@ -216,7 +224,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     return [
       `[CURRENT PAGE URL] ${window.location.href}`,
       title ? `[CURRENT BLOG TITLE] ${title}` : "",
-      date ? `[CURRENT BLOG DATE] ${date}` : "",
+      date  ? `[CURRENT BLOG DATE] ${date}`   : "",
       "[CURRENT BLOG CONTENT]",
       limited,
     ]
@@ -224,11 +232,9 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       .join("\n");
   }
 
+  // ── Scroll isolation (prevent page scroll when inside chat) ──
   function setupChatScrollIsolation() {
-    const stopBubble = (e) => {
-      e.stopPropagation();
-    };
-
+    const stopBubble = (e) => e.stopPropagation();
     ["wheel", "touchmove", "DOMMouseScroll"].forEach((evt) => {
       window_.addEventListener(evt, stopBubble, { passive: true });
       messages.addEventListener(evt, stopBubble, { passive: true });
