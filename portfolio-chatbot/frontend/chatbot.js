@@ -5,13 +5,20 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     <div id="jchat-bubble" title="Ask about Jyotirmoy">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <rect x="3" y="8" width="18" height="10" rx="2" ry="2"/>
+        <path d="M12 4v4"/>
+        <path d="M8 13h.01"/>
+        <path d="M16 13h.01"/>
+        <path d="M9 17h6"/>
       </svg>
     </div>
 
     <div id="jchat-window">
       <div id="jchat-header">
-        <span>⚡ Ask about Jyotirmoy</span>
+        <div id="jchat-header-text">
+          <span id="jchat-header-title">⚡ Ask about Jyotirmoy</span>
+          <span id="jchat-header-subtitle">Online now • Real-time portfolio answers</span>
+        </div>
         <button id="jchat-close">✕</button>
       </div>
       <div id="jchat-messages"></div>
@@ -109,6 +116,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       );
       welcomeSent = true;
     }
+    scrollMessagesToBottom();
   }
 
   function closeChat() {
@@ -121,12 +129,18 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   closeBtn.addEventListener("click", closeChat);
 
   // ── Messages ──────────────────────────────────────────────
+  function scrollMessagesToBottom() {
+    requestAnimationFrame(() => {
+      messages.scrollTop = messages.scrollHeight;
+    });
+  }
+
   function appendMessage(role, text) {
     const msg = document.createElement("div");
     msg.classList.add("jchat-msg", role === "user" ? "jchat-user" : "jchat-bot");
     msg.textContent = text;
     messages.appendChild(msg);
-    messages.scrollTop = messages.scrollHeight;
+    scrollMessagesToBottom();
     return msg;
   }
 
@@ -136,7 +150,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     typing.id = "jchat-typing";
     typing.innerHTML = `<span></span><span></span><span></span>`;
     messages.appendChild(typing);
-    messages.scrollTop = messages.scrollHeight;
+    scrollMessagesToBottom();
   }
 
   function removeTyping() {
@@ -149,6 +163,67 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     sendBtn.disabled = state;
   }
 
+  function getCurrentPageContext() {
+    const hash = window.location.hash || "";
+    const isBlogRoute = hash.startsWith("#blog/");
+
+    if (!isBlogRoute) return "";
+
+    const titleEl = document.getElementById("detail-title");
+    const dateEl = document.getElementById("detail-date");
+    const contentEl = document.getElementById("detail-content");
+
+    const title = (titleEl?.innerText || "").trim();
+    const date = (dateEl?.innerText || "").trim();
+    const domContent = (contentEl?.innerText || "").trim();
+
+    let fallbackContent = "";
+    const idText = hash.replace("#blog/", "");
+    const postId = Number.parseInt(idText, 10);
+
+    if ((!domContent || domContent.length < 120) && Number.isInteger(postId)) {
+      try {
+        if (typeof blogPosts !== "undefined" && Array.isArray(blogPosts)) {
+          const post = blogPosts.find((entry) => entry.id === postId);
+          if (post && typeof post.content === "string") {
+            fallbackContent = post.content;
+          }
+        }
+      } catch (_) {
+        fallbackContent = "";
+      }
+    }
+
+    const content = domContent || fallbackContent;
+    if (!content) return "";
+
+    const cleaned = content.replace(/\s{3,}/g, " ").trim();
+    const limited = cleaned.slice(0, 6000);
+
+    return [
+      `[CURRENT PAGE URL] ${window.location.href}`,
+      title ? `[CURRENT BLOG TITLE] ${title}` : "",
+      date ? `[CURRENT BLOG DATE] ${date}` : "",
+      "[CURRENT BLOG CONTENT]",
+      limited,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  function setupChatScrollIsolation() {
+    const stopBubble = (e) => {
+      e.stopPropagation();
+    };
+
+    ["wheel", "touchmove", "DOMMouseScroll"].forEach((evt) => {
+      window_.addEventListener(evt, stopBubble, { passive: true });
+      messages.addEventListener(evt, stopBubble, { passive: true });
+    });
+  }
+
+  setupChatScrollIsolation();
+
   // ── Send ──────────────────────────────────────────────────
   async function sendMessage() {
     const text = input.value.trim();
@@ -160,10 +235,11 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     showTyping();
 
     try {
+      const pageContext = getCurrentPageContext();
       const res = await fetch(CHATBOT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: text, page_context: pageContext }),
       });
 
       const data = await res.json();

@@ -1,7 +1,7 @@
 /* ── Wrapper ──────────────────────────────────────────────── */
 #jchat-wrapper * {
   box-sizing: border-box;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 /* ── Bubble ───────────────────────────────────────────────── */
@@ -9,28 +9,30 @@
   position: fixed;
   bottom: 28px;
   right: 28px;
-  width: 56px;
-  height: 56px;
-  background: #22d3ee;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 99999;
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 12px 28px rgba(14, 116, 144, 0.35), 0 2px 10px rgba(59, 130, 246, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 #jchat-bubble:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.7);
+  transform: translateY(-2px) scale(1.06);
+  filter: saturate(1.08);
+  box-shadow: 0 16px 34px rgba(14, 116, 144, 0.45), 0 4px 12px rgba(59, 130, 246, 0.45);
 }
 
 #jchat-bubble svg {
   width: 26px;
   height: 26px;
-  color: #0f172a;
+  color: #ffffff;
 }
 
 #jchat-bubble.jchat-hidden {
@@ -42,15 +44,18 @@
   position: fixed;
   bottom: 28px;
   right: 28px;
-  width: 380px;
-  height: 520px;
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 16px;
+  width: min(410px, calc(100vw - 28px));
+  height: min(620px, calc(100vh - 56px));
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   z-index: 99999;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(34, 211, 238, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 24px 55px rgba(2, 6, 23, 0.55), 0 4px 18px rgba(2, 6, 23, 0.35);
   opacity: 0;
   pointer-events: none;
   transform: translateY(20px) scale(0.97);
@@ -66,46 +71,72 @@
 /* ── Header ───────────────────────────────────────────────── */
 #jchat-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 14px 16px;
-  background: #0f172a;
-  border-bottom: 1px solid #1e293b;
-  border-radius: 16px 16px 0 0;
+  gap: 12px;
+  padding: 14px 16px 12px;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.72) 100%);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 18px 18px 0 0;
 }
 
-#jchat-header span {
-  color: #22d3ee;
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
+#jchat-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#jchat-header-title {
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+#jchat-header-subtitle {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 #jchat-close {
-  background: none;
-  border: none;
-  color: #64748b;
-  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  background: rgba(51, 65, 85, 0.42);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 15px;
   cursor: pointer;
   padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
 }
 
 #jchat-close:hover {
   color: #e2e8f0;
+  background: rgba(51, 65, 85, 0.65);
+  transform: translateY(-1px);
 }
 
 /* ── Messages ─────────────────────────────────────────────── */
 #jchat-messages {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 11px;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   scrollbar-width: thin;
-  scrollbar-color: #1e293b transparent;
+  scrollbar-color: #334155 transparent;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(2, 6, 23, 0.2) 100%);
 }
 
 #jchat-messages::-webkit-scrollbar {
@@ -117,18 +148,20 @@
 }
 
 #jchat-messages::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #334155;
   border-radius: 4px;
 }
 
 .jchat-msg {
   max-width: 82%;
-  padding: 10px 14px;
-  border-radius: 12px;
+  padding: 10px 13px;
+  border-radius: 14px;
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.55;
   word-wrap: break-word;
+  white-space: pre-wrap;
   animation: jchat-fadein 0.2s ease;
+  border: 1px solid transparent;
 }
 
 @keyframes jchat-fadein {
@@ -137,18 +170,21 @@
 }
 
 .jchat-bot {
-  background: #1e293b;
+  background: rgba(51, 65, 85, 0.45);
   color: #e2e8f0;
   align-self: flex-start;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 6px;
+  border-color: rgba(148, 163, 184, 0.2);
 }
 
 .jchat-user {
-  background: #22d3ee;
-  color: #0f172a;
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+  color: #f8fafc;
   align-self: flex-end;
-  border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 6px;
+  border-color: rgba(147, 197, 253, 0.5);
   font-weight: 500;
+  box-shadow: 0 4px 12px rgba(14, 116, 144, 0.24);
 }
 
 /* ── Typing Indicator ─────────────────────────────────────── */
@@ -156,7 +192,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 12px 16px;
+  padding: 12px 14px;
 }
 
 .jchat-typing span {
@@ -182,26 +218,27 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  border-top: 1px solid #1e293b;
-  background: #0f172a;
-  border-radius: 0 0 16px 16px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 0 0 18px 18px;
 }
 
 #jchat-input {
   flex: 1;
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 10px;
   color: #e2e8f0;
   font-size: 13px;
-  font-family: 'Courier New', Courier, monospace;
-  padding: 9px 12px;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding: 10px 12px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 #jchat-input:focus {
   border-color: #22d3ee;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
 }
 
 #jchat-input::placeholder {
@@ -214,22 +251,25 @@
 }
 
 #jchat-send {
-  width: 38px;
-  height: 38px;
-  background: #22d3ee;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 0.2s, transform 0.15s;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 18px rgba(14, 116, 144, 0.3);
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
 }
 
 #jchat-send:hover {
-  background: #06b6d4;
-  transform: scale(1.05);
+  transform: translateY(-1px) scale(1.04);
+  filter: saturate(1.08);
+  box-shadow: 0 12px 22px rgba(14, 116, 144, 0.36);
 }
 
 #jchat-send:disabled {
@@ -241,14 +281,14 @@
 #jchat-send svg {
   width: 16px;
   height: 16px;
-  color: #0f172a;
+  color: #ffffff;
 }
 
 /* ── Mobile ───────────────────────────────────────────────── */
 @media (max-width: 480px) {
   #jchat-window {
     width: 100vw;
-    height: 60vh;
+    height: 72vh;
     bottom: 0;
     right: 0;
     border-radius: 16px 16px 0 0;
@@ -257,6 +297,15 @@
   #jchat-bubble {
     bottom: 20px;
     right: 20px;
+  }
+
+  #jchat-header {
+    border-radius: 16px 16px 0 0;
+  }
+
+  #jchat-input-area {
+    border-radius: 0;
+    padding: 10px 12px;
   }
 }
 

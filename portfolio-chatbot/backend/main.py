@@ -155,7 +155,18 @@ async def scrape_portfolio_content() -> str:
 
 
 # ─── System Prompt Builder ───────────────────────────────────
-def build_system_prompt(portfolio_content: str) -> str:
+def build_system_prompt(portfolio_content: str, page_context: str = "") -> str:
+    page_context_block = ""
+    if page_context:
+        page_context_block = f"""
+
+============================================================
+CURRENT PAGE CONTEXT (FROM VISITOR'S OPEN PAGE):
+============================================================
+{page_context}
+============================================================
+"""
+
     return f"""You are Jyotirmoy's personal portfolio assistant — intelligent, friendly, 
 embedded on his developer portfolio website. Help visitors learn about Jyotirmoy 
 quickly and accurately.
@@ -168,12 +179,15 @@ JYOTIRMOY'S COMPLETE PROFILE:
 ============================================================
 {portfolio_content}
 ============================================================
+{page_context_block}
 
 RULES:
 - Answer based on the above content. Be specific — include phone numbers, 
   emails, links when asked.
 - If asked for contact details, always provide them directly.
-- For blog questions: summarise from the LIVE SCRAPED CONTENT section if present.
+- For blog questions: prioritize CURRENT PAGE CONTEXT first, then LIVE SCRAPED CONTENT.
+- If user says things like "summarize this blog", "summary of this article", or
+    "what is this post about", treat "this" as CURRENT PAGE CONTEXT.
 - Tone: friendly, direct, slightly informal — match the terminal/dev vibe.
 - Keep answers short unless visitor clearly wants detail.
 - Never fabricate anything not present above.
@@ -204,6 +218,7 @@ async def chat(request: Request):
         return JSONResponse(status_code=400, content={"error": "Invalid request body."})
 
     message = body.get("message", "")
+    page_context = body.get("page_context", "")
 
     if not message or not isinstance(message, str):
         return JSONResponse(status_code=400, content={"error": "Message must be a non-empty string."})
@@ -216,8 +231,16 @@ async def chat(request: Request):
     if len(message) > 500:
         return JSONResponse(status_code=400, content={"error": "Message too long. Max 500 characters."})
 
+    if page_context and not isinstance(page_context, str):
+        return JSONResponse(status_code=400, content={"error": "page_context must be a string."})
+
+    if isinstance(page_context, str):
+        page_context = page_context.strip()
+        if len(page_context) > 12000:
+            page_context = page_context[:12000]
+
     portfolio_content = await scrape_portfolio_content()
-    system_prompt = build_system_prompt(portfolio_content)
+    system_prompt = build_system_prompt(portfolio_content, page_context)
 
     try:
         completion = groq_client.chat.completions.create(
