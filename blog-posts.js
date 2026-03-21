@@ -60,20 +60,6 @@ if (items.length === 0) {
 
 No cryptic variable names, no clever one-liners that sacrifice readability for brevity. The intent is clear: if there's nothing to show, display an empty state. Otherwise, render the items.
 
-Even small visual features taught me that thinking matters more than typing. When I added particle effects to my portfolio background, I had to think carefully about performance. Too many particles would lag on mobile devices. Too few would look empty. I settled on a balance:
-
-\`\`\`
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 30 },
-        size: { value: 2 },
-        move: { speed: 1 }
-    }
-});
-\`\`\`
-
-Thirty particles, small size, slow speed. Subtle enough to add atmosphere without taxing the browser. That decision came from thinking, not from trial-and-error coding.
-
 I build projects to sharpen my thinking, not just to fill a GitHub profile. Every project I've worked on - my portfolio, my weather app, my resume analyzer - taught me something new about how to approach problems. And every time, the lesson was the same: slow down, think first, then code.
 
 I'm still learning. And that's not a weakness - it's the whole point.`
@@ -114,21 +100,6 @@ AOS.init({
 
 Setting \`once: true\` was an important decision. Without it, elements would re-animate every time the user scrolled up and down, which felt chaotic. With it, each section reveals once and stays visible - much more polished.
 
-I also added a subtle particle effect to the hero background. The goal was atmosphere, not flashiness. I kept the particle count low and the movement slow so it wouldn't compete with the content:
-
-\`\`\`
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 30 },
-        color: { value: "#94a3b8" },
-        size: { value: 2 },
-        move: { speed: 1 }
-    }
-});
-\`\`\`
-
-Thirty particles with a muted slate color. They float gently in the background and add a sense of depth without pulling attention away from the text. That balance took a few iterations to get right.
-
 One of the bigger challenges was building the blog system. Instead of using a CMS or external service, I hardcoded the blog posts as a JavaScript array and built a custom renderer. The blog view switches dynamically between a card grid and a full article view - all handled with vanilla JS and DOM manipulation. This approach keeps the site self-contained and fast, with zero external dependencies for content.
 
 Dark mode was another detail I integrated carefully. Instead of a simple toggle that just swaps colors, I made sure the transitions felt smooth and that every component - from cards to code blocks to navigation - respected the theme consistently.
@@ -149,18 +120,7 @@ My first and biggest mistake was designing before I had content. I spent days pi
 
 I also tried to build the entire website in one marathon session. I thought I could go from zero to deployed in a single sitting. Instead, I ended up with tangled code, duplicated styles, and a CSS file that made no sense by hour six. Breaking the project into focused sessions - navigation one day, hero section the next, blog system after that - made the code cleaner and the process less exhausting.
 
-At one point, I went overboard with visual effects. I added particle backgrounds, scroll animations on every element, hover transitions on every card, and subtle parallax effects. It looked impressive on my high-end laptop. On a mid-range phone, the site stuttered and lagged. I had to strip most of it back:
-
-\`\`\`
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 30 },
-        move: { speed: 1 }
-    }
-});
-\`\`\`
-
-Thirty slow particles instead of a hundred fast ones. That single change cut the performance impact dramatically. I learned that visual polish means nothing if the site feels sluggish.
+At one point, I went overboard with visual effects. I added scroll animations on every element, hover transitions on every card, and subtle parallax effects. It looked impressive on my high-end laptop. On a mid-range phone, the site stuttered and lagged. I had to strip most of the extra effects back and focus on what truly matters for performance and user experience.
 
 Variable naming was another area where I stumbled early on. I used names like \`x\`, \`temp\`, \`el1\`, and \`btn2\` - names that made sense at 2 AM but were completely cryptic two weeks later. When I came back to fix a bug, I couldn't tell which element was which. I started being deliberate about naming:
 
