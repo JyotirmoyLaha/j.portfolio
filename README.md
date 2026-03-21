@@ -38,92 +38,37 @@
 
 ```text
 j.portfolio.github/
-├── index.html                 # Single-page app — splash, portfolio, blog views
-├── styles.css                 # 1 700+ lines — dark mode, animations, components
-├── script.js                  # Core JS — splash, view switching, blog, GitHub graph
-├── blog-posts.js              # Blog content data (10 articles)
-├── profile.jpg                # Profile photo (also used as favicon)
-├── Jyotirmoy_Laha_Resume.pdf  # Downloadable CV
-│
-├── portfolio-chatbot/
-│   ├── frontend/
-│   │   ├── chatbot.js         # Chat widget — splash-aware, blog-context-aware
-│   │   └── chatbot.css        # Chat panel & bubble styling
-│   └── backend/
-│       ├── main.py            # FastAPI server — Groq LLM, scraper, rate limiter
-│       ├── requirements.txt   # Python dependencies
-│       ├── .env.example       # Environment variable template
-│       └── .gitignore         # Keeps .env and __pycache__ out of version control
-│
-└── *.jpg / *.png / *.jpeg     # Blog cover images and project screenshots
+├─ index.html
+├─ styles.css
+├─ script.js
+├─ blog-posts.js
+└─ portfolio-chatbot/
+	├─ frontend/
+	│  ├─ chatbot.js
+	│  └─ chatbot.css
+	└─ backend/
+		├─ main.py
+		└─ requirements.txt
 ```
 
----
+## Chatbot Features (Current)
 
-## 🛠️ Tech Stack
+- Floating robot launcher icon
+- Smooth open/close chat panel with modern UI
+- Auto-scroll and isolated chat scroll behavior
+- Splash-aware rendering (chatbot appears only after splash fully ends)
+- Backend Q&A with portfolio context (hardcoded + live scraped)
+- Blog summarization improvement using current blog page context from frontend
 
-### Frontend
-- **HTML5** — semantic structure, single `index.html` entry point
-- **Tailwind CSS (CDN)** — utility-first styling extended with custom config (brand colors, premium shadows)
-- **Vanilla CSS** — 1 700+ lines of custom styles for splash screen, glassmorphism components, dark mode overrides, scroll-reveal animations, contribution graph, and mobile responsiveness
-- **Vanilla JavaScript** — no frameworks or build tools
-- **[AOS](https://michalsnik.github.io/aos/)** — scroll-triggered reveal animations (`once: true`)
-- **[Lenis](https://lenis.darkroom.engineering/)** — smooth scrolling (custom easing, wheel/touch multipliers)
-- **Font Awesome 6.4** — icons throughout the UI
-- **Google Fonts** — Inter, Space Grotesk, JetBrains Mono, Plus Jakarta Sans
+## Recent Fixes (March 2026)
 
-### Chatbot Backend
-- **Python 3** + **FastAPI** — async API with CORS middleware
-- **Groq SDK** — LLM inference (Llama 3.3 70B Versatile, temperature 0.7)
-- **httpx** + **BeautifulSoup4** — live portfolio scraping with 5-minute cache
-- **python-dotenv** — environment variable management
-- **Rate limiting** — 20 requests/hour per IP (in-memory sliding window)
+- Updated launcher to robot-style icon
+- Fixed message panel scrolling issues
+- Fixed early chatbot appearance before splash completion
+- Improved blog summary accuracy by passing open-article context (`page_context`) from frontend to backend
+- Backend prompt now prioritizes current page context for requests like “summarize this blog”
 
----
-
-## ⚙️ Key Implementation Details
-
-### Splash Screen (`script.js`)
-- **Desktop**: semicircle arch of 12 tech-logo cards with staggered spring-in reveals, macOS Dock-style magnification on hover, and subtle floating animation
-- **Mobile**: full 360° orbiting ring around center content, smooth `requestAnimationFrame` rotation
-- Typewriter effect types `boot --portfolio` in a terminal prompt
-- Auto-dismisses after 6 seconds or on "Enter Portfolio" button click
-
-### View Switching
-- Portfolio ↔ Blog toggle with CSS fade transitions and `history.pushState` for proper back/forward navigation
-- Blog list ↔ article detail view with URL-hash routing (`#blog`, `#blog/{id}`)
-- Deep-linking support — direct links to blog articles work on page load
-
-### Blog Renderer
-- Posts stored as JavaScript objects in `blog-posts.js` with markdown-like content (triple-backtick code blocks, list items)
-- Custom parser splits content by `` ``` ``, renders code blocks with syntax-styled `<pre>` tags, and regular text as `<p>` and `<li>` elements
-
-### GitHub Contribution Graph
-- Fetches data from the [GitHub Contributions API](https://github-contributions-api.jogruber.de/) per year
-- Renders a pixel-perfect heatmap (week columns × 7 day rows) with month labels, color levels, and hover tooltips
-- Streak stats and top languages via GitHub Readme Stats / Streak Stats embeds
-
-### AI Chatbot
-- **Frontend widget** waits for splash screen to fully exit (MutationObserver + fallback timeout) before appearing
-- Sends optional `page_context` (current blog article title + content) with each message so the LLM can answer "summarize this blog" contextually
-- Scroll isolation prevents chat panel scrolling from moving the page
-- **Backend** combines hardcoded profile context + live-scraped website content into a structured system prompt for accurate answers
-
-### Dark Mode
-- Toggle applies `.dark` class to `<html>`, driving ~120 CSS override rules
-- `theme-transitioning` class enables smooth color transitions only during toggle (not during scroll)
-- Persisted in `localStorage` with `prefers-color-scheme` fallback
-
-### Performance Optimizations
-- `IntersectionObserver`-based scroll reveal (unobserves after first trigger)
-- `requestAnimationFrame`-throttled nav hide-on-scroll
-- `contain: layout style` on sections for GPU compositing
-- `will-change` hints on animated elements
-- Lazy-loaded images throughout
-
----
-
-## 🚀 Local Development
+## Local Development
 
 ### 1. Frontend
 
