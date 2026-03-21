@@ -132,26 +132,7 @@ const CHATBOT_API_URL = "http://127.0.0.1:8000/chat";
 
 > **Important**: Set `ALLOWED_ORIGIN` in the backend `.env` to match your deployed frontend domain exactly to avoid CORS issues.
 
----
-
-## 📝 Blog Posts
-
-| # | Title | Category |
-|---|-------|----------|
-| 1 | Why I Focus More on Thinking Than Just Writing Code | Philosophy |
-| 2 | How I Built My Portfolio Website | Project Breakdown |
-| 3 | Mistakes I Made While Building My Portfolio Website | Reflection |
-| 4 | How I Built My Weather App (J.SkyCast) | Project Breakdown |
-| 5 | Mistakes I Made While Building This Weather App | Development |
-| 6 | How AI Helps Me Build Better Websites | Workflow |
-| 7 | How I Built My AI Resume Analyzer Tool | Project Breakdown |
-| 8 | Mistakes I Made While Building This AI Resume Analyzer | Lessons Learned |
-| 9 | How I Built Mess Manager — A Real-Time Expense Tracker for Hostel Life | Project Breakdown |
-| 10 | What Building Mess Manager Actually Taught Me | Lessons Learned |
-
-To add a new post, append an object to the `blogPosts` array in `blog-posts.js` with `id`, `title`, `date`, `category`, `image`, and `content` fields.
-
----
+--- 
 
 ## 📬 Contact
 
