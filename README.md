@@ -71,13 +71,6 @@ j.portfolio.github/
 - Backend Q&A with portfolio context (hardcoded + live scraped)
 - Blog summarization improvement using current blog page context from frontend
 
-## Recent Fixes (March 2026)
-
-- Updated launcher to robot-style icon
-- Fixed message panel scrolling issues
-- Fixed early chatbot appearance before splash completion
-- Improved blog summary accuracy by passing open-article context (`page_context`) from frontend to backend
-- Backend prompt now prioritizes current page context for requests like “summarize this blog”
 
 ## Local Development
 
