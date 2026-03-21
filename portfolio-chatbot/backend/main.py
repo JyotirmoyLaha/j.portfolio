@@ -65,7 +65,8 @@ Breaks down tough problems methodically. Builds projects to improve thinking, no
 Degree: Bachelor of Computer Applications (BCA)
 Institution: Dr. B.C. Roy Academy of Professional Courses, Durgapur
 Year: 2nd Year
-Subjects: Advanced Python, AI/ML, Web Technologies, Core CS fundamentals
+College Subjects (Curriculum): DBMS, Software Engineering, Operating System
+Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Core CS fundamentals
 
 [PROJECTS]
 1. Portfolio Website — HTML5, Tailwind CSS, JavaScript
