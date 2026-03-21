@@ -24,11 +24,22 @@
 | **Animated Splash Screen** | Full-screen intro with orbiting tech-stack cards (JavaScript, Python, React, Firebase, etc.), typewriter terminal animation, and a smooth exit transition |
 | **Portfolio View** | Hero section with 3D tilt profile image, social links with tooltips, terminal-style dev card, and a "How I Work" methodology timeline |
 | **Projects Showcase** | Card grid for 5 live projects — Portfolio, J.SkyCast, AI Resume Analyzer, Mess Manager, StudyVerse — plus an "In Progress" placeholder |
-| **Skills & Tools** | Categorized skill pills (Frontend, Backend, Tools & DevOps) with devicon logos and an "Exploring" section for AI/ML, LangChain, TensorFlow, NLP |
-| **GitHub Activity** | Custom contribution heatmap fetched from GitHub Contributions API, streak stats, and top languages — with year selection pills |
-| **Academic Section** | Timeline-style education details (BCA @ Dr. B.C. Roy Academy) |
-| **Blog Engine** | 10 in-depth blog articles rendered from a JS data file with card-grid listing, full-article detail view, code block formatting, and smooth view transitions |
-| **AI Chatbot** | Floating robot-icon widget powered by Groq (Llama 3.3 70B) via FastAPI — answers questions about skills, projects, and blog content in real time |
+| **Skills & Tools** | Categorized skill### Frontend
+- **HTML5** — semantic structure, single `index.html` entry point
+- **Tailwind CSS (CDN)** — utility-first styling extended with custom config (brand colors, premium shadows)
+- **Vanilla CSS** — 1 700+ lines of custom styles for splash screen, glassmorphism components, dark mode overrides, scroll-reveal animations, contribution graph, and mobile responsiveness
+- **Vanilla JavaScript** — no frameworks or build tools
+- **[AOS](https://michalsnik.github.io/aos/)** — scroll-triggered reveal animations (`once: true`)
+- **[Lenis](https://lenis.darkroom.engineering/)** — smooth scrolling (custom easing, wheel/touch multipliers)
+- **Font Awesome 6.4** — icons throughout the UI
+- **Google Fonts** — Inter, Space Grotesk, JetBrains Mono, Plus Jakarta Sans
+
+### Chatbot Backend
+- **Python 3** + **FastAPI** — async API with CORS middleware
+- **Groq SDK** — LLM inference (Llama 3.3 70B Versatile, temperature 0.7)
+- **httpx** + **BeautifulSoup4** — live portfolio scraping with 5-minute cache
+- **python-dotenv** — environment variable management
+- **Rate limiting** — 20 requests/hour per IP (in-memory sliding window)
 | **Dark Mode** | Glassmorphism toggle switch with smooth CSS transitions, localStorage persistence, and system-preference detection |
 | **Responsive Design** | Mobile-first breakpoints, touch-device optimizations, landscape handling, and desktop-mode-on-phone layout fixes |
 
