@@ -15,7 +15,7 @@
 
 ## About
 
-A single-page developer portfolio with an integrated blog engine and AI-powered chatbot assistant — built entirely from scratch using **HTML5**, **Tailwind CSS**, and **vanilla JavaScript** (no frameworks, no build tools).
+A single-page developer portfolio with an integrated blog engine and AI-powered chatbot assistant — built entirely from scratch using **HTML5**, **Tailwind CSS**, and **vanilla JavaScript** .
 
 ---
 
