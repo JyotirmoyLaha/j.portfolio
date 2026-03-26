@@ -6,7 +6,6 @@
 
 <p align="center">
   <a href="https://jyotirmoy-portfolio.onrender.com">🌐 Live Site</a> &nbsp;·&nbsp;
-  <a href="https://github.com/JyotirmoyLaha">GitHub</a> &nbsp;·&nbsp;
   <a href="https://www.linkedin.com/in/jyotirmoylaha2005/">LinkedIn</a> &nbsp;·&nbsp;
   <a href="mailto:jyotirmoy713128@gmail.com">Email</a>
 </p>
