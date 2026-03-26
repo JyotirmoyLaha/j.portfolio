@@ -1,17 +1,6 @@
 /* =========================================================
    BLOG POSTS DATA
-   =========================================================
-   Add, edit, or remove blog posts here.
-   Each post needs: id, title, date, category, image, content
-
-   To add a new post, copy any existing post block and change:
-   - id: next number in sequence
-   - title: your article title
-   - date: publication date
-   - category: e.g. 'Project Breakdown', 'Lessons Learned'
-   - image: filename of the cover image
-   - content: your article text (use backticks for template literal)
-   ========================================================= */
+   =========================================================*/
 
 const blogPosts = [
     {
