@@ -4,16 +4,17 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #F5F5F5;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
+    background: linear-gradient(180deg, #D3D3D3, #C0C0C0);
+    border-radius: 100px;
+    border: 2px solid #F5F5F5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: linear-gradient(180deg, #A9A9A9, #999);
 }
 
 
@@ -56,10 +57,11 @@
 
 /* ===================== HERO SECTION ===================== */
 .hero-bg {
-    background-color: #f8fafc;
+    background-color: #F5F5F5;
     background-image:
-        linear-gradient(135deg, rgba(168, 85, 247, 0.02) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(34, 211, 238, 0.02) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 240, 0.7) 0%, transparent 70%),
+        linear-gradient(135deg, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(34, 211, 238, 0.03) 0%, transparent 50%);
 }
 
 .dark .hero-bg {
@@ -211,8 +213,10 @@
 .terminal-card {
     width: 100%;
     max-width: 400px;
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    background: rgba(30, 41, 59, 0.04);
+    border: 1px solid rgba(211, 211, 211, 0.4);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 0.75rem;
     padding: 12px 16px;
     display: flex;
@@ -220,8 +224,10 @@
     gap: 8px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
     transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @media (min-width: 640px) {
@@ -234,6 +240,8 @@
 
 .terminal-card:hover {
     border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(34, 211, 238, 0.06);
+    transform: translateY(-1px);
 }
 
 .terminal-accent {
@@ -254,13 +262,16 @@
 /* ===================== PROJECT CARDS (vineet-style) ===================== */
 .project-card {
     padding: 16px;
-    border: 1px solid rgba(34, 211, 238, 0.15);
+    border: 1px solid rgba(211, 211, 211, 0.35);
     border-radius: 0.75rem;
-    background: rgba(30, 41, 59, 0.02);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     min-height: 150px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
         border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
         box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -274,9 +285,10 @@
 }
 
 .project-card:hover {
-    transform: translateY(-2px) scale(1.02);
-    border-color: rgba(34, 211, 238, 0.4);
-    box-shadow: 0 8px 24px -8px rgba(34, 211, 238, 0.08);
+    transform: translateY(-3px) scale(1.015);
+    border-color: rgba(34, 211, 238, 0.35);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08),
+        0 4px 16px -4px rgba(34, 211, 238, 0.1);
 }
 
 .project-card:active {
@@ -295,10 +307,11 @@
 
 /* Glass Navigation */
 .nav-glass {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    background: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(211, 211, 211, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 16px rgba(0, 0, 0, 0.02);
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -416,7 +429,7 @@
 
 /* Subtle Grid Pattern Background */
 .bg-grid-pattern {
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-image: radial-gradient(#D3D3D3 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
@@ -963,9 +976,9 @@ html.lenis body {
    ===================================================================== */
 
 .process-section {
-    background: #f8fafc;
+    background: linear-gradient(180deg, #F5F5F5 0%, #FFFFF0 50%, #F5F5F5 100%);
     position: relative;
-    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    border-top: 1px solid rgba(211, 211, 211, 0.3);
 }
 
 .dark .process-section {
@@ -995,14 +1008,15 @@ html.lenis body {
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), rgba(34, 211, 238, 0.08));
-    border: 1.5px solid rgba(16, 185, 129, 0.25);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(34, 211, 238, 0.06));
+    border: 1.5px solid rgba(16, 185, 129, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     color: #10b981;
     margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.06);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
 }
@@ -1041,7 +1055,7 @@ html.lenis body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #cbd5e1;
+    color: #D3D3D3;
     font-size: 14px;
     padding-top: 22px;
     flex-shrink: 0;
@@ -1085,9 +1099,9 @@ html.lenis body {
    ===================================================================== */
 
 .skills-section {
-    background: #f8fafc;
+    background: linear-gradient(180deg, #F5F5F5 0%, rgba(255, 255, 240, 0.4) 50%, #F5F5F5 100%);
     position: relative;
-    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    border-top: 1px solid rgba(211, 211, 211, 0.3);
 }
 
 .dark .skills-section {
@@ -1096,10 +1110,13 @@ html.lenis body {
 }
 
 .skill-category-card {
-    background: rgba(241, 245, 249, 0.6);
-    border: 1px solid rgba(203, 213, 225, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(211, 211, 211, 0.35);
     border-radius: 16px;
     padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -1109,9 +1126,9 @@ html.lenis body {
 }
 
 .skill-category-card:hover {
-    border-color: rgba(34, 211, 238, 0.4);
-    box-shadow: 0 8px 32px rgba(34, 211, 238, 0.08);
-    transform: translateY(-2px);
+    border-color: rgba(34, 211, 238, 0.35);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(34, 211, 238, 0.08);
+    transform: translateY(-3px);
 }
 
 .dark .skill-category-card:hover {
@@ -1132,7 +1149,7 @@ html.lenis body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(211, 211, 211, 0.3);
     border-radius: 10px;
 }
 
@@ -1162,14 +1179,15 @@ html.lenis body {
     align-items: center;
     gap: 8px;
     padding: 8px 14px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(203, 213, 225, 0.5);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(211, 211, 211, 0.35);
     border-radius: 10px;
     font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 500;
     color: #475569;
-    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     cursor: default;
 }
 
@@ -1180,9 +1198,10 @@ html.lenis body {
 }
 
 .skill-pill:hover {
-    border-color: rgba(34, 211, 238, 0.4);
-    background: rgba(34, 211, 238, 0.06);
-    transform: translateY(-1px);
+    border-color: rgba(34, 211, 238, 0.35);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(34, 211, 238, 0.08);
 }
 
 .dark .skill-pill:hover {
@@ -1225,9 +1244,9 @@ html.lenis body {
    ===================================================================== */
 
 .github-section {
-    background: #f8fafc;
+    background: linear-gradient(180deg, #F5F5F5 0%, rgba(255, 255, 240, 0.3) 50%, #F5F5F5 100%);
     position: relative;
-    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    border-top: 1px solid rgba(211, 211, 211, 0.3);
 }
 
 .dark .github-section {
@@ -1236,25 +1255,32 @@ html.lenis body {
 }
 
 .github-card {
-    background: rgba(241, 245, 249, 0.6);
-    border: 1px solid rgba(203, 213, 225, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(211, 211, 211, 0.35);
     border-radius: 16px;
     padding: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .dark .github-card {
     background: rgba(30, 41, 59, 0.45);
     border-color: rgba(71, 85, 105, 0.4);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
 }
 
 .github-card:hover {
     border-color: rgba(34, 211, 238, 0.3);
-    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.06);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(34, 211, 238, 0.06);
+    transform: translateY(-2px);
 }
 
 .dark .github-card:hover {
