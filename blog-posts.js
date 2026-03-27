@@ -690,5 +690,93 @@ Every line of code in this project exists because a real situation demanded it. 
 
 — Jyotirmoy Laha
 `
+    },
+    {
+        id: 11,
+        title: "How I Use Groq API as a Free AI Tool in My Projects",
+        date: "27th March 2026",
+        category: "Workflow",
+        image: "groq.jpg",
+        content: `Most tutorials about adding AI to your projects assume you have money to spend. OpenAI charges per token. Gemini has rate limits that kick in fast on free tiers. When I was looking for a way to integrate AI into my projects without a credit card, I found Groq — and it changed how I think about AI in development.
+
+Groq offers a free API tier that gives you access to models like LLaMA 3 and Mixtral with genuinely fast inference speeds. No billing setup required to start. For a student developer building side projects, this is as good as it gets.
+
+The API follows the same structure as OpenAI's — so if you've seen one, the other feels familiar immediately. Here's the core pattern I use in Python:
+
+\`\`\`python
+from groq import Groq
+
+client = Groq(api_key="your_api_key_here")
+
+def ask_groq(prompt):
+    response = client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=500
+    )
+    return response.choices[0].message.content
+\`\`\`
+
+This is clean, minimal, and works immediately after a pip install groq. I use this exact function for AI-assisted scripts, content generation experiments, and testing ideas before committing to a bigger build.
+
+You can also call it directly via HTTP without installing any SDK — useful when you're inside an environment where installing packages is inconvenient:
+
+\`\`\`python
+import requests
+
+def ask_groq_raw(prompt, api_key):
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    body = {
+        "model": "llama3-8b-8192",
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 500
+    }
+    response = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers=headers,
+        json=body
+    )
+    data = response.json()
+    return data["choices"][0]["message"]["content"]
+\`\`\`
+
+A few things worth explaining here. The model llama3-8b-8192 is fast, lightweight, and free on Groq's tier. I cap max_tokens depending on the use case — shorter for quick responses, higher for detailed analysis. I always check that the response structure exists before accessing nested keys, because API responses can be unpredictable when something goes wrong.
+
+One important habit I developed early: never hardcode your API key. I store it in a .env file and load it with python-dotenv:
+
+\`\`\`python
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("GROQ_API_KEY")
+\`\`\`
+
+Groq's free keys are rate-limited, and if yours leaks publicly on GitHub, someone else will burn through your quota fast.
+
+I also use Groq with a system prompt when I need the AI to behave in a specific way — like acting as a resume reviewer or a code explainer:
+
+\`\`\`python
+response = client.chat.completions.create(
+    model="llama3-8b-8192",
+    messages=[
+        {"role": "system", "content": "You are a helpful career advisor. Be concise and direct."},
+        {"role": "user", "content": prompt}
+    ],
+    max_tokens=500
+)
+\`\`\`
+
+The system prompt shapes the entire personality and focus of the response. Without it, the model answers too broadly. With it, responses become targeted and useful.
+
+The biggest thing Groq taught me is that AI integration does not have to be expensive or complicated. The free tier is genuinely usable for real projects, not just toy demos. The inference speed is faster than most alternatives I've tried, and the model quality is more than sufficient for content tools, analyzers, or development assistance.
+
+If you're a student developer who keeps avoiding AI features because of cost — start with Groq. The barrier is lower than you think.
+
+— Jyotirmoy Laha
+`
     }
 ];
