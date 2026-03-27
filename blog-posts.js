@@ -787,55 +787,55 @@ If you're a student developer who keeps avoiding AI features because of cost —
         image: "setup.jpg",
         content: `Nobody tells you this when you start learning development: your setup matters less than you think, and costs less than tutorials make it look. I'm a second-year BCA student. I don't have a MacBook or paid subscriptions for everything. And I still build full-stack web apps, AI-integrated tools, and backend systems. Here's exactly what I use and why.
 
-**Machine**
+<strong>Machine</strong>
 
 I use an HP Victus. It's a solid mid-range laptop — not a premium machine, but more than capable for everything I build. Web development, Python backends, Firebase projects — none of it demands expensive hardware. The tools are light. The thinking is what takes real resources.
 
-**Editor**
+<strong>Editor</strong>
 
 VS Code is free and it is genuinely the best editor I have used. Here are the extensions I actually use for development — no fluff:
 
-- **Pylance** — fast, accurate Python language support with type checking. Works alongside the Python extension seamlessly
-- **Python** — Microsoft's official Python extension for IntelliSense, linting, and running scripts
-- **Python Debugger** — for stepping through Python code properly instead of printing variables everywhere
-- **Django** — syntax highlighting and snippets for Django projects, saves time when working with templates and views
-- **GitLens** — shows who changed what and when, inline blame, commit history. Useful even on solo projects
-- **Live Server** — launches a local dev server with hot reload for HTML/CSS/JS. One click and the browser updates automatically
-- **MongoDB for VS Code** — connects directly to MongoDB and Atlas, lets me browse collections and run queries without leaving the editor
-- **Jupyter** — for running Python notebooks when I'm exploring data or testing ML ideas in small steps
-- **Rainbow CSV** — highlights CSV columns in different colors, makes reading and debugging data files significantly easier
-- **GitHub Copilot Chat** — AI assistance directly inside the editor for quick suggestions and explanations
-- **Gemini Code Assist** — Google's AI assistant, useful as a second opinion when Copilot's suggestion doesn't feel right
+- <strong>Pylance</strong> — fast, accurate Python language support with type checking. Works alongside the Python extension seamlessly
+- <strong>Python</strong> — Microsoft's official Python extension for IntelliSense, linting, and running scripts
+- <strong>Python Debugger</strong> — for stepping through Python code properly instead of printing variables everywhere
+- <strong>Django</strong> — syntax highlighting and snippets for Django projects, saves time when working with templates and views
+- <strong>GitLens</strong> — shows who changed what and when, inline blame, commit history. Useful even on solo projects
+- <strong>Live Server</strong> — launches a local dev server with hot reload for HTML/CSS/JS. One click and the browser updates automatically
+- <strong>MongoDB for VS Code</strong> — connects directly to MongoDB and Atlas, lets me browse collections and run queries without leaving the editor
+- <strong>Jupyter</strong> — for running Python notebooks when I'm exploring data or testing ML ideas in small steps
+- <strong>Rainbow CSV</strong> — highlights CSV columns in different colors, makes reading and debugging data files significantly easier
+- <strong>GitHub Copilot Chat</strong> — AI assistance directly inside the editor for quick suggestions and explanations
+- <strong>Gemini Code Assist</strong> — Google's AI assistant, useful as a second opinion when Copilot's suggestion doesn't feel right
 
 My settings.json has one important tweak — format on save is always on. This single setting eliminates an entire category of inconsistency from my code without any extra effort.
 
-**API Testing**
+<strong>API Testing</strong>
 
 Postman for testing all my backend APIs. I create collections for each project so every endpoint is documented and reusable. When I need to test auth headers, request bodies, or response formats, Postman gives me full control without writing extra code. It's free and more than enough for everything I need.
 
-**Version Control**
+<strong>Version Control</strong>
 
 Git and GitHub, free tier. Every project gets its own repository from day one. Not when it's "ready" — from day one. I've lost work before by delaying this, and I will not repeat that mistake. My commit messages are plain English descriptions of what changed, not cryptic abbreviations.
 
-**Hosting**
+<strong>Hosting</strong>
 
 Everything I deploy lives on free tiers:
 
-- **Render** — for Flask and Node backends. Cold start delay on free tier is real, but for portfolio projects it's acceptable
-- **Firebase** — for real-time databases and authentication, free Spark plan covers everything I need
-- **GitHub Pages** — for static sites with no backend
+- <strong>Render</strong> — for Flask and Node backends. Cold start delay on free tier is real, but for portfolio projects it's acceptable
+- <strong>Firebase</strong> — for real-time databases and authentication, free Spark plan covers everything I need
+- <strong>GitHub Pages</strong> — for static sites with no backend
 
 Between these three, I have never paid for hosting. My portfolio, weather app, resume analyzer, and Mess Manager all run on free infrastructure.
 
-**AI Tools**
+<strong>AI Tools</strong>
 
 Groq API for AI integration in projects — free tier, fast inference. Claude and ChatGPT for thinking through problems, debugging, and understanding concepts. I do not use paid tiers for either. The free access is enough for how I use them — as thinking partners, not code generators.
 
-**Browser**
+<strong>Browser</strong>
 
 Chrome with DevTools is where I spend as much time as in VS Code. The Elements panel, Network tab, and Console are tools I use on every project. Learning to read error messages and network requests inside DevTools made me a noticeably better developer. It is free and it is already installed.
 
-**Notes and Planning**
+<strong>Notes and Planning</strong>
 
 Notion free tier for project planning and blog drafts. Google Docs for anything that needs to be shared or co-edited. For quick todos, I use a plain .md file inside the project folder — it stays with the code and gets committed with it.
 
@@ -844,6 +844,60 @@ The honest total cost of my entire development setup: zero rupees per month in s
 The things that actually matter — consistency, problem-solving habits, and building real projects — cost nothing but time. I've seen developers with expensive setups produce very little, and students with mid-range machines build genuinely impressive work.
 
 Your setup does not make you a developer. Your consistency does.
+
+— Jyotirmoy Laha
+`
+    },
+    {
+        id: 13,
+        title: "How I Manage Side Projects Alongside College",
+        date: "27th March 2026",
+        category: "Student Life",
+        image: "project.jpg",
+        content: `People assume that if you're building side projects during college, you either have too much free time or you're not taking your academics seriously. Neither has been true for me. I'm a second-year BCA student, involved in the college Entrepreneurship Development Cell, maintaining multiple projects, and writing this blog. The honest answer to "how do you manage it all" is not a productivity hack — it is a mindset shift.
+
+The first thing I stopped doing was treating side projects like homework. Homework has deadlines, grades, and consequences. Side projects have none of those, which means the only thing that keeps them moving is genuine interest. The moment a project starts feeling like an obligation, it dies. So I only work on what I'm actually curious about right now — not what I think looks impressive on a resume.
+
+This sounds obvious until you're three hours deep into a problem at midnight because you genuinely wanted to figure it out. That kind of focus does not happen on demand. It shows up when the problem is real and the curiosity is honest.
+
+<strong>Time comes from subtraction, not addition</strong>
+
+I do not have extra hours in my day. I pulled time for projects by removing things that were not giving me anything back — excessive scrolling, passive video watching, and saying yes to things I didn't care about. Every hour I found came from somewhere else, not from sleeping less.
+
+I also stopped context-switching constantly. Jumping between a college assignment, a backend feature, and a blog post in the same hour produces nothing well. I pick one thing per sitting and stay with it until it's done or I'm genuinely stuck.
+
+<strong>Small sessions compound</strong>
+
+Not every session needs to be two hours. Some of my best code has been written in 30-minute windows between classes. The key is picking up from exactly where I left off — which requires clean code and good notes. If my code is readable and my last action is documented in a comment or a commit message, I can re-enter a project in minutes instead of spending 20 minutes remembering what I was doing.
+
+\`\`\`
+// TODO: Fix skill gap scoring for edge case when no skills match
+// Last working on: priority weight calculation in skill_gap.py
+\`\`\`
+
+That comment has saved me more time than any productivity app. Leave context for future-you — especially if future-you is a week away.
+
+<strong>College and projects reinforce each other more than they conflict</strong>
+
+The assumption is that side projects steal from academics. I've found the opposite. When I'm building something real, the theory I learn in college starts making sense. Database concepts clicked when I was designing Firestore collections for Mess Manager. Networking theory became relevant when I was debugging CORS errors in my weather app. The projects make the coursework meaningful, and the coursework gives me vocabulary to understand what I'm building.
+
+<strong>The EDC experience was different</strong>
+
+Organizing events through my college's Entrepreneurship Development Cell was my first serious team coordination experience. Managing registrations, handling logistics, and dealing with last-minute changes taught me that real projects involve people, and people are unpredictable in ways that code errors never are. That humility has made me a better developer. I think more carefully about how users actually behave now.
+
+<strong>What I've stopped worrying about</strong>
+
+I've stopped worrying about finishing every project I start. Some ideas are worth two weeks of exploration and then parking. That is not failure — that is how you find out what you actually care about. My GitHub has incomplete projects. So does every honest developer's.
+
+I've stopped comparing my output to people who post daily on LinkedIn about their side projects. That comparison is not useful. I don't know their context, their circumstances, or what they're not showing.
+
+<strong>The actual answer</strong>
+
+There is no system that makes this effortless. Some weeks, college demands everything and the projects sit untouched. Some weeks, a problem grabs me so hard that I barely think about assignments until they're due. Balance is not a static state — it shifts constantly, and the goal is not perfect balance but not dropping anything permanently.
+
+The projects I'm most proud of came from periods when I was also doing well academically. The two are not opposites. They are both outputs of the same thing — being genuinely engaged with what you're doing.
+
+That engagement is the only thing worth protecting.
 
 — Jyotirmoy Laha
 `
