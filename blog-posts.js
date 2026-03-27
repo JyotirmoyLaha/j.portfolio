@@ -778,5 +778,74 @@ If you're a student developer who keeps avoiding AI features because of cost —
 
 — Jyotirmoy Laha
 `
+    },
+    {
+        id: 12,
+        title: "My Development Setup as a BCA Student on a Budget",
+        date: "27th March 2026",
+        category: "Setup",
+        image: "setup.jpg",
+        content: `Nobody tells you this when you start learning development: your setup matters less than you think, and costs less than tutorials make it look. I'm a second-year BCA student. I don't have a MacBook or paid subscriptions for everything. And I still build full-stack web apps, AI-integrated tools, and backend systems. Here's exactly what I use and why.
+
+**Machine**
+
+I use an HP Victus. It's a solid mid-range laptop — not a premium machine, but more than capable for everything I build. Web development, Python backends, Firebase projects — none of it demands expensive hardware. The tools are light. The thinking is what takes real resources.
+
+**Editor**
+
+VS Code is free and it is genuinely the best editor I have used. Here are the extensions I actually use for development — no fluff:
+
+- **Pylance** — fast, accurate Python language support with type checking. Works alongside the Python extension seamlessly
+- **Python** — Microsoft's official Python extension for IntelliSense, linting, and running scripts
+- **Python Debugger** — for stepping through Python code properly instead of printing variables everywhere
+- **Django** — syntax highlighting and snippets for Django projects, saves time when working with templates and views
+- **GitLens** — shows who changed what and when, inline blame, commit history. Useful even on solo projects
+- **Live Server** — launches a local dev server with hot reload for HTML/CSS/JS. One click and the browser updates automatically
+- **MongoDB for VS Code** — connects directly to MongoDB and Atlas, lets me browse collections and run queries without leaving the editor
+- **Jupyter** — for running Python notebooks when I'm exploring data or testing ML ideas in small steps
+- **Rainbow CSV** — highlights CSV columns in different colors, makes reading and debugging data files significantly easier
+- **GitHub Copilot Chat** — AI assistance directly inside the editor for quick suggestions and explanations
+- **Gemini Code Assist** — Google's AI assistant, useful as a second opinion when Copilot's suggestion doesn't feel right
+
+My settings.json has one important tweak — format on save is always on. This single setting eliminates an entire category of inconsistency from my code without any extra effort.
+
+**API Testing**
+
+Postman for testing all my backend APIs. I create collections for each project so every endpoint is documented and reusable. When I need to test auth headers, request bodies, or response formats, Postman gives me full control without writing extra code. It's free and more than enough for everything I need.
+
+**Version Control**
+
+Git and GitHub, free tier. Every project gets its own repository from day one. Not when it's "ready" — from day one. I've lost work before by delaying this, and I will not repeat that mistake. My commit messages are plain English descriptions of what changed, not cryptic abbreviations.
+
+**Hosting**
+
+Everything I deploy lives on free tiers:
+
+- **Render** — for Flask and Node backends. Cold start delay on free tier is real, but for portfolio projects it's acceptable
+- **Firebase** — for real-time databases and authentication, free Spark plan covers everything I need
+- **GitHub Pages** — for static sites with no backend
+
+Between these three, I have never paid for hosting. My portfolio, weather app, resume analyzer, and Mess Manager all run on free infrastructure.
+
+**AI Tools**
+
+Groq API for AI integration in projects — free tier, fast inference. Claude and ChatGPT for thinking through problems, debugging, and understanding concepts. I do not use paid tiers for either. The free access is enough for how I use them — as thinking partners, not code generators.
+
+**Browser**
+
+Chrome with DevTools is where I spend as much time as in VS Code. The Elements panel, Network tab, and Console are tools I use on every project. Learning to read error messages and network requests inside DevTools made me a noticeably better developer. It is free and it is already installed.
+
+**Notes and Planning**
+
+Notion free tier for project planning and blog drafts. Google Docs for anything that needs to be shared or co-edited. For quick todos, I use a plain .md file inside the project folder — it stays with the code and gets committed with it.
+
+The honest total cost of my entire development setup: zero rupees per month in subscriptions.
+
+The things that actually matter — consistency, problem-solving habits, and building real projects — cost nothing but time. I've seen developers with expensive setups produce very little, and students with mid-range machines build genuinely impressive work.
+
+Your setup does not make you a developer. Your consistency does.
+
+— Jyotirmoy Laha
+`
     }
 ];
