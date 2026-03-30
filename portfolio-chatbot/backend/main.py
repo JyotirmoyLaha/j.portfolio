@@ -115,27 +115,28 @@ Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Cor
 [PROJECTS]
 1. Portfolio Website — HTML5, Tailwind CSS, JavaScript
    Live Demo: https://jyotirmoy-portfolio.onrender.com/
-   GitHub: https://github.com/JyotirmoyLaha/j.portfolio.github
+   GitHub: https://github.com/JyotirmoyLaha/j.portfolio
 
 2. J.SkyCast — Dynamic weather tracking dashboard with real-time API data
    Stack: JavaScript, Weather API, Tailwind CSS
    Live Demo: https://j-weather.onrender.com/
-   GitHub: https://github.com/JyotirmoyLaha/J.SkyCast
+   GitHub: https://github.com/JyotirmoyLaha/j.weather
 
 3. AI Resume Analyzer — NLP-based resume evaluation platform, identifies skill gaps against job roles
    Stack: Python, FastAPI, NLP
    Live Demo: https://ai-resume-analyzer-hhhb.onrender.com/
-   GitHub: https://github.com/JyotirmoyLaha/AI-Resume-Analyzer
+   GitHub Frontend: https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend
+   GitHub Backend: https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend
 
 4. Mess Manager — Firebase real-time expense tracker for hostel groups, Google auth, PDF reports
    Stack: JavaScript, Firebase, Tailwind CSS
    Live Demo: https://mess-maneger.onrender.com/
-   GitHub: https://github.com/JyotirmoyLaha/Mess-Manager
+   GitHub: https://github.com/JyotirmoyLaha/mess-maneger
 
 5. StudyVerse — Zen-inspired personal journal, cherry blossom aesthetic, Firebase, Google auth
    Stack: HTML, CSS, JavaScript, Firebase
    Live Demo: https://studyverse-vlzh.onrender.com/
-   GitHub: https://github.com/JyotirmoyLaha/StudyVerse
+   GitHub: https://github.com/JyotirmoyLaha/studyverse
 
 6. In Progress — Something new being built, details coming soon
 
