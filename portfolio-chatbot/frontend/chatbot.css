@@ -24,6 +24,8 @@
   --jc-glow: rgba(34, 211, 238, 0.15);
   --jc-radius: 20px;
   --jc-transition: cubic-bezier(0.22, 1, 0.36, 1);
+  --jc-success: #22c55e;
+  --jc-warning: #f59e0b;
 }
 
 /* ── Floating Bubble Button ───────────────────────────────── */
@@ -272,11 +274,11 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 20px 16px;
+  padding: 20px 16px 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 6px;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
@@ -291,9 +293,71 @@
   border-radius: 10px;
 }
 
+/* ── Message Wrapper ──────────────────────────────────────── */
+#jchat-messages .jchat-msg-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 78%;
+  width: auto;
+  animation: jchat-fadein 0.25s ease;
+}
+
+#jchat-messages .jchat-user-wrapper {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+#jchat-messages .jchat-bot-wrapper {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+/* ── Message Meta (time + copy) ───────────────────────────── */
+#jchat-messages .jchat-msg-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#jchat-messages .jchat-msg-wrapper:hover .jchat-msg-meta {
+  opacity: 1;
+}
+
+#jchat-messages .jchat-msg-time {
+  font-size: 10px;
+  color: var(--jc-text-muted);
+  font-weight: 500;
+}
+
+#jchat-messages .jchat-copy-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--jc-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+#jchat-messages .jchat-copy-btn:hover {
+  color: var(--jc-accent-1);
+  background: rgba(34, 211, 238, 0.1);
+}
+
+#jchat-messages .jchat-copy-btn.jchat-copied {
+  color: var(--jc-success);
+}
+
 /* ── Message Bubbles ──────────────────────────────────────── */
 #jchat-messages .jchat-msg {
-  max-width: 72%;
+  max-width: 100%;
   width: auto;
   padding: 11px 15px;
   border-radius: 14px;
@@ -303,8 +367,6 @@
   overflow-wrap: break-word;
   white-space: pre-wrap;
   border: 1px solid transparent;
-  animation: jchat-fadein 0.25s ease;
-  align-self: flex-start;
   flex-shrink: 0;
   margin: 0;
 }
@@ -318,7 +380,6 @@
 #jchat-messages .jchat-bot {
   background: rgba(51, 65, 85, 0.50);
   color: #e2e8f0;
-  align-self: flex-start;
   border-bottom-left-radius: 5px;
   border-color: rgba(148,163,184,0.18);
 }
@@ -327,12 +388,79 @@
 #jchat-messages .jchat-user {
   background: linear-gradient(135deg, var(--jc-accent-1) 0%, var(--jc-accent-2) 60%, var(--jc-accent-3) 100%);
   color: #ffffff;
-  align-self: flex-end;
   border-bottom-right-radius: 5px;
   border-color: rgba(147,197,253,0.3);
   font-weight: 500;
   box-shadow: 0 4px 14px rgba(14,116,144,0.25);
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ── Markdown Styles in Messages ──────────────────────────── */
+#jchat-messages .jchat-bot strong {
+  color: var(--jc-accent-1);
+  font-weight: 600;
+}
+
+#jchat-messages .jchat-bot em {
+  font-style: italic;
+  color: var(--jc-text-secondary);
+}
+
+#jchat-messages .jchat-bot .jchat-inline-code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px;
+  color: var(--jc-accent-1);
+}
+
+#jchat-messages .jchat-bot .jchat-code-block {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+#jchat-messages .jchat-bot .jchat-code-block code {
+  color: var(--jc-text-primary);
+}
+
+#jchat-messages .jchat-bot .jchat-link {
+  color: var(--jc-accent-1);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--jc-accent-1);
+  transition: all 0.2s ease;
+}
+
+#jchat-messages .jchat-bot .jchat-link:hover {
+  color: var(--jc-accent-2);
+  border-bottom-color: var(--jc-accent-2);
+}
+
+#jchat-messages .jchat-bot .jchat-list {
+  margin: 8px 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+#jchat-messages .jchat-bot .jchat-list li {
+  position: relative;
+  margin: 4px 0;
+  padding-left: 4px;
+}
+
+#jchat-messages .jchat-bot .jchat-list li::before {
+  content: '→';
+  position: absolute;
+  left: -16px;
+  color: var(--jc-accent-1);
+  font-size: 11px;
 }
 
 #jchat-messages .jchat-bot + .jchat-bot   { border-top-left-radius: 5px;  margin-top: -4px; }
@@ -375,6 +503,46 @@
 @keyframes jchat-bounce {
   0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
   40%           { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Suggestions Container ────────────────────────────────── */
+#jchat-suggestions {
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 14px 12px;
+  background: transparent;
+  border-top: 1px solid var(--jc-border);
+}
+
+#jchat-suggestions:empty {
+  display: none;
+}
+
+.jchat-suggestion-chip {
+  background: var(--jc-surface-2);
+  border: 1px solid var(--jc-border);
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--jc-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--jc-transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.jchat-suggestion-chip:hover {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+  border-color: var(--jc-accent-1);
+  color: var(--jc-accent-1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 211, 238, 0.15);
+}
+
+.jchat-suggestion-chip:active {
+  transform: scale(0.97);
 }
 
 /* ── Input Area ───────────────────────────────────────────── */
@@ -497,8 +665,11 @@
   #jchat-bubble { bottom: 20px; right: 20px; width: 56px; height: 56px; }
   #jchat-header { border-radius: 18px 18px 0 0; padding-top: max(14px, env(safe-area-inset-top)); }
   #jchat-input-area { border-radius: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-  #jchat-messages .jchat-msg { max-width: 84%; font-size: 14px; }
-  #jchat-messages { padding: 14px 13px; }
+  #jchat-messages .jchat-msg { max-width: 100%; font-size: 14px; }
+  #jchat-messages .jchat-msg-wrapper { max-width: 88%; }
+  #jchat-messages { padding: 14px 13px 8px; }
+  #jchat-suggestions { padding: 6px 12px 10px; gap: 6px; }
+  .jchat-suggestion-chip { font-size: 11px; padding: 5px 12px; }
 }
 
 /* ── Tablet ───────────────────────────────────────────────── */
