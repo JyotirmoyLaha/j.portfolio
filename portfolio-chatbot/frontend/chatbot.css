@@ -170,6 +170,13 @@
   min-width: 0;
 }
 
+#jchat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 #jchat-header-avatar {
   width: 38px;
   height: 38px;
@@ -267,6 +274,35 @@
   background: rgba(239,68,68,0.15);
   border-color: rgba(239,68,68,0.3);
   transform: rotate(90deg);
+}
+
+#jchat-new {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: var(--jc-surface-3);
+  border: 1px solid var(--jc-border);
+  border-radius: 8px;
+  color: var(--jc-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s var(--jc-transition);
+}
+
+#jchat-new svg {
+  width: 14px;
+  height: 14px;
+}
+
+#jchat-new:hover {
+  color: var(--jc-accent-1);
+  background: rgba(34, 211, 238, 0.15);
+  border-color: var(--jc-accent-1);
 }
 
 /* ── Messages Container ───────────────────────────────────── */
@@ -401,16 +437,6 @@
 }
 
 /* ── Markdown Styles in Messages ──────────────────────────── */
-#jchat-messages .jchat-bot strong {
-  color: var(--jc-accent-1);
-  font-weight: 600;
-}
-
-#jchat-messages .jchat-bot em {
-  font-style: italic;
-  color: var(--jc-text-secondary);
-}
-
 #jchat-messages .jchat-bot .jchat-inline-code {
   background: rgba(0, 0, 0, 0.3);
   padding: 2px 6px;

@@ -5,6 +5,15 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   const SESSION_KEY = "jchat_session_id";
   const HISTORY_KEY = "jchat_history";
   
+  // Clear session on page load for fresh chat
+  function clearSession() {
+    sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(HISTORY_KEY);
+  }
+  
+  // Clear on page load
+  clearSession();
+  
   function getSessionId() {
     let sessionId = sessionStorage.getItem(SESSION_KEY);
     if (!sessionId) {
@@ -27,6 +36,23 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       return [];
     }
   }
+  
+  function startNewChat() {
+    clearSession();
+    messageHistory = [];
+    welcomeSent = false;
+    messages.innerHTML = "";
+    appendMessage(
+      "bot",
+      "Hey there! 👋 I'm Jyotirmoy's AI assistant. I know everything about his projects, skills, and background. Ask me anything!",
+      formatTime(new Date()),
+      false,
+      false
+    );
+    welcomeSent = true;
+    updateSuggestions(defaultSuggestions);
+    input.focus();
+  }
 
   // ── Markdown Parser (lightweight) ─────────────────────────
   function parseMarkdown(text) {
@@ -43,14 +69,6 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     
     // Inline code (`)
     html = html.replace(/`([^`]+)`/g, '<code class="jchat-inline-code">$1</code>');
-    
-    // Bold (**text** or __text__)
-    html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-    html = html.replace(/__([^_]+)__/g, "<strong>$1</strong>");
-    
-    // Italic (*text* or _text_)
-    html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-    html = html.replace(/_([^_]+)_/g, "<em>$1</em>");
     
     // Links [text](url)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="jchat-link">$1</a>');
@@ -106,7 +124,15 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
             <div id="jchat-header-subtitle">Online now • AI-powered answers</div>
           </div>
         </div>
-        <button id="jchat-close" title="Close (ESC)">✕</button>
+        <div id="jchat-header-actions">
+          <button id="jchat-new" title="New Chat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </button>
+          <button id="jchat-close" title="Close (ESC)">✕</button>
+        </div>
       </div>
       <div id="jchat-messages"></div>
       <div id="jchat-suggestions"></div>
@@ -131,6 +157,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   const bubble   = document.getElementById("jchat-bubble");
   const window_  = document.getElementById("jchat-window");
   const closeBtn = document.getElementById("jchat-close");
+  const newChatBtn = document.getElementById("jchat-new");
   const messages = document.getElementById("jchat-messages");
   const suggestionsContainer = document.getElementById("jchat-suggestions");
   const input    = document.getElementById("jchat-input");
@@ -228,21 +255,12 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     bubble.classList.add("jchat-hidden");
     input.focus();
     
-    // Restore history or show welcome
-    const savedHistory = loadHistory();
-    if (savedHistory.length > 0 && !welcomeSent) {
-      savedHistory.forEach(msg => {
-        appendMessage(msg.role, msg.text, msg.time, false, false);
-      });
-      messageHistory = savedHistory;
-      welcomeSent = true;
-      updateSuggestions(currentSuggestions.length ? currentSuggestions : defaultSuggestions);
-    } else if (!welcomeSent) {
+    if (!welcomeSent) {
       appendMessage(
         "bot",
-        "Hey there! 👋 I'm Jyotirmoy's AI assistant. I know everything about his **projects**, **skills**, and **background**. Ask me anything!",
+        "Hey there! 👋 I'm Jyotirmoy's AI assistant. I know everything about his projects, skills, and background. Ask me anything!",
         formatTime(new Date()),
-        true,
+        false,
         false
       );
       welcomeSent = true;
@@ -259,6 +277,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
   bubble.addEventListener("click", openChat);
   closeBtn.addEventListener("click", closeChat);
+  newChatBtn.addEventListener("click", startNewChat);
 
   // ── Suggestions ───────────────────────────────────────────
   function updateSuggestions(suggestions) {

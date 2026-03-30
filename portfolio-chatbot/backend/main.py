@@ -137,12 +137,7 @@ Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Cor
    Live Demo: https://studyverse-vlzh.onrender.com/
    GitHub: https://github.com/JyotirmoyLaha/StudyVerse
 
-6. Portfolio Chatbot — AI-powered assistant embedded on portfolio, uses Groq API
-   Stack: Python, FastAPI, JavaScript
-   Live Demo: Embedded on portfolio site
-   GitHub: https://github.com/JyotirmoyLaha/portfolio-chatbot
-
-7. In Progress — Something new being built, details coming soon
+6. In Progress — Something new being built, details coming soon
 
 [SKILLS]
 Frontend: HTML5, CSS3, JavaScript, Tailwind CSS
