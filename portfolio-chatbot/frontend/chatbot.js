@@ -38,10 +38,16 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   }
   
   function startNewChat() {
+    // Increment request ID to invalidate any pending responses
+    currentRequestId++;
+    
     clearSession();
     messageHistory = [];
     welcomeSent = false;
     messages.innerHTML = "";
+    removeTyping();
+    setLoading(false);
+    
     appendMessage(
       "bot",
       "Hey there! 👋 I'm Jyotirmoy's AI assistant. I know everything about his projects, skills, and background. Ask me anything!",
@@ -69,6 +75,14 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     
     // Inline code (`)
     html = html.replace(/`([^`]+)`/g, '<code class="jchat-inline-code">$1</code>');
+    
+    // Bold (**text** or __text__) - must come before italic
+    html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/__([^_]+)__/g, "<strong>$1</strong>");
+    
+    // Italic (*text* or _text_) - single asterisk/underscore
+    html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    html = html.replace(/(?<![a-zA-Z])_([^_]+)_(?![a-zA-Z])/g, "<em>$1</em>");
     
     // Links [text](url)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="jchat-link">$1</a>');
@@ -167,6 +181,7 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   let welcomeSent = false;
   let messageHistory = [];
   let currentSuggestions = [];
+  let currentRequestId = 0; // Track current request to ignore stale responses
 
   // ── Initial Suggestions ───────────────────────────────────
   const defaultSuggestions = [
@@ -513,6 +528,9 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     showTyping();
     updateSuggestions([]); // Hide suggestions while loading
 
+    // Track this request
+    const thisRequestId = ++currentRequestId;
+
     try {
       const pageContext = getCurrentPageContext();
       const sessionId = getSessionId();
@@ -526,6 +544,11 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
           session_id: sessionId
         }),
       });
+
+      // Check if this request is still valid (user didn't start new chat)
+      if (thisRequestId !== currentRequestId) {
+        return; // Discard stale response
+      }
 
       const data = await res.json();
       removeTyping();
@@ -552,12 +575,19 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
         updateSuggestions(defaultSuggestions);
       }
     } catch (err) {
+      // Check if this request is still valid
+      if (thisRequestId !== currentRequestId) {
+        return; // Discard stale response
+      }
       removeTyping();
       appendMessage("bot", "🔌 Connection issue. Please try again in a moment.", formatTime(new Date()));
       updateSuggestions(["Try again", "What are his skills?", "Contact info?"]);
     } finally {
-      setLoading(false);
-      input.focus();
+      // Only update loading state if this is still the current request
+      if (thisRequestId === currentRequestId) {
+        setLoading(false);
+        input.focus();
+      }
     }
   }
 
