@@ -323,7 +323,8 @@
   transition: opacity 0.2s ease;
 }
 
-#jchat-messages .jchat-msg-wrapper:hover .jchat-msg-meta {
+#jchat-messages .jchat-msg-wrapper:hover .jchat-msg-meta,
+#jchat-messages .jchat-msg-wrapper:focus-within .jchat-msg-meta {
   opacity: 1;
 }
 
@@ -353,6 +354,10 @@
 
 #jchat-messages .jchat-copy-btn.jchat-copied {
   color: var(--jc-success);
+}
+
+#jchat-messages .jchat-copy-btn.jchat-copy-failed {
+  color: var(--jc-warning);
 }
 
 /* ── Message Bubbles ──────────────────────────────────────── */

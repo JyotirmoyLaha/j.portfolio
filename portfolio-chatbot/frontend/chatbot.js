@@ -55,9 +55,8 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     // Links [text](url)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="jchat-link">$1</a>');
     
-    // Auto-link URLs
-    html = html.replace(/(https?:\/\/[^\s<]+)/g, (match) => {
-      if (match.includes('class="jchat-link"')) return match;
+    // Auto-link URLs not already inside an anchor tag
+    html = html.replace(/(https?:\/\/[^\s<"]+)(?![^<]*<\/a>)/g, (match) => {
       return `<a href="${match}" target="_blank" rel="noopener" class="jchat-link">${match}</a>`;
     });
     
@@ -326,6 +325,10 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
             copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
             copyBtn.classList.remove("jchat-copied");
           }, 2000);
+        }).catch(() => {
+          copyBtn.title = "Copy failed";
+          copyBtn.classList.add("jchat-copy-failed");
+          setTimeout(() => copyBtn.classList.remove("jchat-copy-failed"), 2000);
         });
       });
       meta.appendChild(copyBtn);
@@ -464,16 +467,20 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
 
   // ── Send with Retry ───────────────────────────────────────
   async function fetchWithRetry(url, options, retries = 2, delay = 1000) {
+    let lastResponse;
     for (let i = 0; i <= retries; i++) {
       try {
         const res = await fetch(url, options);
         if (res.ok || res.status < 500) return res;
+        lastResponse = res;
         if (i < retries) await new Promise(r => setTimeout(r, delay * (i + 1)));
       } catch (err) {
         if (i === retries) throw err;
         await new Promise(r => setTimeout(r, delay * (i + 1)));
       }
     }
+    // All retries exhausted with 5xx - return last response so caller can handle
+    return lastResponse;
   }
 
   async function sendMessage() {

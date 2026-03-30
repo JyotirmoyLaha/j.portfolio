@@ -35,6 +35,9 @@ RATE_WINDOW = 3600
 
 # ─── Conversation Memory ─────────────────────────────────────
 # LRU cache for conversation history (max 500 sessions, 10 messages each)
+# NOTE: This in-memory store is NOT thread-safe and won't persist across
+# multiple Uvicorn/Gunicorn workers. For a portfolio chatbot this is acceptable.
+# For production with session continuity needs, consider Redis or similar.
 class ConversationStore:
     def __init__(self, max_sessions=500, max_messages=10, session_ttl=3600):
         self.store = OrderedDict()
