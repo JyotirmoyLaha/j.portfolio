@@ -114,21 +114,35 @@ Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Cor
 
 [PROJECTS]
 1. Portfolio Website — HTML5, Tailwind CSS, JavaScript
-   Live: https://jyotirmoy-portfolio.onrender.com/
+   Live Demo: https://jyotirmoy-portfolio.onrender.com/
+   GitHub: https://github.com/JyotirmoyLaha/j.portfolio.github
 
 2. J.SkyCast — Dynamic weather tracking dashboard with real-time API data
    Stack: JavaScript, Weather API, Tailwind CSS
+   Live Demo: https://j-weather.onrender.com/
+   GitHub: https://github.com/JyotirmoyLaha/J.SkyCast
 
 3. AI Resume Analyzer — NLP-based resume evaluation platform, identifies skill gaps against job roles
    Stack: Python, FastAPI, NLP
+   Live Demo: https://ai-resume-analyzer-hhhb.onrender.com/
+   GitHub: https://github.com/JyotirmoyLaha/AI-Resume-Analyzer
 
 4. Mess Manager — Firebase real-time expense tracker for hostel groups, Google auth, PDF reports
    Stack: JavaScript, Firebase, Tailwind CSS
+   Live Demo: https://mess-maneger.onrender.com/
+   GitHub: https://github.com/JyotirmoyLaha/Mess-Manager
 
 5. StudyVerse — Zen-inspired personal journal, cherry blossom aesthetic, Firebase, Google auth
    Stack: HTML, CSS, JavaScript, Firebase
+   Live Demo: https://studyverse-vlzh.onrender.com/
+   GitHub: https://github.com/JyotirmoyLaha/StudyVerse
 
-6. In Progress — Something new being built, details coming soon
+6. Portfolio Chatbot — AI-powered assistant embedded on portfolio, uses Groq API
+   Stack: Python, FastAPI, JavaScript
+   Live Demo: Embedded on portfolio site
+   GitHub: https://github.com/JyotirmoyLaha/portfolio-chatbot
+
+7. In Progress — Something new being built, details coming soon
 
 [SKILLS]
 Frontend: HTML5, CSS3, JavaScript, Tailwind CSS
