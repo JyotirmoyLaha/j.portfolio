@@ -727,6 +727,26 @@
             </div>
         </section>
 
+        <!-- 8. BLOG POSTS MARQUEE SECTION -->
+        <section id="blog-marquee" class="blog-marquee-section py-8 sm:py-16 md:py-24 relative z-10 border-t border-slate-200/50 scroll-reveal overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex justify-center items-center mb-8 sm:mb-12 md:mb-16" data-aos="fade-up">
+                    <a href="javascript:void(0)" onclick="switchView('blog')" class="explore-blogs-btn">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        Explore My Blogs
+                        <i class="fa-solid fa-arrow-right explore-blogs-arrow"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Marquee Container -->
+            <div class="blog-marquee-wrapper" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-marquee-track" id="blog-marquee-track">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <!-- ======================= BLOG VIEW ======================= -->
@@ -736,7 +756,7 @@
 
             <!-- 1. BLOG LIST VIEW -->
             <div id="blog-list" class="max-w-6xl mx-auto relative z-10">
-                <div class="text-center mb-8 sm:mb-12 md:mb-16" data-aos="fade-up">
+                <div class="text-center mb-8 sm:mb-12 md:mb-16">
                     <span
                         class="inline-block px-3 py-1 mb-3 sm:mb-4 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-50 rounded-full border border-cyan-200 dark:bg-cyan-900/20 dark:border-cyan-800">
                         My Writings

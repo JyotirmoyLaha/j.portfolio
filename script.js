@@ -289,81 +289,55 @@ function switchView(viewName, pushHistory = true) {
     const portfolio = document.getElementById('portfolio-view');
     const blog = document.getElementById('blog-view');
 
-    // Nav Elements
     const desktopPortfolioNav = document.getElementById('desktop-portfolio-nav');
     const desktopBlogNav = document.getElementById('desktop-blog-nav');
     const mobilePortfolioNav = document.getElementById('mobile-portfolio-nav');
     const mobileBlogNav = document.getElementById('mobile-blog-nav');
 
-    // Close mobile menu if open
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
         toggleMenu();
     }
 
-    // Smooth scroll to top via Lenis
-    lenis.scrollTo(0, { duration: 0.8 });
+    // ── Kill Lenis completely so it can't animate anything ──
+    lenis.destroy();
+
+    // ── Force scroll to absolute top ──
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     if (viewName === 'blog') {
-        // Push history state for browser back button
-        if (pushHistory) {
-            history.pushState({ view: 'blog' }, '', '#blog');
-        }
+        if (pushHistory) history.pushState({ view: 'blog' }, '', '#blog');
 
-        // Fade out current view, then swap
-        portfolio.style.opacity = '0';
-        portfolio.style.transform = 'translateY(12px)';
-        setTimeout(() => {
-            portfolio.classList.add('view-hidden');
-            portfolio.style.opacity = '';
-            portfolio.style.transform = '';
-            blog.classList.remove('view-hidden');
+        portfolio.classList.add('view-hidden');
+        blog.classList.remove('view-hidden');
 
-            // Switch Navigation to Blog Mode
-            desktopPortfolioNav.classList.add('hidden');
-            desktopBlogNav.classList.remove('hidden');
-            mobilePortfolioNav.classList.add('hidden');
-            mobileBlogNav.classList.remove('hidden');
-
-            // Re-trigger entrance animation
-            blog.style.animation = 'none';
-            blog.offsetHeight; // trigger reflow
-            blog.style.animation = '';
-
-            setTimeout(() => AOS.refresh(), 100);
-        }, 250);
+        desktopPortfolioNav.classList.add('hidden');
+        desktopBlogNav.classList.remove('hidden');
+        mobilePortfolioNav.classList.add('hidden');
+        mobileBlogNav.classList.remove('hidden');
     } else {
-        // Push history state for browser back button
-        if (pushHistory) {
-            history.pushState({ view: 'portfolio' }, '', '#');
-        }
+        if (pushHistory) history.pushState({ view: 'portfolio' }, '', '#');
 
-        // Fade out current view, then swap
-        blog.style.opacity = '0';
-        blog.style.transform = 'translateY(12px)';
-        setTimeout(() => {
-            blog.classList.add('view-hidden');
-            blog.style.opacity = '';
-            blog.style.transform = '';
-            portfolio.classList.remove('view-hidden');
+        blog.classList.add('view-hidden');
+        portfolio.classList.remove('view-hidden');
 
-            // Switch Navigation to Portfolio Mode
-            desktopBlogNav.classList.add('hidden');
-            desktopPortfolioNav.classList.remove('hidden');
-            mobileBlogNav.classList.add('hidden');
-            mobilePortfolioNav.classList.remove('hidden');
+        desktopBlogNav.classList.add('hidden');
+        desktopPortfolioNav.classList.remove('hidden');
+        mobileBlogNav.classList.add('hidden');
+        mobilePortfolioNav.classList.remove('hidden');
 
-            // Reset Blog to list view when leaving
-            showList(true);
-
-            // Re-trigger entrance animation
-            portfolio.style.animation = 'none';
-            portfolio.offsetHeight;
-            portfolio.style.animation = '';
-
-            setTimeout(() => AOS.refresh(), 100);
-        }, 250);
+        showList(true);
     }
+
+    // ── Force scroll to 0 again after DOM swap ──
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    // ── Recreate Lenis fresh (starts at scroll 0) ──
+    reinitLenis();
 }
 
 function navigateToSection(sectionId) {
@@ -455,22 +429,11 @@ function showDetail(id, pushHistory = true) {
         history.pushState({ view: 'blog-detail', postId: id }, '', `#blog/${id}`);
     }
 
-    // Fade out list, then show detail
-    blogList.style.opacity = '0';
-    blogList.style.transform = 'translateY(10px)';
-    setTimeout(() => {
-        blogList.classList.add('hidden');
-        blogList.style.opacity = '';
-        blogList.style.transform = '';
-        blogDetail.classList.remove('hidden');
-        blogDetail.style.opacity = '0';
-        blogDetail.style.transform = 'translateY(10px)';
-        requestAnimationFrame(() => {
-            blogDetail.style.opacity = '1';
-            blogDetail.style.transform = 'translateY(0)';
-        });
-    }, 250);
-    lenis.scrollTo(0, { duration: 0.6 });
+    // Instant swap — no animation
+    blogList.classList.add('hidden');
+    blogDetail.classList.remove('hidden');
+    lenis.scrollTo(0, { immediate: true, duration: 0 });
+    window.scrollTo(0, 0);
 }
 
 function showList(fromPopstate = false) {
@@ -484,44 +447,48 @@ function showList(fromPopstate = false) {
         return; // Let popstate handler call showList again with fromPopstate=true
     }
 
-    // Fade out detail, then show list
-    blogDetail.style.opacity = '0';
-    blogDetail.style.transform = 'translateY(10px)';
-    setTimeout(() => {
-        blogDetail.classList.add('hidden');
-        blogDetail.style.opacity = '';
-        blogDetail.style.transform = '';
-        blogList.classList.remove('hidden');
-        blogList.style.opacity = '0';
-        blogList.style.transform = 'translateY(10px)';
-        requestAnimationFrame(() => {
-            blogList.style.opacity = '1';
-            blogList.style.transform = 'translateY(0)';
-        });
-    }, 250);
-    lenis.scrollTo(0, { duration: 0.6 });
+    // Instant swap — no animation
+    blogDetail.classList.add('hidden');
+    blogDetail.style.opacity = '';
+    blogDetail.style.transform = '';
+    blogList.classList.remove('hidden');
+    blogList.style.opacity = '';
+    blogList.style.transform = '';
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
 }
 
 // --- INIT SCRIPTS ---
 
 // ===================== LENIS SMOOTH SCROLL =====================
-const lenis = new Lenis({
-    duration: 1.0,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 0.7,
-    touchMultiplier: 1.2,
-    infinite: false,
-    lerp: 0.1,
-});
+let lenis;
+let lenisRafId;
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
+function reinitLenis() {
+    if (lenis) {
+        try { lenis.destroy(); } catch(e) {}
+    }
+    if (lenisRafId) cancelAnimationFrame(lenisRafId);
+
+    lenis = new Lenis({
+        duration: 1.0,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.7,
+        touchMultiplier: 1.2,
+        infinite: false,
+        lerp: 0.1,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        lenisRafId = requestAnimationFrame(raf);
+    }
+    lenisRafId = requestAnimationFrame(raf);
 }
-requestAnimationFrame(raf);
+reinitLenis();
 
 // ===================== SMART NAV HIDE ON SCROLL =====================
 (function () {
@@ -645,6 +612,58 @@ loadDarkModePreference();
 
 // Initialize Render
 renderList();
+
+// ===================== BLOG POSTS MARQUEE (Portfolio view) =====================
+function renderBlogMarquee() {
+    const track = document.getElementById('blog-marquee-track');
+    if (!track || typeof blogPosts === 'undefined') return;
+
+    // Generate a single card HTML
+    function cardHTML(post) {
+        const snippet = post.content
+            .replace(/```[\s\S]*?```/g, '')
+            .replace(/\\`\\`\\`[\s\S]*?\\`\\`\\`/g, '')
+            .replace(/`/g, '')
+            .trim()
+            .substring(0, 110)
+            .trim() + '…';
+
+        return `
+            <div class="blog-marquee-card" onclick="switchView('blog'); showDetail(${post.id})">
+                <div class="blog-marquee-card-img">
+                    <img src="${post.image}" alt="${post.title}" loading="lazy">
+                    <span class="blog-marquee-card-badge">${post.category}</span>
+                    <div class="blog-marquee-card-overlay">
+                        <span class="blog-marquee-card-overlay-title">${post.title}</span>
+                        <span class="blog-marquee-card-overlay-cta">Read More <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="blog-marquee-card-body">
+                    <span class="blog-marquee-card-date">
+                        <i class="fa-regular fa-calendar"></i> ${post.date}
+                    </span>
+                    <h3 class="blog-marquee-card-title">${post.title}</h3>
+                    <p class="blog-marquee-card-desc">${snippet}</p>
+                    <div class="blog-marquee-card-footer">
+                        <span class="blog-marquee-card-tag">${post.category}</span>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    // Build all cards then duplicate for seamless infinite loop
+    const allCardsHTML = blogPosts.map(cardHTML).join('');
+    track.innerHTML = allCardsHTML + allCardsHTML; // duplicate for infinite scroll
+
+    // Set animation duration based on content width (slower = smoother)
+    requestAnimationFrame(() => {
+        const totalWidth = track.scrollWidth / 2; // half since we duplicated
+        const speed = 40; // px per second — tune for desired pace
+        const duration = totalWidth / speed;
+        track.style.setProperty('--marquee-duration', `${duration}s`);
+    });
+}
+renderBlogMarquee();
 
 // ===================== GITHUB CONTRIBUTION GRAPH =====================
 (function initContribGraph() {
