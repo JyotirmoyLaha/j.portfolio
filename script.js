@@ -359,6 +359,7 @@ function navigateToSection(sectionId) {
 }
 
 // --- BLOG FUNCTIONS ---
+let blogListScrollPos = 0; // Remember scroll position when opening a post
 
 function renderList() {
     const grid = document.getElementById('posts-grid');
@@ -424,6 +425,9 @@ function showDetail(id, pushHistory = true) {
     const blogList = document.getElementById('blog-list');
     const blogDetail = document.getElementById('blog-detail');
 
+    // Save current scroll position before switching to detail
+    blogListScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
     // Push history state for browser back button
     if (pushHistory) {
         history.pushState({ view: 'blog-detail', postId: id }, '', `#blog/${id}`);
@@ -454,8 +458,10 @@ function showList(fromPopstate = false) {
     blogList.classList.remove('hidden');
     blogList.style.opacity = '';
     blogList.style.transform = '';
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
+
+    // Restore saved scroll position so user lands back at the same blog card
+    window.scrollTo({ top: blogListScrollPos, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = blogListScrollPos;
 }
 
 // --- INIT SCRIPTS ---
