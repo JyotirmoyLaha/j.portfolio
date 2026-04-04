@@ -695,7 +695,7 @@ renderBlogMarquee();
         body.innerHTML = '<div class="contrib-loading">Loading...</div>';
         countText.textContent = 'Loading contributions...';
 
-        fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=${year}`)
+        fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=${year}&_=${Date.now()}`)
             .then(r => r.json())
             .then(data => renderGraph(data, year))
             .catch(() => {
