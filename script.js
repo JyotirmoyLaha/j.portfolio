@@ -878,7 +878,7 @@ renderBlogMarquee();
     }
 })();
 
-// ===================== SCROLL REVEAL (Smooth, one-way like vineet) =====================
+// ===================== SCROLL REVEAL (Smooth) =====================
 
 (function initScrollReveal() {
     const reveals = document.querySelectorAll('.scroll-reveal');

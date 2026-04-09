@@ -97,7 +97,8 @@
     }
 }
 
-/* Watermark behind hero name (vineet-style) */
+
+
 .hero-watermark {
     position: absolute;
     font-family: 'Space Grotesk', sans-serif;
@@ -124,7 +125,7 @@
     color: rgba(148, 163, 184, 0.05);
 }
 
-/* Social Icon Buttons (vineet-style) */
+/* Social Icon Buttons */
 .social-icon-btn {
     width: 44px;
     height: 44px;
@@ -209,7 +210,7 @@
     transform: translateX(-50%) translateY(0);
 }
 
-/* Terminal-style card (inspired by vineet's npx bar) */
+/* Terminal-style card  */
 .terminal-card {
     width: 100%;
     max-width: 400px;
@@ -259,7 +260,7 @@
     border-color: rgba(148, 163, 184, 0.1);
 }
 
-/* ===================== PROJECT CARDS (vineet-style) ===================== */
+/* ===================== PROJECT CARDS  ===================== */
 .project-card {
     padding: 16px;
     border: 1px solid rgba(211, 211, 211, 0.35);
@@ -777,7 +778,7 @@ body.theme-transitioning nav {
     transform: translateY(0);
 }
 
-/* No fade-out — once visible, stays visible (like vineet's whileInView once:true) */
+/* No fade-out — once visible, stays visible */
 
 /* Stagger children inside a reveal group */
 .scroll-reveal .reveal-child {
