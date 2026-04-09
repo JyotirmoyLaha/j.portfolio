@@ -998,3 +998,96 @@ renderBlogMarquee();
         }, 500);
     });
 })();
+
+// ===================== GLOWING CURSOR DOT (Desktop only) =====================
+(function initCursorGlow() {
+    // Skip on touch / mobile devices
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+
+    // Create elements
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    document.body.appendChild(dot);
+
+    const ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    document.body.appendChild(ring);
+
+    // State
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    let isVisible = false;
+    let rafId = null;
+
+    // Lerp factor — lower = smoother trail, higher = snappier
+    const RING_LERP = 0.15;
+
+    // Animation loop — ring trails behind the dot
+    function animate() {
+        ringX += (mouseX - ringX) * RING_LERP;
+        ringY += (mouseY - ringY) * RING_LERP;
+
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+
+        rafId = requestAnimationFrame(animate);
+    }
+    rafId = requestAnimationFrame(animate);
+
+    // Track mouse position
+    document.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isVisible) {
+            isVisible = true;
+            dot.classList.add('visible');
+            ring.classList.add('visible');
+        }
+    }, { passive: true });
+
+    // Hide when mouse leaves viewport
+    document.addEventListener('mouseleave', function () {
+        isVisible = false;
+        dot.classList.remove('visible');
+        ring.classList.remove('visible');
+    });
+
+    // Show when mouse re-enters
+    document.addEventListener('mouseenter', function () {
+        isVisible = true;
+        dot.classList.add('visible');
+        ring.classList.add('visible');
+    });
+
+    // Hover detection for clickable elements
+    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, [onclick], .project-card, .social-icon-btn, .theme-switch, .blog-marquee-card, .skill-pill';
+
+    document.addEventListener('mouseover', function (e) {
+        if (e.target.closest(hoverSelectors)) {
+            dot.classList.add('hovering');
+            ring.classList.add('hovering');
+        }
+    }, { passive: true });
+
+    document.addEventListener('mouseout', function (e) {
+        if (e.target.closest(hoverSelectors)) {
+            dot.classList.remove('hovering');
+            ring.classList.remove('hovering');
+        }
+    }, { passive: true });
+
+    // Subtle pulse on click
+    document.addEventListener('mousedown', function () {
+        dot.style.transform = 'translate(-50%, -50%) scale(0.7)';
+        ring.style.transform = 'translate(-50%, -50%) scale(0.85)';
+    });
+
+    document.addEventListener('mouseup', function () {
+        dot.style.transform = 'translate(-50%, -50%) scale(1)';
+        ring.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+})();

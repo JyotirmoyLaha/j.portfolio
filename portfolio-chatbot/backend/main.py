@@ -97,7 +97,6 @@ Role: BCA Student & Full-Stack Developer
 College: Dr. B.C. Roy Academy of Professional Courses (BCRAPC), Durgapur, West Bengal, India
 Year: 2nd Year BCA
 Email: jyotirmoy713128@gmail.com
-WhatsApp: +91 8436866473
 GitHub: https://github.com/JyotirmoyLaha
 LinkedIn: https://www.linkedin.com/in/jyotirmoylaha2005/
 Portfolio: https://jyotirmoy-portfolio.onrender.com/
@@ -160,7 +159,6 @@ Exploring: AI/ML, LangChain, TensorFlow, NLP, Generative AI
 
 [CONTACT]
 Email: jyotirmoy713128@gmail.com
-WhatsApp: +91 8436866473
 LinkedIn: https://www.linkedin.com/in/jyotirmoylaha2005/
 GitHub: https://github.com/JyotirmoyLaha
 For availability/freelance: contact directly, Jyotirmoy will respond personally.

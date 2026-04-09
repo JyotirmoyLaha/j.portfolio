@@ -2247,3 +2247,107 @@ html.lenis body {
 }
 
 /* ===================================================================== */
+
+/* ===================== GLOWING CURSOR DOT ===================== */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: #22d3ee;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.15s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    box-shadow:
+        0 0 6px rgba(34, 211, 238, 0.6),
+        0 0 14px rgba(34, 211, 238, 0.3);
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(34, 211, 238, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.35s cubic-bezier(0.25, 1, 0.5, 1), height 0.35s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, background 0.3s ease;
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.08);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.04) 0%, transparent 70%);
+}
+
+/* Visible state — applied via JS when mouse enters the viewport */
+.cursor-dot.visible,
+.cursor-ring.visible {
+    opacity: 1;
+}
+
+/* Hover state — when hovering clickable elements */
+.cursor-dot.hovering {
+    width: 12px;
+    height: 12px;
+    background: #10b981;
+    box-shadow:
+        0 0 8px rgba(16, 185, 129, 0.7),
+        0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.cursor-ring.hovering {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.1);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+}
+
+/* Dark mode enhancements */
+.dark .cursor-dot {
+    box-shadow:
+        0 0 8px rgba(34, 211, 238, 0.8),
+        0 0 20px rgba(34, 211, 238, 0.4);
+}
+
+.dark .cursor-ring {
+    border-color: rgba(34, 211, 238, 0.25);
+    box-shadow: 0 0 24px rgba(34, 211, 238, 0.12);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.06) 0%, transparent 70%);
+}
+
+.dark .cursor-dot.hovering {
+    box-shadow:
+        0 0 10px rgba(16, 185, 129, 0.9),
+        0 0 28px rgba(16, 185, 129, 0.4);
+}
+
+.dark .cursor-ring.hovering {
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 0 0 28px rgba(16, 185, 129, 0.15);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+}
+
+/* Hide on touch / mobile devices */
+@media (hover: none), (pointer: coarse) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none !important;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none !important;
+    }
+}
