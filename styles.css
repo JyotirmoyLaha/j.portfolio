@@ -616,6 +616,14 @@
     background-color: #0f172a;
 }
 
+body.vibe-active #projects {
+    background-color: var(--vibe-bg-tertiary) !important;
+}
+
+body.vibe-active #academic {
+    background-color: var(--vibe-bg-tertiary) !important;
+}
+
 /* Dark mode text colors */
 .dark h1,
 .dark h2,
@@ -996,6 +1004,21 @@ html.lenis body {
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
+}
+
+/* =====================================================================
+   PROJECTS SECTION
+   ===================================================================== */
+
+.projects-section {
+    background: linear-gradient(180deg, #F5F5F5 0%, rgba(255, 255, 250, 0.5) 50%, #F5F5F5 100%);
+    position: relative;
+    border-top: 1px solid rgba(211, 211, 211, 0.3);
+}
+
+.dark .projects-section {
+    background: #0f172a;
+    border-top-color: rgba(51, 65, 85, 0.3);
 }
 
 /* =====================================================================
@@ -1508,15 +1531,19 @@ html.lenis body {
 }
 
 /* Dark mode overrides for Tailwind utility classes in new sections */
+.dark .projects-section .text-slate-900,
 .dark .process-section .text-slate-900,
 .dark .skills-section .text-slate-900,
-.dark .github-section .text-slate-900 {
+.dark .github-section .text-slate-900,
+.dark .academic-section .text-slate-900 {
     color: #f1f5f9 !important;
 }
 
+.dark .projects-section .text-slate-500,
 .dark .process-section .text-slate-500,
 .dark .skills-section .text-slate-500,
-.dark .github-section .text-slate-500 {
+.dark .github-section .text-slate-500,
+.dark .academic-section .text-slate-500 {
     color: #94a3b8 !important;
 }
 
@@ -1904,6 +1931,24 @@ html.lenis body {
         border-radius: 12px;
     }
 }
+
+/* =====================================================================
+   ACADEMIC SECTION
+   ===================================================================== */
+
+.academic-section {
+    background: linear-gradient(180deg, #F5F5F5 0%, rgba(245, 250, 255, 0.5) 50%, #F5F5F5 100%);
+    position: relative;
+}
+
+.dark .academic-section {
+    background: #0f172a;
+    border-top-color: rgba(51, 65, 85, 0.3);
+}
+
+/* =====================================================================
+   BLOG POSTS MARQUEE SECTION
+   ===================================================================== */
 
 .blog-marquee-section {
     background: linear-gradient(180deg, #F5F5F5 0%, rgba(255, 255, 240, 0.4) 50%, #F5F5F5 100%);
@@ -2405,11 +2450,14 @@ body.vibe-active nav.nav-glass {
     border-bottom-color: var(--vibe-border) !important;
 }
 
+body.vibe-active .projects-section,
 body.vibe-active .process-section,
 body.vibe-active .skills-section,
 body.vibe-active .github-section,
+body.vibe-active .academic-section,
 body.vibe-active .blog-marquee-section {
     background: var(--vibe-bg-tertiary) !important;
+    background-image: none !important;
 }
 
 body.vibe-active .project-card,
@@ -2458,7 +2506,24 @@ body.vibe-active .border-slate-100 {
 }
 
 body.vibe-active footer {
+    background-color: var(--vibe-bg-secondary) !important;
     border-top-color: var(--vibe-border) !important;
+    color: var(--vibe-text-muted) !important;
+}
+
+body.vibe-active footer .footer-social-link {
+    color: var(--vibe-text-secondary) !important;
+}
+
+body.vibe-active footer .footer-social-link:hover {
+    color: var(--vibe-accent) !important;
+}
+
+body.vibe-active footer .text-red-400 {
+    color: var(--vibe-accent-secondary) !important;
+}
+
+body.vibe-active footer .text-slate-500 {
     color: var(--vibe-text-muted) !important;
 }
 
@@ -2499,6 +2564,45 @@ body.vibe-active section {
 body.vibe-active .vibe-bracket {
     opacity: 0 !important;
 }
+
+/* ── Projects section vibe overrides ── */
+body.vibe-active .projects-section {
+    border-top-color: var(--vibe-border) !important;
+}
+
+/* ── Academic section vibe overrides ── */
+body.vibe-active .academic-section {
+    border-top-color: var(--vibe-border) !important;
+}
+
+body.vibe-active .academic-section .bg-slate-50 {
+    background-color: var(--vibe-card-bg) !important;
+}
+
+body.vibe-active .academic-section .border-slate-100,
+body.vibe-active .academic-section .border-slate-200 {
+    border-color: var(--vibe-border) !important;
+}
+
+body.vibe-active .academic-section .border-cyan-400\/20 {
+    border-color: var(--vibe-accent) !important;
+    opacity: 0.3;
+}
+
+body.vibe-active .academic-section .bg-white {
+    background-color: var(--vibe-card-bg) !important;
+}
+
+/* ── Scrollbar vibe-active override ── */
+body.vibe-active ::-webkit-scrollbar-track {
+    background: var(--vibe-bg-primary);
+}
+
+body.vibe-active ::-webkit-scrollbar-thumb {
+    background: var(--vibe-border);
+}
+
+
 
 /* ═══ Hero Grid Layout ═══ */
 .hero-vibe-grid {
