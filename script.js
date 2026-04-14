@@ -1014,24 +1014,79 @@ renderBlogMarquee();
     ring.className = 'cursor-ring';
     document.body.appendChild(ring);
 
+    // Orbit ring (dashed outer ring for vibe mode)
+    const orbit = document.createElement('div');
+    orbit.className = 'cursor-orbit';
+    document.body.appendChild(orbit);
+
     // State
     let mouseX = -100, mouseY = -100;
     let ringX = -100, ringY = -100;
+    let orbitX = -100, orbitY = -100;
     let isVisible = false;
     let rafId = null;
 
-    // Lerp factor — lower = smoother trail, higher = snappier
+    // Lerp factors
     const RING_LERP = 0.15;
+    const ORBIT_LERP = 0.08; // slower, floatier orbit
 
-    // Animation loop — ring trails behind the dot
+    // Sparkle trail state
+    const SPARKLE_POOL_SIZE = 20;
+    const sparklePool = [];
+    let sparkleIdx = 0;
+    let lastSparkleX = 0, lastSparkleY = 0;
+    const SPARKLE_MIN_DIST = 18;
+
+    // Pre-create sparkle pool
+    for (let i = 0; i < SPARKLE_POOL_SIZE; i++) {
+        const s = document.createElement('div');
+        s.className = 'cursor-sparkle';
+        document.body.appendChild(s);
+        sparklePool.push(s);
+    }
+
+    function emitSparkle(x, y) {
+        if (!document.body.classList.contains('vibe-active')) return;
+        const dx = x - lastSparkleX;
+        const dy = y - lastSparkleY;
+        if (dx * dx + dy * dy < SPARKLE_MIN_DIST * SPARKLE_MIN_DIST) return;
+        lastSparkleX = x;
+        lastSparkleY = y;
+
+        const s = sparklePool[sparkleIdx % SPARKLE_POOL_SIZE];
+        sparkleIdx++;
+
+        const ox = (Math.random() - 0.5) * 14;
+        const oy = (Math.random() - 0.5) * 14;
+        const sz = 1.5 + Math.random() * 2.5;
+
+        s.style.left = (x + ox) + 'px';
+        s.style.top = (y + oy) + 'px';
+        s.style.width = sz + 'px';
+        s.style.height = sz + 'px';
+        s.style.opacity = '0.35';
+        s.style.transform = 'translate(-50%, -50%) scale(1)';
+        s.style.transition = 'none';
+
+        void s.offsetWidth;
+        s.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        s.style.opacity = '0';
+        s.style.transform = 'translate(-50%, -50%) scale(0)';
+    }
+
+    // Animation loop
     function animate() {
         ringX += (mouseX - ringX) * RING_LERP;
         ringY += (mouseY - ringY) * RING_LERP;
+        orbitX += (mouseX - orbitX) * ORBIT_LERP;
+        orbitY += (mouseY - orbitY) * ORBIT_LERP;
 
         dot.style.left = mouseX + 'px';
         dot.style.top = mouseY + 'px';
         ring.style.left = ringX + 'px';
         ring.style.top = ringY + 'px';
+        orbit.style.left = orbitX + 'px';
+        orbit.style.top = orbitY + 'px';
 
         rafId = requestAnimationFrame(animate);
     }
@@ -1046,21 +1101,45 @@ renderBlogMarquee();
             isVisible = true;
             dot.classList.add('visible');
             ring.classList.add('visible');
+            orbit.classList.add('visible');
         }
+
+        emitSparkle(e.clientX, e.clientY);
     }, { passive: true });
 
-    // Hide when mouse leaves viewport
+    // Hide when mouse leaves viewport — reset positions off-screen
     document.addEventListener('mouseleave', function () {
         isVisible = false;
         dot.classList.remove('visible');
         ring.classList.remove('visible');
+        orbit.classList.remove('visible');
+
+        // Move everything off-screen so nothing lingers
+        mouseX = -100; mouseY = -100;
+        ringX = -100; ringY = -100;
+        orbitX = -100; orbitY = -100;
+        dot.style.left = '-100px';
+        dot.style.top = '-100px';
+        ring.style.left = '-100px';
+        ring.style.top = '-100px';
+        orbit.style.left = '-100px';
+        orbit.style.top = '-100px';
     });
 
     // Show when mouse re-enters
-    document.addEventListener('mouseenter', function () {
+    document.addEventListener('mouseenter', function (e) {
+        // Snap positions to current mouse so nothing teleports
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        ringX = e.clientX;
+        ringY = e.clientY;
+        orbitX = e.clientX;
+        orbitY = e.clientY;
+
         isVisible = true;
         dot.classList.add('visible');
         ring.classList.add('visible');
+        orbit.classList.add('visible');
     });
 
     // Hover detection for clickable elements
@@ -1070,6 +1149,7 @@ renderBlogMarquee();
         if (e.target.closest(hoverSelectors)) {
             dot.classList.add('hovering');
             ring.classList.add('hovering');
+            orbit.classList.add('hovering');
         }
     }, { passive: true });
 
@@ -1077,18 +1157,23 @@ renderBlogMarquee();
         if (e.target.closest(hoverSelectors)) {
             dot.classList.remove('hovering');
             ring.classList.remove('hovering');
+            orbit.classList.remove('hovering');
         }
     }, { passive: true });
 
-    // Subtle pulse on click
+    // Subtle pulse on click (only when NOT in vibe mode — CSS animations handle it)
     document.addEventListener('mousedown', function () {
-        dot.style.transform = 'translate(-50%, -50%) scale(0.7)';
-        ring.style.transform = 'translate(-50%, -50%) scale(0.85)';
+        if (!document.body.classList.contains('vibe-active')) {
+            dot.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            ring.style.transform = 'translate(-50%, -50%) scale(0.85)';
+        }
     });
 
     document.addEventListener('mouseup', function () {
-        dot.style.transform = 'translate(-50%, -50%) scale(1)';
-        ring.style.transform = 'translate(-50%, -50%) scale(1)';
+        if (!document.body.classList.contains('vibe-active')) {
+            dot.style.transform = 'translate(-50%, -50%) scale(1)';
+            ring.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
     });
 })();
 

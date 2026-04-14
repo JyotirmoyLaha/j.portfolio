@@ -2401,6 +2401,150 @@ html.lenis body {
     }
 }
 
+/* ── Vibe-active cursor — EXTRAORDINARY EFFECT ── */
+
+/* Dot: soft pulsing glow core */
+body.vibe-active .cursor-dot {
+    background: var(--vibe-accent) !important;
+    width: 9px !important;
+    height: 9px !important;
+    box-shadow:
+        0 0 6px var(--vibe-accent),
+        0 0 18px var(--vibe-accent) !important;
+    animation: vibeCorePulse 1.5s ease-in-out infinite !important;
+    opacity: 0.85 !important;
+}
+
+/* Ring: softly spinning border */
+body.vibe-active .cursor-ring {
+    width: 42px !important;
+    height: 42px !important;
+    border: 1.5px solid transparent !important;
+    border-top-color: var(--vibe-accent) !important;
+    border-right-color: var(--vibe-accent-secondary) !important;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.06) !important;
+    background: none !important;
+    animation: vibeRingSpin 3s linear infinite !important;
+    opacity: 0.45 !important;
+    filter: none;
+}
+
+/* Hover state: dot — subtle glow shift */
+body.vibe-active .cursor-dot.hovering {
+    width: 12px !important;
+    height: 12px !important;
+    background: var(--vibe-accent-secondary) !important;
+    box-shadow:
+        0 0 6px var(--vibe-accent-secondary),
+        0 0 16px var(--vibe-accent-secondary) !important;
+    animation: vibeCorePulse 1s ease-in-out infinite !important;
+    opacity: 0.9 !important;
+}
+
+/* Hover state: ring — slightly larger, stays soft */
+body.vibe-active .cursor-ring.hovering {
+    width: 52px !important;
+    height: 52px !important;
+    border-top-color: var(--vibe-accent-secondary) !important;
+    border-right-color: var(--vibe-accent) !important;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.04) !important;
+    animation: vibeRingSpin 2s linear infinite !important;
+    opacity: 0.35 !important;
+    filter: none;
+}
+
+/* Cursor outer orbit — whisper-thin dashed ring */
+.cursor-orbit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99997;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    border: 1px dashed transparent;
+    transition: opacity 0.4s ease, width 0.35s ease, height 0.35s ease;
+}
+
+body.vibe-active .cursor-orbit {
+    border-color: var(--vibe-accent);
+    animation: vibeOrbitSpin 5s linear infinite !important;
+    filter: none;
+}
+
+body.vibe-active .cursor-orbit.visible {
+    opacity: 0.15;
+}
+
+/* Hover: orbit fades back so it doesn't obstruct content */
+body.vibe-active .cursor-orbit.hovering {
+    width: 70px;
+    height: 70px;
+    border-color: var(--vibe-accent-secondary);
+    opacity: 0.1;
+    filter: none;
+}
+
+/* Cursor sparkle trail particles — soft, small */
+.cursor-sparkle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99996;
+    background: var(--vibe-accent, #22d3ee);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    will-change: transform, opacity;
+}
+
+@keyframes vibeCorePulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.25);
+        filter: brightness(1.15);
+    }
+}
+
+@keyframes vibeRingSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes vibeOrbitSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes vibeSparkle {
+    0% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+/* Hide orbit + sparkles on touch / mobile / reduced-motion */
+@media (hover: none), (pointer: coarse) {
+    .cursor-orbit, .cursor-sparkle { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cursor-orbit, .cursor-sparkle { display: none !important; }
+    body.vibe-active .cursor-dot { animation: none !important; }
+    body.vibe-active .cursor-ring { animation: none !important; }
+}
+
 /* =====================================================================
    MY VIBE MUSIC PLAYER — Full Portfolio Theme Engine
    ===================================================================== */
