@@ -2778,6 +2778,7 @@ body.vibe-active ::-webkit-scrollbar-thumb {
     .hero-right-col {
         justify-content: center;
         padding-bottom: 0;
+        margin-right: 0;
     }
 }
 
