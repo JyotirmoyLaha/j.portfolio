@@ -1091,3 +1091,409 @@ renderBlogMarquee();
         ring.style.transform = 'translate(-50%, -50%) scale(1)';
     });
 })();
+
+// ===================== MY VIBE MUSIC PLAYER — Full Theme Engine =====================
+(function initVibePlayer() {
+    'use strict';
+
+    /* ── Song Palettes (dark + light) ── */
+    const SONGS = [
+        {   // 0 — 52 Bars
+            name: '52 Bars', artist: 'Karan Aujla', pill: 'royal mode',
+            dark: {
+                '--vibe-bg-primary': '#06080f', '--vibe-bg-secondary': '#0d1120', '--vibe-bg-tertiary': '#111827',
+                '--vibe-accent': '#D4AF37', '--vibe-accent-secondary': '#1a3a6e',
+                '--vibe-text-primary': '#f0e6c0', '--vibe-text-secondary': '#a89060', '--vibe-text-muted': '#5a4e30',
+                '--vibe-border': 'rgba(212,175,55,.2)', '--vibe-card-bg': 'rgba(10,14,32,.6)', '--vibe-card-blur': 'blur(16px)',
+                '--vibe-pulse': '#D4AF37',
+            },
+            light: {
+                '--vibe-bg-primary': '#faf6eb', '--vibe-bg-secondary': '#f0e9d2', '--vibe-bg-tertiary': '#fdfbf5',
+                '--vibe-accent': '#9E7B1A', '--vibe-accent-secondary': '#2a4a80',
+                '--vibe-text-primary': '#2a2010', '--vibe-text-secondary': '#5c4d1a', '--vibe-text-muted': '#a09060',
+                '--vibe-border': 'rgba(158,123,26,.2)', '--vibe-card-bg': 'rgba(250,246,235,.8)', '--vibe-card-blur': 'blur(14px)',
+                '--vibe-pulse': '#9E7B1A',
+            },
+        },
+        {   // 1 — Are Diwano
+            name: 'Are Diwano Mujhe Pehchano', artist: 'Kishore Kumar', pill: 'swagger mode',
+            dark: {
+                '--vibe-bg-primary': '#1A0D00', '--vibe-bg-secondary': '#2a1500', '--vibe-bg-tertiary': '#1f1000',
+                '--vibe-accent': '#EBB134', '--vibe-accent-secondary': '#D91E1E',
+                '--vibe-text-primary': '#f5dda0', '--vibe-text-secondary': '#c4903a', '--vibe-text-muted': '#7a5520',
+                '--vibe-border': 'rgba(235,177,52,.2)', '--vibe-card-bg': 'rgba(26,13,0,.6)', '--vibe-card-blur': 'blur(10px) sepia(30%)',
+                '--vibe-pulse': '#D91E1E',
+            },
+            light: {
+                '--vibe-bg-primary': '#fef7ec', '--vibe-bg-secondary': '#f8e8cc', '--vibe-bg-tertiary': '#fffaf2',
+                '--vibe-accent': '#c47a10', '--vibe-accent-secondary': '#d42020',
+                '--vibe-text-primary': '#3a1a00', '--vibe-text-secondary': '#8a5018', '--vibe-text-muted': '#c09060',
+                '--vibe-border': 'rgba(196,122,16,.22)', '--vibe-card-bg': 'rgba(254,247,236,.82)', '--vibe-card-blur': 'blur(12px) sepia(10%)',
+                '--vibe-pulse': '#d42020',
+            },
+        },
+        {   // 2 — Starboy
+            name: 'Starboy', artist: 'The Weeknd', pill: 'neon mode',
+            dark: {
+                '--vibe-bg-primary': '#050505', '--vibe-bg-secondary': '#0e0005', '--vibe-bg-tertiary': '#0a0008',
+                '--vibe-accent': '#00D4FF', '--vibe-accent-secondary': '#E5003C',
+                '--vibe-text-primary': '#e0f8ff', '--vibe-text-secondary': '#6dbfcc', '--vibe-text-muted': '#2a5560',
+                '--vibe-border': 'rgba(229,0,60,.3)', '--vibe-card-bg': 'rgba(20,0,5,.4)', '--vibe-card-blur': 'blur(24px) saturate(150%)',
+                '--vibe-pulse': '#00D4FF',
+            },
+            light: {
+                '--vibe-bg-primary': '#f0f8ff', '--vibe-bg-secondary': '#ddf0f8', '--vibe-bg-tertiary': '#f8fbff',
+                '--vibe-accent': '#0077aa', '--vibe-accent-secondary': '#cc002a',
+                '--vibe-text-primary': '#001a22', '--vibe-text-secondary': '#004466', '--vibe-text-muted': '#5590aa',
+                '--vibe-border': 'rgba(0,119,170,.25)', '--vibe-card-bg': 'rgba(240,248,255,.8)', '--vibe-card-blur': 'blur(20px) saturate(120%)',
+                '--vibe-pulse': '#0077aa',
+            },
+        },
+        {   // 3 — Winning Speech
+            name: 'Winning Speech', artist: 'Karan Aujla', pill: 'trophy mode',
+            dark: {
+                '--vibe-bg-primary': '#000000', '--vibe-bg-secondary': '#0d0d0d', '--vibe-bg-tertiary': '#080808',
+                '--vibe-accent': '#E5E4E2', '--vibe-accent-secondary': '#E60000',
+                '--vibe-text-primary': '#f0f0f0', '--vibe-text-secondary': '#999898', '--vibe-text-muted': '#444444',
+                '--vibe-border': 'rgba(229,228,226,.2)', '--vibe-card-bg': '#121212', '--vibe-card-blur': 'blur(4px)',
+                '--vibe-pulse': '#E60000',
+            },
+            light: {
+                '--vibe-bg-primary': '#f2f2f2', '--vibe-bg-secondary': '#e5e5e5', '--vibe-bg-tertiary': '#f8f8f8',
+                '--vibe-accent': '#1a1a1a', '--vibe-accent-secondary': '#cc0000',
+                '--vibe-text-primary': '#0a0a0a', '--vibe-text-secondary': '#444444', '--vibe-text-muted': '#888888',
+                '--vibe-border': 'rgba(0,0,0,.15)', '--vibe-card-bg': 'rgba(255,255,255,.85)', '--vibe-card-blur': 'blur(4px)',
+                '--vibe-pulse': '#cc0000',
+            },
+        },
+    ];
+
+    let currentTrack = null; // null = nothing playing
+
+    /* ── DOM refs ── */
+    const root = document.documentElement;
+    const profileWrapper = document.getElementById('profileMusicWrapper');
+    const nowBar = document.getElementById('vibeNowPlaying');
+    const nowText = document.getElementById('vibeNowPlayingText');
+    const nowPill = document.getElementById('vibeNowPlayingPill');
+    const seekBar = document.getElementById('vibeSeekBar');
+    const timeElapsed = document.getElementById('vibeTimeElapsed');
+    const timeTotal = document.getElementById('vibeTimeTotal');
+
+    let seekAnimId = null;
+    let isSeeking = false;
+
+    /* ── Web Audio API — Beat-Reactive Pulse Rings ── */
+    let audioCtx = null;
+    let analyserNode = null;
+    const audioSourceMap = {};
+    let beatRingRAF = null;
+    const pulseRings = profileWrapper
+        ? Array.from(profileWrapper.querySelectorAll('.vibe-pulse-ring'))
+        : [];
+
+    function ensureAudioCtx() {
+        if (audioCtx) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            return;
+        }
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyserNode = audioCtx.createAnalyser();
+        analyserNode.fftSize = 256;
+        analyserNode.smoothingTimeConstant = 0.78;
+        analyserNode.connect(audioCtx.destination);
+    }
+
+    function connectAudioAnalyser(audioEl, idx) {
+        ensureAudioCtx();
+        if (!audioSourceMap[idx]) {
+            const src = audioCtx.createMediaElementSource(audioEl);
+            src.connect(analyserNode);
+            audioSourceMap[idx] = src;
+        }
+    }
+
+    function avgBand(data, from, to) {
+        let sum = 0;
+        const end = Math.min(to, data.length);
+        for (let i = from; i < end; i++) sum += data[i];
+        return (end - from) > 0 ? sum / (end - from) / 255 : 0;
+    }
+
+    function startBeatRings() {
+        cancelAnimationFrame(beatRingRAF);
+        if (!analyserNode || pulseRings.length === 0) return;
+
+        const bufLen = analyserNode.frequencyBinCount;
+        const freq = new Uint8Array(bufLen);
+        const smoothed = pulseRings.map(() => 0);
+        const lerpFactor = 0.18;
+        let t = 0;
+
+        function tick() {
+            if (currentTrack === null) { resetBeatRings(); return; }
+            analyserNode.getByteFrequencyData(freq);
+            t += 0.02;
+
+            // 5 frequency bands → 5 rings
+            const bands = [
+                avgBand(freq, 0, 6),       // sub-bass → ring 1
+                avgBand(freq, 6, 18),      // bass → ring 2
+                avgBand(freq, 18, 40),     // low-mid → ring 3
+                avgBand(freq, 40, 72),     // mid → ring 4
+                avgBand(freq, 72, bufLen), // treble → ring 5
+            ];
+
+            const scaleAmt  = [0.5, 0.4, 0.3, 0.22, 0.15];
+            const opAmt     = [0.72, 0.6, 0.5, 0.4, 0.32];
+            const glowAmt   = [16, 12, 8, 5, 3];
+
+            pulseRings.forEach((ring, i) => {
+                if (i >= bands.length) return;
+                // Smooth energy for organic feel
+                smoothed[i] += (bands[i] - smoothed[i]) * lerpFactor;
+                const e = smoothed[i];
+
+                const scale = 1 + e * scaleAmt[i];
+                const opacity = e * opAmt[i];
+                const rotDir = i % 2 === 0 ? 1 : -1;
+                const wobble = Math.sin(t * (2 + i * 0.7)) * 3 * e;
+                const rot = e * 12 * rotDir + wobble;
+                const glow = e * glowAmt[i];
+                const bw = 1.5 + e * 2.5;
+
+                ring.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rot}deg)`;
+                ring.style.opacity = opacity;
+                ring.style.borderWidth = bw + 'px';
+                ring.style.filter = `drop-shadow(0 0 ${glow}px var(--vibe-pulse))`;
+            });
+
+            beatRingRAF = requestAnimationFrame(tick);
+        }
+        tick();
+    }
+
+    function resetBeatRings() {
+        cancelAnimationFrame(beatRingRAF);
+        beatRingRAF = null;
+        pulseRings.forEach(ring => {
+            ring.style.transform = 'translate(-50%, -50%) scale(1)';
+            ring.style.opacity = '0';
+            ring.style.borderWidth = '';
+            ring.style.filter = '';
+        });
+    }
+
+    /* ── Detect dark mode ── */
+    function isDark() {
+        return root.classList.contains('dark');
+    }
+
+    /* ── Format seconds → m:ss ── */
+    function formatTime(sec) {
+        if (!sec || isNaN(sec)) return '0:00';
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    /* ── Progress update loop ── */
+    function startProgressLoop() {
+        cancelAnimationFrame(seekAnimId);
+        function tick() {
+            if (currentTrack === null) return;
+            const audio = document.getElementById('audio' + currentTrack);
+            if (audio && !isSeeking) {
+                const dur = audio.duration || 0;
+                const cur = audio.currentTime || 0;
+                const pct = dur ? (cur / dur) * 100 : 0;
+                if (seekBar) {
+                    seekBar.value = pct;
+                    seekBar.style.setProperty('--seek-pct', pct + '%');
+                }
+                if (timeElapsed) timeElapsed.textContent = formatTime(cur);
+                if (timeTotal) timeTotal.textContent = formatTime(dur);
+            }
+            seekAnimId = requestAnimationFrame(tick);
+        }
+        tick();
+    }
+
+    function stopProgressLoop() {
+        cancelAnimationFrame(seekAnimId);
+        if (seekBar) {
+            seekBar.value = 0;
+            seekBar.style.setProperty('--seek-pct', '0%');
+        }
+        if (timeElapsed) timeElapsed.textContent = '0:00';
+        if (timeTotal) timeTotal.textContent = '0:00';
+    }
+
+    /* ── Seek bar events ── */
+    if (seekBar) {
+        seekBar.addEventListener('input', () => {
+            isSeeking = true;
+            const pct = parseFloat(seekBar.value);
+            seekBar.style.setProperty('--seek-pct', pct + '%');
+            if (currentTrack !== null) {
+                const audio = document.getElementById('audio' + currentTrack);
+                if (audio && audio.duration) {
+                    const newTime = (pct / 100) * audio.duration;
+                    if (timeElapsed) timeElapsed.textContent = formatTime(newTime);
+                }
+            }
+        });
+        seekBar.addEventListener('change', () => {
+            if (currentTrack !== null) {
+                const audio = document.getElementById('audio' + currentTrack);
+                if (audio && audio.duration) {
+                    audio.currentTime = (parseFloat(seekBar.value) / 100) * audio.duration;
+                }
+            }
+            isSeeking = false;
+        });
+    }
+
+    /* ── Apply full-site theme variables ── */
+    function applyVibeTheme(song) {
+        const palette = isDark() ? song.dark : song.light;
+        Object.entries(palette).forEach(([prop, val]) => {
+            root.style.setProperty(prop, val);
+        });
+    }
+
+    /* ── Clear all vibe variables (revert to portfolio defaults) ── */
+    function clearVibeTheme() {
+        const props = [
+            '--vibe-bg-primary','--vibe-bg-secondary','--vibe-bg-tertiary',
+            '--vibe-accent','--vibe-accent-secondary',
+            '--vibe-text-primary','--vibe-text-secondary','--vibe-text-muted',
+            '--vibe-border','--vibe-card-bg','--vibe-card-blur','--vibe-pulse',
+        ];
+        props.forEach(p => root.style.removeProperty(p));
+    }
+
+    /* ── Pause all audio ── */
+    function pauseAll() {
+        for (let i = 0; i < 4; i++) {
+            const a = document.getElementById('audio' + i);
+            if (a) a.pause();
+        }
+    }
+
+    /* ── Deactivate all tracks ── */
+    function deactivateAll() {
+        document.querySelectorAll('.vibe-track-row').forEach(row => {
+            row.classList.remove('vibe-active');
+            const icon = row.querySelector('.vibe-play-btn i');
+            if (icon) { icon.classList.remove('fa-pause'); icon.classList.add('fa-play'); }
+        });
+    }
+
+    /* ── Revert everything to default ── */
+    function revertToDefault() {
+        currentTrack = null;
+        pauseAll();
+        deactivateAll();
+        clearVibeTheme();
+        stopProgressLoop();
+        document.body.classList.remove('vibe-active');
+        if (nowBar) nowBar.classList.remove('visible');
+        resetBeatRings();
+    }
+
+    /* ── Main Toggle (exposed globally) ── */
+    window.vibeToggleTrack = function (trackNum) {
+        // trackNum from HTML is 1-based; our array is 0-based
+        const idx = trackNum - 1;
+        const song = SONGS[idx];
+        if (!song) return;
+
+        /* Clicking same track → pause & revert */
+        if (currentTrack === idx) {
+            revertToDefault();
+            return;
+        }
+
+        /* Switch to new track */
+        pauseAll();
+        deactivateAll();
+        stopProgressLoop();
+        currentTrack = idx;
+
+        // Play audio
+        const audio = document.getElementById('audio' + idx);
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+            connectAudioAnalyser(audio, idx);
+            startBeatRings();
+        }
+
+        // Activate track row
+        const row = document.querySelector(`.vibe-track-row[data-track="${trackNum}"]`);
+        if (row) {
+            row.classList.add('vibe-active');
+            const icon = row.querySelector('.vibe-play-btn i');
+            if (icon) { icon.classList.remove('fa-play'); icon.classList.add('fa-pause'); }
+        }
+
+        // Apply full-site theme
+        applyVibeTheme(song);
+        document.body.classList.add('vibe-active');
+
+        // Now Playing bar
+        if (nowBar && nowText && nowPill) {
+            nowText.textContent = `${song.name} — ${song.artist}`;
+            nowPill.textContent = song.pill;
+            nowPill.style.background = (isDark() ? song.dark : song.light)['--vibe-border'];
+            nowPill.style.color = (isDark() ? song.dark : song.light)['--vibe-accent'];
+            nowBar.classList.add('visible');
+        }
+
+        // Start progress tracking
+        startProgressLoop();
+
+        // When audio ends, revert
+        if (audio) {
+            audio.onended = () => {
+                if (currentTrack === idx) revertToDefault();
+            };
+        }
+    };
+
+    /* ── Re-apply theme when dark mode is toggled while a song plays ── */
+    const origToggleDarkMode = window.toggleDarkMode;
+    if (typeof origToggleDarkMode === 'function') {
+        window.toggleDarkMode = function () {
+            origToggleDarkMode.apply(this, arguments);
+            if (currentTrack !== null) {
+                applyVibeTheme(SONGS[currentTrack]);
+                // Update now-playing pill colors
+                const song = SONGS[currentTrack];
+                const palette = isDark() ? song.dark : song.light;
+                if (nowPill) {
+                    nowPill.style.background = palette['--vibe-border'];
+                    nowPill.style.color = palette['--vibe-accent'];
+                }
+            }
+        };
+    }
+
+    /* ── Dropdown Toggle for Track List ── */
+    window.vibeToggleDropdown = function () {
+        const dropdown = document.getElementById('vibeTracksDropdown');
+        const toggle = document.getElementById('vibeExploreToggle');
+        if (!dropdown || !toggle) return;
+
+        const isOpen = dropdown.classList.contains('open');
+        if (isOpen) {
+            dropdown.classList.remove('open');
+            toggle.classList.remove('open');
+        } else {
+            dropdown.classList.add('open');
+            toggle.classList.add('open');
+        }
+    };
+
+})();

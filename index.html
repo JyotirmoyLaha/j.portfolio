@@ -203,7 +203,7 @@
     <div id="portfolio-view">
 
         <!-- 1. INTRO & MINDSET SECTION -->
-        <header class="flex items-center relative pt-20 sm:pt-24 pb-6 sm:pb-10 hero-bg">
+        <header class="relative pt-20 sm:pt-24 pb-6 sm:pb-10 hero-bg vibe-transition">
             <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank"
                 class="absolute top-24 right-4 sm:right-6 z-30 w-14 h-14 sm:w-16 sm:h-16 bg-white/70 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 backdrop-blur-md rounded-full flex items-center justify-center text-base sm:text-lg font-display font-bold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 aria-label="View my CV">
@@ -211,84 +211,214 @@
             </a>
 
             <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
-                <div class="flex flex-col lg:flex-row items-center gap-6 sm:gap-10 lg:gap-16">
+                <!-- ═══ Hero Grid: Left = Content, Right = Vibe Player ═══ -->
+                <div class="hero-vibe-grid">
 
-                    <!-- LEFT: Profile Image -->
-                    <div class="flex-shrink-0 block" data-aos="fade-right" data-aos-duration="800">
-                        <div class="relative">
+                    <!-- ═══ LEFT COLUMN: Hero Content ═══ -->
+                    <div class="hero-left-col">
+                        <div class="flex flex-col lg:flex-row items-center gap-6 sm:gap-10 lg:gap-16">
+
+                            <!-- Profile Image with Pulse Rings -->
+                            <div class="flex-shrink-0 block" data-aos="fade-right" data-aos-duration="800">
+                                <div class="relative profile-music-wrapper" id="profileMusicWrapper">
+                                    <!-- Pulse rings (behind profile pic, hidden by default) -->
+                                    <div class="vibe-pulse-ring vibe-ring-1"></div>
+                                    <div class="vibe-pulse-ring vibe-ring-2"></div>
+                                    <div class="vibe-pulse-ring vibe-ring-3"></div>
+                                    <div class="vibe-pulse-ring vibe-ring-4"></div>
+                                    <div class="vibe-pulse-ring vibe-ring-5"></div>
+                                    <div class="vibe-bracket transition-opacity duration-300"
+                                        style="position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-top:2px solid #22d3ee;border-left:2px solid #22d3ee;border-radius:3px 0 0 0;z-index:3;">
+                                    </div>
+                                    <div class="vibe-bracket transition-opacity duration-300"
+                                        style="position:absolute;bottom:-6px;right:-6px;width:16px;height:16px;border-bottom:2px solid #22d3ee;border-right:2px solid #22d3ee;border-radius:0 0 3px 0;z-index:3;">
+                                    </div>
+                                    <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper"
+                                        id="profileImage">
+                                        <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Intro Text -->
+                            <div class="flex-1 text-left relative" data-aos="fade-left" data-aos-delay="200"
+                                data-aos-duration="800">
+
+                                <div class="hero-watermark select-none pointer-events-none" aria-hidden="true">///</div>
+
+                                <h1
+                                    class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 mb-2 tracking-tight leading-none relative z-10">
+                                    Jyotirmoy
+                                </h1>
+                                <div class="flex flex-col gap-2 sm:gap-3 mt-2 sm:mt-3 md:pl-1">
+                                    <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">BCA Student.
+                                    </h3>
+                                    <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">
+                                        Converts <span class="text-emerald-400">ideas</span> into <span
+                                            class="text-emerald-400">code</span>.
+                                    </h3>
+                                </div>
+
+                                <div class="flex gap-4 sm:gap-5 mt-6 sm:mt-8 mb-4 sm:mb-6">
+                                    <a href="https://github.com/JyotirmoyLaha" target="_blank" class="social-icon-btn"
+                                        data-tooltip="GitHub">
+                                        <i class="fa-brands fa-github text-xl"></i>
+                                        <span class="social-tooltip">GitHub</span>
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank"
+                                        class="social-icon-btn" data-tooltip="LinkedIn">
+                                        <i class="fa-brands fa-linkedin text-xl"></i>
+                                        <span class="social-tooltip">LinkedIn</span>
+                                    </a>
+                                    <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn"
+                                        data-tooltip="Email">
+                                        <i class="fa-solid fa-envelope text-xl"></i>
+                                        <span class="social-tooltip">Email</span>
+                                    </a>
+                                </div>
+
+                                <div class="terminal-card">
+                                    <div class="terminal-accent"></div>
+                                    <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
+                                            class="text-emerald-400">@</span>dev</span>
+                                    <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto">~ portfolio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mt-8 sm:mt-12 md:mt-14 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
+                            <p class="font-mono text-sm text-cyan-400 mb-2 sm:mb-3">// bio</p>
                             <div
-                                style="position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-top:2px solid #22d3ee;border-left:2px solid #22d3ee;border-radius:3px 0 0 0;">
-                            </div>
-                            <div
-                                style="position:absolute;bottom:-6px;right:-6px;width:16px;height:16px;border-bottom:2px solid #22d3ee;border-right:2px solid #22d3ee;border-radius:0 0 3px 0;">
-                            </div>
-                            <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper"
-                                id="profileImage">
-                                <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+                                class="font-display text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed select-none">
+                                Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in
+                                analytical
+                                thinking. When faced with a tough situation or a complex bug, I don't panic — I break it
+                                down. I
+                                build projects to improve thinking, not just to show skills.
                             </div>
                         </div>
                     </div>
 
-                    <!-- RIGHT: Intro Text & Description -->
-                    <div class="flex-1 text-left relative" data-aos="fade-left" data-aos-delay="200"
-                        data-aos-duration="800">
-                        
-                        <div class="hero-watermark select-none pointer-events-none" aria-hidden="true">///</div>
+                    <!-- ═══ RIGHT COLUMN: My Vibe Player ═══ -->
+                    <div class="hero-right-col" data-aos="fade-left" data-aos-delay="600" data-aos-duration="800">
+                        <div class="vibe-panel">
+                            <p class="vibe-panel-label">MY VIBE</p>
 
-                        <h1
-                            class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 mb-2 tracking-tight leading-none relative z-10">
-                            Jyotirmoy
-                        </h1>
-                        <div class="flex flex-col gap-2 sm:gap-3 mt-2 sm:mt-3 md:pl-1">
-                            <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">BCA Student.</h3>
-                            <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">
-                                Converts <span class="text-emerald-400">ideas</span> into <span
-                                    class="text-emerald-400">code</span>.
-                            </h3>
-                        </div>
+                            <!-- Explore toggle -->
+                            <button class="vibe-explore-toggle" id="vibeExploreToggle" onclick="vibeToggleDropdown()">
+                                <span class="vibe-explore-text">Explore my music taste</span>
+                                <i class="fa-solid fa-chevron-down vibe-explore-chevron" id="vibeExploreChevron"></i>
+                            </button>
 
-                       
-                        <div class="flex gap-4 sm:gap-5 mt-6 sm:mt-8 mb-4 sm:mb-6">
-                            <a href="https://github.com/JyotirmoyLaha" target="_blank" class="social-icon-btn"
-                                data-tooltip="GitHub">
-                                <i class="fa-brands fa-github text-xl"></i>
-                                <span class="social-tooltip">GitHub</span>
-                            </a>
-                            <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank"
-                                class="social-icon-btn" data-tooltip="LinkedIn">
-                                <i class="fa-brands fa-linkedin text-xl"></i>
-                                <span class="social-tooltip">LinkedIn</span>
-                            </a>
-                            <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn" data-tooltip="Email">
-                                <i class="fa-solid fa-envelope text-xl"></i>
-                                <span class="social-tooltip">Email</span>
-                            </a>
+                            <!-- Collapsible track list -->
+                            <div class="vibe-tracks-dropdown" id="vibeTracksDropdown">
+                                <div class="vibe-tracks-inner">
 
-                        </div>
+                                    <!-- Track 1: 52 Bars -->
+                                    <div class="vibe-track-row" data-track="1" onclick="vibeToggleTrack(1)">
+                                        <div class="vibe-album-art"
+                                            style="background-image:url('Songs Cover pics/52 bars song cover.jpg');background-size:cover;background-position:center;">
+                                        </div>
+                                        <button class="vibe-play-btn" aria-label="Play 52 Bars">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                        <div class="vibe-track-info">
+                                            <span class="vibe-track-name">52 Bars</span>
+                                            <span class="vibe-track-artist">Karan Aujla</span>
+                                        </div>
+                                        <span class="vibe-tag" data-pill="royal">royal mode</span>
+                                        <div class="vibe-equalizer">
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                    </div>
 
-                        
-                        <div class="terminal-card">
-                            <div class="terminal-accent"></div>
-                            <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
-                                    class="text-emerald-400">@</span>dev</span>
-                            <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto">~ portfolio</span>
+                                    <!-- Track 2: Are Diwano Mujhe Pehchano -->
+                                    <div class="vibe-track-row" data-track="2" onclick="vibeToggleTrack(2)">
+                                        <div class="vibe-album-art"
+                                            style="background-image:url('Songs Cover pics/aree diwano mujhe paichano song cover.jpg');background-size:cover;background-position:center;">
+                                        </div>
+                                        <button class="vibe-play-btn" aria-label="Play Are Diwano Mujhe Pehchano">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                        <div class="vibe-track-info">
+                                            <span class="vibe-track-name">Are Diwano Mujhe Pehchano</span>
+                                            <span class="vibe-track-artist">Kishore Kumar</span>
+                                        </div>
+                                        <span class="vibe-tag" data-pill="swagger">swagger mode</span>
+                                        <div class="vibe-equalizer">
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Track 3: Starboy -->
+                                    <div class="vibe-track-row" data-track="3" onclick="vibeToggleTrack(3)">
+                                        <div class="vibe-album-art"
+                                            style="background-image:url('Songs Cover pics/Starboy song cover.jpg');background-size:cover;background-position:center;">
+                                        </div>
+                                        <button class="vibe-play-btn" aria-label="Play Starboy">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                        <div class="vibe-track-info">
+                                            <span class="vibe-track-name">Starboy</span>
+                                            <span class="vibe-track-artist">The Weeknd</span>
+                                        </div>
+                                        <span class="vibe-tag" data-pill="neon">neon mode</span>
+                                        <div class="vibe-equalizer">
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Track 4: Winning Speech -->
+                                    <div class="vibe-track-row" data-track="4" onclick="vibeToggleTrack(4)">
+                                        <div class="vibe-album-art"
+                                            style="background-image:url('Songs Cover pics/winning speech song cover.jpg');background-size:cover;background-position:center;">
+                                        </div>
+                                        <button class="vibe-play-btn" aria-label="Play Winning Speech">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                        <div class="vibe-track-info">
+                                            <span class="vibe-track-name">Winning Speech</span>
+                                            <span class="vibe-track-artist">Karan Aujla</span>
+                                        </div>
+                                        <span class="vibe-tag" data-pill="trophy">trophy mode</span>
+                                        <div class="vibe-equalizer">
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Now Playing Bar (stays visible when dropdown is closed) -->
+                            <div class="vibe-now-playing" id="vibeNowPlaying">
+                                <div class="vibe-now-playing-top">
+                                    <i class="fa-solid fa-music"></i>
+                                    <span class="vibe-now-playing-text" id="vibeNowPlayingText"></span>
+                                    <span class="vibe-now-playing-pill" id="vibeNowPlayingPill"></span>
+                                </div>
+                                <div class="vibe-progress-wrap">
+                                    <span class="vibe-time" id="vibeTimeElapsed">0:00</span>
+                                    <input type="range" class="vibe-seek-bar" id="vibeSeekBar" min="0" max="100"
+                                        value="0" step="0.1">
+                                    <span class="vibe-time" id="vibeTimeTotal">0:00</span>
+                                </div>
+                            </div>
+
+                            <!-- Audio Elements -->
+                            <audio id="audio0" preload="metadata"
+                                src="songs/52 Bars  (Official Video) Karan Aujla _ Ikky _ Four You EP _ First Song _ Latest Punjabi Songs 2023.mp3"></audio>
+                            <audio id="audio1" preload="metadata"
+                                src="songs/Are Diwano Mujhe Pehchano _ Don _ Amitabh Bachchan & Zeenat Aman _ Kishore Kumar.mp3"></audio>
+                            <audio id="audio2" preload="metadata"
+                                src="songs/The Weeknd - Starboy ft. Daft Punk (Official Video) ft. Daft Punk.mp3"></audio>
+                            <audio id="audio3" preload="metadata"
+                                src="songs/Winning Speech Karan Aujla New Punjabi Songs 2024 Latest Punjabi Songs New song Karan Aujla winning.mp3"></audio>
                         </div>
                     </div>
 
-                </div>
-
-              
-                <div class="mt-8 sm:mt-12 md:mt-20 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
-                    <p class="font-mono text-sm text-cyan-400 mb-2 sm:mb-3">// bio</p>
-                    <div
-                        class="font-display text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed select-none">
-                        Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in
-                        analytical
-                        thinking. When faced with a tough situation or a complex bug, I don't panic — I break it down. I
-                        build projects to improve thinking, not just to show skills.
-                    </div>
-                </div>
-            </div>
+                </div> <!-- /hero-vibe-grid -->
+            </div> <!-- /max-w-6xl -->
 
             <!-- Scroll Indicator -->
             <div
@@ -849,6 +979,12 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="portfolio-chatbot/frontend/chatbot.css">
     <script src="portfolio-chatbot/frontend/chatbot.js"></script>
+    <!-- Vibe Player Audio Elements -->
+    <audio id="audio0" src="./assets/music/52-bars.mp3" preload="none"></audio>
+    <audio id="audio1" src="./assets/music/are-diwano.mp3" preload="none"></audio>
+    <audio id="audio2" src="./assets/music/starboy.mp3" preload="none"></audio>
+    <audio id="audio3" src="./assets/music/winning-speech.mp3" preload="none"></audio>
+
 </body>
 
 </html>
