@@ -3075,7 +3075,7 @@ body.vibe-active .vibe-panel-label {
 }
 
 .vibe-explore-toggle.open .vibe-explore-chevron {
-    transform: rotate(180deg);
+    /* transform handled by class toggling in script.js now */
 }
 
 /* Light mode overrides */

@@ -1569,15 +1569,24 @@ renderBlogMarquee();
     window.vibeToggleDropdown = function () {
         const dropdown = document.getElementById('vibeTracksDropdown');
         const toggle = document.getElementById('vibeExploreToggle');
+        const chevron = document.getElementById('vibeExploreChevron');
         if (!dropdown || !toggle) return;
 
         const isOpen = dropdown.classList.contains('open');
         if (isOpen) {
             dropdown.classList.remove('open');
             toggle.classList.remove('open');
+            if (chevron) {
+                chevron.classList.remove('fa-chevron-down');
+                chevron.classList.add('fa-chevron-up');
+            }
         } else {
             dropdown.classList.add('open');
             toggle.classList.add('open');
+            if (chevron) {
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+            }
         }
     };
 
