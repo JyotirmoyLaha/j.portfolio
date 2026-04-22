@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jyotirmoy</title>
+    <title>Jyotirmoy Laha</title>
+    <meta name="description" content="Portfolio of Jyotirmoy Laha — a BCA student and full-stack developer specializing in Python, JavaScript, AI/ML, and modern web development. Explore projects, skills, and blog posts.">
+    <meta name="keywords" content="Jyotirmoy Laha, portfolio, developer, BCA, Python, JavaScript, full-stack, AI, ML, web development">
     <link rel="icon" type="image/jpeg" href="profile.jpg">
     <link rel="shortcut icon" type="image/jpeg" href="profile.jpg">
     <link rel="apple-touch-icon" href="profile.jpg">
@@ -90,6 +92,9 @@
 
 <body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
 
+    <!-- Skip to content link for keyboard/screen reader accessibility -->
+    <a href="#portfolio-view" class="skip-to-content">Skip to main content</a>
+
     <!-- ======================= INTRO SPLASH SCREEN ======================= -->
     <div id="intro-splash">
         <!-- Arc of language cards (rendered by JS into this container) -->
@@ -151,7 +156,7 @@
 
                 <!-- Dark Mode Toggle -->
                 <div id="darkModeToggle" onclick="toggleDarkMode()" class="theme-switch" aria-label="Toggle dark mode"
-                    role="button" tabindex="0">
+                    role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDarkMode()}">
                     <div class="theme-switch-track">
                         <i class="fa-solid fa-sun theme-icon sun-icon"></i>
                         <i class="fa-solid fa-moon theme-icon moon-icon"></i>
@@ -162,15 +167,15 @@
 
             <div class="md:hidden flex items-center space-x-3">
                 <div id="mobileDarkModeToggle" onclick="toggleDarkMode()" class="theme-switch"
-                    aria-label="Toggle dark mode" role="button" tabindex="0">
+                    aria-label="Toggle dark mode" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDarkMode()}">
                     <div class="theme-switch-track">
                         <i class="fa-solid fa-sun theme-icon sun-icon"></i>
                         <i class="fa-solid fa-moon theme-icon moon-icon"></i>
                         <div class="theme-switch-thumb"></div>
                     </div>
                 </div>
-                <button class="text-slate-900 dark:text-slate-100" onclick="toggleMenu()">
-                    <i class="fa-solid fa-bars text-xl"></i>
+                <button class="text-slate-900 dark:text-slate-100" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" id="menuToggleBtn">
+                    <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -224,7 +229,7 @@
                                     </div>
                                     <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper"
                                         id="profileImage">
-                                        <img src="profile.jpg" alt="Jyotirmoy Laha" class="w-full h-full object-cover">
+                                        <img src="profile.jpg" alt="Jyotirmoy Laha — BCA student and full-stack developer" class="w-full h-full object-cover" loading="lazy">
                                     </div>
                                     <div
                                         style="position:absolute;bottom:-6px;right:-6px;width:16px;height:16px;border-bottom:2px solid #22d3ee;border-right:2px solid #22d3ee;border-radius:0 0 3px 0;">
@@ -252,19 +257,19 @@
                                 </div>
 
                                 <div class="flex gap-4 sm:gap-5 mt-6 sm:mt-8 mb-4 sm:mb-6">
-                                    <a href="https://github.com/JyotirmoyLaha" target="_blank" class="social-icon-btn"
-                                        data-tooltip="GitHub">
-                                        <i class="fa-brands fa-github text-xl"></i>
+                                    <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+                                        data-tooltip="GitHub" aria-label="Visit my GitHub profile">
+                                        <i class="fa-brands fa-github text-xl" aria-hidden="true"></i>
                                         <span class="social-tooltip">GitHub</span>
                                     </a>
-                                    <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank"
-                                        class="social-icon-btn" data-tooltip="LinkedIn">
-                                        <i class="fa-brands fa-linkedin text-xl"></i>
+                                    <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn" data-tooltip="LinkedIn" aria-label="Connect on LinkedIn">
+                                        <i class="fa-brands fa-linkedin text-xl" aria-hidden="true"></i>
                                         <span class="social-tooltip">LinkedIn</span>
                                     </a>
                                     <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn"
-                                        data-tooltip="Email">
-                                        <i class="fa-solid fa-envelope text-xl"></i>
+                                        data-tooltip="Email" aria-label="Send me an email">
+                                        <i class="fa-solid fa-envelope text-xl" aria-hidden="true"></i>
                                         <span class="social-tooltip">Email</span>
                                     </a>
                                 </div>
@@ -306,9 +311,9 @@
         <section id="contact"></section>
 
         <!-- 3. PROJECTS SECTION -->
-        <section id="projects" class="projects-section py-8 sm:py-16 md:py-24 relative z-10 scroll-reveal">
+        <section id="projects" class="fp-section py-12 sm:py-20 md:py-28 relative z-10 scroll-reveal">
             <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <div class="flex justify-center items-center flex-col mb-8 sm:mb-12 md:mb-16" data-aos="fade-up">
+                <div class="flex justify-center items-center flex-col mb-10 sm:mb-14 md:mb-20" data-aos="fade-up">
                     <h2 class="font-mono text-center text-2xl sm:text-3xl md:text-5xl mb-2 sm:mb-4">
                         <span class="text-emerald-400">code</span><span class="text-slate-400">:</span><span
                             class="text-cyan-400">projects</span>
@@ -317,153 +322,157 @@
                         my work.</p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+                <div class="fp-projects-list">
 
                     <!-- Project 1: Portfolio Website -->
-                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex justify-between items-center mb-2 sm:mb-3">
-                            <h3
-                                class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
-                                Portfolio Website</h3>
-                            <div class="flex items-center gap-3">
-                                <a href="https://github.com/JyotirmoyLaha/j.portfolio" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors"
-                                    title="View Source Code"><i class="fa-brands fa-github text-sm"></i></a>
-                                <a href="https://jyotirmoy-portfolio.onrender.com/" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Live Demo"><i
-                                        class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                    <div class="fp-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fp-card-inner">
+                            <div class="fp-card-text">
+                                <span class="fp-badge">Featured Project</span>
+                                <h3 class="fp-title">Portfolio Website</h3>
+                                <div class="fp-desc-card">
+                                    <p>Personal portfolio featuring <span class="fp-highlight">dark mode, smooth-scroll animations</span>, a custom blog engine, and a splash screen — built from scratch with clean, modular code.</p>
+                                </div>
+                                <div class="fp-tech-row">
+                                    <span class="fp-tech-pill">HTML5</span>
+                                    <span class="fp-tech-pill">Tailwind</span>
+                                    <span class="fp-tech-pill">JavaScript</span>
+                                </div>
+                                <div class="fp-links">
+                                    <a href="https://github.com/JyotirmoyLaha/j.portfolio" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://jyotirmoy-portfolio.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="View live demo" class="fp-link-icon">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <p
-                            class="font-display text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
-                            A Portfolio website Created by me to showcasing my skills.
-                        </p>
-                        <div class="flex items-center gap-2 mt-auto">
-                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                            <span class="font-mono text-xs sm:text-sm text-emerald-400">HTML5, Tailwind,
-                                JavaScript</span>
+                            <div class="fp-card-img">
+                                <img src="portfolio.png" alt="Portfolio Website Preview" loading="lazy">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Project 2: Weather App -->
-                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex justify-between items-center mb-2 sm:mb-3">
-                            <h3
-                                class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
-                                J.SkyCast</h3>
-                            <div class="flex items-center gap-3">
-                                <a href="https://github.com/JyotirmoyLaha/j.weather" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors"
-                                    title="View Source Code"><i class="fa-brands fa-github text-sm"></i></a>
-                                <a href="https://j-weather.onrender.com" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Live Demo"><i
-                                        class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                    <!-- Project 2: J.SkyCast (reversed) -->
+                    <div class="fp-card fp-card-reverse" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fp-card-inner">
+                            <div class="fp-card-text">
+                                <span class="fp-badge">Featured Project</span>
+                                <h3 class="fp-title">J.SkyCast</h3>
+                                <div class="fp-desc-card">
+                                    <p>Weather dashboard using <span class="fp-highlight">OpenWeatherMap API</span> for real-time city-based forecasts with dynamic condition icons and a fully responsive layout.</p>
+                                </div>
+                                <div class="fp-tech-row">
+                                    <span class="fp-tech-pill">JavaScript</span>
+                                    <span class="fp-tech-pill">API</span>
+                                    <span class="fp-tech-pill">Tailwind</span>
+                                </div>
+                                <div class="fp-links">
+                                    <a href="https://github.com/JyotirmoyLaha/j.weather" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://j-weather.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="View live demo" class="fp-link-icon">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <p
-                            class="font-display text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
-                            Dynamic weather tracking dashboard utilizing API for real-time meteorological data
-                            visualization.
-                        </p>
-                        <div class="flex items-center gap-2 mt-auto">
-                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                            <span class="font-mono text-xs sm:text-sm text-emerald-400">JavaScript, API, Tailwind</span>
+                            <div class="fp-card-img">
+                                <img src="skycast.png" alt="J.SkyCast Preview" loading="lazy">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 3: AI Resume Analyzer -->
-                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex justify-between items-center mb-2 sm:mb-3">
-                            <h3
-                                class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
-                                AI Resume Analyzer</h3>
-                            <div class="flex items-center gap-3">
-                                <a href="https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors"
-                                    title="Frontend Code"><i class="fa-brands fa-github text-sm"></i><span
-                                        class="text-[10px] ml-0.5">FE</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Backend Code"><i
-                                        class="fa-brands fa-github text-sm"></i><span
-                                        class="text-[10px] ml-0.5">BE</span></a>
-                                <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Live Demo"><i
-                                        class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                    <div class="fp-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fp-card-inner">
+                            <div class="fp-card-text">
+                                <span class="fp-badge">Featured Project</span>
+                                <h3 class="fp-title">AI Resume Analyzer</h3>
+                                <div class="fp-desc-card">
+                                    <p>Full-stack app that uses <span class="fp-highlight">NLP to parse resumes</span>, extract key skills, and score them against target job descriptions — with an HTML/CSS/JS frontend and FastAPI backend.</p>
+                                </div>
+                                <div class="fp-tech-row">
+                                    <span class="fp-tech-pill">Python</span>
+                                    <span class="fp-tech-pill">FastAPI</span>
+                                    <span class="fp-tech-pill">NLP</span>
+                                </div>
+                                <div class="fp-links">
+                                    <a href="https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend" target="_blank" rel="noopener noreferrer" aria-label="Frontend source code" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i><span class="fp-link-label">FE</span>
+                                    </a>
+                                    <a href="https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend" target="_blank" rel="noopener noreferrer" aria-label="Backend source code" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i><span class="fp-link-label">BE</span>
+                                    </a>
+                                    <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="View live demo" class="fp-link-icon">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <p
-                            class="font-display text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
-                            Intelligent resume evaluation platform using NLP to extract skills and identify gaps against
-                            target job roles.
-                        </p>
-                        <div class="flex items-center gap-2 mt-auto">
-                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                            <span class="font-mono text-xs sm:text-sm text-emerald-400">Python, FastAPI, NLP</span>
+                            <div class="fp-card-img">
+                                <img src="resume-analyzer.png" alt="AI Resume Analyzer Preview" loading="lazy">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Project 4: Mess Manager -->
-                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="300">
-                        <div class="flex justify-between items-center mb-2 sm:mb-3">
-                            <h3
-                                class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
-                                Mess Manager</h3>
-                            <div class="flex items-center gap-3">
-                                <a href="https://github.com/JyotirmoyLaha/mess-maneger" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors"
-                                    title="View Source Code"><i class="fa-brands fa-github text-sm"></i></a>
-                                <a href="https://mess-maneger.onrender.com/" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Live Demo"><i
-                                        class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                    <!-- Project 4: Mess Manager (reversed) -->
+                    <div class="fp-card fp-card-reverse" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fp-card-inner">
+                            <div class="fp-card-text">
+                                <span class="fp-badge">Featured Project</span>
+                                <h3 class="fp-title">Mess Manager</h3>
+                                <div class="fp-desc-card">
+                                    <p>Hostel mess expense tracker with <span class="fp-highlight">Firebase Realtime DB, Google Auth</span>, and on-demand PDF report generation — simplifies group expense splitting.</p>
+                                </div>
+                                <div class="fp-tech-row">
+                                    <span class="fp-tech-pill">JavaScript</span>
+                                    <span class="fp-tech-pill">Firebase</span>
+                                    <span class="fp-tech-pill">Tailwind</span>
+                                </div>
+                                <div class="fp-links">
+                                    <a href="https://github.com/JyotirmoyLaha/mess-maneger" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://mess-maneger.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="View live demo" class="fp-link-icon">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <p
-                            class="font-display text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
-                            Firebase-powered real-time expense tracker for hostel groups with Google auth and instant
-                            PDF reports.
-                        </p>
-                        <div class="flex items-center gap-2 mt-auto">
-                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                            <span class="font-mono text-xs sm:text-sm text-emerald-400">JavaScript, Firebase,
-                                Tailwind</span>
+                            <div class="fp-card-img">
+                                <img src="mess-maneger.png" alt="Mess Manager Preview" loading="lazy">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 5: StudyVerse -->
-                    <div class="project-card group reveal-child" data-aos="fade-up" data-aos-delay="300">
-                        <div class="flex justify-between items-center mb-2 sm:mb-3">
-                            <h3
-                                class="font-display text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-cyan-400 transition-colors">
-                                StudyVerse</h3>
-                            <div class="flex items-center gap-3">
-                                <a href="https://github.com/JyotirmoyLaha/studyverse" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors"
-                                    title="View Source Code"><i class="fa-brands fa-github text-sm"></i></a>
-                                <a href="https://studyverse-vlzh.onrender.com/" target="_blank"
-                                    class="text-slate-400 hover:text-cyan-400 transition-colors" title="Live Demo"><i
-                                        class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                    <div class="fp-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fp-card-inner">
+                            <div class="fp-card-text">
+                                <span class="fp-badge">Featured Project</span>
+                                <h3 class="fp-title">StudyVerse</h3>
+                                <div class="fp-desc-card">
+                                    <p>Zen-inspired personal journal with <span class="fp-highlight">Google SSO and real-time sync</span> via Firebase — clean cherry blossom UI designed for a distraction-free writing experience.</p>
+                                </div>
+                                <div class="fp-tech-row">
+                                    <span class="fp-tech-pill">HTML</span>
+                                    <span class="fp-tech-pill">CSS</span>
+                                    <span class="fp-tech-pill">JavaScript</span>
+                                    <span class="fp-tech-pill">Firebase</span>
+                                </div>
+                                <div class="fp-links">
+                                    <a href="https://github.com/JyotirmoyLaha/studyverse" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub" class="fp-link-icon">
+                                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://studyverse-vlzh.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="View live demo" class="fp-link-icon">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <p
-                            class="font-display text-slate-500 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4">
-                            A zen-inspired personal journal with Firebase backend, cherry blossom aesthetics, and Google
-                            authentication.
-                        </p>
-                        <div class="flex items-center gap-2 mt-auto">
-                            <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                            <span class="font-mono text-xs sm:text-sm text-emerald-400">HTML, CSS, JavaScript,
-                                Firebase</span>
+                            <div class="fp-card-img">
+                                <img src="studyversee.png" alt="StudyVerse Preview" loading="lazy">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Future Project -->
-                    <div class="project-card group reveal-child border-dashed !border-slate-300 dark:!border-slate-600 flex flex-col items-center justify-center text-center"
-                        data-aos="fade-up" data-aos-delay="300">
-                        <i
-                            class="fa-solid fa-plus text-xl sm:text-2xl text-slate-400 group-hover:text-cyan-400 transition-colors mb-2 sm:mb-3"></i>
-                        <h3 class="font-display text-base sm:text-lg font-bold text-slate-600">In Progress</h3>
-                        <p class="text-slate-500 text-sm mt-1 font-mono">building something new...</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -685,7 +694,7 @@
                 <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                     <div class="github-card">
                         <img src="https://github-readme-streak-stats.herokuapp.com/?user=JyotirmoyLaha&theme=transparent&hide_border=true&ring=22d3ee&fire=10b981&currStreakLabel=22d3ee&sideLabels=64748b&currStreakNum=f472b6&sideNums=f472b6&dates=94a3b8&background=00000000"
-                            alt="GitHub Streak" class="github-streak-img" loading="lazy">
+                            alt="Jyotirmoy Laha's GitHub contribution streak statistics showing current streak, longest streak, and total contributions" class="github-streak-img" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -757,6 +766,53 @@
             </div>
         </section>
 
+        <!-- 9. WHY HIRE ME / CTA SECTION -->
+        <section id="cta-section" class="cta-section py-16 sm:py-24 md:py-32 relative z-10 scroll-reveal overflow-hidden">
+            <div class="cta-bg-glow" aria-hidden="true"></div>
+            <div class="cta-bg-glow cta-bg-glow-2" aria-hidden="true"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+                <div data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 rounded-full border border-emerald-400/30">Let's
+                        Collaborate</span>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+                        Ready to build something
+                        <span class="cta-gradient-text">great</span>?
+                    </h2>
+                    <p class="text-slate-500 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                        I bring analytical thinking, clean code, and a builder's mindset to every project.
+                        Whether it's a full-stack web app, an AI-powered tool, or a creative interface —
+                        <span class="text-slate-700 dark:text-slate-300 font-medium">I ship things that work.</span>
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5" data-aos="fade-up" data-aos-delay="200">
+                    <a href="mailto:jyotirmoy713128@gmail.com" class="cta-primary-btn" id="cta-lets-talk">
+                        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                        <span>Let's Talk</span>
+                        <i class="fa-solid fa-arrow-right cta-arrow" aria-hidden="true"></i>
+                    </a>
+                    <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank" rel="noopener noreferrer" class="cta-secondary-btn" id="cta-view-resume">
+                        <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                        <span>View Resume</span>
+                    </a>
+                </div>
+                <div class="mt-10 sm:mt-14 flex flex-wrap justify-center gap-6 sm:gap-10" data-aos="fade-up" data-aos-delay="350">
+                    <div class="cta-stat">
+                        <span class="cta-stat-number">5+</span>
+                        <span class="cta-stat-label">Projects Shipped</span>
+                    </div>
+                    <div class="cta-stat">
+                        <span class="cta-stat-number">10+</span>
+                        <span class="cta-stat-label">Technologies</span>
+                    </div>
+                    <div class="cta-stat">
+                        <span class="cta-stat-number">∞</span>
+                        <span class="cta-stat-label">Curiosity</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <!-- ======================= BLOG VIEW ======================= -->
@@ -823,18 +879,18 @@
         <div
             class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
             <div class="flex justify-center items-center gap-8">
-                <a href="mailto:jyotirmoy713128@gmail.com" class="footer-social-link" data-tooltip="Email">
-                    <i class="fa-solid fa-envelope text-lg"></i>
+                <a href="mailto:jyotirmoy713128@gmail.com" class="footer-social-link" data-tooltip="Email" aria-label="Send me an email">
+                    <i class="fa-solid fa-envelope text-lg" aria-hidden="true"></i>
                     <span class="social-tooltip">Email</span>
                 </a>
-                <a href="https://github.com/JyotirmoyLaha" target="_blank" class="footer-social-link"
-                    data-tooltip="GitHub">
-                    <i class="fa-brands fa-github text-lg"></i>
+                <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="footer-social-link"
+                    data-tooltip="GitHub" aria-label="Visit my GitHub profile">
+                    <i class="fa-brands fa-github text-lg" aria-hidden="true"></i>
                     <span class="social-tooltip">GitHub</span>
                 </a>
-                <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" class="footer-social-link"
-                    data-tooltip="LinkedIn">
-                    <i class="fa-brands fa-linkedin text-lg"></i>
+                <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer" class="footer-social-link"
+                    data-tooltip="LinkedIn" aria-label="Connect on LinkedIn">
+                    <i class="fa-brands fa-linkedin text-lg" aria-hidden="true"></i>
                     <span class="social-tooltip">LinkedIn</span>
                 </a>
             </div>

@@ -534,10 +534,12 @@ AOS.init({
 // Mobile Menu Toggle (smooth)
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
+    const menuBtn = document.getElementById('menuToggleBtn');
     if (menu.classList.contains('hidden')) {
         menu.classList.remove('hidden');
         menu.style.maxHeight = '0';
         menu.style.opacity = '0';
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
         requestAnimationFrame(() => {
             menu.style.transition = 'max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease';
             menu.style.maxHeight = menu.scrollHeight + 'px';
@@ -547,6 +549,7 @@ function toggleMenu() {
         menu.style.transition = 'max-height 0.3s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.2s ease';
         menu.style.maxHeight = '0';
         menu.style.opacity = '0';
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
         setTimeout(() => {
             menu.classList.add('hidden');
             menu.style.maxHeight = '';
@@ -969,7 +972,7 @@ renderBlogMarquee();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;
+        const centerX = rect.width / 2;7
         const centerY = rect.height / 2;
 
         const rotateX = ((y - centerY) / centerY) * -12;
