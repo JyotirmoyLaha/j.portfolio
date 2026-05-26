@@ -25,6 +25,9 @@ A single-page developer portfolio with an integrated blog engine and AI-powered 
 - **Tailwind CSS (CDN)** — utility-first styling with custom brand config
 - **Vanilla CSS** — 1,700+ lines for glassmorphism components, dark mode, scroll-reveal animations, contribution graph, and responsive layouts
 - **Vanilla JavaScript** — all interactivity without frameworks or bundlers
+- **React Native** — mobile verifier application
+- **Expo** — toolkit and workflow for React Native mobile apps
+- **Vite** — frontend build tool for React applications
 - **AOS** — scroll-triggered reveal animations
 - **Lenis** — smooth scrolling with custom easing
 - **Font Awesome 6.4** — iconography
@@ -32,6 +35,9 @@ A single-page developer portfolio with an integrated blog engine and AI-powered 
 
 ### Backend (Chatbot API)
 - **Python 3** + **FastAPI** — async REST API with CORS middleware
+- **SQLAlchemy** — object-relational mapping (ORM) database manager
+- **Alembic** — database migration tool for SQLAlchemy
+- **Open Quantum Safe (liboqs)** — post-quantum cryptographic algorithms (Post-Quantum Cryptography)
 - **Groq SDK** — LLM inference (Llama 3.3 70B Versatile)
 - **httpx** + **BeautifulSoup4** — live portfolio scraping with 5-minute cache
 - **python-dotenv** — environment variable management

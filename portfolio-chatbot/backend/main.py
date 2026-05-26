@@ -140,8 +140,8 @@ Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Cor
 6. In Progress — Something new being built, details coming soon
 
 [SKILLS]
-Frontend: HTML5, CSS3, JavaScript, Tailwind CSS
-Backend: Python, FastAPI, Flask, Firebase, SQL (MySQL)
+Frontend: HTML5, CSS3, JavaScript, React, React Native, Expo, Tailwind CSS, Vite
+Backend: Python, FastAPI, Flask, Firebase, SQLAlchemy, Alembic, SQL (MySQL), PostgreSQL, Open Quantum Safe (liboqs) / Post-Quantum Cryptography
 Tools: Git, GitHub, Postman, Render, Netlify
 Exploring: AI/ML, LangChain, TensorFlow, NLP, Generative AI
 
