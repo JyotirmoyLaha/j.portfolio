@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="profile.jpg" alt="Jyotirmoy Laha" width="120" style="border-radius: 50%;" />
+  <img src="images/profile.webp" alt="Jyotirmoy Laha" width="120" style="border-radius: 50%;" />
 </p>
 
 <h1 align="center">Jyotirmoy Laha — Developer Portfolio</h1>
