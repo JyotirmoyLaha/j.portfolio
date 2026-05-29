@@ -8,7 +8,7 @@ const blogPosts = [
         title: "Why I Focus More on Thinking Than Just Writing Code",
         date: "03 December 2025",
         category: "Philosophy",
-        image: "jakub-zerdzicki-WD7S-Lz12Es-unsplash.jpg",
+        image: "images/jakub-zerdzicki-WD7S-Lz12Es-unsplash.webp",
         content: `There's a common trap that new developers fall into - the rush to start typing code the moment an idea clicks. I used to do the same thing. Open a blank file, start writing HTML, throw in some JavaScript, and hope it all comes together. But over time, I realized the best code I ever wrote started without a keyboard. It started with thinking.
 
 Before I write a single line, I ask myself: what is this supposed to do? Who is it for? What could go wrong? This habit changed everything. When I built my portfolio, I didn't jump into CSS right away. I first mapped out what sections I needed, what the user flow would look like, and how the navigation should feel. Only after that mental model was clear did I start coding.
@@ -58,7 +58,7 @@ I'm still learning. And that's not a weakness - it's the whole point.`
         title: "How I Built My Portfolio Website",
         date: "05 December 2025",
         category: "Project Breakdown",
-        image: "nick-morrison-FHnnjk1Yj7Y-unsplash.jpg",
+        image: "images/nick-morrison-FHnnjk1Yj7Y-unsplash.webp",
         content: `Every developer needs a portfolio, but building one that actually represents you is harder than it sounds. I didn't want a generic template with placeholder text. I wanted something that reflected how I think - clean, intentional, and built from scratch.
 
 Before writing any code, I defined the purpose: this site should communicate who I am as a developer, showcase my projects, and host my blog - all without overwhelming the visitor. Simplicity was the guiding principle from day one.
@@ -102,7 +102,7 @@ This project taught me three things. First, planning saves time - mapping out se
         title: "Mistakes I Made While Building My Portfolio Website",
         date: "07 December 2025",
         category: "Reflection",
-        image: "kevin-ku-w7ZyuGYNpRQ-unsplash.jpg",
+        image: "images/kevin-ku-w7ZyuGYNpRQ-unsplash.webp",
         content: `If you looked at my portfolio today, you'd see a clean, minimal website that works smoothly. What you wouldn't see is the messy process behind it - the wrong decisions, the wasted hours, and the lessons that only came through failure. Here are the biggest mistakes I made and what I learned from each one.
 
 My first and biggest mistake was designing before I had content. I spent days picking color palettes, adjusting font sizes, and tweaking layouts - all before I'd written the actual text for my sections. The result? When I finally added real content, half the design didn't work. Paragraphs were too long for the cards I'd designed. Section headings didn't fit the spacing I'd chosen. I ended up redesigning almost everything. The lesson was clear: content first, design second. Always.
@@ -133,7 +133,7 @@ The biggest takeaway from all these mistakes: a portfolio doesn't need to be per
         title: "How I Built My Weather App (J.SkyCast)",
         date: "10 December 2025",
         category: "Project Breakdown",
-        image: "dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.jpg",
+        image: "images/dawn-patrol-surf-tracking-nV8Hc0VZA1w-unsplash.webp",
         content: `J.SkyCast wasn't supposed to be just another weather app. I wanted to build something that felt premium - glassmorphism UI, dynamic sky backgrounds, live air quality data, and a sunrise arc visualization. All with zero frameworks. Just HTML, CSS, and vanilla JavaScript.
 
 The idea was simple: type a city name or tap the location button, and get a beautiful, data-rich weather dashboard. But the execution required solving some genuinely interesting problems.
@@ -253,7 +253,7 @@ This project taught me more than any tutorial could. I learned how to work with 
         title: "Mistakes I Made While Building This Weather App",
         date: "12 December 2025",
         category: "Development",
-        image: "image-3.jpeg",
+        image: "images/image-3.webp",
         content: `When people use J.SkyCast, they see a polished glassmorphism dashboard with dynamic backgrounds and smooth transitions. What they don't see is the trail of bugs, bad assumptions, and frustrating debugging sessions that shaped the final product. Every mistake taught me something I couldn't have learned from a tutorial.
 
 The first major mistake was trusting the API blindly. I assumed that if I sent a valid city name, I'd always get valid data back. In reality, APIs fail for dozens of reasons - network timeouts, rate limits, misspelled city names, expired keys. My initial code had no error handling at all, which meant the app would silently break and show a blank screen. The fix was straightforward but essential:
@@ -345,7 +345,7 @@ The biggest lesson from this project: ship early, handle errors gracefully, and 
         title: "How AI Helps Me Build Better Websites",
         date: "15 December 2025",
         category: "Workflow",
-        image: "igor-omilaev-FHgWFzDDAOs-unsplash.jpg",
+        image: "images/igor-omilaev-FHgWFzDDAOs-unsplash.webp",
         content: `When people hear "AI in web development," they imagine a robot writing entire websites from a prompt. That's not how I use AI. For me, AI is a thinking partner - it helps me reason through problems, spot blind spots, and learn faster. I still design, code, and debug everything myself. AI just makes that process sharper.
 
 The biggest way AI helps me is during the planning phase. When I'm starting a new feature, I often know what I want but not exactly how to approach it. Take my weather app's error handling system, for example. I knew I needed to handle API failures, but AI helped me think through all the edge cases I'd have missed: expired keys, rate limits, malformed responses, network timeouts. Instead of discovering these in production, I planned for them upfront.
@@ -379,7 +379,7 @@ The way I see it: AI helps me build better websites faster. But it's my understa
         title: "How I Built My AI Resume Analyzer Tool",
         date: "3rd January 2026",
         category: "Project Breakdown",
-        image: "chatgpt-resume-analyzer.png",
+        image: "images/chatgpt-resume-analyzer.webp",
         content: `
 Resumes play a very important role in today's job market. In most cases, they are the first thing a recruiter or an automated system looks at before deciding whether a candidate should move forward. However, many people struggle to understand whether their resume actually matches the job they are applying for. I built my AI Resume Analyzer to solve this exact problem by giving clear, role-based feedback instead of guesswork.
 
@@ -476,7 +476,7 @@ This AI Resume Analyzer represents my interest in combining backend logic, AI co
         title: "Mistakes I Made While Building This AI Resume Analyzer",
         date: "6th January 2026",
         category: "Lessons Learned",
-        image: "chatgpt-resume-mistakes.png",
+        image: "images/chatgpt-resume-mistakes.webp",
         content: `
 When I started building my AI Resume Analyzer, I was excited about the idea and features, but I underestimated how important clean structure, language separation, and proper API testing really are. Most of my mistakes were not about syntax errors, but about how I organized and tested my code. These mistakes slowed me down, but they taught me how real backend systems should be built.
 
@@ -564,7 +564,7 @@ This project taught me how backend systems actually behave in real usage. Every 
         title: "How I Built Mess Manager — A Real-Time Expense Tracker for Hostel Life",
         date: "10th February 2026",
         category: "Project Breakdown",
-        image: "mess-manager.jpeg",
+        image: "images/mess-manager.webp",
         content: `Living in a hostel means sharing everything, including food costs. Every month, our group collects a fund, buys groceries, and tracks who spent what. But doing all of this manually through messages and notebooks created confusion, arguments, and lost records. That is exactly why I built Mess Manager — a real-time expense tracking app designed specifically for shared living situations.
 
 Before writing any code, I spent time understanding the actual problem. Our group of four needed a system where anyone could add an expense, everyone could see the live balance, and no one could tamper with someone else's entries. The solution had to be simple, mobile-friendly, and always in sync across all devices.
@@ -614,7 +614,7 @@ Building Mess Manager taught me how real-world applications work beyond just dis
         title: "What Building Mess Manager Actually Taught Me",
         date: "14th February 2026",
         category: "Lessons Learned",
-        image: "mess manager.jpg",
+        image: "images/mess_manager.webp",
         content: `Every project teaches something. But Mess Manager taught me more than I expected because it was not a tutorial project or a practice exercise — it was built to solve a real problem for real people. My hostel group uses it daily, and that level of real-world pressure forced me to think differently about code, design, and responsibility.
 
 The biggest lesson was understanding the difference between code that works and code that is reliable. In the beginning, my expense form worked perfectly when I tested it alone. But when four people started using it simultaneously, small issues appeared — race conditions, duplicate entries, and UI states that did not reset properly. This taught me that real-time multi-user applications behave very differently from single-user prototypes.
@@ -696,7 +696,7 @@ Every line of code in this project exists because a real situation demanded it. 
         title: "How I Use Groq API as a Free AI Tool in My Projects",
         date: "27th March 2026",
         category: "Workflow",
-        image: "groq.jpg",
+        image: "images/groq.webp",
         content: `Most tutorials about adding AI to your projects assume you have money to spend. OpenAI charges per token. Gemini has rate limits that kick in fast on free tiers. When I was looking for a way to integrate AI into my projects without a credit card, I found Groq — and it changed how I think about AI in development.
 
 Groq offers a free API tier that gives you access to models like LLaMA 3 and Mixtral with genuinely fast inference speeds. No billing setup required to start. For a student developer building side projects, this is as good as it gets.
@@ -784,7 +784,7 @@ If you're a student developer who keeps avoiding AI features because of cost —
         title: "My Development Setup as a BCA Student on a Budget",
         date: "27th March 2026",
         category: "Setup",
-        image: "setup.jpg",
+        image: "images/setup.webp",
         content: `Nobody tells you this when you start learning development: your setup matters less than you think, and costs less than tutorials make it look. I'm a second-year BCA student. I don't have a MacBook or paid subscriptions for everything. And I still build full-stack web apps, AI-integrated tools, and backend systems. Here's exactly what I use and why.
 
 <strong>Machine</strong>
@@ -853,7 +853,7 @@ Your setup does not make you a developer. Your consistency does.
         title: "How I Manage Side Projects Alongside College",
         date: "27th March 2026",
         category: "Student Life",
-        image: "project.jpg",
+        image: "images/project.webp",
         content: `People assume that if you're building side projects during college, you either have too much free time or you're not taking your academics seriously. Neither has been true for me. I'm a second-year BCA student, involved in the college Entrepreneurship Development Cell, maintaining multiple projects, and writing this blog. The honest answer to "how do you manage it all" is not a productivity hack — it is a mindset shift.
 
 The first thing I stopped doing was treating side projects like homework. Homework has deadlines, grades, and consequences. Side projects have none of those, which means the only thing that keeps them moving is genuine interest. The moment a project starts feeling like an obligation, it dies. So I only work on what I'm actually curious about right now — not what I think looks impressive on a resume.
