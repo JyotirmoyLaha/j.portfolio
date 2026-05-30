@@ -110,11 +110,28 @@
 
     <!-- ======================= INTRO SPLASH SCREEN ======================= -->
     <div id="intro-splash">
+        <!-- Ambient background layers -->
+        <div class="splash-bg-layers" aria-hidden="true">
+            <div class="splash-gradient-orb splash-orb-1"></div>
+            <div class="splash-gradient-orb splash-orb-2"></div>
+            <div class="splash-gradient-orb splash-orb-3"></div>
+            <div class="splash-dot-grid"></div>
+            <div class="splash-scan-line"></div>
+            <div class="splash-vignette"></div>
+        </div>
+        <!-- Particle canvas (rendered by JS) -->
+        <canvas id="splash-particles" aria-hidden="true"></canvas>
+
         <!-- Arc of language cards (rendered by JS into this container) -->
         <div id="splash-arc" aria-hidden="true"></div>
 
         <!-- Center content -->
         <div id="splash-center">
+            <!-- Status indicator bar -->
+            <div class="splash-status-bar">
+                <span class="splash-status-dot"></span>
+                <span class="splash-status-text">initializing portfolio</span>
+            </div>
             <div id="splash-terminal-line" class="splash-terminal-prefix">
                 <span class="splash-prompt">~/dev</span>
                 <span class="splash-caret"> $</span>
@@ -126,6 +143,7 @@
             <button id="splash-skip-btn" onclick="dismissSplash()">
                 <span>Enter Portfolio</span>
                 <i class="fa-solid fa-arrow-right"></i>
+                <span class="splash-btn-shimmer"></span>
             </button>
         </div>
     </div>

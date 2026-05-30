@@ -2468,6 +2468,130 @@ html.lenis body {
     display: none !important;
 }
 
+/* ----- Ambient Background Layers ----- */
+.splash-bg-layers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Floating gradient orbs */
+.splash-gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0;
+    animation: splashOrbFadeIn 2s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+.splash-orb-1 {
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 70%);
+    top: -10%;
+    left: -8%;
+    animation: splashOrbFadeIn 2s 0.2s ease-out both, splashOrbDrift1 18s 2s ease-in-out infinite;
+}
+
+.splash-orb-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    bottom: -12%;
+    right: -6%;
+    animation: splashOrbFadeIn 2s 0.5s ease-out both, splashOrbDrift2 22s 2s ease-in-out infinite;
+}
+
+.splash-orb-3 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: splashOrbFadeIn 2s 0.8s ease-out both, splashOrbDrift3 25s 2s ease-in-out infinite;
+}
+
+@keyframes splashOrbFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes splashOrbDrift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, 40px) scale(1.08); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes splashOrbDrift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-25px, -30px) scale(1.05); }
+    66% { transform: translate(15px, -15px) scale(0.97); }
+}
+
+@keyframes splashOrbDrift3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    33% { transform: translate(calc(-50% + 20px), calc(-50% - 25px)) scale(1.1); }
+    66% { transform: translate(calc(-50% - 15px), calc(-50% + 20px)) scale(0.92); }
+}
+
+/* Dot grid overlay */
+.splash-dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0;
+    animation: splashOrbFadeIn 1.5s 0.8s ease-out both;
+}
+
+/* Horizontal scan line */
+.splash-scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(34, 211, 238, 0.08) 20%,
+        rgba(34, 211, 238, 0.2) 50%,
+        rgba(34, 211, 238, 0.08) 80%,
+        transparent 100%
+    );
+    animation: splashScanMove 6s 1.5s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes splashScanMove {
+    0% { top: -2px; }
+    100% { top: 100%; }
+}
+
+/* Vignette */
+.splash-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+        transparent 55%,
+        rgba(3, 7, 18, 0.5) 100%
+    );
+}
+
+/* Particle canvas */
+#splash-particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    animation: splashOrbFadeIn 2s 1s ease-out both;
+}
+
 /* ----- Arc container ----- */
 #splash-arc {
     position: absolute;
@@ -2542,7 +2666,7 @@ html.lenis body {
     }
 }
 
-/* â”€â”€ Desktop card reveal keyframe â”€â”€ */
+/* –– Desktop card reveal keyframe –– */
 @keyframes cardReveal {
     0% {
         opacity: 0;
@@ -2575,6 +2699,43 @@ html.lenis body {
     flex-direction: column;
     align-items: center;
     gap: 14px;
+}
+
+/* ----- Status bar ----- */
+.splash-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 16px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    opacity: 0;
+    animation: splashFadeUp 0.5s 0.1s ease both;
+}
+
+.splash-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+    animation: splashStatusPulse 2s ease-in-out infinite;
+}
+
+@keyframes splashStatusPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(34, 211, 238, 0.6); }
+    50% { opacity: 0.5; box-shadow: 0 0 4px rgba(34, 211, 238, 0.3); }
+}
+
+.splash-status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(148, 163, 184, 0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
 }
 
 .splash-terminal-prefix {
@@ -2625,12 +2786,32 @@ html.lenis body {
     letter-spacing: -0.03em;
     line-height: 1;
     opacity: 0;
-    animation: splashFadeUp 0.6s 1.6s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation: splashNameReveal 0.8s 1.6s cubic-bezier(0.25, 1, 0.5, 1) both;
     white-space: nowrap;
+    text-shadow:
+        0 0 40px rgba(34, 211, 238, 0.15),
+        0 0 80px rgba(34, 211, 238, 0.06);
+    position: relative;
+}
+
+@keyframes splashNameReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.96);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 .splash-dot-dev {
     color: #22d3ee;
+    text-shadow:
+        0 0 20px rgba(34, 211, 238, 0.5),
+        0 0 60px rgba(34, 211, 238, 0.2);
 }
 
 #splash-tagline {
@@ -2658,17 +2839,45 @@ html.lenis body {
     cursor: pointer;
     opacity: 0;
     animation: splashFadeUp 0.5s 2.6s ease both;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 #splash-skip-btn:hover {
     background: rgba(34, 211, 238, 0.15);
     border-color: rgba(34, 211, 238, 0.6);
     transform: translateY(-2px);
+    box-shadow:
+        0 4px 20px rgba(34, 211, 238, 0.2),
+        0 0 40px -8px rgba(34, 211, 238, 0.15);
 }
 
 #splash-skip-btn:active {
     transform: scale(0.97);
+}
+
+/* Shimmer sweep on CTA button */
+.splash-btn-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 100%
+    );
+    animation: splashBtnShimmer 3s 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes splashBtnShimmer {
+    0% { left: -100%; }
+    40% { left: 100%; }
+    100% { left: 100%; }
 }
 
 @keyframes splashFadeUp {
@@ -2683,10 +2892,35 @@ html.lenis body {
     }
 }
 
-/* â”€â”€ Responsive mobile splash â”€â”€ */
+/* –– Responsive mobile splash –– */
 @media (max-width: 639px) {
 
-    /* Cards orbit around the centre â€” smaller so all 12 fit the ring */
+    /* Orbs shrink on mobile */
+    .splash-orb-1 { width: 220px; height: 220px; filter: blur(60px); }
+    .splash-orb-2 { width: 180px; height: 180px; filter: blur(50px); }
+    .splash-orb-3 { width: 150px; height: 150px; filter: blur(50px); }
+
+    /* Dot grid sparser */
+    .splash-dot-grid {
+        background-size: 22px 22px;
+    }
+
+    /* Status bar smaller */
+    .splash-status-bar {
+        padding: 4px 12px;
+        gap: 6px;
+    }
+
+    .splash-status-text {
+        font-size: 8px;
+    }
+
+    .splash-status-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Cards orbit around the centre — smaller so all 12 fit the ring */
     .splash-lang-card {
         width: 58px;
         height: 70px;
@@ -2714,6 +2948,9 @@ html.lenis body {
     #splash-name {
         font-size: clamp(28px, 8vw, 42px) !important;
         white-space: nowrap;
+        text-shadow:
+            0 0 24px rgba(34, 211, 238, 0.12),
+            0 0 48px rgba(34, 211, 238, 0.05);
     }
 
     /* Compact tagline */

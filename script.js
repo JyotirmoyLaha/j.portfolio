@@ -248,15 +248,95 @@ window.scrollTo(0, 0);
     }
 
 
-    /* â”€â”€ Typewriter â”€â”€ */
+    /* ——— Typewriter ——— */
     function typeText(el, text, spd) {
         let i = 0;
         (function tick() { if (i < text.length) { el.textContent += text[i++]; setTimeout(tick, spd); } })();
     }
 
-    /* â”€â”€ Init â”€â”€ */
+    /* ——— Particle canvas ——— */
+    let particleAnimId = null;
+
+    function initParticles() {
+        const canvas = document.getElementById('splash-particles');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let W, H;
+
+        function resize() {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const isMob = W < 640;
+        const COUNT = isMob ? 30 : 55;
+        const particles = [];
+
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                r: Math.random() * 1.2 + 0.4,
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: -(Math.random() * 0.25 + 0.08),
+                alpha: Math.random() * 0.4 + 0.1,
+                hue: Math.random() > 0.6 ? 187 : (Math.random() > 0.5 ? 260 : 160), /* cyan / purple / green */
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+                if (p.x < -10) p.x = W + 10;
+                if (p.x > W + 10) p.x = -10;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${p.hue}, 80%, 65%, ${p.alpha})`;
+                ctx.fill();
+            });
+            particleAnimId = requestAnimationFrame(draw);
+        }
+        particleAnimId = requestAnimationFrame(draw);
+    }
+
+    /* ——— Status text cycling ——— */
+    function cycleStatus() {
+        const statusText = document.querySelector('.splash-status-text');
+        if (!statusText) return;
+        const messages = ['loading modules', 'compiling assets', 'initializing portfolio', 'almost ready', 'ready'];
+        let idx = 0;
+        const interval = setInterval(() => {
+            idx++;
+            if (idx >= messages.length) { clearInterval(interval); return; }
+            statusText.style.opacity = '0';
+            setTimeout(() => {
+                statusText.textContent = messages[idx];
+                statusText.style.opacity = '1';
+                if (messages[idx] === 'ready') {
+                    const dot = document.querySelector('.splash-status-dot');
+                    if (dot) dot.style.background = '#10b981';
+                }
+            }, 200);
+        }, 1000);
+    }
+
+    /* ——— Init ——— */
     function initSplash() {
         buildArc();
+        initParticles();
+        cycleStatus();
         const t = document.getElementById('splash-typed-text');
         if (t) setTimeout(() => typeText(t, 'boot --portfolio', 65), 950);
         /* auto-dismiss after 6 s */
@@ -268,6 +348,7 @@ window.scrollTo(0, 0);
         if (!el || el.classList.contains('splash-exit')) return;
         const splash = document.getElementById('intro-splash');
         if (splash) splash.removeEventListener('mousemove', onDockMove);
+        if (particleAnimId) cancelAnimationFrame(particleAnimId);
         el.classList.add('splash-exit');
         setTimeout(() => el.classList.add('splash-gone'), 920);
     };
