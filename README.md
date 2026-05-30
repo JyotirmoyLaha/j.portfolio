@@ -22,6 +22,7 @@ j.portfolio.github/
 ├── styles.css              # Custom layout & animation design
 ├── script.js               # Core DOM logic & interactivity
 ├── blog-posts.js           # Static blog database structure
+├── cli-card/               # Standalone Node.js CLI business card package
 └── portfolio-chatbot/
     ├── frontend/           # Chatbot UI files
     └── backend/            # FastAPI + LLM query engine
@@ -52,6 +53,13 @@ j.portfolio.github/
 - **Inference Engine**: Connects to the Groq SDK using low-latency Llama inference models for instant answering based on parsed portfolio content.
 - **Security & Rate Limiting**: Integrates CORS configuration and sliding window rate limits (20 requests/hour per IP) to prevent system abuse.
 
+### 5. Interactive CLI Business Card (`npx jyotirmoy-laha`)
+- **NPM Package**: A standalone, interactive terminal-based business card deployed as a Node.js package.
+- **Zero-Dependency CLI**: Powered by Node's built-in `readline` events and standard ANSI escape sequences.
+- **Interactive Navigation**: Features arrow-key and numeric navigation to explore sections: *About Me*, *Skills*, *Projects*, and *Socials*.
+- **Cross-Platform Link Launcher**: Auto-detects operating systems (Windows, macOS, Linux) to open selected hyperlinks in default web browsers.
+- **Dripping Laser FX**: Renders a custom terminal intro animation with a dripping logo animation and animated border drawing.
+
 ---
 
 ## Detailed Tech Stack
@@ -67,6 +75,10 @@ j.portfolio.github/
 * **Python 3** + **FastAPI** — Async endpoints with rate-limiting middleware.
 * **SQLAlchemy** + **Alembic** — Database management.
 * **Groq API** — Low-latency LLM completions.
+
+### CLI Package
+* **Node.js** — Zero-dependency interactive readline CLI application.
+* **NPM** — Packaged and published for global execution via `npx jyotirmoy-laha`.
 
 ---
 
@@ -112,6 +124,18 @@ Start the FastAPI application:
 uvicorn main:app --reload --port 8000
 ```
 
+### 3. Running the CLI Card Locally
+
+Navigate to the `cli-card` directory, link the binary, and run it:
+
+```bash
+cd cli-card
+npm link
+jyotirmoy-laha
+# Or execute directly:
+node bin/index.js
+```
+
 ---
 
 ## Production Deployment
@@ -120,3 +144,4 @@ uvicorn main:app --reload --port 8000
 |---|---|---|
 | **Frontend (Static)** | Render / GitHub Pages | Ensure all image paths and JS imports are relative. |
 | **Chatbot Backend** | Render Web Service | Set `ALLOWED_ORIGIN` in environment variables to match production domains to prevent CORS issues. |
+| **CLI Package** | NPM | Versioned and published to the NPM registry as `jyotirmoy-laha`. |
