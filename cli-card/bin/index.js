@@ -56,17 +56,72 @@ function openURL(url) {
     });
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let isAnimating = true;
+
+const asciiLogo = [
+    `   __                 _   _                                     `,
+    `   \\ \\ _   _  ___   | |_(_)_ __ _ __ ___   ___  _   _           `,
+    `    \\ \\ | | |/ _ \\  | __| | '__| '_ \` _ \\ / _ \\| | | |          `,
+    ` /\\_/ / |_| | (_) | | |_| | |  | | | | | | (_) | |_| |          `,
+    ` \\___/ \\__, |\\___/   \\__|_|_|  |_| |_| |_|\\___/ \\__, |          `,
+    `       |___/                                    |___/           `
+];
+
 function clearScreen() {
     process.stdout.write('\x1B[2J\x1B[3J\x1B[H');
 }
 
+async function runStartupAnimation() {
+    clearScreen();
+    const isTTY = process.stdin.isTTY;
+
+    // Line-by-line dripping logo effect
+    for (const line of asciiLogo) {
+        console.log(`${cyan}${bold}${line}${reset}`);
+        if (isTTY) await sleep(50);
+    }
+
+    // Smooth flowing laser separator line
+    const separatorText = "----------------------------------------------------------------";
+    process.stdout.write(`${gray}`);
+    if (isTTY) {
+        for (let i = 0; i < separatorText.length; i++) {
+            process.stdout.write(separatorText[i]);
+            await sleep(3);
+        }
+    } else {
+        process.stdout.write(separatorText);
+    }
+    process.stdout.write(`\n${reset}`);
+
+    // Fade-in metadata card details
+    if (isTTY) await sleep(80);
+    console.log(`  ${green}${bold}Jyotirmoy Laha${reset} — BCA Student & Full-Stack Developer`);
+    if (isTTY) await sleep(80);
+    console.log(`  ${dim}Converts ideas into high-performance code${reset}`);
+    if (isTTY) await sleep(80);
+
+    // Smooth flowing bottom separator
+    process.stdout.write(`${gray}`);
+    if (isTTY) {
+        for (let i = 0; i < separatorText.length; i++) {
+            process.stdout.write(separatorText[i]);
+            await sleep(2);
+        }
+    } else {
+        process.stdout.write(separatorText);
+    }
+    process.stdout.write(`\n${reset}`);
+
+    if (isTTY) await sleep(100);
+    isAnimating = false; // Enable menu keys
+}
+
 function drawHeader() {
-    console.log(`${cyan}${bold}   __                 _   _                                     ${reset}`);
-    console.log(`${cyan}${bold}   \\ \\ _   _  ___   | |_(_)_ __ _ __ ___   ___  _   _           ${reset}`);
-    console.log(`${cyan}${bold}    \\ \\ | | |/ _ \\  | __| | '__| '_ \` _ \\ / _ \\| | | |          ${reset}`);
-    console.log(`${cyan}${bold} /\\_/ / |_| | (_) | | |_| | |  | | | | | | (_) | |_| |          ${reset}`);
-    console.log(`${cyan}${bold} \\___/ \\__, |\\___/   \\__|_|_|  |_| |_| |_|\\___/ \\__, |          ${reset}`);
-    console.log(`${cyan}${bold}       |___/                                    |___/           ${reset}`);
+    asciiLogo.forEach(line => {
+        console.log(`${cyan}${bold}${line}${reset}`);
+    });
     console.log(`${gray}----------------------------------------------------------------${reset}`);
     console.log(`  ${green}${bold}Jyotirmoy Laha${reset} — BCA Student & Full-Stack Developer`);
     console.log(`  ${dim}Converts ideas into high-performance code${reset}`);
@@ -137,6 +192,8 @@ process.stdin.on('keypress', (str, key) => {
     if (key.ctrl && key.name === 'c') {
         process.exit();
     }
+
+    if (isAnimating) return;
 
     if (currentView === 'menu') {
         if (key.name === 'up') {
@@ -210,5 +267,8 @@ function handleContactSelection() {
     }
 }
 
-// Initial draw
-render();
+// Initial draw with startup animation
+(async () => {
+    await runStartupAnimation();
+    render();
+})();
