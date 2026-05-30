@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="images/profile.webp" alt="Jyotirmoy Laha" width="120" style="border-radius: 50%;" />
+  <img src="images/profile.webp" alt="Jyotirmoy Laha" width="120" style="border-radius: 50%; border: 3px solid #22d3ee; box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);" />
 </p>
 
-<h1 align="center">Jyotirmoy Laha — Developer Portfolio</h1>
+<h1 align="center">Jyotirmoy Laha — Professional Developer Portfolio</h1>
 
 <p align="center">
   <a href="https://jyotirmoy-portfolio.onrender.com">🌐 Live Site</a> &nbsp;·&nbsp;
@@ -12,137 +12,111 @@
 
 ---
 
-## About
+## Architecture Overview
 
-A single-page developer portfolio with an integrated blog engine and AI-powered chatbot assistant — built entirely from scratch using **HTML5**, **Tailwind CSS**, and **vanilla JavaScript** .
-
----
-
-## Tech Stack
-
-### Frontend
-- **HTML5** — semantic, single `index.html` entry point
-- **Tailwind CSS (CDN)** — utility-first styling with custom brand config
-- **Vanilla CSS** — 1,700+ lines for glassmorphism components, dark mode, scroll-reveal animations, contribution graph, and responsive layouts
-- **Vanilla JavaScript** — all interactivity without frameworks or bundlers
-- **React Native** — mobile verifier application
-- **Expo** — toolkit and workflow for React Native mobile apps
-- **Vite** — frontend build tool for React applications
-- **AOS** — scroll-triggered reveal animations
-- **Lenis** — smooth scrolling with custom easing
-- **Font Awesome 6.4** — iconography
-- **Google Fonts** — Inter, Space Grotesk, JetBrains Mono, Plus Jakarta Sans
-
-### Backend (Chatbot API)
-- **Python 3** + **FastAPI** — async REST API with CORS middleware
-- **SQLAlchemy** — object-relational mapping (ORM) database manager
-- **Alembic** — database migration tool for SQLAlchemy
-- **Open Quantum Safe (liboqs)** — post-quantum cryptographic algorithms (Post-Quantum Cryptography)
-- **Groq SDK** — LLM inference (Llama 3.3 70B Versatile)
-- **httpx** + **BeautifulSoup4** — live portfolio scraping with 5-minute cache
-- **python-dotenv** — environment variable management
-- **Rate Limiting** — 20 requests/hour per IP (in-memory sliding window)
-
-### Tools & DevOps
-- **Git** & **GitHub** — version control
-- **Render** — cloud deployment (static site + web service)
-- **Postman** — API testing
-
----
-
-## Key Features
-
-| Feature | Description |
-|---------|-------------|
-| **Animated Splash Screen** | Full-screen intro with orbiting tech-stack cards, typewriter terminal animation, and smooth exit transition |
-| **AI Chatbot** | Contextual Q&A assistant powered by Groq LLM with live portfolio scraping and rate limiting |
-| **Blog Engine** | Custom-built blog system with list/detail views — no CMS dependency |
-| **Dark Mode** | Glassmorphism toggle with CSS transitions, localStorage persistence, and system-preference detection |
-| **GitHub Activity** | Live contribution graph, streak stats, and top languages pulled from GitHub APIs |
-| **Responsive Design** | Mobile-first breakpoints, touch optimizations, landscape handling |
-
----
-
-## Project Structure
+A high-performance, single-page developer portfolio featuring an integrated blog engine and an AI-powered chatbot assistant. Built with clean, modern web practices—optimized for fast load times, smooth rendering, and responsiveness.
 
 ```text
 j.portfolio.github/
-├── index.html              # Single-page app entry point
-├── styles.css              # Custom CSS (1,700+ lines)
-├── script.js               # Core JavaScript logic
-├── blog-posts.js           # Blog content data
+├── index.html              # Frontend entry point (SPA)
+├── styles.css              # Custom layout & animation design
+├── script.js               # Core DOM logic & interactivity
+├── blog-posts.js           # Static blog database structure
 └── portfolio-chatbot/
-    ├── frontend/
-    │   ├── chatbot.js      # Chatbot UI logic
-    │   └── chatbot.css     # Chatbot styles
-    └── backend/
-        ├── main.py         # FastAPI server
-        └── requirements.txt
+    ├── frontend/           # Chatbot UI files
+    └── backend/            # FastAPI + LLM query engine
 ```
+
+---
+
+## Core Technical Features
+
+### 1. Interactive 3D Parallax Profile Card
+- **3D Transform Space**: Constructed using CSS 3D perspective context (`perspective: 1200px`) and nested coordinate layers (`transform-style: preserve-3d`).
+- **Parallax Accent corners**: Floating corners translated dynamically (`translateZ(35px)`) in front of the base card layer.
+- **Cursor Tracking**: Coordinates mapped in real time to calculate dynamic rotation degrees (max 12 deg) and adjust the specular gloss sheen overlay (`--sheen-x`, `--sheen-y`) alongside the backdrop ambient light glow.
+- **Animation Suspension**: Gently floats via CSS keyframes, disabling automatically on active hover (`:not(.tilting)`) to prevent animation-script conflicts.
+
+### 2. Client-Side History Router (Vanilla JS)
+- **Zero-Dependency Routing**: Leverages window location hashes (`#blog` / `#blog/:id`) to handle routing between portfolio and blog views without loading heavy framework routers.
+- **Browser History Integration**: Uses `history.pushState` and `popstate` listeners to capture back/forward navigation, allowing users to bookmark or share direct links to individual articles.
+- **State Preservation**: Stores current scroll positions during detail transitions, returning the user exactly to their last active position when reverting to the listing screen.
+
+### 3. Live GitHub Contribution Heatmap
+- **Asynchronous Hydration**: Pulls real-time public contribution arrays from the GitHub metrics API upon section view.
+- **Dynamic Grid Rendering**: Generates grid cells classified into level-based opacity states (0 to 4 contributions) resembling standard GitHub profiles.
+- **Tooltip Integration**: Implements absolute-positioned viewport tooltips mapping cell metadata on mouseover events.
+
+### 4. Context-Aware AI Chatbot Assistant
+- **Automatic Scraper Backend**: FastAPI web service using `BeautifulSoup4` and asynchronous HTTP clients to scrape live frontend copy upon initialization, generating context vector tables dynamically.
+- **Inference Engine**: Connects to the Groq SDK using low-latency Llama inference models for instant answering based on parsed portfolio content.
+- **Security & Rate Limiting**: Integrates CORS configuration and sliding window rate limits (20 requests/hour per IP) to prevent system abuse.
+
+---
+
+## Detailed Tech Stack
+
+### Frontend & Layout
+* **HTML5** — Semantic, optimized page hierarchy, and keyboard accessibility indicators (`skip-to-content`).
+* **Tailwind CSS (CDN)** — Custom extended configurations for color schemes, typography overrides, and shadow values.
+* **Vanilla CSS (1,700+ lines)** — Glassmorphism navigation panels, slider tracks, core layout utilities, and custom scrollbars.
+* **Lenis Smooth Scroll** — Custom easing interpolation equations resolving scroll inertia cleanly.
+* **AOS (Animate On Scroll)** — Triggered element animations optimized with hardware-accelerated transforms.
+
+### Backend (Chatbot Service)
+* **Python 3** + **FastAPI** — Async endpoints with rate-limiting middleware.
+* **SQLAlchemy** + **Alembic** — Database management.
+* **Groq API** — Low-latency LLM completions.
 
 ---
 
 ## Getting Started
 
-### 1. Frontend
+### 1. Running the Frontend Locally
 
-Serve the root directory with any static server:
+Serve the root project folder using any static web server:
 
 ```bash
+# Using Python
 python -m http.server 5500
 ```
 
-Open `http://localhost:5500`
+Access the frontend via `http://localhost:5500`.
 
-### 2. Chatbot Backend
+### 2. Setting Up the Chatbot Backend
+
+Navigate to the chatbot directory, set up the virtual environment, and install dependencies:
 
 ```bash
 cd portfolio-chatbot/backend
 python -m venv .venv
-.venv\Scripts\activate          # Windows
+
+# Activate on Windows
+.venv\Scripts\activate
+
+# Install requirements
 pip install -r requirements.txt
 ```
 
-Create `.env` inside `portfolio-chatbot/backend/`:
+Create a `.env` file inside `portfolio-chatbot/backend/`:
 
 ```env
 GROQ_API_KEY=your_groq_api_key
-PORTFOLIO_URL=https://jyotirmoy-portfolio.onrender.com
+PORTFOLIO_URL=http://localhost:5500
 ALLOWED_ORIGIN=http://localhost:5500
 ```
 
-Start the API:
+Start the FastAPI application:
 
 ```bash
 uvicorn main:app --reload --port 8000
 ```
 
-### API Endpoints
-
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET`  | `/health` | Health check — returns `{"status": "ok"}` |
-| `POST` | `/chat`   | Send `{ "message": "...", "page_context": "..." }` — returns `{ "reply": "..." }` |
-
 ---
 
-## Deployment
+## Production Deployment
 
-| Component | Platform |
-|-----------|----------|
-| Frontend (static) | Render Static Site / GitHub Pages / Netlify |
-| Chatbot Backend | Render Web Service / Railway |
-
-> **Note:** Set `ALLOWED_ORIGIN` in the backend `.env` to match your deployed frontend domain to avoid CORS issues.
-
----
-
-## Contact
-
-- **Email** — [jyotirmoy713128@gmail.com](mailto:jyotirmoy713128@gmail.com)
-- **GitHub** — [JyotirmoyLaha](https://github.com/JyotirmoyLaha)
-- **LinkedIn** — [jyotirmoylaha2005](https://www.linkedin.com/in/jyotirmoylaha2005/)
-
----
-
-<p align="center">Made with ❤️ by Jyotirmoy Laha</p>
+| Component | Target Platform | Setup Notes |
+|---|---|---|
+| **Frontend (Static)** | Render / GitHub Pages | Ensure all image paths and JS imports are relative. |
+| **Chatbot Backend** | Render Web Service | Set `ALLOWED_ORIGIN` in environment variables to match production domains to prevent CORS issues. |
