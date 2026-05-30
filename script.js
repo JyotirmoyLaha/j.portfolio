@@ -1211,3 +1211,134 @@ renderBlogMarquee();
         isClicking = false;
     });
 })();
+
+// ===================== TERMINAL WINDOW TYPEWRITER SIMULATION =====================
+(function initTerminalTypewriter() {
+    const body = document.querySelector('.hero-code-panel-body');
+    if (!body) return;
+
+    // Define syntax-highlighted code sequences & simulated outputs
+    const SEQUENCES = [
+        {
+            code: [
+                '<span class="hero-code-keyword">const</span> focus = <span class="hero-code-string">"clarity"</span>;',
+                '<span class="hero-code-keyword">if</span> (idea) <span class="hero-code-brace">{</span> shipProduct(); <span class="hero-code-brace">}</span>',
+                '<span class="hero-code-keyword">return</span> quality <span class="hero-code-op">&&</span> performance;'
+            ],
+            output: [
+                '<span class="hero-code-output-run">> shipping product...</span>',
+                '<span class="hero-code-output-success">✓ Success: 100% Quality & Performance</span>'
+            ]
+        },
+        {
+            code: [
+                '<span class="hero-code-keyword">const</span> dev = <span class="hero-code-keyword">new</span> Developer(<span class="hero-code-string">"Jyotirmoy"</span>);',
+                'dev.addSkills(<span class="hero-code-string">"Python"</span>, <span class="hero-code-string">"JS"</span>, <span class="hero-code-string">"AI"</span>);',
+                'dev.buildAwesomeThings();'
+            ],
+            output: [
+                '<span class="hero-code-output-run">> compiling skills...</span>',
+                '<span class="hero-code-output-success">✓ Ready to collaborate!</span>'
+            ]
+        },
+        {
+            code: [
+                '<span class="hero-code-keyword">while</span> (coding) <span class="hero-code-brace">{</span>',
+                '    drinkCoffee();',
+                '    solveBugs();',
+                '    shipUpdates();',
+                '<span class="hero-code-brace">}</span>'
+            ],
+            output: [
+                '<span class="hero-code-output-run">> running developer loop...</span>',
+                '<span class="hero-code-output-success">☕ Status: Fully Charged!</span>'
+            ]
+        }
+    ];
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function run() {
+        let seqIdx = 0;
+        
+        // Wait for splash screen to clear before starting
+        await sleep(4000);
+        
+        while (true) {
+            const seq = SEQUENCES[seqIdx];
+            body.innerHTML = ''; // clear static/previous content
+
+            // Type code lines
+            for (let i = 0; i < seq.code.length; i++) {
+                const line = document.createElement('p');
+                body.appendChild(line);
+                
+                // Add terminal cursor symbol
+                const caret = document.createElement('span');
+                caret.className = 'hero-code-caret';
+                caret.innerHTML = '▋';
+                line.appendChild(caret);
+
+                // Create text holder segment before cursor
+                const content = document.createElement('span');
+                line.insertBefore(content, caret);
+                content.innerHTML = seq.code[i];
+
+                // Gather all child text nodes recursively
+                const textNodes = [];
+                function findTextNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        textNodes.push(node);
+                    } else {
+                        for (let child of node.childNodes) {
+                            findTextNodes(child);
+                        }
+                    }
+                }
+                findTextNodes(content);
+
+                // Store text content then clear nodes for dynamic character injection
+                const originalTexts = textNodes.map(n => n.nodeValue);
+                textNodes.forEach(n => { n.nodeValue = ''; });
+
+                // Character typing loop
+                for (let k = 0; k < textNodes.length; k++) {
+                    const node = textNodes[k];
+                    const text = originalTexts[k];
+                    for (let c = 0; c < text.length; c++) {
+                        node.nodeValue += text[c];
+                        await sleep(25);
+                    }
+                }
+
+                // Remove caret from line before starting the next one
+                caret.remove();
+            }
+
+            // Simulated wait command
+            await sleep(500);
+
+            // Print commands running output
+            for (let i = 0; i < seq.output.length; i++) {
+                const outLine = document.createElement('p');
+                outLine.innerHTML = seq.output[i];
+                body.appendChild(outLine);
+                await sleep(300);
+            }
+
+            // Hold output on screen for a visual freeze
+            await sleep(5000);
+
+            // Transition fade-out before loop repeats
+            body.style.opacity = '0';
+            body.style.transition = 'opacity 0.6s ease-out';
+            await sleep(600);
+            body.style.opacity = '1';
+
+            // Iterate to next sequence
+            seqIdx = (seqIdx + 1) % SEQUENCES.length;
+        }
+    }
+
+    run();
+})();
