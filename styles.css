@@ -703,44 +703,87 @@
 /* ── Individual card ── */
 .fp-card {
     border-radius: 24px;
-    background: #ffffff;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+    padding: 1.5px; /* Creates the border width */
+    background: rgba(203, 213, 225, 0.6); /* Default light mode border color */
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
-        box-shadow 0.5s ease;
+        box-shadow 0.5s ease,
+        background-color 0.4s ease;
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.04),
         0 1px 4px rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(203, 213, 225, 0.6);
+}
+
+/* Rotating gradient border line */
+.fp-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, #22d3ee 0%, #8b5cf6 6%, transparent 15%, transparent 100%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: borderRotate 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes borderRotate {
+    0% {
+        transform: rotate(360deg); /* Reverses direction to go counter-clockwise (Right to Left on top) */
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .fp-card:hover {
     transform: translateY(-4px);
+    background: transparent; /* Allows gradient underlay to show through as border */
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.08),
-        0 8px 24px rgba(34, 211, 238, 0.15);
+        0 20px 48px rgba(15, 23, 42, 0.05),
+        0 0 20px rgba(34, 211, 238, 0.18);
+}
+
+.fp-card:hover::before {
+    opacity: 1;
 }
 
 .dark .fp-card {
-    background: rgba(20, 24, 44, 0.95);
-    border: 1px solid rgba(71, 85, 105, 0.2);
+    background: rgba(71, 85, 105, 0.2); /* Default dark mode border color */
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.12),
         0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.5s ease,
+        background-color 0.4s ease;
 }
 
 .dark .fp-card:hover {
+    background: transparent;
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.2),
-        0 8px 24px rgba(34, 211, 238, 0.06);
+        0 20px 48px rgba(0, 0, 0, 0.35),
+        0 0 24px rgba(34, 211, 238, 0.1);
 }
 
-/* Inner layout: text left, image right */
+/* Inner layout: acts as masking cover over the rotating center */
 .fp-card-inner {
     display: grid;
     grid-template-columns: 1fr 1.15fr;
     min-height: 340px;
     align-items: center;
+    background: #ffffff; /* Card content backdrop in light mode */
+    border-radius: 22.5px; /* Slightly smaller to fit the border padding */
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.dark .fp-card-inner {
+    background: rgba(20, 24, 44, 0.98); /* Card content backdrop in dark mode */
 }
 
 /* ── Text column ── */
