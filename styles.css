@@ -301,29 +301,125 @@
     }
 }
 
-.profile-img-wrapper {
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-    animation: float 3s ease-in-out infinite;
+/* 3D Profile Card Presentation */
+#profileMusicWrapper {
+    perspective: 1200px;
+    position: relative;
+    z-index: 10;
+}
+
+.profile-3d-card {
     transform-style: preserve-3d;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.15s ease-out;
     will-change: transform;
     cursor: pointer;
-    contain: layout style;
     backface-visibility: hidden;
+    touch-action: none;
 }
 
-.profile-img-wrapper img {
+/* Float animation only when NOT actively tilting via mouse */
+.profile-3d-card:not(.tilting) {
+    animation: profileFloat 6s ease-in-out infinite;
+}
+
+.profile-card-inner {
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark .profile-card-inner {
+    border-color: rgba(71, 85, 105, 0.3);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.profile-photo {
+    transform: translateZ(5px) scale(1.02); /* Slight lift */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     object-position: top center;
+    pointer-events: none;
 }
 
-@keyframes float {
+/* Corner Accents that float dramatically above the card */
+.profile-corner-accent {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    z-index: 30;
+    pointer-events: none;
+    transform: translateZ(35px); /* Strong floating parallax! */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+    will-change: transform;
+}
 
-    0%,
-    100% {
+.top-accent {
+    top: -8px;
+    left: -8px;
+    border-top: 3px solid #22d3ee;
+    border-left: 3px solid #22d3ee;
+    border-radius: 6px 0 0 0;
+    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.4));
+}
+
+.bottom-accent {
+    bottom: -8px;
+    right: -8px;
+    border-bottom: 3px solid #22d3ee;
+    border-right: 3px solid #22d3ee;
+    border-radius: 0 0 6px 0;
+    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.4));
+}
+
+/* Hover highlights for corners */
+.profile-3d-card:hover .top-accent {
+    border-color: #38bdf8;
+    transform: translateZ(45px) translate(-2px, -2px);
+}
+
+.profile-3d-card:hover .bottom-accent {
+    border-color: #38bdf8;
+    transform: translateZ(45px) translate(2px, 2px);
+}
+
+/* Glass Sheen Overlay */
+.profile-sheen {
+    z-index: 25;
+    mix-blend-mode: overlay;
+    transform: translateZ(15px);
+    background: radial-gradient(circle at var(--sheen-x, 50%) var(--sheen-y, 50%), rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%);
+    opacity: 0;
+    transition: opacity 0.30s ease;
+    pointer-events: none;
+}
+
+.profile-3d-card:hover .profile-sheen {
+    opacity: 1;
+}
+
+/* 3D Ambient Glow Backdrop */
+.profile-glow-backdrop {
+    z-index: -1;
+    transform: translateZ(-25px);
+    background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(34, 211, 238, 0.25) 0%, rgba(139, 92, 246, 0.15) 50%, rgba(0, 0, 0, 0) 80%);
+    filter: blur(24px);
+    transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+.profile-3d-card:hover ~ .profile-glow-backdrop {
+    opacity: 1;
+    transform: translateZ(-15px) scale(1.1);
+}
+
+@keyframes profileFloat {
+    0%, 100% {
         transform: translateY(0px) rotate(0deg);
     }
-
     50% {
-        transform: translateY(-8px) rotate(-1deg);
+        transform: translateY(-8px) rotate(-0.75deg);
     }
 }
 

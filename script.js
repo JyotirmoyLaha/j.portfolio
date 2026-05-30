@@ -959,12 +959,16 @@ renderBlogMarquee();
 // ===================== PROFILE IMAGE 3D TILT EFFECT =====================
 (function () {
     const profileImage = document.getElementById('profileImage');
+    const wrapper = document.getElementById('profileMusicWrapper');
+    if (!profileImage || !wrapper) return;
 
-    if (!profileImage) return;
+    const glow = wrapper.querySelector('.profile-glow-backdrop');
+    let leaveTimeout;
 
     profileImage.addEventListener('mouseenter', function () {
-        this.style.animation = 'none';
-        this.style.transition = 'transform 0.2s ease-out, box-shadow 0.2s ease-out';
+        clearTimeout(leaveTimeout);
+        this.classList.add('tilting');
+        this.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
     });
 
     profileImage.addEventListener('mousemove', function (e) {
@@ -972,33 +976,51 @@ renderBlogMarquee();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;7
+        const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
+        // Calculate rotation angles (max 12 degrees)
         const rotateX = ((y - centerY) / centerY) * -12;
         const rotateY = ((x - centerX) / centerX) * 12;
 
-        this.style.transform = `
-            perspective(1000px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale3d(1.05, 1.05, 1.05)
-        `;
+        // Update sheen reflection position (percentages)
+        const sheenX = (x / rect.width) * 100;
+        const sheenY = (y / rect.height) * 100;
+        
+        this.style.setProperty('--sheen-x', `${sheenX}%`);
+        this.style.setProperty('--sheen-y', `${sheenY}%`);
 
+        // Update background glow coordinates
+        if (glow) {
+            const glowX = (x / rect.width) * 100;
+            const glowY = (y / rect.height) * 100;
+            glow.style.setProperty('--glow-x', `${glowX}%`);
+            glow.style.setProperty('--glow-y', `${glowY}%`);
+        }
+
+        // Apply 3D rotation and scale
+        this.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+        
+        // Calculate dynamic shadow offsets matching tilt
+        const shadowX = -rotateY * 1.5;
+        const shadowY = rotateX * 1.5;
         this.style.boxShadow = `
-            ${-rotateY * 2}px ${rotateX * 2}px 40px rgba(34, 211, 238, 0.3),
-            0 0 0 1px rgba(34, 211, 238, 0.1)
+            ${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.15),
+            ${shadowX * 1.5}px ${shadowY * 1.5}px 60px rgba(34, 211, 238, 0.2),
+            0 0 0 1px rgba(34, 211, 238, 0.15)
         `;
     });
 
     profileImage.addEventListener('mouseleave', function () {
-        this.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-        this.style.transform = '';
+        this.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        this.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
         this.style.boxShadow = '';
-        setTimeout(() => {
+
+        // Slowly remove the tilting class so it transitions back to float smoothly
+        leaveTimeout = setTimeout(() => {
             this.style.transition = '';
-            this.style.animation = '';
-        }, 500);
+            this.classList.remove('tilting');
+        }, 600);
     });
 })();
 

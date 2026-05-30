@@ -259,15 +259,23 @@
                             <!-- Profile Image -->
                             <div class="flex-shrink-0 block" data-aos="fade-right" data-aos-duration="800">
                                 <div class="relative" id="profileMusicWrapper">
-                                    <div
-                                        style="position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-top:2px solid #22d3ee;border-left:2px solid #22d3ee;border-radius:3px 0 0 0;">
-                                    </div>
-                                    <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-700/50 shadow-2xl profile-img-wrapper"
-                                        id="profileImage">
-                                        <img src="images/profile.webp" alt="Jyotirmoy Laha — BCA student and full-stack developer" class="w-full h-full object-cover" loading="lazy">
-                                    </div>
-                                    <div
-                                        style="position:absolute;bottom:-6px;right:-6px;width:16px;height:16px;border-bottom:2px solid #22d3ee;border-right:2px solid #22d3ee;border-radius:0 0 3px 0;">
+                                    <!-- Ambient 3D Glow Backdrop -->
+                                    <div class="profile-glow-backdrop absolute inset-0 -m-8 opacity-0 transition-all duration-500 rounded-full blur-3xl bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 pointer-events-none"></div>
+                                    
+                                    <!-- Dynamic 3D Card Container -->
+                                    <div class="profile-3d-card relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer" id="profileImage">
+                                        <!-- Floating Foreground Corner Accents (Front Layer) -->
+                                        <div class="profile-corner-accent top-accent"></div>
+                                        <div class="profile-corner-accent bottom-accent"></div>
+                                        
+                                        <!-- Image Card Inner (Base Layer) -->
+                                        <div class="profile-card-inner w-full h-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-200/50 dark:border-slate-700/50 shadow-2xl bg-slate-900/5 dark:bg-slate-900/40 backdrop-blur-sm">
+                                            <!-- Profile Photo -->
+                                            <img src="images/profile.webp" alt="Jyotirmoy Laha — BCA student and full-stack developer" class="w-full h-full object-cover profile-photo" loading="lazy">
+                                            
+                                            <!-- Premium Glass Gloss/Sheen Overlay (Upper Layer) -->
+                                            <div class="profile-sheen absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/0 via-white/10 to-white/30 dark:via-white/5 dark:to-white/20 opacity-0 transition-opacity duration-300"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
