@@ -481,15 +481,55 @@
     align-items: center;
     justify-content: center;
     color: #94a3b8;
-    transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-        transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 1.5px solid transparent;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     border-radius: 50%;
     position: relative;
 }
 
 .social-icon-btn:hover {
-    color: #22d3ee;
     transform: scale(1.15);
+}
+
+/* Brand specific glows on hover */
+.social-icon-btn.github-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.social-icon-btn.linkedin-btn:hover {
+    color: #0a66c2;
+    background: rgba(10, 102, 194, 0.1);
+    border-color: rgba(10, 102, 194, 0.3);
+    box-shadow: 
+        0 0 20px rgba(10, 102, 194, 0.4),
+        inset 0 0 10px rgba(10, 102, 194, 0.15);
+    text-shadow: 0 0 10px rgba(10, 102, 194, 0.4);
+}
+
+.social-icon-btn.email-btn:hover {
+    color: #ea4335;
+    background: rgba(234, 67, 53, 0.1);
+    border-color: rgba(234, 67, 53, 0.3);
+    box-shadow: 
+        0 0 20px rgba(234, 67, 53, 0.4),
+        inset 0 0 10px rgba(234, 67, 53, 0.15);
+    text-shadow: 0 0 10px rgba(234, 67, 53, 0.4);
+}
+
+.social-icon-btn.discord-btn:hover {
+    color: #5865f2;
+    background: rgba(88, 101, 242, 0.1);
+    border-color: rgba(88, 101, 242, 0.3);
+    box-shadow: 
+        0 0 20px rgba(88, 101, 242, 0.4),
+        inset 0 0 10px rgba(88, 101, 242, 0.15);
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.4);
 }
 
 .social-icon-btn:active {
@@ -549,8 +589,27 @@
 }
 
 .footer-social-link:hover {
-    color: #22d3ee;
     transform: translateY(-2px);
+}
+
+.footer-social-link.github-btn:hover {
+    color: #ffffff;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.footer-social-link.linkedin-btn:hover {
+    color: #0a66c2;
+    filter: drop-shadow(0 0 8px rgba(10, 102, 194, 0.8));
+}
+
+.footer-social-link.email-btn:hover {
+    color: #ea4335;
+    filter: drop-shadow(0 0 8px rgba(234, 67, 53, 0.8));
+}
+
+.footer-social-link.discord-btn:hover {
+    color: #5865f2;
+    filter: drop-shadow(0 0 8px rgba(88, 101, 242, 0.8));
 }
 
 .footer-social-link:hover .social-tooltip {
