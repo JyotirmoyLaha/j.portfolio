@@ -1120,33 +1120,29 @@ renderBlogMarquee();
     ring.className = 'cursor-ring';
     document.body.appendChild(ring);
 
-
-
     // State
     let mouseX = -100, mouseY = -100;
     let ringX = -100, ringY = -100;
 
     let isVisible = false;
+    let isClicking = false;
     let rafId = null;
 
     // Lerp factors
     const RING_LERP = 0.15;
 
-
-
-
     // Animation loop
     function animate() {
-        ringX += (mouseX - ringX) * RING_LERP;
-        ringY += (mouseY - ringY) * RING_LERP;
+        if (isVisible) {
+            ringX += (mouseX - ringX) * RING_LERP;
+            ringY += (mouseY - ringY) * RING_LERP;
 
+            const dotScale = isClicking ? ' scale(0.75)' : '';
+            const ringScale = isClicking ? ' scale(0.85)' : '';
 
-        dot.style.left = mouseX + 'px';
-        dot.style.top = mouseY + 'px';
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
-
-
+            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)${dotScale}`;
+            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${ringScale}`;
+        }
         rafId = requestAnimationFrame(animate);
     }
     rafId = requestAnimationFrame(animate);
@@ -1163,21 +1159,17 @@ renderBlogMarquee();
         }
     }, { passive: true });
 
-    // Hide when mouse leaves viewport â€” reset positions off-screen
+    // Hide when mouse leaves viewport — reset positions off-screen
     document.addEventListener('mouseleave', function () {
         isVisible = false;
         dot.classList.remove('visible');
         ring.classList.remove('visible');
 
-
         // Move everything off-screen so nothing lingers
         mouseX = -100; mouseY = -100;
         ringX = -100; ringY = -100;
-        dot.style.left = '-100px';
-        dot.style.top = '-100px';
-        ring.style.left = '-100px';
-        ring.style.top = '-100px';
-
+        dot.style.transform = 'translate3d(-100px, -100px, 0) translate(-50%, -50%)';
+        ring.style.transform = 'translate3d(-100px, -100px, 0) translate(-50%, -50%)';
     });
 
     // Show when mouse re-enters
@@ -1188,11 +1180,9 @@ renderBlogMarquee();
         ringX = e.clientX;
         ringY = e.clientY;
 
-
         isVisible = true;
         dot.classList.add('visible');
         ring.classList.add('visible');
-
     });
 
     // Hover detection for clickable elements
@@ -1202,7 +1192,6 @@ renderBlogMarquee();
         if (e.target.closest(hoverSelectors)) {
             dot.classList.add('hovering');
             ring.classList.add('hovering');
-
         }
     }, { passive: true });
 
@@ -1210,18 +1199,15 @@ renderBlogMarquee();
         if (e.target.closest(hoverSelectors)) {
             dot.classList.remove('hovering');
             ring.classList.remove('hovering');
-
         }
     }, { passive: true });
 
     // Subtle pulse on click
     document.addEventListener('mousedown', function () {
-        dot.style.transform = 'translate(-50%, -50%) scale(0.7)';
-        ring.style.transform = 'translate(-50%, -50%) scale(0.85)';
+        isClicking = true;
     });
 
     document.addEventListener('mouseup', function () {
-        dot.style.transform = 'translate(-50%, -50%) scale(1)';
-        ring.style.transform = 'translate(-50%, -50%) scale(1)';
+        isClicking = false;
     });
 })();

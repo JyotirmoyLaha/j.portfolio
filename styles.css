@@ -3429,7 +3429,7 @@ html.lenis body {
     pointer-events: none;
     z-index: 99999;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.15s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
     transform: translate(-50%, -50%);
     mix-blend-mode: screen;
     will-change: transform, opacity;
