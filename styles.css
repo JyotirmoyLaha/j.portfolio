@@ -649,21 +649,24 @@
 .terminal-card {
     width: 100%;
     max-width: 400px;
-    border: 1px solid rgba(211, 211, 211, 0.4);
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 0.75rem;
     padding: 12px 16px;
     display: flex;
     align-items: center;
     gap: 8px;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+    overflow: visible; /* Changed to visible so tooltip floats outside */
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
         box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
         transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    user-select: none;
 }
 
 @media (min-width: 640px) {
@@ -675,24 +678,118 @@
 }
 
 .terminal-card:hover {
-    border-color: rgba(34, 211, 238, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(34, 211, 238, 0.06);
-    transform: translateY(-1px);
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.4), 
+                0 0 16px rgba(34, 211, 238, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.terminal-card:active {
+    transform: translateY(0) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.terminal-card:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 4px;
 }
 
 .terminal-accent {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 12.5%;
     width: 4px;
-    height: 100%;
-    background: #22d3ee;
-    border-radius: 4px 0 0 4px;
+    height: 75%;
+    background: #06b6d4; /* cyan-500 */
+    border-radius: 9999px;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.8);
 }
 
 .dark .terminal-card {
-    background: rgba(30, 41, 59, 0.3);
-    border-color: rgba(148, 163, 184, 0.1);
+    background: rgba(10, 15, 30, 0.8);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.terminal-card .fa-copy {
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+}
+
+.terminal-card:hover .fa-copy {
+    transform: scale(1.18);
+    color: #22d3ee;
+}
+
+/* Floating copy tooltip for terminal */
+.terminal-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                visibility 0.3s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    z-index: 50;
+}
+
+/* Tooltip caret */
+.terminal-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+}
+
+.terminal-card:hover .terminal-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Success Tooltip Style */
+.terminal-tooltip.tooltip-success {
+    background: rgba(16, 185, 129, 0.95);
+    border-color: rgba(52, 211, 153, 0.5);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+}
+
+.terminal-tooltip.tooltip-success::after {
+    border-color: rgba(16, 185, 129, 0.95) transparent transparent transparent;
+}
+
+/* Copy Animation Pulse */
+@keyframes terminalPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 12px rgba(34, 211, 238, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+    }
+}
+
+.terminal-card.pulse-active {
+    animation: terminalPulse 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ===================== PROJECT CARDS  ===================== */

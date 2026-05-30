@@ -248,8 +248,6 @@
 
             <div class="hero-code-scene" aria-hidden="true">
                 <div class="hero-code-chip" style="--chip-x: 4%; --chip-y: 22%; --chip-delay: 0s;">const</div>
-                <div class="hero-code-chip" style="--chip-x: 10%; --chip-y: 88%; --chip-delay: .2s;">UI</div>
-                <div class="hero-code-chip" style="--chip-x: 84%; --chip-y: 16%; --chip-delay: .4s;">/build</div>
                 <div class="hero-code-chip" style="--chip-x: 90%; --chip-y: 74%; --chip-delay: .1s;">api()</div>
                 <div class="hero-code-chip" style="--chip-x: 58%; --chip-y: 92%; --chip-delay: .35s;">clean code</div>
 
@@ -340,11 +338,15 @@
                                     </a>
                                 </div>
 
-                                <div class="terminal-card">
+                                <div class="terminal-card" id="hero-terminal-card" role="button" tabindex="0" aria-label="Copy developer command to clipboard" data-command="npx jyotirmoy-laha">
                                     <div class="terminal-accent"></div>
                                     <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
                                             class="text-emerald-400">@</span>dev</span>
-                                    <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto">~ portfolio</span>
+                                    <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
+                                        ~ portfolio
+                                        <i class="fa-regular fa-copy text-[11px] sm:text-xs" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="terminal-tooltip font-mono text-xs">Copy: npx jyotirmoy-laha</span>
                                 </div>
                             </div>
                         </div>

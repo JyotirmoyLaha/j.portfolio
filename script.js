@@ -1342,3 +1342,97 @@ renderBlogMarquee();
 
     run();
 })();
+
+// ===================== HERO TERMINAL INTERACTIVE COPY =====================
+(function initHeroTerminalCopy() {
+    const card = document.getElementById('hero-terminal-card');
+    if (!card) return;
+
+    const tooltip = card.querySelector('.terminal-tooltip');
+    const commandText = card.getAttribute('data-command') || 'npx jyotirmoy-laha';
+    let isResetting = null;
+
+    function copyFallback(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        
+        // Avoid scrolling to bottom
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        let success = false;
+        try {
+            success = document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+        }
+
+        document.body.removeChild(textArea);
+        return success;
+    }
+
+    async function handleCopy() {
+        let success = false;
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(commandText);
+                success = true;
+            } else {
+                success = copyFallback(commandText);
+            }
+        } catch (err) {
+            success = copyFallback(commandText);
+        }
+
+        if (success) {
+            // Add visual effects
+            card.classList.remove('pulse-active');
+            // Trigger reflow to restart animation
+            void card.offsetWidth;
+            card.classList.add('pulse-active');
+
+            if (tooltip) {
+                tooltip.innerHTML = 'Copied! ✓ <span style="display: block; font-size: 10px; opacity: 0.85; margin-top: 3px; text-align: center;">Paste & run in terminal</span>';
+                tooltip.classList.add('tooltip-success');
+
+                // Cancel any pending reset timeout
+                if (isResetting) {
+                    clearTimeout(isResetting);
+                }
+
+                // Reset tooltip text after 3 seconds
+                isResetting = setTimeout(() => {
+                    tooltip.textContent = `Copy: ${commandText}`;
+                    tooltip.classList.remove('tooltip-success');
+                    isResetting = null;
+                }, 3000);
+            }
+        } else {
+            console.error('Failed to copy command');
+            if (tooltip) {
+                tooltip.textContent = 'Failed to copy';
+                setTimeout(() => {
+                    tooltip.textContent = `Copy: ${commandText}`;
+                }, 2000);
+            }
+        }
+    }
+
+    // Click handler
+    card.addEventListener('click', handleCopy);
+
+    // Keyboard accessibility handler
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleCopy();
+        }
+    });
+})();
+

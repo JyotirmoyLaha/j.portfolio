@@ -1,0 +1,28 @@
+{
+  "name": "jyotirmoy-laha",
+  "version": "1.0.4",
+  "description": "Interactive CLI business card for Jyotirmoy Laha",
+  "main": "bin/index.js",
+  "bin": {
+    "jyotirmoy-laha": "bin/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JyotirmoyLaha/j.portfolio.git"
+  },
+  "keywords": [
+    "npx",
+    "portfolio",
+    "card",
+    "jyotirmoy",
+    "laha",
+    "cli"
+  ],
+  "author": "Jyotirmoy Laha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JyotirmoyLaha/j.portfolio/issues"
+  },
+  "homepage": "https://jyotirmoy-portfolio.onrender.com/"
+}
