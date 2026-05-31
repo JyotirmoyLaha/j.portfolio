@@ -1,6 +1,6 @@
 {
   "name": "jyotirmoy-laha",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Interactive CLI business card for Jyotirmoy Laha",
   "main": "bin/index.js",
   "bin": {
