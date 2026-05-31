@@ -7,12 +7,28 @@ import { exec } from 'child_process';
 const reset = '\x1b[0m';
 const bold = '\x1b[1m';
 const dim = '\x1b[2m';
+const italic = '\x1b[3m';
 const cyan = '\x1b[36m';
 const green = '\x1b[32m';
 const yellow = '\x1b[33m';
 const gray = '\x1b[90m';
 const white = '\x1b[37m';
 const red = '\x1b[31m';
+
+const quotes = [
+    { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+    { text: "Clean code always looks like it was written by someone who cares.", author: "Michael Feathers" },
+    { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
+    { text: "Make it work, make it right, make it fast.", author: "Kent Beck" },
+    { text: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+    { text: "Programs must be written for people to read.", author: "Harold Abelson" },
+    { text: "Any fool can write code that a computer can understand.", author: "Martin Fowler" },
+    { text: "Before software can be reusable it first has to be usable.", author: "Ralph Johnson" },
+    { text: "Computers are good at following instructions, not reading your mind.", author: "Donald Knuth" },
+    { text: "Strive for simplicity with elegance, not complexity with confusion.", author: "Unknown" }
+];
+
+const selectedQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
 const menuItems = [
     'About Me',
@@ -197,6 +213,8 @@ async function runStartupAnimation() {
     if (isTTY) await sleep(80);
     console.log(`  ${dim}Converts ideas into high-performance code${reset}`);
     if (isTTY) await sleep(80);
+    console.log(`  ${dim}${italic}${yellow}💬 "${selectedQuote.text}" — ${selectedQuote.author}${reset}`);
+    if (isTTY) await sleep(80);
 
     // Smooth flowing bottom separator
     process.stdout.write(`${gray}`);
@@ -221,6 +239,7 @@ function drawHeader() {
     console.log(`${gray}----------------------------------------------------------------${reset}`);
     console.log(`  ${green}${bold}Jyotirmoy Laha${reset} — BCA Student & Full-Stack Developer`);
     console.log(`  ${dim}Converts ideas into high-performance code${reset}`);
+    console.log(`  ${dim}${italic}${yellow}💬 "${selectedQuote.text}" — ${selectedQuote.author}${reset}`);
     console.log(`${gray}----------------------------------------------------------------${reset}\n`);
 }
 
