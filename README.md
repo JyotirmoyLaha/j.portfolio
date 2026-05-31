@@ -67,6 +67,7 @@ j.portfolio.github/
 - **Interactive Navigation**: Features arrow-key and numeric navigation to explore sections: *About Me*, *Skills*, *Projects*, and *Socials*.
 - **Cross-Platform Link Launcher**: Auto-detects operating systems (Windows, macOS, Linux) to open selected hyperlinks in default web browsers.
 - **Dripping Laser FX**: Renders a custom terminal intro animation with a dripping logo animation and animated border drawing.
+- **Matrix Rain FX**: Supports `--matrix` (or `-m`) flags on startup to render a stunning 3-second Matrix digital rain screen.
 
 ---
 
@@ -145,6 +146,9 @@ npm link
 jyotirmoy-laha
 # Or execute directly:
 node bin/index.js
+
+# Or execute with the Matrix rain startup effect:
+node bin/index.js --matrix
 ```
 
 > [!TIP]

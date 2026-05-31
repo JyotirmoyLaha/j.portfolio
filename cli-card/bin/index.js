@@ -59,6 +59,102 @@ function openURL(url) {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let isAnimating = true;
 
+async function runMatrixRain(durationMs = 3000) {
+    const cols = process.stdout.columns || 80;
+    const rows = process.stdout.rows || 24;
+
+    // Hide cursor
+    process.stdout.write('\x1b[?25l');
+    
+    // Clear screen initially
+    process.stdout.write('\x1b[2J\x1b[H');
+
+    // Matrix characters
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$+-*/=<>[]{}()#@%&';
+    
+    // Initialize drops
+    const drops = [];
+    for (let x = 0; x < cols; x++) {
+        drops.push({
+            y: Math.random() * -rows, // start off-screen
+            speed: 0.35 + Math.random() * 0.45,
+            length: Math.floor(10 + Math.random() * 15)
+        });
+    }
+
+    const interval = 40; // ~25 FPS
+    const totalFrames = durationMs / interval;
+    let frame = 0;
+
+    return new Promise((resolve) => {
+        const timer = setInterval(() => {
+            if (frame >= totalFrames) {
+                clearInterval(timer);
+                // Clear screen one last time and show cursor
+                process.stdout.write('\x1b[2J\x1b[H');
+                process.stdout.write('\x1b[?25h');
+                resolve();
+                return;
+            }
+
+            for (let x = 0; x < cols; x++) {
+                const drop = drops[x];
+                const currentY = Math.floor(drop.y);
+                const colIndex = x + 1; // 1-indexed for terminal
+
+                // 1. Draw head (white)
+                if (currentY >= 1 && currentY <= rows) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    process.stdout.write(`\x1b[${currentY};${colIndex}H\x1b[1m\x1b[37m${char}\x1b[0m`);
+                }
+
+                // 2. Draw bright green lead
+                if (currentY - 1 >= 1 && currentY - 1 <= rows) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    process.stdout.write(`\x1b[${currentY - 1};${colIndex}H\x1b[1m\x1b[32m${char}\x1b[0m`);
+                }
+
+                // 3. Draw standard green body
+                for (let i = 2; i < drop.length - 2; i++) {
+                    const bodyY = currentY - i;
+                    if (bodyY >= 1 && bodyY <= rows) {
+                        const char = chars[Math.floor(Math.random() * chars.length)];
+                        process.stdout.write(`\x1b[${bodyY};${colIndex}H\x1b[32m${char}\x1b[0m`);
+                    }
+                }
+
+                // 4. Draw dim green tail
+                for (let i = drop.length - 2; i < drop.length; i++) {
+                    const tailY = currentY - i;
+                    if (tailY >= 1 && tailY <= rows) {
+                        const char = chars[Math.floor(Math.random() * chars.length)];
+                        process.stdout.write(`\x1b[${tailY};${colIndex}H\x1b[2m\x1b[32m${char}\x1b[0m`);
+                    }
+                }
+
+                // 5. Erase character after tail
+                const eraseY = currentY - drop.length;
+                if (eraseY >= 1 && eraseY <= rows) {
+                    process.stdout.write(`\x1b[${eraseY};${colIndex}H `);
+                }
+
+                // Update position
+                drop.y += drop.speed;
+
+                // Reset drop if it fully went off screen
+                if (currentY - drop.length > rows) {
+                    drop.y = -Math.random() * 5;
+                    drop.speed = 0.35 + Math.random() * 0.45;
+                    drop.length = Math.floor(10 + Math.random() * 15);
+                }
+            }
+
+            frame++;
+        }, interval);
+    });
+}
+
+
 const asciiLogo = [
     `   __                 _   _                                     `,
     `   \\ \\ _   _  ___   | |_(_)_ __ _ __ ___   ___  _   _           `,
@@ -269,6 +365,8 @@ function handleContactSelection() {
 
 // Initial draw with startup animation
 (async () => {
+    isAnimating = true;
+    await runMatrixRain(3000);
     await runStartupAnimation();
     render();
 })();
