@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="120" viewBox="0 0 900 120">
+  <defs>
+    <linearGradient id="ftBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <linearGradient id="ftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#a855f7">
+        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="5s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="ftGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="900" height="120" fill="url(#ftBg)" rx="12"/>
+
+  <!-- Top gradient line -->
+  <line x1="0" y1="2" x2="900" y2="2" stroke="url(#ftGrad)" stroke-width="2" opacity="0.5"/>
+
+  <!-- Animated wireframe triangle -->
+  <g transform="translate(450, 55)" opacity="0.06">
+    <polygon points="0,-40 35,20 -35,20" fill="none" stroke="#22d3ee" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="30s" repeatCount="indefinite"/>
+    </polygon>
+    <polygon points="0,-30 26,15 -26,15" fill="none" stroke="#a855f7" stroke-width="0.5">
+      <animateTransform attributeName="transform" type="rotate" values="0;-360" dur="25s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+
+  <!-- Made with love text -->
+  <text x="450" y="50" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">
+    Designed &amp; Built with
+  </text>
+  <text x="450" y="50" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">
+    Designed &amp; Built with
+  </text>
+
+  <!-- Animated heart -->
+  <g transform="translate(540, 43)" filter="url(#ftGlow)">
+    <text font-size="14" fill="#ec4899">
+      ❤️
+      <animate attributeName="font-size" values="14;17;14" dur="1.5s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <text x="450" y="75" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="url(#ftGrad)" filter="url(#ftGlow)">
+    by Jyotirmoy Laha
+  </text>
+
+  <!-- Bottom animated dots -->
+  <g transform="translate(350, 100)">
+    <circle cx="0" cy="0" r="2" fill="#22d3ee" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="25" cy="0" r="2" fill="#a855f7" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <circle cx="50" cy="0" r="2" fill="#ec4899" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/></circle>
+    <circle cx="75" cy="0" r="2" fill="#facc15" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.9s" repeatCount="indefinite"/></circle>
+    <circle cx="100" cy="0" r="2" fill="#34d399" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
+    <circle cx="125" cy="0" r="2" fill="#3b82f6" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="150" cy="0" r="2" fill="#f97316" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="175" cy="0" r="2" fill="#22d3ee" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="2.1s" repeatCount="indefinite"/></circle>
+    <circle cx="200" cy="0" r="2" fill="#a855f7" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="2.4s" repeatCount="indefinite"/></circle>
+  </g>
+</svg>
