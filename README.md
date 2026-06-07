@@ -1,125 +1,258 @@
-<p align="center">
-  <img src="images/profile.webp" alt="Jyotirmoy Laha" width="120" style="border-radius: 50%; border: 3px solid #22d3ee; box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);" />
-</p>
-
-<h1 align="center">Jyotirmoy Laha — Developer Portfolio</h1>
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ✨ ANIMATED HEADER BANNER — 3D wireframe sphere + floating cubes  -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 <p align="center">
-  <a href="https://jyotirmoy-portfolio.onrender.com"><img src="https://img.shields.io/badge/Live-Demo-22d3ee?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" /></a>
-  <a href="https://www.npmjs.com/package/jyotirmoy-laha"><img src="https://img.shields.io/npm/v/jyotirmoy-laha?style=for-the-badge&color=cb3837&logo=npm" alt="NPM Version" /></a>
-  <a href="https://www.linkedin.com/in/jyotirmoylaha2005/"><img src="https://img.shields.io/badge/LinkedIn-Jyotirmoy_Laha-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <img src="images/header-animation.svg" alt="Jyotirmoy Laha — Developer Portfolio" width="100%" />
+</p>
+
+<!-- Badges Row -->
+<p align="center">
+  <a href="https://jyotirmoy-portfolio.onrender.com"><img src="https://img.shields.io/badge/🌐_Live_Demo-22d3ee?style=for-the-badge&logoColor=white" alt="Live Demo" /></a>
+  <a href="https://www.npmjs.com/package/jyotirmoy-laha"><img src="https://img.shields.io/npm/v/jyotirmoy-laha?style=for-the-badge&color=cb3837&logo=npm&label=CLI%20Card" alt="NPM Version" /></a>
+  <a href="https://www.linkedin.com/in/jyotirmoylaha2005/"><img src="https://img.shields.io/badge/LinkedIn-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="mailto:jyotirmoylaha@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Vanilla_JS-ES6%2B-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="Vanilla JS" />
+  <img src="https://img.shields.io/github/stars/JyotirmoyLaha/j.portfolio?style=social" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/JyotirmoyLaha/j.portfolio?style=social" alt="Forks" />
+  <img src="https://img.shields.io/github/last-commit/JyotirmoyLaha/j.portfolio?color=22d3ee" alt="Last Commit" />
 </p>
 
----
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
-## 🏗️ Architecture Overview
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gem%20Stone.png" width="25" /> &nbsp;About
 
-A high-performance, single-page developer portfolio featuring an integrated blog engine and an AI-powered chatbot assistant. Built with clean, modern web practices—optimized for fast load times, smooth rendering, and responsiveness.
+> A **high-performance, single-page developer portfolio** featuring an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant — built with clean, modern web practices optimized for speed, rendering fidelity, and full responsiveness.
 
-```text
+<br/>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 🏗️ ANIMATED ARCHITECTURE DIAGRAM                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" width="25" /> &nbsp;Architecture
+
+<p align="center">
+  <img src="images/architecture.svg" alt="System Architecture" width="100%" />
+</p>
+
+<details>
+<summary>📂 <b>Directory Structure</b></summary>
+<br/>
+
+```
 j.portfolio.github/
-├── index.html              # Frontend entry point (SPA)
-├── styles.css              # Custom layout & animation design
-├── script.js               # Core DOM logic & interactivity
-├── blog-posts.js           # Static blog database structure
-├── cli-card/               # Standalone Node.js CLI business card package
-└── portfolio-chatbot/
-    ├── frontend/           # Chatbot UI files
-    └── backend/            # FastAPI + LLM query engine
+│
+├── 📄 index.html                 ← SPA entry point
+├── 🎨 styles.css                 ← 1,700+ lines of custom CSS
+├── ⚡ script.js                  ← Core DOM logic & interactivity
+├── 📝 blog-posts.js              ← Static blog database
+│
+├── 💻 cli-card/                  ← Node.js CLI business card (NPM)
+│   └── bin/index.js
+│
+└── 🤖 portfolio-chatbot/
+    ├── frontend/                 ← Chatbot UI components
+    └── backend/                  ← FastAPI + Groq LLM engine
+        ├── main.py
+        ├── requirements.txt
+        └── .env
 ```
 
----
+</details>
 
-## 🚀 Core Technical Features
+<br/>
 
-### 1. 🖼️ Interactive 3D Parallax Profile Card
-- **3D Transform Space**: Constructed using CSS 3D perspective context (`perspective: 1200px`) and nested coordinate layers (`transform-style: preserve-3d`).
-- **Parallax Accent Corners**: Floating corners translated dynamically (`translateZ(35px)`) in front of the base card layer.
-- **Cursor Tracking**: Coordinates mapped in real-time to calculate dynamic rotation degrees (max 12 deg) and adjust the specular gloss sheen overlay (`--sheen-x`, `--sheen-y`) alongside the backdrop ambient light glow.
-- **Animation Suspension**: Gently floats via CSS keyframes, disabling automatically on active hover (`:not(.tilting)`) to prevent animation-script conflicts.
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
 
-### 2. 🛣️ Client-Side History Router (Vanilla JS)
-- **Zero-Dependency Routing**: Leverages window location hashes (`#blog` / `#blog/:id`) to handle routing between portfolio and blog views without loading heavy framework routers.
-- **Browser History Integration**: Uses `history.pushState` and `popstate` listeners to capture back/forward navigation, allowing users to bookmark or share direct links to individual articles.
-- **State Preservation**: Stores current scroll positions during detail transitions, returning the user exactly to their last active position when reverting to the listing screen.
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ✨ ANIMATED FEATURE CARDS                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
-### 3. 📊 Live GitHub Contribution Heatmap
-- **Asynchronous Hydration**: Pulls real-time public contribution arrays from the GitHub metrics API upon section view.
-- **Dynamic Grid Rendering**: Generates grid cells classified into level-based opacity states (0 to 4 contributions) resembling standard GitHub profiles.
-- **Tooltip Integration**: Implements absolute-positioned viewport tooltips mapping cell metadata on mouseover events.
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" width="25" /> &nbsp;Core Features
 
-### 4. 🤖 Context-Aware AI Chatbot Assistant
-- **Automatic Scraper Backend**: FastAPI web service using `BeautifulSoup4` and asynchronous HTTP clients to scrape live frontend copy upon initialization, generating context vector tables dynamically.
-- **Inference Engine**: Connects to the Groq SDK using low-latency Llama inference models for instant answering based on parsed portfolio content.
-- **Security & Rate Limiting**: Integrates CORS configuration and sliding window rate limits (20 requests/hour per IP) to prevent system abuse.
+<p align="center">
+  <img src="images/features.svg" alt="Core Features" width="100%" />
+</p>
 
-### 5. 💻 Interactive CLI Business Card (`npx jyotirmoy-laha`)
-- **NPM Package**: A standalone, interactive terminal-based business card deployed as a Node.js package.
-- **Zero-Dependency CLI**: Powered by Node's built-in `readline` events and standard ANSI escape sequences.
-- **Interactive Navigation**: Features arrow-key and numeric navigation to explore sections: *About Me*, *Skills*, *Projects*, and *Socials*.
-- **Cross-Platform Link Launcher**: Auto-detects operating systems (Windows, macOS, Linux) to open selected hyperlinks in default web browsers.
-- **Dripping Laser FX**: Renders a custom terminal intro animation with a dripping logo animation and animated border drawing.
-- **Matrix Rain FX**: Supports `--matrix` (or `-m`) flags on startup to render a stunning 3-second Matrix digital rain screen.
+<br/>
 
----
+<table>
+  <tr>
+    <td width="50%">
 
-## 💻 Detailed Tech Stack
+### 🖼️ Interactive 3D Parallax Card
 
-### Frontend & Layout
-* **HTML5** — Semantic, optimized page hierarchy, and keyboard accessibility indicators (`skip-to-content`).
-* **Tailwind CSS (CDN)** — Custom extended configurations for color schemes, typography overrides, and shadow values.
-* **Vanilla CSS (1,700+ lines)** — Glassmorphism navigation panels, slider tracks, core layout utilities, and custom scrollbars.
-* **Lenis Smooth Scroll** — Custom easing interpolation equations resolving scroll inertia cleanly.
-* **AOS (Animate On Scroll)** — Triggered element animations optimized with hardware-accelerated transforms.
+- CSS 3D perspective context (`perspective: 1200px`)
+- Real-time cursor tracking with dynamic rotation (max 12°)
+- Parallax floating corners at `translateZ(35px)`
+- Specular gloss overlay with `--sheen-x/y` CSS vars
+- Gentle float animation, auto-disabled on hover
 
-### Backend (Chatbot Service)
-* **Python 3** + **FastAPI** — Async endpoints with rate-limiting middleware.
-* **SQLAlchemy** + **Alembic** — Database management.
-* **Groq API** — Low-latency LLM completions.
+</td>
+<td width="50%">
 
-### CLI Package
-* **Node.js** — Zero-dependency interactive readline CLI application.
-* **NPM** — Packaged and published for global execution via `npx jyotirmoy-laha`.
+### 🛣️ Vanilla JS Hash Router
 
----
+- Zero-dependency client-side routing
+- `history.pushState` + `popstate` navigation
+- Deep-linkable blog posts via `#blog/:id`
+- Scroll position preservation across transitions
+- No framework overhead — pure ES6+
 
-## ⚙️ Getting Started
+</td>
+  </tr>
+  <tr>
+    <td width="50%">
 
-### 1. Running the Frontend Locally
+### 📊 Live GitHub Contribution Heatmap
 
-Serve the root project folder using any static web server:
+- Async hydration from GitHub metrics API
+- Dynamic grid with 5-level opacity states
+- Viewport-aware tooltip integration
+- Lazy-loaded on section visibility
+- Real-time contribution data
+
+</td>
+<td width="50%">
+
+### 🤖 Context-Aware AI Chatbot
+
+- FastAPI backend with `BeautifulSoup4` scraper
+- Groq SDK + Llama model for instant inference
+- Auto-generates context vectors from live content
+- CORS + sliding window rate limiting (20 req/hr/IP)
+- Fully self-contained deployment
+
+</td>
+  </tr>
+</table>
+
+<br/>
+
+<details>
+<summary>💻 <b>Interactive CLI Business Card</b> — <code>npx jyotirmoy-laha</code></summary>
+<br/>
 
 ```bash
-# Using Python
+# 🚀 Run it instantly — no install needed!
+npx jyotirmoy-laha
+
+# ✨ With the Matrix rain startup effect:
+npx jyotirmoy-laha --matrix
+```
+
+| Feature | Details |
+|---|---|
+| **Zero Dependencies** | Pure Node.js `readline` + ANSI escape codes |
+| **Interactive Navigation** | Arrow-key & numeric menu selection |
+| **Cross-Platform** | Auto-detects OS for link launching |
+| **Dripping Laser FX** | Custom animated terminal intro sequence |
+| **Matrix Rain** | 3-second Matrix digital rain with `--matrix` flag |
+
+</details>
+
+<br/>
+
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 💻 ANIMATED TECH STACK                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Hammer%20and%20Wrench.png" width="25" /> &nbsp;Tech Stack
+
+<p align="center">
+  <img src="images/tech-stack.svg" alt="Tech Stack" width="100%" />
+</p>
+
+<br/>
+
+<table>
+  <tr>
+    <th align="center">Layer</th>
+    <th align="center">Technologies</th>
+  </tr>
+  <tr>
+    <td align="center"><b>🎨 Frontend</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
+      <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" />
+      <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" />
+      <img src="https://img.shields.io/badge/JavaScript_ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+      <img src="https://img.shields.io/badge/Lenis-000000?style=flat-square" />
+      <img src="https://img.shields.io/badge/AOS-68BC71?style=flat-square" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>⚙️ Backend</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Python_3-3776AB?style=flat-square&logo=python&logoColor=white" />
+      <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" />
+      <img src="https://img.shields.io/badge/SQLAlchemy-D71F00?style=flat-square" />
+      <img src="https://img.shields.io/badge/Groq_AI-000000?style=flat-square" />
+      <img src="https://img.shields.io/badge/Alembic-6BA81E?style=flat-square" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>💻 CLI</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Node.js_18+-339933?style=flat-square&logo=node.js&logoColor=white" />
+      <img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white" />
+      <img src="https://img.shields.io/badge/ANSI_Escape-4A154B?style=flat-square" />
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ⚙️ GETTING STARTED                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" width="25" /> &nbsp;Getting Started
+
+<details open>
+<summary><b>1️⃣ Frontend — Static Server</b></summary>
+<br/>
+
+```bash
+# Clone the repository
+git clone https://github.com/JyotirmoyLaha/j.portfolio.github.git
+cd j.portfolio.github
+
+# Serve with Python
 python -m http.server 5500
 ```
 
-Access the frontend via `http://localhost:5500`.
+> 🌐 Open **`http://localhost:5500`** in your browser
 
-### 2. Setting Up the Chatbot Backend
+</details>
 
-Navigate to the chatbot directory, set up the virtual environment, and install dependencies:
+<details>
+<summary><b>2️⃣ Chatbot Backend — FastAPI</b></summary>
+<br/>
 
 ```bash
 cd portfolio-chatbot/backend
+
+# Create virtual environment
 python -m venv .venv
 
-# Activate on Windows
+# Activate (Windows)
 .venv\Scripts\activate
 
-# Install requirements
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-Create a `.env` file inside `portfolio-chatbot/backend/`:
+Create a **`.env`** file inside `portfolio-chatbot/backend/`:
 
 ```env
 GROQ_API_KEY=your_groq_api_key
@@ -128,38 +261,127 @@ ALLOWED_ORIGIN=http://localhost:5500
 ```
 
 > [!IMPORTANT]
-> The chatbot backend relies on `GROQ_API_KEY` for AI completions. Make sure this environment variable is correctly set before running the service.
-
-Start the FastAPI application:
+> The chatbot backend relies on `GROQ_API_KEY` for AI completions. Get your free key at [console.groq.com](https://console.groq.com).
 
 ```bash
+# Start the FastAPI server
 uvicorn main:app --reload --port 8000
 ```
 
-### 3. Running the CLI Card Locally
+</details>
 
-Navigate to the `cli-card` directory, link the binary, and run it:
+<details>
+<summary><b>3️⃣ CLI Business Card — Node.js</b></summary>
+<br/>
 
 ```bash
 cd cli-card
+
+# Link for local testing
 npm link
 jyotirmoy-laha
-# Or execute directly:
+
+# Or run directly
 node bin/index.js
 
-# Or execute with the Matrix rain startup effect:
+# With Matrix rain effect ✨
 node bin/index.js --matrix
 ```
 
 > [!TIP]
-> Linking the package locally with `npm link` allows you to test the `jyotirmoy-laha` command globally on your machine before publishing.
+> Linking with `npm link` lets you test the `jyotirmoy-laha` command globally before publishing.
 
----
+</details>
 
-## 🌐 Production Deployment
+<br/>
 
-| Component | Target Platform | Setup Notes |
-|---|---|---|
-| **Frontend (Static)** | Render / GitHub Pages | Ensure all image paths and JS imports are relative. |
-| **Chatbot Backend** | Render Web Service | Set `ALLOWED_ORIGIN` in environment variables to match production domains to prevent CORS issues. |
-| **CLI Package** | NPM | Versioned and published to the NPM registry as `jyotirmoy-laha`. |
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 🌐 DEPLOYMENT                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Globe%20Showing%20Americas.png" width="25" /> &nbsp;Deployment
+
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Platform</th>
+    <th>Configuration</th>
+  </tr>
+  <tr>
+    <td>🌐 <b>Frontend</b></td>
+    <td><img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=white" /> <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat-square&logo=github&logoColor=white" /></td>
+    <td>Ensure all paths are relative</td>
+  </tr>
+  <tr>
+    <td>🤖 <b>Chatbot API</b></td>
+    <td><img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=white" /></td>
+    <td>Set <code>ALLOWED_ORIGIN</code> for production CORS</td>
+  </tr>
+  <tr>
+    <td>💻 <b>CLI Package</b></td>
+    <td><img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white" /></td>
+    <td>Published as <code>jyotirmoy-laha</code></td>
+  </tr>
+</table>
+
+<br/>
+
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 📊 GITHUB STATS                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Bar%20Chart.png" width="25" /> &nbsp;GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=JyotirmoyLaha&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117&title_color=22d3ee&icon_color=a855f7&text_color=94a3b8&ring_color=ec4899" height="180" alt="GitHub Stats" />
+  &nbsp;&nbsp;
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JyotirmoyLaha&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117&title_color=22d3ee&text_color=94a3b8" height="180" alt="Top Languages" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=JyotirmoyLaha&theme=midnight-purple&hide_border=true&background=0d1117&ring=22d3ee&fire=ec4899&currStreakLabel=a855f7&sideLabels=94a3b8&currStreakNum=e2e8f0&sideNums=e2e8f0&dates=64748b" alt="GitHub Streak" width="600" />
+</p>
+
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=JyotirmoyLaha&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=10" alt="Trophies" width="100%" />
+</p>
+
+<br/>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 🐍 CONTRIBUTION SNAKE                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake.svg" />
+    <img alt="GitHub Contribution Snake" src="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake-dark.svg" width="100%" />
+  </picture>
+</p>
+
+<br/>
+
+<p align="center"><img src="images/divider.svg" width="100%" /></p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ANIMATED FOOTER                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<p align="center">
+  <img src="images/footer.svg" alt="Footer" width="100%" />
+</p>
+
+<p align="center">
+  <a href="https://jyotirmoy-portfolio.onrender.com">
+    <img src="https://img.shields.io/badge/Visit_Portfolio-▸-22d3ee?style=for-the-badge" alt="Visit Portfolio" />
+  </a>
+</p>
+
+<p align="center">
+  <sub>⭐ Star this repo if you found it interesting!</sub>
+</p>
