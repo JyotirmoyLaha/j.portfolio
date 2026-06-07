@@ -350,21 +350,8 @@ node bin/index.js --matrix
   <img src="https://github-profile-trophy.vercel.app/?username=JyotirmoyLaha&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=10" alt="Trophies" width="100%" />
 </p>
 
-<br/>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- 🐍 CONTRIBUTION SNAKE                                              -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake.svg" />
-    <img alt="GitHub Contribution Snake" src="https://raw.githubusercontent.com/JyotirmoyLaha/JyotirmoyLaha/output/github-snake-dark.svg" width="100%" />
-  </picture>
-</p>
-
-<br/>
 
 <p align="center"><img src="images/divider.svg" width="100%" /></p>
 
