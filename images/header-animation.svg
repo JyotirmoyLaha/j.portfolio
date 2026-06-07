@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+  <defs>
+    <!-- Animated gradient for the background -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a">
+        <animate attributeName="stop-color" values="#0a0a1a;#1a0a2e;#0a1a2e;#0a0a1a" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#1a0a2e">
+        <animate attributeName="stop-color" values="#1a0a2e;#0a1a2e;#0a0a1a;#1a0a2e" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#0a1a2e">
+        <animate attributeName="stop-color" values="#0a1a2e;#0a0a1a;#1a0a2e;#0a1a2e" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Glowing text gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#a855f7">
+        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#ec4899">
+        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Soft glow for particles -->
+    <filter id="particleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 3D perspective grid pattern -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(34,211,238,0.07)" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="300" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- Animated grid overlay for 3D depth feel -->
+  <rect width="900" height="300" fill="url(#grid)" rx="16" opacity="0.5">
+    <animateTransform attributeName="transform" type="translate" values="0,0;60,60;0,0" dur="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Floating 3D cubes -->
+  <!-- Cube 1 -->
+  <g opacity="0.15" filter="url(#particleGlow)">
+    <animateTransform attributeName="transform" type="translate" values="80,200;100,160;80,200" dur="7s" repeatCount="indefinite"/>
+    <polygon points="0,0 30,0 30,30 0,30" fill="none" stroke="#22d3ee" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 15 15;360 15 15" dur="12s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+
+  <!-- Cube 2 -->
+  <g opacity="0.12" filter="url(#particleGlow)">
+    <animateTransform attributeName="transform" type="translate" values="750,60;770,100;750,60" dur="9s" repeatCount="indefinite"/>
+    <polygon points="0,0 25,0 25,25 0,25" fill="none" stroke="#a855f7" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 12 12;-360 12 12" dur="15s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+
+  <!-- Cube 3 -->
+  <g opacity="0.1" filter="url(#particleGlow)">
+    <animateTransform attributeName="transform" type="translate" values="200,50;180,80;200,50" dur="8s" repeatCount="indefinite"/>
+    <polygon points="0,0 20,0 20,20 0,20" fill="none" stroke="#ec4899" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10" dur="10s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+
+  <!-- Floating orbs / spheres -->
+  <circle cx="120" cy="80" r="4" fill="#22d3ee" opacity="0.3" filter="url(#particleGlow)">
+    <animate attributeName="cy" values="80;60;80" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="780" cy="220" r="3" fill="#a855f7" opacity="0.25" filter="url(#particleGlow)">
+    <animate attributeName="cy" values="220;200;220" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;0.5;0.25" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="650" cy="50" r="5" fill="#ec4899" opacity="0.2" filter="url(#particleGlow)">
+    <animate attributeName="cy" values="50;35;50" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.45;0.2" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="350" cy="260" r="3.5" fill="#facc15" opacity="0.2" filter="url(#particleGlow)">
+    <animate attributeName="cy" values="260;240;260" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="7s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- 3D Wireframe sphere (simulated with animated ellipses) -->
+  <g transform="translate(450, 150)" opacity="0.08">
+    <ellipse cx="0" cy="0" rx="120" ry="120" fill="none" stroke="#22d3ee" stroke-width="0.5">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="20s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="0" rx="120" ry="40" fill="none" stroke="#22d3ee" stroke-width="0.5">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="15s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="0" rx="40" ry="120" fill="none" stroke="#a855f7" stroke-width="0.5">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0" dur="18s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="0" rx="80" ry="120" fill="none" stroke="#ec4899" stroke-width="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="30 0 0;390 0 0" dur="22s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- Main title text with glow -->
+  <text x="450" y="120" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="42" font-weight="bold" fill="url(#textGrad)" filter="url(#glow)">
+    Jyotirmoy Laha
+  </text>
+
+  <!-- Subtitle with typewriter-like appearance -->
+  <text x="450" y="160" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" fill="#94a3b8" letter-spacing="3">
+    DEVELOPER  ·  BUILDER  ·  CREATOR
+    <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
+  </text>
+
+  <!-- Animated underline -->
+  <line x1="300" y1="175" x2="600" y2="175" stroke="url(#textGrad)" stroke-width="2" stroke-linecap="round" opacity="0.6">
+    <animate attributeName="x1" values="450;300;450" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="x2" values="450;600;450" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </line>
+
+  <!-- Code snippet decoration -->
+  <text x="450" y="210" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" fill="#22d3ee" opacity="0.7">
+    &lt; Full-Stack Developer /&gt;
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- Bottom decorative line -->
+  <line x1="0" y1="298" x2="900" y2="298" stroke="url(#textGrad)" stroke-width="2" opacity="0.5"/>
+
+  <!-- Scanning line effect -->
+  <rect x="0" y="0" width="900" height="2" fill="url(#textGrad)" opacity="0.15" rx="1">
+    <animate attributeName="y" values="-2;300" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
