@@ -328,29 +328,6 @@ node bin/index.js --matrix
 
 <br/>
 
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- 📊 GITHUB STATS                                                    -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Bar%20Chart.png" width="25" /> &nbsp;GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=JyotirmoyLaha&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117&title_color=22d3ee&icon_color=a855f7&text_color=94a3b8&ring_color=ec4899" height="180" alt="GitHub Stats" />
-  &nbsp;&nbsp;
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JyotirmoyLaha&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117&title_color=22d3ee&text_color=94a3b8" height="180" alt="Top Languages" />
-</p>
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=JyotirmoyLaha&theme=midnight-purple&hide_border=true&background=0d1117&ring=22d3ee&fire=ec4899&currStreakLabel=a855f7&sideLabels=94a3b8&currStreakNum=e2e8f0&sideNums=e2e8f0&dates=64748b" alt="GitHub Streak" width="600" />
-</p>
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=JyotirmoyLaha&theme=discord&no-frame=true&no-bg=true&column=7&margin-w=10" alt="Trophies" width="100%" />
-</p>
-
-
 
 
 <p align="center"><img src="images/divider.svg" width="100%" /></p>
