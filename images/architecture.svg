@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
+  <defs>
+    <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <filter id="neonGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="200" fill="url(#archBg)" rx="12"/>
+  <rect width="900" height="200" fill="none" stroke="#22d3ee" stroke-width="1" rx="12" opacity="0.15"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#94a3b8" letter-spacing="4" font-weight="600">
+    ARCHITECTURE
+  </text>
+
+  <!-- Central node: Portfolio -->
+  <g filter="url(#neonGlow)">
+    <rect x="370" y="75" width="160" height="50" rx="10" fill="#0d1117" stroke="#22d3ee" stroke-width="1.5" opacity="0.9">
+      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <text x="450" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#22d3ee" font-weight="bold">
+      📦 j.portfolio
+    </text>
+    <text x="450" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
+      SPA · Vanilla JS
+    </text>
+  </g>
+
+  <!-- Left node: CLI Card -->
+  <g filter="url(#neonGlow)">
+    <rect x="60" y="75" width="150" height="50" rx="10" fill="#0d1117" stroke="#a855f7" stroke-width="1.5" opacity="0.9">
+      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
+    </rect>
+    <text x="135" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#a855f7" font-weight="bold">
+      💻 CLI Card
+    </text>
+    <text x="135" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
+      Node.js · NPM
+    </text>
+  </g>
+
+  <!-- Right node: Chatbot -->
+  <g filter="url(#neonGlow)">
+    <rect x="690" y="75" width="150" height="50" rx="10" fill="#0d1117" stroke="#ec4899" stroke-width="1.5" opacity="0.9">
+      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="765" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#ec4899" font-weight="bold">
+      🤖 AI Chatbot
+    </text>
+    <text x="765" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
+      FastAPI · Groq
+    </text>
+  </g>
+
+  <!-- Animated connection lines -->
+  <!-- Left to Center -->
+  <line x1="210" y1="100" x2="370" y2="100" stroke="#a855f7" stroke-width="1" stroke-dasharray="6,4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- Animated data packet left -->
+  <circle r="3" fill="#a855f7" opacity="0.8" filter="url(#softGlow)">
+    <animate attributeName="cx" values="210;370" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="100;100" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Right to Center -->
+  <line x1="530" y1="100" x2="690" y2="100" stroke="#ec4899" stroke-width="1" stroke-dasharray="6,4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;20" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- Animated data packet right -->
+  <circle r="3" fill="#ec4899" opacity="0.8" filter="url(#softGlow)">
+    <animate attributeName="cx" values="690;530" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="100;100" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Bottom nodes -->
+  <!-- Blog Engine -->
+  <g filter="url(#neonGlow)">
+    <rect x="250" y="150" width="130" height="35" rx="8" fill="#0d1117" stroke="#facc15" stroke-width="1" opacity="0.8">
+      <animate attributeName="stroke-opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <text x="315" y="172" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#facc15">
+      📝 Blog Engine
+    </text>
+  </g>
+
+  <!-- GitHub Heatmap -->
+  <g filter="url(#neonGlow)">
+    <rect x="520" y="150" width="130" height="35" rx="8" fill="#0d1117" stroke="#34d399" stroke-width="1" opacity="0.8">
+      <animate attributeName="stroke-opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
+    </rect>
+    <text x="585" y="172" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#34d399">
+      📊 GitHub API
+    </text>
+  </g>
+
+  <!-- Vertical lines to bottom nodes -->
+  <line x1="400" y1="125" x2="315" y2="150" stroke="#facc15" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <line x1="500" y1="125" x2="585" y2="150" stroke="#34d399" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
+  </line>
+</svg>
