@@ -1,140 +1,263 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180">
   <defs>
-    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0d1117"/>
-      <stop offset="100%" style="stop-color:#161b22"/>
-    </linearGradient>
-    <filter id="cGlow" x="-15%" y="-15%" width="130%" height="130%">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+    <!-- Styles with imported fonts and animations -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      
+      .card-title {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        fill: #f8fafc;
+      }
+      
+      .card-subtitle {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 500;
+        font-size: 10px;
+        fill: #94a3b8;
+      }
+      
+      .card-code {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 9px;
+      }
+
+      .card-bg {
+        fill: #060913;
+        fill-opacity: 0.85;
+      }
+    </style>
+
+    <!-- Glowing Filters -->
+    <filter id="cyanGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    
+    <filter id="purpleGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <filter id="emeraldGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="pinkGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="goldGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Glassmorphic border gradients -->
+    <linearGradient id="cyanBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="purpleBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="emeraldBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="pinkBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#db2777" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="goldBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#facc15" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ca8a04" stop-opacity="0.1"/>
+    </linearGradient>
   </defs>
 
-  <!-- Card 1: 3D Parallax -->
+  <!-- ================= CARD 1: 3D PARALLAX ================= -->
   <g transform="translate(15, 15)">
-    <rect width="165" height="150" rx="12" fill="url(#cardBg)" stroke="#22d3ee" stroke-width="1" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <!-- Animated 3D cube icon -->
-    <g transform="translate(82, 45)" filter="url(#cGlow)">
-      <polygon points="-15,-15 15,-15 15,15 -15,15" fill="none" stroke="#22d3ee" stroke-width="1.5">
-        <animateTransform attributeName="transform" type="rotate" values="0;15;0;-15;0" dur="6s" repeatCount="indefinite"/>
-      </polygon>
-      <polygon points="-10,-10 10,-10 10,10 -10,10" fill="none" stroke="#22d3ee" stroke-width="0.8" opacity="0.5">
-        <animateTransform attributeName="transform" type="rotate" values="0;-15;0;15;0" dur="6s" repeatCount="indefinite"/>
-      </polygon>
-      <line x1="-15" y1="-15" x2="-10" y2="-10" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
-      <line x1="15" y1="-15" x2="10" y2="-10" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
-      <line x1="15" y1="15" x2="10" y2="10" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
-      <line x1="-15" y1="15" x2="-10" y2="10" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
+    <!-- Glassmorphic Container -->
+    <rect width="165" height="150" rx="14" class="card-bg" stroke="url(#cyanBorder)" stroke-width="1.2"/>
+    <rect width="165" height="150" rx="14" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.1" filter="url(#cyanGlow)"/>
+
+    <!-- 3D Rotating Isometric Box Icon -->
+    <g transform="translate(82, 45)">
+      <!-- Animated rotation of the whole box structure -->
+      <g filter="url(#cyanGlow)">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="12s" repeatCount="indefinite"/>
+        <!-- Isometric projection lines -->
+        <!-- Center vertical line -->
+        <line x1="0" y1="-18" x2="0" y2="18" stroke="#22d3ee" stroke-width="1"/>
+        <!-- Left vertical line -->
+        <line x1="-16" y1="-9" x2="-16" y2="9" stroke="#22d3ee" stroke-width="1" opacity="0.7"/>
+        <!-- Right vertical line -->
+        <line x1="16" y1="-9" x2="16" y2="9" stroke="#22d3ee" stroke-width="1" opacity="0.7"/>
+        <!-- Isometric top face -->
+        <polygon points="0,-18 16,-9 0,0 -16,-9" fill="none" stroke="#22d3ee" stroke-width="1.2"/>
+        <!-- Isometric bottom left face -->
+        <polygon points="-16,-9 0,0 0,18 -16,9" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.7"/>
+        <!-- Isometric bottom right face -->
+        <polygon points="16,-9 0,0 0,18 16,9" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.7"/>
+        
+        <!-- Rotating orbital halo -->
+        <ellipse cx="0" cy="0" rx="22" ry="7" fill="none" stroke="#22d3ee" stroke-dasharray="3,3" stroke-width="0.8">
+          <animateTransform attributeName="transform" type="rotate" values="360;0" dur="6s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
     </g>
-    <text x="82" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0" font-weight="600">3D Parallax</text>
-    <text x="82" y="100" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Profile Card</text>
-    <text x="82" y="130" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#22d3ee" opacity="0.7">perspective: 1200px</text>
-    <text x="82" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#22d3ee" opacity="0.5">preserve-3d</text>
+
+    <!-- Typography & Metadata -->
+    <text x="82" y="85" text-anchor="middle" class="card-title">3D Parallax</text>
+    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Interactive Card</text>
+    
+    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#22d3ee" opacity="0.8">perspective: 1200px</text>
+    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#22d3ee" opacity="0.5">transform-style: 3d</text>
   </g>
 
-  <!-- Card 2: Router -->
+  <!-- ================= CARD 2: ROUTER ================= -->
   <g transform="translate(195, 15)">
-    <rect width="165" height="150" rx="12" fill="url(#cardBg)" stroke="#a855f7" stroke-width="1" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <!-- Animated route icon -->
-    <g transform="translate(82, 45)" filter="url(#cGlow)">
-      <circle cx="-12" cy="0" r="4" fill="none" stroke="#a855f7" stroke-width="1.5">
-        <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+    <rect width="165" height="150" rx="14" class="card-bg" stroke="url(#purpleBorder)" stroke-width="1.2"/>
+    <rect width="165" height="150" rx="14" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.1" filter="url(#purpleGlow)"/>
+
+    <!-- Router Architecture Map Icon -->
+    <g transform="translate(82, 45)" filter="url(#purpleGlow)">
+      <!-- Central origin node -->
+      <circle cx="-16" cy="0" r="4.5" fill="#060913" stroke="#a855f7" stroke-width="1.5"/>
+      <circle cx="-16" cy="0" r="1.5" fill="#a855f7"/>
+
+      <!-- Destination branches -->
+      <circle cx="16" cy="-12" r="3.5" fill="#060913" stroke="#a855f7" stroke-width="1.2"/>
+      <circle cx="16" cy="12" r="3.5" fill="#060913" stroke="#a855f7" stroke-width="1.2"/>
+
+      <!-- Connection paths -->
+      <path d="M-11.5,-2 Q0,-12 12,-12" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,3">
+        <animate attributeName="stroke-dashoffset" values="20;0" dur="2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M-11.5,2 Q0,12 12,12" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,3">
+        <animate attributeName="stroke-dashoffset" values="20;0" dur="2s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- Pulse flow -->
+      <circle r="2" fill="#a855f7">
+        <animateMotion path="M-11.5,-2 Q0,-12 12,-12" dur="2s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="12" cy="-8" r="3" fill="none" stroke="#a855f7" stroke-width="1.5">
-        <animate attributeName="r" values="2;4;2" dur="2.5s" repeatCount="indefinite"/>
+      <circle r="2" fill="#a855f7" begin="1s">
+        <animateMotion path="M-11.5,2 Q0,12 12,12" dur="2s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="12" cy="8" r="3" fill="none" stroke="#a855f7" stroke-width="1.5">
-        <animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite"/>
-      </circle>
-      <line x1="-8" y1="-2" x2="9" y2="-8" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,2">
-        <animate attributeName="stroke-dashoffset" values="0;-10" dur="1.5s" repeatCount="indefinite"/>
-      </line>
-      <line x1="-8" y1="2" x2="9" y2="8" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,2">
-        <animate attributeName="stroke-dashoffset" values="0;-10" dur="1.5s" repeatCount="indefinite"/>
-      </line>
     </g>
-    <text x="82" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0" font-weight="600">Hash Router</text>
-    <text x="82" y="100" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Zero Dependencies</text>
-    <text x="82" y="130" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#a855f7" opacity="0.7">pushState + popstate</text>
-    <text x="82" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#a855f7" opacity="0.5">#blog/:id</text>
+
+    <text x="82" y="85" text-anchor="middle" class="card-title">Hash Router</text>
+    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Zero Dependencies</text>
+    
+    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.8">pushState + popstate</text>
+    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.5">#blog/:post-slug</text>
   </g>
 
-  <!-- Card 3: Heatmap -->
+  <!-- ================= CARD 3: HEATMAP ================= -->
   <g transform="translate(375, 15)">
-    <rect width="165" height="150" rx="12" fill="url(#cardBg)" stroke="#34d399" stroke-width="1" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
-    </rect>
-    <!-- Animated heatmap grid icon -->
-    <g transform="translate(60, 30)" filter="url(#cGlow)">
-      <rect x="0" y="0" width="8" height="8" rx="1" fill="#34d399" opacity="0.2"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/></rect>
-      <rect x="10" y="0" width="8" height="8" rx="1" fill="#34d399" opacity="0.5"><animate attributeName="opacity" values="0.5;0.3;0.5" dur="2.5s" repeatCount="indefinite"/></rect>
-      <rect x="20" y="0" width="8" height="8" rx="1" fill="#34d399" opacity="0.8"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="3.5s" repeatCount="indefinite"/></rect>
-      <rect x="30" y="0" width="8" height="8" rx="1" fill="#34d399" opacity="0.3"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4s" repeatCount="indefinite"/></rect>
-      <rect x="0" y="10" width="8" height="8" rx="1" fill="#34d399" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/></rect>
-      <rect x="10" y="10" width="8" height="8" rx="1" fill="#34d399" opacity="0.4"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/></rect>
-      <rect x="20" y="10" width="8" height="8" rx="1" fill="#34d399" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="2.5s" repeatCount="indefinite"/></rect>
-      <rect x="30" y="10" width="8" height="8" rx="1" fill="#34d399" opacity="0.6"><animate attributeName="opacity" values="0.6;0.1;0.6" dur="3.5s" repeatCount="indefinite"/></rect>
-      <rect x="0" y="20" width="8" height="8" rx="1" fill="#34d399" opacity="0.5"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/></rect>
-      <rect x="10" y="20" width="8" height="8" rx="1" fill="#34d399" opacity="0.1"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="2s" repeatCount="indefinite"/></rect>
-      <rect x="20" y="20" width="8" height="8" rx="1" fill="#34d399" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/></rect>
-      <rect x="30" y="20" width="8" height="8" rx="1" fill="#34d399" opacity="0.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="2.5s" repeatCount="indefinite"/></rect>
+    <rect width="165" height="150" rx="14" class="card-bg" stroke="url(#emeraldBorder)" stroke-width="1.2"/>
+    <rect width="165" height="150" rx="14" fill="none" stroke="#34d399" stroke-width="1.5" opacity="0.1" filter="url(#emeraldGlow)"/>
+
+    <!-- Heatmap Contribution Board Icon -->
+    <g transform="translate(62, 30)" filter="url(#emeraldGlow)">
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.2"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="11" y="0" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/></rect>
+      <rect x="22" y="0" width="8" height="8" rx="1.5" fill="#10b981" opacity="0.5"><animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite"/></rect>
+      <rect x="33" y="0" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.5s" repeatCount="indefinite"/></rect>
+
+      <!-- Row 2 -->
+      <rect x="0" y="11" width="8" height="8" rx="1.5" fill="#047857" opacity="0.9"><animate attributeName="opacity" values="0.9;0.4;0.9" dur="3.5s" repeatCount="indefinite"/></rect>
+      <rect x="11" y="11" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.1"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="1.5s" repeatCount="indefinite"/></rect>
+      <rect x="22" y="11" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="33" y="11" width="8" height="8" rx="1.5" fill="#10b981" opacity="0.8"><animate attributeName="opacity" values="0.8;0.9;0.8" dur="2.5s" repeatCount="indefinite"/></rect>
+
+      <!-- Row 3 -->
+      <rect x="0" y="22" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.4"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/></rect>
+      <rect x="11" y="22" width="8" height="8" rx="1.5" fill="#059669" opacity="0.7"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="22" y="22" width="8" height="8" rx="1.5" fill="#34d399" opacity="0.2"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/></rect>
+      <rect x="33" y="22" width="8" height="8" rx="1.5" fill="#047857" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatCount="indefinite"/></rect>
     </g>
-    <text x="82" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0" font-weight="600">GitHub Heatmap</text>
-    <text x="82" y="100" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Live Contributions</text>
-    <text x="82" y="130" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#34d399" opacity="0.7">async API hydration</text>
-    <text x="82" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#34d399" opacity="0.5">dynamic grid cells</text>
+
+    <text x="82" y="85" text-anchor="middle" class="card-title">GitHub Heatmap</text>
+    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Live Contributions</text>
+    
+    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#34d399" opacity="0.8">async API hydration</text>
+    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#34d399" opacity="0.5">viewport lazyload</text>
   </g>
 
-  <!-- Card 4: AI Chatbot -->
+  <!-- ================= CARD 4: AI ASSISTANT ================= -->
   <g transform="translate(555, 15)">
-    <rect width="165" height="150" rx="12" fill="url(#cardBg)" stroke="#ec4899" stroke-width="1" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <!-- Animated brain/AI icon -->
-    <g transform="translate(82, 45)" filter="url(#cGlow)">
-      <circle cx="0" cy="0" r="12" fill="none" stroke="#ec4899" stroke-width="1.5">
-        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+    <rect width="165" height="150" rx="14" class="card-bg" stroke="url(#pinkBorder)" stroke-width="1.2"/>
+    <rect width="165" height="150" rx="14" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.1" filter="url(#pinkGlow)"/>
+
+    <!-- Neural Cybernetic Mind Icon -->
+    <g transform="translate(82, 45)" filter="url(#pinkGlow)">
+      <!-- Outer revolving brain network rings -->
+      <circle cx="0" cy="0" r="14" fill="none" stroke="#ec4899" stroke-width="0.8" stroke-dasharray="6,4">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="0" cy="0" r="6" fill="none" stroke="#ec4899" stroke-width="0.8" opacity="0.6">
-        <animate attributeName="r" values="6;3;6" dur="3s" repeatCount="indefinite"/>
+      <circle cx="0" cy="0" r="8" fill="none" stroke="#ec4899" stroke-width="0.8" stroke-opacity="0.5">
+        <animateTransform attributeName="transform" type="rotate" values="360;0" dur="4s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="0" cy="0" r="2" fill="#ec4899" opacity="0.8">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+      
+      <!-- Central AI Core Node -->
+      <circle cx="0" cy="0" r="3.5" fill="#ec4899">
+        <animate attributeName="r" values="3.5;5;3.5" dur="2s" repeatCount="indefinite"/>
       </circle>
-      <!-- Neural connections -->
-      <line x1="-6" y1="-6" x2="6" y2="6" stroke="#ec4899" stroke-width="0.5" opacity="0.4">
-        <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite"/>
-      </line>
-      <line x1="6" y1="-6" x2="-6" y2="6" stroke="#ec4899" stroke-width="0.5" opacity="0.4">
-        <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/>
-      </line>
+      
+      <!-- Synaptic pulses shooting out -->
+      <g stroke="#ec4899" stroke-width="0.75" opacity="0.6">
+        <line x1="0" y1="0" x2="-12" y2="-12"><animate attributeName="stroke-opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></line>
+        <line x1="0" y1="0" x2="12" y2="-12"><animate attributeName="stroke-opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/></line>
+        <line x1="0" y1="0" x2="12" y2="12"><animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></line>
+        <line x1="0" y1="0" x2="-12" y2="12"><animate attributeName="stroke-opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/></line>
+      </g>
     </g>
-    <text x="82" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0" font-weight="600">AI Assistant</text>
-    <text x="82" y="100" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Context-Aware Bot</text>
-    <text x="82" y="130" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#ec4899" opacity="0.7">Groq + Llama LLM</text>
-    <text x="82" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#ec4899" opacity="0.5">rate-limited API</text>
+
+    <text x="82" y="85" text-anchor="middle" class="card-title">AI Assistant</text>
+    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Context-Aware Bot</text>
+    
+    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#ec4899" opacity="0.8">Groq + Llama 3 LLM</text>
+    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#ec4899" opacity="0.5">sliding rate limit</text>
   </g>
 
-  <!-- Card 5: CLI Card -->
+  <!-- ================= CARD 5: CLI CARD ================= -->
   <g transform="translate(735, 15)">
-    <rect width="150" height="150" rx="12" fill="url(#cardBg)" stroke="#facc15" stroke-width="1" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <!-- Animated terminal icon -->
-    <g transform="translate(75, 45)" filter="url(#cGlow)">
-      <rect x="-16" y="-10" width="32" height="22" rx="3" fill="none" stroke="#facc15" stroke-width="1.5"/>
-      <text x="-10" y="2" font-family="'Courier New', monospace" font-size="9" fill="#facc15">
-        &gt;_
-        <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
-      </text>
+    <!-- Width adjusted to match 150px layout container -->
+    <rect width="150" height="150" rx="14" class="card-bg" stroke="url(#goldBorder)" stroke-width="1.2"/>
+    <rect width="150" height="150" rx="14" fill="none" stroke="#facc15" stroke-width="1.5" opacity="0.1" filter="url(#goldGlow)"/>
+
+    <!-- Futuristic Terminal Console Icon -->
+    <g transform="translate(75, 45)" filter="url(#goldGlow)">
+      <!-- Console Frame -->
+      <rect x="-20" y="-14" width="40" height="28" rx="3.5" fill="#060913" stroke="#facc15" stroke-width="1.2"/>
+      <!-- Window Controls -->
+      <circle cx="-14" cy="-10" r="1.2" fill="#ef4444"/>
+      <circle cx="-10" cy="-10" r="1.2" fill="#facc15"/>
+      <circle cx="-6" cy="-10" r="1.2" fill="#22c55e"/>
+      
+      <!-- Console Prompt and blinking cursor -->
+      <text x="-15" y="4" font-family="'JetBrains Mono', monospace" font-size="8" fill="#facc15" font-weight="700">&gt;_</text>
+      <!-- Blinking block cursor -->
+      <rect x="-4" y="-2" width="4" height="6" fill="#facc15">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
     </g>
-    <text x="75" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0" font-weight="600">CLI Card</text>
-    <text x="75" y="100" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">NPM Package</text>
-    <text x="75" y="130" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#facc15" opacity="0.7">npx jyotirmoy-laha</text>
-    <text x="75" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#facc15" opacity="0.5">--matrix mode</text>
+
+    <text x="75" y="85" text-anchor="middle" class="card-title">CLI Card</text>
+    <text x="75" y="100" text-anchor="middle" class="card-subtitle">NPM Executable</text>
+    
+    <text x="75" y="128" text-anchor="middle" class="card-code" fill="#facc15" opacity="0.8">npx jyotirmoy-laha</text>
+    <text x="75" y="140" text-anchor="middle" class="card-code" fill="#facc15" opacity="0.5">--matrix effect</text>
   </g>
 </svg>
