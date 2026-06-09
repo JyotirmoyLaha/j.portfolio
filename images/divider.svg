@@ -1,18 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="2" viewBox="0 0 900 2">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="10" viewBox="0 0 900 10">
   <defs>
+    <!-- Rich linear gradient for the active divider line -->
     <linearGradient id="divGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0a0a1a;stop-opacity:0"/>
-      <stop offset="15%" style="stop-color:#22d3ee;stop-opacity:1">
-        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="4s" repeatCount="indefinite"/>
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.1"/>
+      <stop offset="15%" stop-color="#22d3ee" stop-opacity="1">
+        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="5s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1">
-        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="4s" repeatCount="indefinite"/>
+      <stop offset="50%" stop-color="#a855f7" stop-opacity="1">
+        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="5s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="85%" style="stop-color:#ec4899;stop-opacity:1">
-        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="4s" repeatCount="indefinite"/>
+      <stop offset="85%" stop-color="#ec4899" stop-opacity="1">
+        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="5s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" style="stop-color:#0a0a1a;stop-opacity:0"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.1"/>
     </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-50%" y="-200%" width="200%" height="500%">
+      <feGaussianBlur stdDeviation="1.5" result="blur1"/>
+      <feGaussianBlur stdDeviation="3" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Soft glow for data packets -->
+    <filter id="packetGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
-  <rect width="900" height="2" fill="url(#divGrad)" rx="1"/>
+
+  <!-- 1. Background static tracking line -->
+  <line x1="0" y1="5" x2="900" y2="5" stroke="rgba(34, 211, 238, 0.15)" stroke-width="1"/>
+
+  <!-- 2. Active glowing divider line -->
+  <line x1="50" y1="5" x2="850" y2="5" stroke="url(#divGrad)" stroke-width="1.5" stroke-linecap="round" filter="url(#neonGlow)"/>
+
+  <!-- 3. Animated light pulses (Data Packets) gliding along the circuit -->
+  <!-- Left to Right packet -->
+  <circle cx="0" cy="5" r="2" fill="#22d3ee" filter="url(#packetGlow)">
+    <animate attributeName="cx" values="50;850" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite" keyTimes="0;0.1;0.9;1"/>
+  </circle>
+
+  <!-- Right to Left packet -->
+  <circle cx="900" cy="5" r="1.5" fill="#ec4899" filter="url(#packetGlow)">
+    <animate attributeName="cx" values="850;50" dur="5s" repeatCount="indefinite" begin="1.5s" calcMode="spline" keySplines="0.4 0 0.2 1"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite" begin="1.5s" keyTimes="0;0.1;0.9;1"/>
+  </circle>
+
+  <!-- 4. Glowing Diamond Cyber-Node at Center -->
+  <g transform="translate(0, 0)">
+    <polygon points="450,1 454,5 450,9 446,5" fill="#1e1b4b" stroke="url(#divGrad)" stroke-width="1" filter="url(#neonGlow)">
+      <animate attributeName="stroke-width" values="1;1.8;1" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+    <!-- Core glowing dot -->
+    <circle cx="450" cy="5" r="1.2" fill="#22d3ee">
+      <animate attributeName="fill" values="#22d3ee;#ec4899;#a855f7;#22d3ee" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="1.2;2;1.2" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 </svg>
