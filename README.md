@@ -15,9 +15,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/JyotirmoyLaha/j.portfolio?style=social" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/JyotirmoyLaha/j.portfolio?style=social" alt="Forks" />
-  <img src="https://img.shields.io/github/last-commit/JyotirmoyLaha/j.portfolio?color=22d3ee" alt="Last Commit" />
+  <img src="https://badgen.net/github/stars/JyotirmoyLaha/j.portfolio?icon=github" alt="Stars" />
+  <img src="https://badgen.net/github/forks/JyotirmoyLaha/j.portfolio?icon=github" alt="Forks" />
+  <img src="https://badgen.net/github/last-commit/JyotirmoyLaha/j.portfolio?color=22d3ee&icon=github" alt="Last Commit" />
 </p>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
