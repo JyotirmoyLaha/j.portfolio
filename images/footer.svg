@@ -1,68 +1,138 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="120" viewBox="0 0 900 120">
   <defs>
-    <linearGradient id="ftBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0d1117"/>
-      <stop offset="100%" style="stop-color:#161b22"/>
-    </linearGradient>
+    <!-- Styles with imported fonts and animations -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      
+      .footer-desc {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 500;
+        font-size: 13px;
+        fill: #94a3b8;
+      }
+      
+      .footer-author {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      .footer-bg {
+        fill: #040612;
+        fill-opacity: 0.9;
+        stroke: rgba(255, 255, 255, 0.03);
+        stroke-width: 1.2;
+      }
+      
+      /* Heartbeat pulse animation */
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1) translate(-6px, -6px); }
+        25% { transform: scale(1.2) translate(-5px, -5px); }
+        40% { transform: scale(1.1) translate(-5.5px, -5.5px); }
+        60% { transform: scale(1.3) translate(-4.5px, -4.5px); }
+      }
+      .heart-icon {
+        transform-origin: center;
+        animation: heartbeat 1.8s infinite ease-in-out;
+      }
+
+      /* Audio wave equalizer bars animation */
+      @keyframes eqBar {
+        0%, 100% { height: 3px; }
+        50% { height: 16px; }
+      }
+      .eq-bar {
+        animation: eqBar 1.5s infinite ease-in-out;
+      }
+    </style>
+
+    <!-- Rich gradients -->
     <linearGradient id="ftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#22d3ee">
-        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="5s" repeatCount="indefinite"/>
+      <stop offset="0%" stop-color="#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="6s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" style="stop-color:#a855f7">
-        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="5s" repeatCount="indefinite"/>
+      <stop offset="100%" stop-color="#ec4899">
+        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="6s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
-    <filter id="ftGlow" x="-10%" y="-10%" width="120%" height="120%">
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="heartGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
 
-  <rect width="900" height="120" fill="url(#ftBg)" rx="12"/>
+  <!-- Glassmorphic Background Panel -->
+  <rect width="900" height="120" rx="14" class="footer-bg"/>
 
-  <!-- Top gradient line -->
-  <line x1="0" y1="2" x2="900" y2="2" stroke="url(#ftGrad)" stroke-width="2" opacity="0.5"/>
+  <!-- Top accent indicator line -->
+  <line x1="0" y1="2" x2="900" y2="2" stroke="url(#ftGrad)" stroke-width="1.5" opacity="0.4" filter="url(#neonGlow)"/>
 
-  <!-- Animated wireframe triangle -->
-  <g transform="translate(450, 55)" opacity="0.06">
-    <polygon points="0,-40 35,20 -35,20" fill="none" stroke="#22d3ee" stroke-width="1">
-      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="30s" repeatCount="indefinite"/>
-    </polygon>
-    <polygon points="0,-30 26,15 -26,15" fill="none" stroke="#a855f7" stroke-width="0.5">
-      <animateTransform attributeName="transform" type="rotate" values="0;-360" dur="25s" repeatCount="indefinite"/>
+  <!-- Subtle wireframe floating graphics (Left Side) -->
+  <g transform="translate(100, 60)" opacity="0.04">
+    <polygon points="0,-25 22,12 -22,12" fill="none" stroke="#22d3ee" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="20s" repeatCount="indefinite"/>
     </polygon>
   </g>
+  
+  <!-- Subtle wireframe floating graphics (Right Side) -->
+  <g transform="translate(800, 60)" opacity="0.04">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#ec4899" stroke-width="1" stroke-dasharray="4,4">
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="25s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Made with love text -->
-  <text x="450" y="50" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">
-    Designed &amp; Built with
-  </text>
-  <text x="450" y="50" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">
-    Designed &amp; Built with
-  </text>
+  <!-- Centered Footer Credits Group -->
+  <g transform="translate(450, 48)" text-anchor="middle">
+    <!-- Description Line -->
+    <text x="0" y="0" class="footer-desc">
+      Designed &amp; Built with
+    </text>
 
-  <!-- Animated heart -->
-  <g transform="translate(540, 43)" filter="url(#ftGlow)">
-    <text font-size="14" fill="#ec4899">
-      ❤️
-      <animate attributeName="font-size" values="14;17;14" dur="1.5s" repeatCount="indefinite"/>
+    <!-- Vector Glowing Heart (SVG Path replacing basic text emoji) -->
+    <g transform="translate(68, -13)" class="heart-icon" filter="url(#heartGlow)">
+      <path d="M12,5 C10.5,1.5 5,1.5 2,6 C-2,12 8,20 12,22 C16,20 26,12 22,6 C19,1.5 13.5,1.5 12,5 Z" 
+            fill="#ec4899" 
+            transform="scale(0.65)" />
+    </g>
+    
+    <!-- Author Signature Line -->
+    <text x="0" y="24" class="footer-author" fill="url(#ftGrad)" filter="url(#neonGlow)">
+      by Jyotirmoy Laha
     </text>
   </g>
 
-  <text x="450" y="75" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="url(#ftGrad)" filter="url(#ftGlow)">
-    by Jyotirmoy Laha
-  </text>
-
-  <!-- Bottom animated dots -->
-  <g transform="translate(350, 100)">
-    <circle cx="0" cy="0" r="2" fill="#22d3ee" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/></circle>
-    <circle cx="25" cy="0" r="2" fill="#a855f7" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/></circle>
-    <circle cx="50" cy="0" r="2" fill="#ec4899" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.6s" repeatCount="indefinite"/></circle>
-    <circle cx="75" cy="0" r="2" fill="#facc15" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="0.9s" repeatCount="indefinite"/></circle>
-    <circle cx="100" cy="0" r="2" fill="#34d399" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
-    <circle cx="125" cy="0" r="2" fill="#3b82f6" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.5s" repeatCount="indefinite"/></circle>
-    <circle cx="150" cy="0" r="2" fill="#f97316" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="1.8s" repeatCount="indefinite"/></circle>
-    <circle cx="175" cy="0" r="2" fill="#22d3ee" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="2.1s" repeatCount="indefinite"/></circle>
-    <circle cx="200" cy="0" r="2" fill="#a855f7" opacity="0.5"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" begin="2.4s" repeatCount="indefinite"/></circle>
+  <!-- Equalizer Audio-Wave Visualizer at Bottom Center -->
+  <g transform="translate(360, 95)" fill="url(#ftGrad)" opacity="0.6">
+    <!-- Equalizer lines that bounce -->
+    <rect x="0" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.2s; animation-delay: 0.1s;"/>
+    <rect x="8" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.5s; animation-delay: 0.3s;"/>
+    <rect x="16" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 0.9s; animation-delay: 0.5s;"/>
+    <rect x="24" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.8s; animation-delay: 0.2s;"/>
+    <rect x="32" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.1s; animation-delay: 0.7s;"/>
+    <rect x="40" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.4s; animation-delay: 0.4s;"/>
+    <rect x="48" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 0.8s; animation-delay: 0.9s;"/>
+    <rect x="56" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.6s; animation-delay: 0.1s;"/>
+    
+    <rect x="120" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.3s; animation-delay: 0.5s;"/>
+    <rect x="128" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 0.7s; animation-delay: 0.2s;"/>
+    <rect x="136" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.5s; animation-delay: 0.8s;"/>
+    <rect x="144" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.1s; animation-delay: 0.1s;"/>
+    <rect x="152" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.7s; animation-delay: 0.3s;"/>
+    <rect x="160" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 0.9s; animation-delay: 0.6s;"/>
+    <rect x="168" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.4s; animation-delay: 0.4s;"/>
+    <rect x="176" y="-1.5" width="2" height="3" rx="1" class="eq-bar" style="animation-duration: 1.2s; animation-delay: 0.7s;"/>
   </g>
 </svg>
