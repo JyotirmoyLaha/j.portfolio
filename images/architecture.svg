@@ -1,120 +1,205 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
   <defs>
-    <linearGradient id="archBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0d1117"/>
-      <stop offset="100%" style="stop-color:#161b22"/>
+    <!-- Styles with imported fonts and animations -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      
+      .node-title {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        fill: #f8fafc;
+      }
+      
+      .node-tech {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 9px;
+      }
+      
+      .arch-title {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        fill: #64748b;
+      }
+
+      .arch-bg {
+        fill: #040612;
+        fill-opacity: 0.9;
+        stroke: rgba(34, 211, 238, 0.1);
+        stroke-width: 1.2;
+      }
+
+      .node-bg {
+        fill: #090e1a;
+        fill-opacity: 0.95;
+        stroke-width: 1.2;
+      }
+      
+      @keyframes radarPulse {
+        0% { r: 1.5; opacity: 0.8; }
+        100% { r: 6; opacity: 0; }
+      }
+      
+      .pulse-ring {
+        animation: radarPulse 2s infinite ease-out;
+      }
+    </style>
+
+    <!-- Glow filters for node boundaries -->
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <filter id="purpleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <filter id="pinkGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="goldGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="emeraldGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Node Borders -->
+    <linearGradient id="cyanBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.1"/>
     </linearGradient>
-    <filter id="neonGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+
+    <linearGradient id="purpleBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <linearGradient id="pinkBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#db2777" stop-opacity="0.1"/>
+    </linearGradient>
+    
+    <linearGradient id="goldBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#facc15" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ca8a04" stop-opacity="0.1"/>
+    </linearGradient>
+    
+    <linearGradient id="emeraldBorder" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.1"/>
+    </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="900" height="200" fill="url(#archBg)" rx="12"/>
-  <rect width="900" height="200" fill="none" stroke="#22d3ee" stroke-width="1" rx="12" opacity="0.15"/>
-
-  <!-- Title -->
-  <text x="450" y="30" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#94a3b8" letter-spacing="4" font-weight="600">
-    ARCHITECTURE
-  </text>
-
-  <!-- Central node: Portfolio -->
-  <g filter="url(#neonGlow)">
-    <rect x="370" y="75" width="160" height="50" rx="10" fill="#0d1117" stroke="#22d3ee" stroke-width="1.5" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <text x="450" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#22d3ee" font-weight="bold">
-      📦 j.portfolio
-    </text>
-    <text x="450" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
-      SPA · Vanilla JS
-    </text>
+  <!-- Background grid layer -->
+  <rect width="900" height="200" rx="14" class="arch-bg"/>
+  
+  <!-- Subtle network background vectors -->
+  <g stroke="rgba(255,255,255,0.02)" stroke-width="0.8">
+    <circle cx="450" cy="100" r="130" fill="none"/>
+    <circle cx="450" cy="100" r="210" fill="none"/>
   </g>
 
-  <!-- Left node: CLI Card -->
-  <g filter="url(#neonGlow)">
-    <rect x="60" y="75" width="150" height="50" rx="10" fill="#0d1117" stroke="#a855f7" stroke-width="1.5" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <text x="135" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#a855f7" font-weight="bold">
-      💻 CLI Card
-    </text>
-    <text x="135" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
-      Node.js · NPM
-    </text>
-  </g>
+  <!-- Title Indicator -->
+  <text x="450" y="28" text-anchor="middle" class="arch-title">SYSTEM ARCHITECTURE</text>
 
-  <!-- Right node: Chatbot -->
-  <g filter="url(#neonGlow)">
-    <rect x="690" y="75" width="150" height="50" rx="10" fill="#0d1117" stroke="#ec4899" stroke-width="1.5" opacity="0.9">
-      <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/>
-    </rect>
-    <text x="765" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#ec4899" font-weight="bold">
-      🤖 AI Chatbot
-    </text>
-    <text x="765" y="115" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#94a3b8">
-      FastAPI · Groq
-    </text>
-  </g>
-
-  <!-- Animated connection lines -->
-  <!-- Left to Center -->
-  <line x1="210" y1="100" x2="370" y2="100" stroke="#a855f7" stroke-width="1" stroke-dasharray="6,4" opacity="0.5">
-    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2s" repeatCount="indefinite"/>
-  </line>
-  <!-- Animated data packet left -->
-  <circle r="3" fill="#a855f7" opacity="0.8" filter="url(#softGlow)">
-    <animate attributeName="cx" values="210;370" dur="2s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="100;100" dur="2s" repeatCount="indefinite"/>
+  <!-- ================= CONNECTION LAYERS & FLOWS ================= -->
+  <!-- 1. CLI Card (Left) to Portfolio SPA (Center) -->
+  <path d="M 210,100 L 370,100" stroke="rgba(168,85,247,0.15)" stroke-width="1.5"/>
+  <path d="M 210,100 L 370,100" stroke="#a855f7" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2.5s" repeatCount="indefinite"/>
+  </path>
+  <!-- Interactive data packet -->
+  <circle r="2.5" fill="#a855f7" filter="url(#purpleGlow)">
+    <animateMotion path="M 210,100 L 370,100" dur="3s" repeatCount="indefinite"/>
   </circle>
 
-  <!-- Right to Center -->
-  <line x1="530" y1="100" x2="690" y2="100" stroke="#ec4899" stroke-width="1" stroke-dasharray="6,4" opacity="0.5">
-    <animate attributeName="stroke-dashoffset" values="0;20" dur="2s" repeatCount="indefinite"/>
-  </line>
-  <!-- Animated data packet right -->
-  <circle r="3" fill="#ec4899" opacity="0.8" filter="url(#softGlow)">
-    <animate attributeName="cx" values="690;530" dur="2s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="100;100" dur="2s" repeatCount="indefinite"/>
+  <!-- 2. AI Chatbot (Right) to Portfolio SPA (Center) -->
+  <path d="M 530,100 L 690,100" stroke="rgba(236,72,153,0.15)" stroke-width="1.5"/>
+  <path d="M 530,100 L 690,100" stroke="#ec4899" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;20" dur="2.5s" repeatCount="indefinite"/>
+  </path>
+  <!-- Interactive data packet -->
+  <circle r="2.5" fill="#ec4899" filter="url(#pinkGlow)">
+    <animateMotion path="M 690,100 L 530,100" dur="3s" repeatCount="indefinite"/>
   </circle>
 
-  <!-- Bottom nodes -->
-  <!-- Blog Engine -->
-  <g filter="url(#neonGlow)">
-    <rect x="250" y="150" width="130" height="35" rx="8" fill="#0d1117" stroke="#facc15" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <text x="315" y="172" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#facc15">
-      📝 Blog Engine
-    </text>
+  <!-- 3. Portfolio SPA (Center) to Blog Engine (Bottom Left) -->
+  <path d="M 400,125 Q 370,140 315,150" fill="none" stroke="rgba(250,204,21,0.15)" stroke-width="1.5"/>
+  <path d="M 400,125 Q 370,140 315,150" fill="none" stroke="#facc15" stroke-width="1" stroke-dasharray="4,4" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- 4. Portfolio SPA (Center) to GitHub Heatmap (Bottom Right) -->
+  <path d="M 500,125 Q 530,140 585,150" fill="none" stroke="rgba(52,211,153,0.15)" stroke-width="1.5"/>
+  <path d="M 500,125 Q 530,140 585,150" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="4,4" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
+  </path>
+
+
+  <!-- ================= NODES ================= -->
+  
+  <!-- CENTRAL NODE: Portfolio SPA -->
+  <g transform="translate(370, 75)">
+    <rect width="160" height="50" rx="10" class="node-bg" stroke="url(#cyanBorder)"/>
+    <rect width="160" height="50" rx="10" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.1" filter="url(#cyanGlow)"/>
+    <!-- Status Indicator -->
+    <circle cx="18" cy="25" r="3" fill="#22d3ee" filter="url(#cyanGlow)"/>
+    <circle cx="18" cy="25" r="1.5" fill="#22d3ee" class="pulse-ring" stroke="#22d3ee" stroke-width="1" fill-opacity="0"/>
+    
+    <text x="92" y="24" text-anchor="middle" class="node-title">📦 j.portfolio</text>
+    <text x="92" y="38" text-anchor="middle" class="node-tech" fill="#22d3ee">SPA · Vanilla JS</text>
   </g>
 
-  <!-- GitHub Heatmap -->
-  <g filter="url(#neonGlow)">
-    <rect x="520" y="150" width="130" height="35" rx="8" fill="#0d1117" stroke="#34d399" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <text x="585" y="172" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#34d399">
-      📊 GitHub API
-    </text>
+  <!-- LEFT NODE: CLI Card -->
+  <g transform="translate(60, 75)">
+    <rect width="150" height="50" rx="10" class="node-bg" stroke="url(#purpleBorder)"/>
+    <rect width="150" height="50" rx="10" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.1" filter="url(#purpleGlow)"/>
+    <!-- Status Indicator -->
+    <circle cx="18" cy="25" r="3" fill="#a855f7" filter="url(#purpleGlow)"/>
+    
+    <text x="85" y="24" text-anchor="middle" class="node-title">💻 CLI Card</text>
+    <text x="85" y="38" text-anchor="middle" class="node-tech" fill="#a855f7">Node.js · NPM</text>
   </g>
 
-  <!-- Vertical lines to bottom nodes -->
-  <line x1="400" y1="125" x2="315" y2="150" stroke="#facc15" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4">
-    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
-  </line>
-  <line x1="500" y1="125" x2="585" y2="150" stroke="#34d399" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4">
-    <animate attributeName="stroke-dashoffset" values="0;-16" dur="2s" repeatCount="indefinite"/>
-  </line>
+  <!-- RIGHT NODE: AI Chatbot -->
+  <g transform="translate(690, 75)">
+    <rect width="150" height="50" rx="10" class="node-bg" stroke="url(#pinkBorder)"/>
+    <rect width="150" height="50" rx="10" fill="none" stroke="#ec4899" stroke-width="1.5" opacity="0.1" filter="url(#pinkGlow)"/>
+    <!-- Status Indicator -->
+    <circle cx="18" cy="25" r="3" fill="#ec4899" filter="url(#pinkGlow)"/>
+    
+    <text x="85" y="24" text-anchor="middle" class="node-title">🤖 AI Chatbot</text>
+    <text x="85" y="38" text-anchor="middle" class="node-tech" fill="#ec4899">FastAPI · Groq</text>
+  </g>
+
+  <!-- BOTTOM LEFT NODE: Blog Engine -->
+  <g transform="translate(250, 150)">
+    <rect width="130" height="35" rx="8" class="node-bg" stroke="url(#goldBorder)"/>
+    <rect width="130" height="35" rx="8" fill="none" stroke="#facc15" stroke-width="1.2" opacity="0.1" filter="url(#goldGlow)"/>
+    <!-- Status Indicator -->
+    <circle cx="15" cy="18" r="2.5" fill="#facc15" filter="url(#goldGlow)"/>
+    
+    <text x="73" y="21" text-anchor="middle" class="node-title" font-size="11">📝 Blog Engine</text>
+  </g>
+
+  <!-- BOTTOM RIGHT NODE: GitHub API -->
+  <g transform="translate(520, 150)">
+    <rect width="130" height="35" rx="8" class="node-bg" stroke="url(#emeraldBorder)"/>
+    <rect width="130" height="35" rx="8" fill="none" stroke="#34d399" stroke-width="1.2" opacity="0.1" filter="url(#emeraldGlow)"/>
+    <!-- Status Indicator -->
+    <circle cx="15" cy="18" r="2.5" fill="#34d399" filter="url(#emeraldGlow)"/>
+    
+    <text x="73" y="21" text-anchor="middle" class="node-title" font-size="11">📊 GitHub API</text>
+  </g>
 </svg>
