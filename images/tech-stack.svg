@@ -1,121 +1,191 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="130" viewBox="0 0 900 130">
   <defs>
-    <linearGradient id="tsBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0d1117"/>
-      <stop offset="100%" style="stop-color:#161b22"/>
-    </linearGradient>
-    <filter id="tsGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <!-- Styles with imported fonts and animations -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap');
+      
+      .stack-header {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        fill: #64748b;
+      }
+      
+      .tech-name {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 10px;
+      }
+
+      .stack-bg {
+        fill: #040612;
+        fill-opacity: 0.9;
+        stroke: rgba(34, 211, 238, 0.1);
+        stroke-width: 1.2;
+      }
+      
+      .pill-bg {
+        fill: #090e1a;
+        fill-opacity: 0.95;
+        stroke: rgba(255, 255, 255, 0.05);
+        stroke-width: 0.8;
+      }
+
+      /* Pulse animation for category lights */
+      @keyframes pulseLight {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+      }
+      .indicator-light {
+        animation: pulseLight 3s infinite ease-in-out;
+      }
+    </style>
+
+    <!-- Glowing Filters -->
+    <filter id="glowEffect" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
 
-  <rect width="900" height="130" fill="url(#tsBg)" rx="12"/>
+  <!-- Main glassmorphic background container -->
+  <rect width="900" height="130" rx="14" class="stack-bg"/>
 
-  <!-- Row 1: Frontend -->
-  <text x="20" y="30" font-family="'Courier New', monospace" font-size="10" fill="#94a3b8" letter-spacing="2">FRONTEND</text>
+  <!-- Decorative network lines inside container -->
+  <line x1="105" y1="0" x2="105" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="0" y1="48" x2="900" y2="48" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
+  <line x1="0" y1="90" x2="900" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
 
-  <g transform="translate(120, 15)" filter="url(#tsGlow)">
-    <rect width="80" height="26" rx="6" fill="none" stroke="#f97316" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
-    </rect>
-    <text x="40" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f97316">HTML5</text>
+  <!-- ================= ROW 1: FRONTEND ================= -->
+  <!-- Category Tag -->
+  <g transform="translate(20, 28)">
+    <circle cx="0" cy="-3" r="2.5" fill="#22d3ee" class="indicator-light" filter="url(#glowEffect)"/>
+    <text x="12" y="0" class="stack-header">FRONTEND</text>
   </g>
 
-  <g transform="translate(210, 15)" filter="url(#tsGlow)">
-    <rect width="100" height="26" rx="6" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite"/>
-    </rect>
-    <text x="50" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8">Tailwind CSS</text>
+  <!-- HTML5 -->
+  <g transform="translate(120, 14)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#f97316" filter="url(#glowEffect)"/>
+    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#f97316">HTML5</text>
   </g>
 
-  <g transform="translate(320, 15)" filter="url(#tsGlow)">
-    <rect width="90" height="26" rx="6" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.4s" repeatCount="indefinite"/>
-    </rect>
-    <text x="45" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#a78bfa">CSS 1700+</text>
+  <!-- Tailwind CSS -->
+  <g transform="translate(210, 14)">
+    <rect width="100" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#38bdf8" filter="url(#glowEffect)"/>
+    <text x="52" y="16" text-anchor="middle" class="tech-name" fill="#38bdf8">Tailwind CSS</text>
   </g>
 
-  <g transform="translate(420, 15)" filter="url(#tsGlow)">
-    <rect width="85" height="26" rx="6" fill="none" stroke="#facc15" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.6s" repeatCount="indefinite"/>
-    </rect>
-    <text x="42" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#facc15">ES6+ JS</text>
+  <!-- CSS 1700+ -->
+  <g transform="translate(320, 14)">
+    <rect width="90" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#a78bfa" filter="url(#glowEffect)"/>
+    <text x="47" y="16" text-anchor="middle" class="tech-name" fill="#a78bfa">CSS 1700+</text>
   </g>
 
-  <g transform="translate(515, 15)" filter="url(#tsGlow)">
-    <rect width="70" height="26" rx="6" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite"/>
-    </rect>
-    <text x="35" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#22d3ee">Lenis</text>
+  <!-- ES6+ JS -->
+  <g transform="translate(420, 14)">
+    <rect width="85" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#facc15" filter="url(#glowEffect)"/>
+    <text x="44" y="16" text-anchor="middle" class="tech-name" fill="#facc15">ES6+ JS</text>
   </g>
 
-  <g transform="translate(595, 15)" filter="url(#tsGlow)">
-    <rect width="60" height="26" rx="6" fill="none" stroke="#34d399" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="4s" repeatCount="indefinite"/>
-    </rect>
-    <text x="30" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#34d399">AOS</text>
+  <!-- Lenis -->
+  <g transform="translate(515, 14)">
+    <rect width="70" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#22d3ee" filter="url(#glowEffect)"/>
+    <text x="36" y="16" text-anchor="middle" class="tech-name" fill="#22d3ee">Lenis</text>
   </g>
 
-  <!-- Row 2: Backend -->
-  <text x="20" y="72" font-family="'Courier New', monospace" font-size="10" fill="#94a3b8" letter-spacing="2">BACKEND</text>
-
-  <g transform="translate(120, 57)" filter="url(#tsGlow)">
-    <rect width="80" height="26" rx="6" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.1s" repeatCount="indefinite"/>
-    </rect>
-    <text x="40" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#3b82f6">Python 3</text>
+  <!-- AOS -->
+  <g transform="translate(595, 14)">
+    <rect width="60" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#34d399" filter="url(#glowEffect)"/>
+    <text x="31" y="16" text-anchor="middle" class="tech-name" fill="#34d399">AOS</text>
   </g>
 
-  <g transform="translate(210, 57)" filter="url(#tsGlow)">
-    <rect width="80" height="26" rx="6" fill="none" stroke="#059669" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.3s" repeatCount="indefinite"/>
-    </rect>
-    <text x="40" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#059669">FastAPI</text>
+
+  <!-- ================= ROW 2: BACKEND ================= -->
+  <!-- Category Tag -->
+  <g transform="translate(20, 70)">
+    <circle cx="0" cy="-3" r="2.5" fill="#a855f7" class="indicator-light" filter="url(#glowEffect)" style="animation-delay: 1s;"/>
+    <text x="12" y="0" class="stack-header">BACKEND</text>
   </g>
 
-  <g transform="translate(300, 57)" filter="url(#tsGlow)">
-    <rect width="95" height="26" rx="6" fill="none" stroke="#f43f5e" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.5s" repeatCount="indefinite"/>
-    </rect>
-    <text x="47" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f43f5e">SQLAlchemy</text>
+  <!-- Python 3 -->
+  <g transform="translate(120, 56)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#3b82f6" filter="url(#glowEffect)"/>
+    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#3b82f6">Python 3</text>
   </g>
 
-  <g transform="translate(405, 57)" filter="url(#tsGlow)">
-    <rect width="80" height="26" rx="6" fill="none" stroke="#ec4899" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.7s" repeatCount="indefinite"/>
-    </rect>
-    <text x="40" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ec4899">Groq AI</text>
+  <!-- FastAPI -->
+  <g transform="translate(210, 56)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#059669" filter="url(#glowEffect)"/>
+    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#059669">FastAPI</text>
   </g>
 
-  <!-- Row 3: CLI -->
-  <text x="20" y="114" font-family="'Courier New', monospace" font-size="10" fill="#94a3b8" letter-spacing="2">CLI</text>
-
-  <g transform="translate(120, 99)" filter="url(#tsGlow)">
-    <rect width="80" height="26" rx="6" fill="none" stroke="#84cc16" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite"/>
-    </rect>
-    <text x="40" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#84cc16">Node.js</text>
+  <!-- SQLAlchemy -->
+  <g transform="translate(300, 56)">
+    <rect width="95" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#f43f5e" filter="url(#glowEffect)"/>
+    <text x="49" y="16" text-anchor="middle" class="tech-name" fill="#f43f5e">SQLAlchemy</text>
   </g>
 
-  <g transform="translate(210, 99)" filter="url(#tsGlow)">
-    <rect width="65" height="26" rx="6" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.4s" repeatCount="indefinite"/>
-    </rect>
-    <text x="32" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444">NPM</text>
+  <!-- Groq AI -->
+  <g transform="translate(405, 56)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#ec4899" filter="url(#glowEffect)"/>
+    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#ec4899">Groq AI</text>
   </g>
 
-  <g transform="translate(285, 99)" filter="url(#tsGlow)">
-    <rect width="75" height="26" rx="6" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.8">
-      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.6s" repeatCount="indefinite"/>
-    </rect>
-    <text x="37" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#a855f7">ANSI FX</text>
+
+  <!-- ================= ROW 3: CLI ================= -->
+  <!-- Category Tag -->
+  <g transform="translate(20, 112)">
+    <circle cx="0" cy="-3" r="2.5" fill="#facc15" class="indicator-light" filter="url(#glowEffect)" style="animation-delay: 2s;"/>
+    <text x="12" y="0" class="stack-header">CLI</text>
   </g>
 
-  <!-- Floating decorative dots -->
-  <circle cx="750" cy="30" r="2" fill="#22d3ee" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="4s" repeatCount="indefinite"/></circle>
-  <circle cx="800" cy="65" r="1.5" fill="#a855f7" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="5s" repeatCount="indefinite"/></circle>
-  <circle cx="830" cy="100" r="2.5" fill="#ec4899" opacity="0.2"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/></circle>
-  <circle cx="770" cy="110" r="1" fill="#facc15" opacity="0.3"><animate attributeName="opacity" values="0.1;0.6;0.1" dur="6s" repeatCount="indefinite"/></circle>
-  <circle cx="860" cy="40" r="1.5" fill="#34d399" opacity="0.2"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="4.5s" repeatCount="indefinite"/></circle>
+  <!-- Node.js -->
+  <g transform="translate(120, 98)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#84cc16" filter="url(#glowEffect)"/>
+    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#84cc16">Node.js</text>
+  </g>
+
+  <!-- NPM -->
+  <g transform="translate(210, 98)">
+    <rect width="65" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#ef4444" filter="url(#glowEffect)"/>
+    <text x="34" y="16" text-anchor="middle" class="tech-name" fill="#ef4444">NPM</text>
+  </g>
+
+  <!-- ANSI FX -->
+  <g transform="translate(285, 98)">
+    <rect width="75" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#a855f7" filter="url(#glowEffect)"/>
+    <text x="39" y="16" text-anchor="middle" class="tech-name" fill="#a855f7">ANSI FX</text>
+  </g>
+
+
+  <!-- Floating decorative system status indicators (Far Right) -->
+  <g transform="translate(750, 65)">
+    <!-- Circuit grid lines -->
+    <path d="M 0,-40 L 40,-40 L 60,-20 L 60,20 L 40,40 L 0,40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1.2"/>
+    <path d="M 10,-20 L 30,-20 L 40,-10 L 40,10 L 30,20 L 10,20" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1.2"/>
+
+    <!-- Pulse nodes -->
+    <circle cx="60" cy="-20" r="1.5" fill="#22d3ee" opacity="0.3"><animate attributeName="opacity" values="0.1;0.8;0.1" dur="2.5s" repeatCount="indefinite"/></circle>
+    <circle cx="60" cy="20" r="1.5" fill="#ec4899" opacity="0.3"><animate attributeName="opacity" values="0.1;0.8;0.1" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="30" cy="-20" r="2" fill="#a855f7" opacity="0.4"><animate attributeName="opacity" values="0.1;0.9;0.1" dur="3s" repeatCount="indefinite"/></circle>
+    <circle cx="40" cy="10" r="1" fill="#facc15" opacity="0.4"><animate attributeName="opacity" values="0.1;0.9;0.1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="10" cy="-20" r="2.5" fill="#34d399" opacity="0.3"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="3.5s" repeatCount="indefinite"/></circle>
+  </g>
 </svg>
