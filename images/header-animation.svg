@@ -1,150 +1,245 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
   <defs>
-    <!-- Animated gradient for the background -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a0a1a">
-        <animate attributeName="stop-color" values="#0a0a1a;#1a0a2e;#0a1a2e;#0a0a1a" dur="6s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="50%" style="stop-color:#1a0a2e">
-        <animate attributeName="stop-color" values="#1a0a2e;#0a1a2e;#0a0a1a;#1a0a2e" dur="6s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="100%" style="stop-color:#0a1a2e">
-        <animate attributeName="stop-color" values="#0a1a2e;#0a0a1a;#1a0a2e;#0a1a2e" dur="6s" repeatCount="indefinite"/>
-      </stop>
-    </linearGradient>
+    <!-- Styles with imported fonts and animations -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap');
+      
+      .title {
+        font-family: 'Space Grotesk', -apple-system, sans-serif;
+        font-weight: 700;
+        font-size: 46px;
+        letter-spacing: -0.02em;
+      }
+      
+      .subtitle {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.35em;
+        fill: #94a3b8;
+      }
+      
+      .code-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+        font-size: 13px;
+        fill: #22d3ee;
+      }
+      
+      .code-float {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 400;
+        fill: #38bdf8;
+      }
+      
+      /* Glowing animations */
+      @keyframes pulseGlow {
+        0%, 100% { filter: drop-shadow(0 0 2px rgba(34,211,238,0.4)) drop-shadow(0 0 8px rgba(34,211,238,0.2)); }
+        50% { filter: drop-shadow(0 0 6px rgba(34,211,238,0.8)) drop-shadow(0 0 16px rgba(34,211,238,0.4)); }
+      }
+      
+      .neon-glow {
+        animation: pulseGlow 4s infinite alternate ease-in-out;
+      }
+    </style>
 
-    <!-- Glowing text gradient -->
+    <!-- Rich background gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#0f0f2d" />
+      <stop offset="60%" stop-color="#070719" />
+      <stop offset="100%" stop-color="#02020a" />
+    </radialGradient>
+
+    <!-- Linear gradients for tech borders & paths -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="50%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    
     <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#22d3ee">
-        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="4s" repeatCount="indefinite"/>
+      <stop offset="0%" stop-color="#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#a855f7;#ec4899;#22d3ee" dur="6s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="50%" style="stop-color:#a855f7">
-        <animate attributeName="stop-color" values="#a855f7;#ec4899;#22d3ee;#a855f7" dur="4s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="100%" style="stop-color:#ec4899">
-        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="4s" repeatCount="indefinite"/>
+      <stop offset="100%" stop-color="#ec4899">
+        <animate attributeName="stop-color" values="#ec4899;#22d3ee;#a855f7;#ec4899" dur="6s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
 
-    <!-- Glow filter -->
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+    <!-- Radial glow for grid mask -->
+    <radialGradient id="gridMaskGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    
+    <mask id="gridMask">
+      <rect width="900" height="300" fill="url(#gridMaskGrad)"/>
+    </mask>
+
+    <!-- High-fidelity glowing filter -->
+    <filter id="cyberGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur1"/>
+      <feGaussianBlur stdDeviation="10" result="blur2"/>
       <feMerge>
-        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Soft glow for particles -->
-    <filter id="particleGlow" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-
-    <!-- 3D perspective grid pattern -->
-    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(34,211,238,0.07)" stroke-width="0.5"/>
-    </pattern>
   </defs>
 
-  <!-- Background -->
+  <!-- Deep space background -->
   <rect width="900" height="300" fill="url(#bgGrad)" rx="16"/>
 
-  <!-- Animated grid overlay for 3D depth feel -->
-  <rect width="900" height="300" fill="url(#grid)" rx="16" opacity="0.5">
-    <animateTransform attributeName="transform" type="translate" values="0,0;60,60;0,0" dur="10s" repeatCount="indefinite"/>
+  <!-- Cybernetic Grid with 3D Perspective spacing -->
+  <g mask="url(#gridMask)" opacity="0.3">
+    <!-- Horizon Line -->
+    <line x1="0" y1="90" x2="900" y2="90" stroke="rgba(34,211,238,0.15)" stroke-width="1"/>
+    
+    <!-- Perspective lines radiating from a point slightly above center -->
+    <g stroke="rgba(34,211,238,0.15)" stroke-width="0.75">
+      <line x1="450" y1="80" x2="-250" y2="300"/>
+      <line x1="450" y1="80" x2="-100" y2="300"/>
+      <line x1="450" y1="80" x2="50" y2="300"/>
+      <line x1="450" y1="80" x2="180" y2="300"/>
+      <line x1="450" y1="80" x2="290" y2="300"/>
+      <line x1="450" y1="80" x2="380" y2="300"/>
+      <line x1="450" y1="80" x2="450" y2="300"/>
+      <line x1="450" y1="80" x2="520" y2="300"/>
+      <line x1="450" y1="80" x2="610" y2="300"/>
+      <line x1="450" y1="80" x2="720" y2="300"/>
+      <line x1="450" y1="80" x2="850" y2="300"/>
+      <line x1="450" y1="80" x2="1000" y2="300"/>
+      <line x1="450" y1="80" x2="1150" y2="300"/>
+    </g>
+    
+    <!-- Horizontal lines spaced exponentially for 3D depth -->
+    <g stroke="rgba(34,211,238,0.12)" stroke-width="0.75">
+      <line x1="0" y1="95" x2="900" y2="95"/>
+      <line x1="0" y1="102" x2="900" y2="102"/>
+      <line x1="0" y1="111" x2="900" y2="111"/>
+      <line x1="0" y1="123" x2="900" y2="123"/>
+      <line x1="0" y1="138" x2="900" y2="138"/>
+      <line x1="0" y1="158" x2="900" y2="158"/>
+      <line x1="0" y1="184" x2="900" y2="184"/>
+      <line x1="0" y1="219" x2="900" y2="219"/>
+      <line x1="0" y1="264" x2="900" y2="264"/>
+    </g>
+  </g>
+
+  <!-- Interactive data packets moving along perspective lines -->
+  <g mask="url(#gridMask)">
+    <!-- Packet left -->
+    <circle r="2" fill="#22d3ee" filter="url(#softGlow)">
+      <animateMotion path="M -100,300 L 450,80" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Packet right -->
+    <circle r="2" fill="#ec4899" filter="url(#softGlow)">
+      <animateMotion path="M 1000,300 L 450,80" dur="7s" repeatCount="indefinite" begin="2s"/>
+      <animate attributeName="opacity" values="0.8;0" dur="7s" repeatCount="indefinite" begin="2s"/>
+    </circle>
+  </g>
+
+  <!-- Floating Code Fragments (Typewriter and fade effect) -->
+  <g opacity="0.25">
+    <text x="50" y="80" class="code-float" opacity="0">
+      const dev = { name: "Jyotirmoy" };
+      <animate attributeName="opacity" values="0;0.7;0.7;0" dur="10s" repeatCount="indefinite" begin="0s"/>
+      <animate attributeName="y" values="80;70;80" dur="10s" repeatCount="indefinite"/>
+    </text>
+    <text x="680" y="100" class="code-float" opacity="0">
+      import { AI } from 'groq';
+      <animate attributeName="opacity" values="0;0.8;0.8;0" dur="12s" repeatCount="indefinite" begin="3s"/>
+      <animate attributeName="y" values="100;90;100" dur="12s" repeatCount="indefinite"/>
+    </text>
+    <text x="80" y="220" class="code-float" opacity="0">
+      npx jyotirmoy-laha --matrix
+      <animate attributeName="opacity" values="0;0.6;0.6;0" dur="9s" repeatCount="indefinite" begin="5s"/>
+      <animate attributeName="y" values="220;230;220" dur="9s" repeatCount="indefinite"/>
+    </text>
+    <text x="650" y="240" class="code-float" opacity="0">
+      &lt;div class="glass" /&gt;
+      <animate attributeName="opacity" values="0;0.7;0.7;0" dur="11s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="y" values="240;230;240" dur="11s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- Tech Circle & Orbital Nodes (Left Side) -->
+  <g transform="translate(180, 150)" opacity="0.3">
+    <circle cx="0" cy="0" r="45" fill="none" stroke="url(#primaryGrad)" stroke-width="0.75" stroke-dasharray="4,6">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#22d3ee" stroke-width="0.5" opacity="0.5"/>
+    <!-- Orbiting satellite node -->
+    <circle cx="30" cy="0" r="2.5" fill="#22d3ee" filter="url(#softGlow)">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Tech Circle & Orbital Nodes (Right Side) -->
+  <g transform="translate(720, 150)" opacity="0.3">
+    <circle cx="0" cy="0" r="50" fill="none" stroke="url(#primaryGrad)" stroke-width="0.75" stroke-dasharray="10,4">
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="20s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#ec4899" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="-35" cy="0" r="3" fill="#ec4899" filter="url(#softGlow)">
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- 3D Globe / Orbital Sphere (Center Under Title) -->
+  <g transform="translate(450, 145)" opacity="0.12" filter="url(#softGlow)">
+    <circle cx="0" cy="0" r="90" fill="none" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="5,15">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="40s" repeatCount="indefinite"/>
+    </circle>
+    <ellipse cx="0" cy="0" rx="90" ry="25" fill="none" stroke="#a855f7" stroke-width="0.75">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="18s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="0" rx="25" ry="90" fill="none" stroke="#ec4899" stroke-width="0.75">
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="22s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- Core Content Box (Typographical elements) -->
+  <g transform="translate(450, 135)" text-anchor="middle">
+    <!-- Glowing background aura behind text -->
+    <circle cx="0" cy="-20" r="50" fill="#22d3ee" opacity="0.08" filter="url(#cyberGlow)"/>
+
+    <!-- Main Title -->
+    <text x="0" y="-12" class="title" fill="url(#textGrad)" filter="url(#cyberGlow)">Jyotirmoy Laha</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="26" class="subtitle">
+      DEVELOPER  ·  BUILDER  ·  CREATOR
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" repeatCount="indefinite"/>
+    </text>
+    
+    <!-- Glowing Decorative Line -->
+    <line x1="-120" y1="42" x2="120" y2="42" stroke="url(#textGrad)" stroke-width="2" stroke-linecap="round" opacity="0.8" class="neon-glow" />
+    
+    <!-- Code tag -->
+    <text x="0" y="68" class="code-tag">
+      &lt; Full-Stack Developer /&gt;
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- Soft Scanning Line Effect -->
+  <rect x="0" y="0" width="900" height="40" fill="url(#primaryGrad)" opacity="0.03" mask="url(#gridMask)">
+    <animate attributeName="y" values="-40;300" dur="5s" repeatCount="indefinite"/>
   </rect>
 
-  <!-- Floating 3D cubes -->
-  <!-- Cube 1 -->
-  <g opacity="0.15" filter="url(#particleGlow)">
-    <animateTransform attributeName="transform" type="translate" values="80,200;100,160;80,200" dur="7s" repeatCount="indefinite"/>
-    <polygon points="0,0 30,0 30,30 0,30" fill="none" stroke="#22d3ee" stroke-width="1">
-      <animateTransform attributeName="transform" type="rotate" values="0 15 15;360 15 15" dur="12s" repeatCount="indefinite"/>
-    </polygon>
-  </g>
-
-  <!-- Cube 2 -->
-  <g opacity="0.12" filter="url(#particleGlow)">
-    <animateTransform attributeName="transform" type="translate" values="750,60;770,100;750,60" dur="9s" repeatCount="indefinite"/>
-    <polygon points="0,0 25,0 25,25 0,25" fill="none" stroke="#a855f7" stroke-width="1">
-      <animateTransform attributeName="transform" type="rotate" values="0 12 12;-360 12 12" dur="15s" repeatCount="indefinite"/>
-    </polygon>
-  </g>
-
-  <!-- Cube 3 -->
-  <g opacity="0.1" filter="url(#particleGlow)">
-    <animateTransform attributeName="transform" type="translate" values="200,50;180,80;200,50" dur="8s" repeatCount="indefinite"/>
-    <polygon points="0,0 20,0 20,20 0,20" fill="none" stroke="#ec4899" stroke-width="1">
-      <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10" dur="10s" repeatCount="indefinite"/>
-    </polygon>
-  </g>
-
-  <!-- Floating orbs / spheres -->
-  <circle cx="120" cy="80" r="4" fill="#22d3ee" opacity="0.3" filter="url(#particleGlow)">
-    <animate attributeName="cy" values="80;60;80" dur="5s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="780" cy="220" r="3" fill="#a855f7" opacity="0.25" filter="url(#particleGlow)">
-    <animate attributeName="cy" values="220;200;220" dur="6s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.25;0.5;0.25" dur="6s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="650" cy="50" r="5" fill="#ec4899" opacity="0.2" filter="url(#particleGlow)">
-    <animate attributeName="cy" values="50;35;50" dur="4s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.2;0.45;0.2" dur="4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="350" cy="260" r="3.5" fill="#facc15" opacity="0.2" filter="url(#particleGlow)">
-    <animate attributeName="cy" values="260;240;260" dur="7s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="7s" repeatCount="indefinite"/>
-  </circle>
-
-  <!-- 3D Wireframe sphere (simulated with animated ellipses) -->
-  <g transform="translate(450, 150)" opacity="0.08">
-    <ellipse cx="0" cy="0" rx="120" ry="120" fill="none" stroke="#22d3ee" stroke-width="0.5">
-      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="20s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse cx="0" cy="0" rx="120" ry="40" fill="none" stroke="#22d3ee" stroke-width="0.5">
-      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="15s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse cx="0" cy="0" rx="40" ry="120" fill="none" stroke="#a855f7" stroke-width="0.5">
-      <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0" dur="18s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse cx="0" cy="0" rx="80" ry="120" fill="none" stroke="#ec4899" stroke-width="0.3">
-      <animateTransform attributeName="transform" type="rotate" values="30 0 0;390 0 0" dur="22s" repeatCount="indefinite"/>
-    </ellipse>
-  </g>
-
-  <!-- Main title text with glow -->
-  <text x="450" y="120" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="42" font-weight="bold" fill="url(#textGrad)" filter="url(#glow)">
-    Jyotirmoy Laha
-  </text>
-
-  <!-- Subtitle with typewriter-like appearance -->
-  <text x="450" y="160" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" fill="#94a3b8" letter-spacing="3">
-    DEVELOPER  ·  BUILDER  ·  CREATOR
-    <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
-  </text>
-
-  <!-- Animated underline -->
-  <line x1="300" y1="175" x2="600" y2="175" stroke="url(#textGrad)" stroke-width="2" stroke-linecap="round" opacity="0.6">
-    <animate attributeName="x1" values="450;300;450" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-    <animate attributeName="x2" values="450;600;450" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-  </line>
-
-  <!-- Code snippet decoration -->
-  <text x="450" y="210" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" fill="#22d3ee" opacity="0.7">
-    &lt; Full-Stack Developer /&gt;
-    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- Bottom decorative line -->
-  <line x1="0" y1="298" x2="900" y2="298" stroke="url(#textGrad)" stroke-width="2" opacity="0.5"/>
-
-  <!-- Scanning line effect -->
-  <rect x="0" y="0" width="900" height="2" fill="url(#textGrad)" opacity="0.15" rx="1">
-    <animate attributeName="y" values="-2;300" dur="4s" repeatCount="indefinite"/>
-  </rect>
+  <!-- Premium Frame Border Highlight (Subtle top & bottom edges) -->
+  <line x1="0" y1="0" x2="900" y2="0" stroke="url(#primaryGrad)" stroke-width="1.5" opacity="0.3"/>
+  <line x1="0" y1="300" x2="900" y2="300" stroke="url(#primaryGrad)" stroke-width="1.5" opacity="0.3"/>
 </svg>
