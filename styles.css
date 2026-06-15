@@ -139,12 +139,17 @@
     top: 34%;
     width: min(300px, 24vw);
     border-radius: 1.25rem;
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.45), rgba(248, 250, 252, 0.2));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.15), rgba(248, 250, 252, 0.08));
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+        0 1px 0 rgba(255, 255, 255, 0.1) inset;
     overflow: hidden;
+    animation: heroPanelFloat 8s ease-in-out infinite;
+    will-change: transform;
 }
 
 .hero-code-panel::after {
@@ -154,14 +159,30 @@
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.1), transparent 65%);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.08), transparent 65%);
     pointer-events: none;
 }
 
 .dark .hero-code-panel {
-    background: linear-gradient(160deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.25));
-    border-color: rgba(148, 163, 184, 0.1);
-    box-shadow: 0 20px 45px rgba(2, 6, 23, 0.25);
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.25), rgba(30, 41, 59, 0.12));
+    border-color: rgba(148, 163, 184, 0.06);
+    box-shadow:
+        0 20px 50px rgba(2, 6, 23, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 1px 0 rgba(255, 255, 255, 0.06) inset,
+        0 0 30px rgba(34, 211, 238, 0.04);
+}
+
+@keyframes heroPanelFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-12px) rotate(0.5deg);
+    }
+    66% {
+        transform: translateY(-5px) rotate(-0.3deg);
+    }
 }
 
 .hero-code-panel-top {
@@ -169,7 +190,7 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.85rem 1rem 0.7rem;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
 }
 
 .hero-code-dot {
