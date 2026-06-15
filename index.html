@@ -239,7 +239,7 @@
     <div id="portfolio-view">
 
         <!-- 1. INTRO & MINDSET SECTION -->
-        <header class="relative pt-20 sm:pt-24 pb-6 sm:pb-10 hero-bg">
+        <header class="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-28 hero-bg">
             <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank"
                 class="absolute top-24 right-4 sm:right-6 z-30 w-14 h-14 sm:w-16 sm:h-16 bg-white/70 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 backdrop-blur-md rounded-full flex items-center justify-center text-base sm:text-lg font-display font-bold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 aria-label="View my CV">
@@ -261,111 +261,113 @@
                     <div class="hero-code-panel-body font-mono">
                         <p><span class="hero-code-keyword">const</span> focus = <span class="hero-code-string">"clarity"</span>;</p>
                         <p><span class="hero-code-keyword">if</span> (idea) <span class="hero-code-brace">{</span> shipProduct(); <span class="hero-code-brace">}</span></p>
-                        <p><span class="hero-code-keyword">return</span> quality <span class="hero-code-op">&&</span> performance;</p>
+                        <p><span class="hero-code-keyword">return</span> quality <span class="hero-code-op">&amp;&amp;</span> performance;</p>
                     </div>
                 </div>
             </div>
 
             <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
-                <div>
 
-                    <div>
-                        <div class="flex flex-col lg:flex-row items-center gap-6 sm:gap-10 lg:gap-16">
+                <!-- Upper Hero: Profile + Intro (side by side on lg, stacked on mobile) -->
+                <div class="flex flex-col items-center text-center lg:flex-row lg:items-start lg:text-left gap-10 sm:gap-12 lg:gap-20">
 
-                            <!-- Profile Image -->
-                            <div class="flex-shrink-0 block" data-aos="fade-right" data-aos-duration="800">
-                                <div class="relative" id="profileMusicWrapper">
-                                    <!-- Ambient 3D Glow Backdrop -->
-                                    <div class="profile-glow-backdrop absolute inset-0 -m-8 opacity-0 transition-all duration-500 rounded-full blur-3xl bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 pointer-events-none"></div>
+                    <!-- Profile Image -->
+                    <div class="flex-shrink-0" data-aos="fade-right" data-aos-duration="800">
+                        <div class="relative" id="profileMusicWrapper">
+                            <!-- Ambient 3D Glow Backdrop -->
+                            <div class="profile-glow-backdrop absolute inset-0 -m-8 opacity-0 transition-all duration-500 rounded-full blur-3xl bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 pointer-events-none"></div>
+                            
+                            <!-- Dynamic 3D Card Container -->
+                            <div class="profile-3d-card relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer" id="profileImage">
+                                <!-- Floating Foreground Corner Accents (Front Layer) -->
+                                <div class="profile-corner-accent top-accent"></div>
+                                <div class="profile-corner-accent bottom-accent"></div>
+                                
+                                <!-- Image Card Inner (Base Layer) -->
+                                <div class="profile-card-inner w-full h-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-200/50 dark:border-slate-700/50 shadow-2xl bg-slate-900/5 dark:bg-slate-900/40 backdrop-blur-sm">
+                                    <!-- Profile Photo -->
+                                    <img src="images/profile.webp" alt="Jyotirmoy Laha — BCA student and full-stack developer" class="w-full h-full object-cover profile-photo" loading="lazy">
                                     
-                                    <!-- Dynamic 3D Card Container -->
-                                    <div class="profile-3d-card relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer" id="profileImage">
-                                        <!-- Floating Foreground Corner Accents (Front Layer) -->
-                                        <div class="profile-corner-accent top-accent"></div>
-                                        <div class="profile-corner-accent bottom-accent"></div>
-                                        
-                                        <!-- Image Card Inner (Base Layer) -->
-                                        <div class="profile-card-inner w-full h-full rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-slate-200/50 dark:border-slate-700/50 shadow-2xl bg-slate-900/5 dark:bg-slate-900/40 backdrop-blur-sm">
-                                            <!-- Profile Photo -->
-                                            <img src="images/profile.webp" alt="Jyotirmoy Laha — BCA student and full-stack developer" class="w-full h-full object-cover profile-photo" loading="lazy">
-                                            
-                                            <!-- Premium Glass Gloss/Sheen Overlay (Upper Layer) -->
-                                            <div class="profile-sheen absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/0 via-white/10 to-white/30 dark:via-white/5 dark:to-white/20 opacity-0 transition-opacity duration-300"></div>
-                                        </div>
-                                    </div>
+                                    <!-- Premium Glass Gloss/Sheen Overlay (Upper Layer) -->
+                                    <div class="profile-sheen absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/0 via-white/10 to-white/30 dark:via-white/5 dark:to-white/20 opacity-0 transition-opacity duration-300"></div>
                                 </div>
-                            </div>
-
-                            <!-- Intro Text -->
-                            <div class="flex-1 text-left relative" data-aos="fade-left" data-aos-delay="200"
-                                data-aos-duration="800">
-
-                                <div class="hero-watermark select-none pointer-events-none" aria-hidden="true">///</div>
-
-                                <h1
-                                    class="hero-name font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 mb-2 tracking-tight leading-none relative z-10">
-                                    Jyotirmoy
-                                </h1>
-                                <div class="flex flex-col gap-2 sm:gap-3 mt-2 sm:mt-3 md:pl-1">
-                                    <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">BCA Student.
-                                    </h3>
-                                    <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">
-                                        Converts <span class="text-emerald-400">ideas</span> into <span
-                                            class="text-emerald-400">code</span>.
-                                    </h3>
-                                </div>
-
-                                <div class="flex gap-4 sm:gap-5 mt-6 sm:mt-8 mb-4 sm:mb-6">
-                                    <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="social-icon-btn github-btn"
-                                        data-tooltip="GitHub" aria-label="Visit my GitHub profile">
-                                        <i class="fa-brands fa-github text-xl" aria-hidden="true"></i>
-                                        <span class="social-tooltip">GitHub</span>
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer"
-                                        class="social-icon-btn linkedin-btn" data-tooltip="LinkedIn" aria-label="Connect on LinkedIn">
-                                        <i class="fa-brands fa-linkedin text-xl" aria-hidden="true"></i>
-                                        <span class="social-tooltip">LinkedIn</span>
-                                    </a>
-                                    <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn email-btn"
-                                        data-tooltip="Email" aria-label="Send me an email">
-                                        <i class="fa-solid fa-envelope text-xl" aria-hidden="true"></i>
-                                        <span class="social-tooltip">Email</span>
-                                    </a>
-                                    <a href="https://discord.com/users/1374624129067647039" target="_blank" rel="noopener noreferrer" class="social-icon-btn discord-btn"
-                                        data-tooltip="Discord" aria-label="Visit my Discord profile">
-                                        <i class="fa-brands fa-discord text-xl" aria-hidden="true"></i>
-                                        <span class="social-tooltip">Discord</span>
-                                    </a>
-                                </div>
-
-                                <div class="terminal-card" id="hero-terminal-card" role="button" tabindex="0" aria-label="Copy developer command to clipboard" data-command="npx jyotirmoy-laha">
-                                    <div class="terminal-accent"></div>
-                                    <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
-                                            class="text-emerald-400">@</span>dev</span>
-                                    <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
-                                        ~ portfolio
-                                        <i class="fa-regular fa-copy text-[11px] sm:text-xs" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="terminal-tooltip font-mono text-xs">Copy: npx jyotirmoy-laha</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Bio -->
-                        <div class="mt-8 sm:mt-12 md:mt-14 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
-                            <p class="font-mono text-sm text-cyan-400 mb-2 sm:mb-3">// bio</p>
-                            <div
-                                class="font-display text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed select-none">
-                                Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in
-                                analytical
-                                thinking. When faced with a tough situation or a complex bug, I don't panic — I break it
-                                down. I
-                                build projects to improve thinking, not just to show skills.
                             </div>
                         </div>
                     </div>
 
+                    <!-- Intro Text Block -->
+                    <div class="flex-1 relative" data-aos="fade-left" data-aos-delay="200"
+                        data-aos-duration="800">
+
+                        <div class="hero-watermark select-none pointer-events-none" aria-hidden="true">///</div>
+
+                        <h1
+                            class="hero-name font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 tracking-tight leading-none relative z-10">
+                            Jyotirmoy
+                        </h1>
+
+                        <div class="flex flex-col gap-2 sm:gap-3 mt-3 sm:mt-4 md:pl-1">
+                            <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">BCA Student.
+                            </h3>
+                            <h3 class="font-mono text-base sm:text-lg md:text-xl text-slate-500">
+                                Converts <span class="text-emerald-400">ideas</span> into <span
+                                    class="text-emerald-400">code</span>.
+                            </h3>
+                        </div>
+
+                        <!-- Social Icons -->
+                        <div class="flex justify-center lg:justify-start gap-4 sm:gap-5 mt-8 sm:mt-10">
+                            <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="social-icon-btn github-btn"
+                                data-tooltip="GitHub" aria-label="Visit my GitHub profile">
+                                <i class="fa-brands fa-github text-xl" aria-hidden="true"></i>
+                                <span class="social-tooltip">GitHub</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/jyotirmoylaha2005/" target="_blank" rel="noopener noreferrer"
+                                class="social-icon-btn linkedin-btn" data-tooltip="LinkedIn" aria-label="Connect on LinkedIn">
+                                <i class="fa-brands fa-linkedin text-xl" aria-hidden="true"></i>
+                                <span class="social-tooltip">LinkedIn</span>
+                            </a>
+                            <a href="mailto:jyotirmoy713128@gmail.com" class="social-icon-btn email-btn"
+                                data-tooltip="Email" aria-label="Send me an email">
+                                <i class="fa-solid fa-envelope text-xl" aria-hidden="true"></i>
+                                <span class="social-tooltip">Email</span>
+                            </a>
+                            <a href="https://discord.com/users/1374624129067647039" target="_blank" rel="noopener noreferrer" class="social-icon-btn discord-btn"
+                                data-tooltip="Discord" aria-label="Visit my Discord profile">
+                                <i class="fa-brands fa-discord text-xl" aria-hidden="true"></i>
+                                <span class="social-tooltip">Discord</span>
+                            </a>
+                        </div>
+
+                        <!-- Terminal Card -->
+                        <div class="flex justify-center lg:justify-start mt-6 sm:mt-8">
+                            <div class="terminal-card" id="hero-terminal-card" role="button" tabindex="0" aria-label="Copy developer command to clipboard" data-command="npx jyotirmoy-laha">
+                                <div class="terminal-accent"></div>
+                                <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
+                                        class="text-emerald-400">@</span>dev</span>
+                                <span class="font-mono text-slate-500 text-xs sm:text-sm ml-auto flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
+                                    ~ portfolio
+                                    <i class="fa-regular fa-copy text-[11px] sm:text-xs" aria-hidden="true"></i>
+                                </span>
+                                <span class="terminal-tooltip font-mono text-xs">Copy: npx jyotirmoy-laha</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Bio — separated as its own distinct section for breathing room -->
+                <div class="mt-14 sm:mt-20 md:mt-24 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
+                    <p class="font-mono text-sm text-cyan-400 mb-3 sm:mb-4 text-center lg:text-left">// bio</p>
+                    <div
+                        class="font-display text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed sm:leading-loose select-none text-center lg:text-left">
+                        Hey, I'm Jyotirmoy Laha — a BCA student. Beyond just writing code, my strength lies in
+                        analytical
+                        thinking. When faced with a tough situation or a complex bug, I don't panic — I break it
+                        down. I
+                        build projects to improve thinking, not just to show skills.
+                    </div>
+                </div>
+
             </div> <!-- /max-w-6xl -->
 
             <!-- Scroll Indicator -->
