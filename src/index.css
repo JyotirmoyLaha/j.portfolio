@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+
+  @keyframes spotlight {
+    0% {
+      opacity: 0;
+      transform: translate(-3%, -4%) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0%, 0%) scale(1);
+    }
+  }
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
