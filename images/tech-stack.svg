@@ -67,46 +67,53 @@
     <text x="12" y="0" class="stack-header">FRONTEND</text>
   </g>
 
-  <!-- HTML5 -->
+  <!-- React -->
   <g transform="translate(120, 14)">
-    <rect width="80" height="24" rx="6" class="pill-bg"/>
-    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#f97316" filter="url(#glowEffect)"/>
-    <text x="42" y="16" text-anchor="middle" class="tech-name" fill="#f97316">HTML5</text>
+    <rect width="60" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#61dafb" filter="url(#glowEffect)"/>
+    <text x="30" y="16" text-anchor="middle" class="tech-name" fill="#61dafb">React</text>
+  </g>
+
+  <!-- TypeScript -->
+  <g transform="translate(188, 14)">
+    <rect width="90" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#3178c6" filter="url(#glowEffect)"/>
+    <text x="45" y="16" text-anchor="middle" class="tech-name" fill="#3178c6">TypeScript</text>
+  </g>
+
+  <!-- Vite -->
+  <g transform="translate(286, 14)">
+    <rect width="50" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#bd34fe" filter="url(#glowEffect)"/>
+    <text x="25" y="16" text-anchor="middle" class="tech-name" fill="#bd34fe">Vite</text>
   </g>
 
   <!-- Tailwind CSS -->
-  <g transform="translate(210, 14)">
-    <rect width="100" height="24" rx="6" class="pill-bg"/>
+  <g transform="translate(344, 14)">
+    <rect width="95" height="24" rx="6" class="pill-bg"/>
     <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#38bdf8" filter="url(#glowEffect)"/>
-    <text x="52" y="16" text-anchor="middle" class="tech-name" fill="#38bdf8">Tailwind CSS</text>
+    <text x="47.5" y="16" text-anchor="middle" class="tech-name" fill="#38bdf8">Tailwind CSS</text>
   </g>
 
-  <!-- CSS 1700+ -->
-  <g transform="translate(320, 14)">
-    <rect width="90" height="24" rx="6" class="pill-bg"/>
-    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#a78bfa" filter="url(#glowEffect)"/>
-    <text x="47" y="16" text-anchor="middle" class="tech-name" fill="#a78bfa">CSS 1700+</text>
-  </g>
-
-  <!-- ES6+ JS -->
-  <g transform="translate(420, 14)">
-    <rect width="85" height="24" rx="6" class="pill-bg"/>
-    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#facc15" filter="url(#glowEffect)"/>
-    <text x="44" y="16" text-anchor="middle" class="tech-name" fill="#facc15">ES6+ JS</text>
-  </g>
-
-  <!-- Lenis -->
-  <g transform="translate(515, 14)">
+  <!-- Three.js -->
+  <g transform="translate(447, 14)">
     <rect width="70" height="24" rx="6" class="pill-bg"/>
-    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#22d3ee" filter="url(#glowEffect)"/>
-    <text x="36" y="16" text-anchor="middle" class="tech-name" fill="#22d3ee">Lenis</text>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#ffffff" filter="url(#glowEffect)"/>
+    <text x="35" y="16" text-anchor="middle" class="tech-name" fill="#ffffff">Three.js</text>
   </g>
 
-  <!-- AOS -->
-  <g transform="translate(595, 14)">
-    <rect width="60" height="24" rx="6" class="pill-bg"/>
+  <!-- Framer Motion -->
+  <g transform="translate(525, 14)">
+    <rect width="100" height="24" rx="6" class="pill-bg"/>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#f43f5e" filter="url(#glowEffect)"/>
+    <text x="50" y="16" text-anchor="middle" class="tech-name" fill="#f43f5e">Framer Motion</text>
+  </g>
+
+  <!-- Lenis & AOS -->
+  <g transform="translate(633, 14)">
+    <rect width="80" height="24" rx="6" class="pill-bg"/>
     <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#34d399" filter="url(#glowEffect)"/>
-    <text x="31" y="16" text-anchor="middle" class="tech-name" fill="#34d399">AOS</text>
+    <text x="40" y="16" text-anchor="middle" class="tech-name" fill="#34d399">Lenis &amp; AOS</text>
   </g>
 
 
