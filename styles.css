@@ -2853,14 +2853,16 @@ html.lenis body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity, transform;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
 }
 
 #intro-splash.splash-exit {
     opacity: 0;
-    transform: scale(1.04);
+    transform: scale(1.03);
+    filter: blur(6px);
     pointer-events: none;
 }
 
