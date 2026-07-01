@@ -123,43 +123,38 @@
     <text x="82" y="140" text-anchor="middle" class="card-code" fill="#22d3ee" opacity="0.5">transform-style: 3d</text>
   </g>
 
-  <!-- ================= CARD 2: ROUTER ================= -->
+  <!-- ================= CARD 2: WEBGL SHADERS ================= -->
   <g transform="translate(195, 15)">
     <rect width="165" height="150" rx="14" class="card-bg" stroke="url(#purpleBorder)" stroke-width="1.2"/>
     <rect width="165" height="150" rx="14" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.1" filter="url(#purpleGlow)"/>
 
-    <!-- Router Architecture Map Icon -->
+    <!-- WebGL Shader Wave Mesh Icon -->
     <g transform="translate(82, 45)" filter="url(#purpleGlow)">
-      <!-- Central origin node -->
-      <circle cx="-16" cy="0" r="4.5" fill="#060913" stroke="#a855f7" stroke-width="1.5"/>
-      <circle cx="-16" cy="0" r="1.5" fill="#a855f7"/>
-
-      <!-- Destination branches -->
-      <circle cx="16" cy="-12" r="3.5" fill="#060913" stroke="#a855f7" stroke-width="1.2"/>
-      <circle cx="16" cy="12" r="3.5" fill="#060913" stroke="#a855f7" stroke-width="1.2"/>
-
-      <!-- Connection paths -->
-      <path d="M-11.5,-2 Q0,-12 12,-12" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,3">
-        <animate attributeName="stroke-dashoffset" values="20;0" dur="2s" repeatCount="indefinite"/>
+      <!-- Multiple overlapping animated sine waves illustrating fluid background rendering -->
+      <path d="M -25,0 Q -12.5,-12 0,0 T 25,0" fill="none" stroke="#a855f7" stroke-width="1.2" stroke-linecap="round">
+        <animate attributeName="d" values="M -25,0 Q -12.5,-12 0,0 T 25,0; M -25,0 Q -12.5,12 0,0 T 25,0; M -25,0 Q -12.5,-12 0,0 T 25,0" dur="4s" repeatCount="indefinite"/>
       </path>
-      <path d="M-11.5,2 Q0,12 12,12" fill="none" stroke="#a855f7" stroke-width="0.8" stroke-dasharray="3,3">
-        <animate attributeName="stroke-dashoffset" values="20;0" dur="2s" repeatCount="indefinite"/>
+      <path d="M -25,-6 Q -12.5,6 0,-6 T 25,-6" fill="none" stroke="#a855f7" stroke-width="0.8" opacity="0.6" stroke-linecap="round">
+        <animate attributeName="d" values="M -25,-6 Q -12.5,6 0,-6 T 25,-6; M -25,-6 Q -12.5,-6 0,-6 T 25,-6; M -25,-6 Q -12.5,6 0,-6 T 25,-6" dur="5s" repeatCount="indefinite"/>
       </path>
-
-      <!-- Pulse flow -->
-      <circle r="2" fill="#a855f7">
-        <animateMotion path="M-11.5,-2 Q0,-12 12,-12" dur="2s" repeatCount="indefinite"/>
+      <path d="M -25,6 Q -12.5,-6 0,6 T 25,6" fill="none" stroke="#a855f7" stroke-width="0.8" opacity="0.4" stroke-linecap="round">
+        <animate attributeName="d" values="M -25,6 Q -12.5,-6 0,6 T 25,6; M -25,6 Q -12.5,6 0,6 T 25,6; M -25,6 Q -12.5,-6 0,6 T 25,6" dur="6s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Moving light coordinate dots traversing the waves -->
+      <circle r="1.5" fill="#a855f7">
+        <animateMotion path="M -25,0 Q -12.5,-12 0,0 T 25,0" dur="4s" repeatCount="indefinite"/>
       </circle>
-      <circle r="2" fill="#a855f7" begin="1s">
-        <animateMotion path="M-11.5,2 Q0,12 12,12" dur="2s" repeatCount="indefinite"/>
+      <circle r="1.2" fill="#a855f7" opacity="0.7">
+        <animateMotion path="M -25,-6 Q -12.5,6 0,-6 T 25,-6" dur="5s" repeatCount="indefinite" begin="1s"/>
       </circle>
     </g>
 
-    <text x="82" y="85" text-anchor="middle" class="card-title">Hash Router</text>
-    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Zero Dependencies</text>
+    <text x="82" y="85" text-anchor="middle" class="card-title">WebGL Shaders</text>
+    <text x="82" y="100" text-anchor="middle" class="card-subtitle">Three.js Background</text>
     
-    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.8">pushState + popstate</text>
-    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.5">#blog/:post-slug</text>
+    <text x="82" y="128" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.8">Three.js Custom Shader</text>
+    <text x="82" y="140" text-anchor="middle" class="card-code" fill="#a855f7" opacity="0.5">react-three/fiber</text>
   </g>
 
   <!-- ================= CARD 3: HEATMAP ================= -->
