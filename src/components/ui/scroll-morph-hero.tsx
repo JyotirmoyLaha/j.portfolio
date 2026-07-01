@@ -38,8 +38,9 @@ function FlipCard({
             }}
             transition={{
                 type: "spring",
-                stiffness: 45,
-                damping: 16,
+                stiffness: 70,
+                damping: 18,
+                mass: 0.8,
             }}
 
             // Initial style
@@ -47,6 +48,7 @@ function FlipCard({
                 position: "absolute",
                 width: IMG_WIDTH,
                 height: IMG_HEIGHT,
+                willChange: "transform, opacity",
             }}
             className="cursor-pointer group"
         >
@@ -183,15 +185,15 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
     // 1. Morph Progress: 0 (Circle) -> 1 (Bottom Arc)
     // Happens between scroll 0 and 600
     const morphProgress = useTransform(virtualScroll, [0, 600], [0, 1]);
-    const smoothMorph = useSpring(morphProgress, { stiffness: 40, damping: 20 });
+    const smoothMorph = useSpring(morphProgress, { stiffness: 60, damping: 22, mass: 0.8 });
 
     // 2. Scroll Rotation (Shuffling): Starts after morph (e.g., > 600)
     const scrollRotate = useTransform(virtualScroll, [600, 3000], [0, 360]);
-    const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 40, damping: 20 });
+    const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 55, damping: 20, mass: 0.8 });
 
     // --- Mouse Parallax ---
     const mouseX = useMotionValue(0);
-    const smoothMouseX = useSpring(mouseX, { stiffness: 30, damping: 20 });
+    const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 22, mass: 0.7 });
 
     useEffect(() => {
         const container = containerRef.current;
@@ -212,8 +214,8 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
 
     // --- Intro Sequence ---
     useEffect(() => {
-        const timer1 = setTimeout(() => setIntroPhase("line"), 500);
-        const timer2 = setTimeout(() => setIntroPhase("circle"), 2500);
+        const timer1 = setTimeout(() => setIntroPhase("line"), 600);
+        const timer2 = setTimeout(() => setIntroPhase("circle"), 2200);
         return () => { clearTimeout(timer1); clearTimeout(timer2); };
     }, []);
 
@@ -228,21 +230,44 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
         }));
     }, []);
 
-    // --- Render Loop (Manual Calculation for Morph) ---
-    const [morphValue, setMorphValue] = useState(0);
-    const [rotateValue, setRotateValue] = useState(0);
-    const [parallaxValue, setParallaxValue] = useState(0);
+    // --- Render Loop (Ref-based for zero re-renders) ---
+    const morphValueRef = useRef(0);
+    const rotateValueRef = useRef(0);
+    const parallaxValueRef = useRef(0);
+    const [, forceUpdate] = useState(0);
+    const rafIdRef = useRef<number>(0);
 
+    // Keep refs in sync with spring values (no setState)
     useEffect(() => {
-        const unsubscribeMorph = smoothMorph.on("change", setMorphValue);
-        const unsubscribeRotate = smoothScrollRotate.on("change", setRotateValue);
-        const unsubscribeParallax = smoothMouseX.on("change", setParallaxValue);
+        const unsubscribeMorph = smoothMorph.on("change", (v) => { morphValueRef.current = v; });
+        const unsubscribeRotate = smoothScrollRotate.on("change", (v) => { rotateValueRef.current = v; });
+        const unsubscribeParallax = smoothMouseX.on("change", (v) => { parallaxValueRef.current = v; });
         return () => {
             unsubscribeMorph();
             unsubscribeRotate();
             unsubscribeParallax();
         };
     }, [smoothMorph, smoothScrollRotate, smoothMouseX]);
+
+    // Throttled render loop — batch updates at ~60fps instead of per-spring-tick
+    useEffect(() => {
+        let lastMorph = -1, lastRotate = -1, lastParallax = -1;
+        function tick() {
+            const m = morphValueRef.current;
+            const r = rotateValueRef.current;
+            const p = parallaxValueRef.current;
+            // Only trigger re-render when values meaningfully change
+            if (Math.abs(m - lastMorph) > 0.002 || Math.abs(r - lastRotate) > 0.1 || Math.abs(p - lastParallax) > 0.5) {
+                lastMorph = m;
+                lastRotate = r;
+                lastParallax = p;
+                forceUpdate(n => n + 1);
+            }
+            rafIdRef.current = requestAnimationFrame(tick);
+        }
+        rafIdRef.current = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafIdRef.current);
+    }, []);
 
     // Automatically trigger onEnter when reaching the end of the scroll
     useEffect(() => {
@@ -273,7 +298,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
     const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#F5F5F5] dark:bg-[#0f172a] overflow-hidden transition-colors duration-300">
+        <div ref={containerRef} className="relative w-full h-full bg-[#F5F5F5] dark:bg-[#0f172a] overflow-hidden transition-colors duration-300" style={{ willChange: "transform" }}>
             {/* 3D Dotted Surface Canvas Background */}
             <DottedSurface className="absolute inset-0 z-0 opacity-80" />
 
@@ -290,7 +315,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                 <div className="absolute z-0 flex flex-col items-center justify-center text-center pointer-events-none top-1/2 -translate-y-1/2 w-full max-w-lg">
                     <motion.h1
                         initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                        animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 1 - morphValue * 2, y: 0, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }}
+                        animate={introPhase === "circle" && morphValueRef.current < 0.5 ? { opacity: 1 - morphValueRef.current * 2, y: 0, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }}
                         transition={{ duration: 1 }}
                         className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-6xl font-display relative w-full"
                     >
@@ -299,7 +324,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                         {/* Tagline positioned using full width centering, immune to Framer Motion overrides */}
                         <motion.span
                             initial={{ opacity: 0 }}
-                            animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 0.8 - morphValue } : { opacity: 0 }}
+                            animate={introPhase === "circle" && morphValueRef.current < 0.5 ? { opacity: 0.8 - morphValueRef.current } : { opacity: 0 }}
                             transition={{ duration: 1, delay: 0.2 }}
                             className="absolute top-full mt-4 left-0 right-0 w-full flex justify-center text-[10px] sm:text-xs font-bold tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono block"
                         >
@@ -309,7 +334,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                         {/* Scroll indicator positioned using full width centering */}
                         <motion.span
                             initial={{ opacity: 0 }}
-                            animate={introPhase === "circle" && morphValue < 0.5 ? { opacity: 0.5 - morphValue } : { opacity: 0 }}
+                            animate={introPhase === "circle" && morphValueRef.current < 0.5 ? { opacity: 0.5 - morphValueRef.current } : { opacity: 0 }}
                             transition={{ duration: 1, delay: 0.4 }}
                             className="absolute top-full mt-14 left-0 right-0 w-full flex justify-center block"
                         >
@@ -380,7 +405,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                             const step = spreadAngle / (TOTAL_IMAGES - 1);
 
                             // Interpret rotateValue (0 to 360) as a progress 0 to 1
-                            const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1);
+                            const scrollProgress = Math.min(Math.max(rotateValueRef.current / 360, 0), 1);
 
                             // Calculate bounded rotation
                             const maxRotation = spreadAngle * 0.8;
@@ -390,18 +415,19 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                             const arcRad = (currentArcAngle * Math.PI) / 180;
 
                             const arcPos = {
-                                x: Math.cos(arcRad) * arcRadius + parallaxValue,
+                                x: Math.cos(arcRad) * arcRadius + parallaxValueRef.current,
                                 y: Math.sin(arcRad) * arcRadius + arcCenterY,
                                 rotation: currentArcAngle + 90,
                                 scale: isMobile ? 1.2 : 1.5,
                             };
 
                             // C. Interpolate (Morph)
+                            const mv = morphValueRef.current;
                             target = {
-                                x: lerp(circlePos.x, arcPos.x, morphValue),
-                                y: lerp(circlePos.y, arcPos.y, morphValue),
-                                rotation: lerp(circlePos.rotation, arcPos.rotation, morphValue),
-                                scale: lerp(0.85, arcPos.scale, morphValue),
+                                x: lerp(circlePos.x, arcPos.x, mv),
+                                y: lerp(circlePos.y, arcPos.y, mv),
+                                rotation: lerp(circlePos.rotation, arcPos.rotation, mv),
+                                scale: lerp(0.85, arcPos.scale, mv),
                                 opacity: 1,
                             };
                         }
@@ -423,7 +449,7 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
 
                 {/* Enter Portfolio Button (Fades in when arc is formed) */}
                 <motion.button
-                    style={{ opacity: contentOpacity, y: contentY, pointerEvents: morphValue > 0.8 ? "auto" : "none" }}
+                    style={{ opacity: contentOpacity, y: contentY, pointerEvents: morphValueRef.current > 0.8 ? "auto" : "none" }}
                     onClick={onEnter}
                     className="absolute bottom-[15%] z-20 px-6 py-3 rounded-full font-semibold border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group cursor-pointer"
                 >
