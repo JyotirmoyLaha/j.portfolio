@@ -158,7 +158,7 @@
     <circle cx="18" cy="25" r="1.5" fill="#22d3ee" class="pulse-ring" stroke="#22d3ee" stroke-width="1" fill-opacity="0"/>
     
     <text x="92" y="24" text-anchor="middle" class="node-title">📦 j.portfolio</text>
-    <text x="92" y="38" text-anchor="middle" class="node-tech" fill="#22d3ee">SPA · Vanilla JS</text>
+    <text x="92" y="38" text-anchor="middle" class="node-tech" fill="#22d3ee">React · Vite · TS</text>
   </g>
 
   <!-- LEFT NODE: CLI Card -->
