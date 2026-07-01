@@ -353,7 +353,7 @@ window.scrollTo(0, 0);
         }
 
         el.classList.add('splash-exit');
-        setTimeout(() => el.classList.add('splash-gone'), 420);
+        setTimeout(() => el.classList.add('splash-gone'), 750);
     };
 
     document.readyState === 'loading'
