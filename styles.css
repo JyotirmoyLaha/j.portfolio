@@ -63,22 +63,18 @@
     background-image:
         radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 240, 0.7) 0%, transparent 70%),
         linear-gradient(135deg, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
-        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
-    background-size: auto, auto, auto, 28px 28px, 28px 28px;
-    background-position: center top, center top, center top, center top, center top;
+        linear-gradient(225deg, rgba(34, 211, 238, 0.03) 0%, transparent 50%);
+    background-size: auto, auto, auto;
+    background-position: center top, center top, center top;
 }
 
 .dark .hero-bg {
     background-color: #0f172a;
     background-image:
         linear-gradient(135deg, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(34, 211, 238, 0.04) 0%, transparent 50%),
-        linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
-    background-size: auto, auto, 28px 28px, 28px 28px;
-    background-position: center top, center top, center top, center top;
+        linear-gradient(225deg, rgba(34, 211, 238, 0.04) 0%, transparent 50%);
+    background-size: auto, auto;
+    background-position: center top, center top;
 }
 
 .hero-code-scene {
@@ -2857,8 +2853,8 @@ html.lenis body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
 }
 
