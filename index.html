@@ -2,6 +2,7 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jyotirmoy Laha</title>
@@ -43,6 +44,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- Preload Spline Scene for instant entrance animation -->
+    <link rel="preload" href="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" as="fetch" crossorigin="anonymous">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -110,43 +114,10 @@
 
     <!-- ======================= INTRO SPLASH SCREEN ======================= -->
     <div id="intro-splash">
-        <!-- Ambient background layers -->
-        <div class="splash-bg-layers" aria-hidden="true">
-            <div class="splash-gradient-orb splash-orb-1"></div>
-            <div class="splash-gradient-orb splash-orb-2"></div>
-            <div class="splash-gradient-orb splash-orb-3"></div>
-            <div class="splash-dot-grid"></div>
-            <div class="splash-scan-line"></div>
-            <div class="splash-vignette"></div>
-        </div>
-        <!-- Particle canvas (rendered by JS) -->
-        <canvas id="splash-particles" aria-hidden="true"></canvas>
-
-        <!-- Arc of language cards (rendered by JS into this container) -->
-        <div id="splash-arc" aria-hidden="true"></div>
-
-        <!-- Center content -->
-        <div id="splash-center">
-            <!-- Status indicator bar -->
-            <div class="splash-status-bar">
-                <span class="splash-status-dot"></span>
-                <span class="splash-status-text">initializing portfolio</span>
-            </div>
-            <div id="splash-terminal-line" class="splash-terminal-prefix">
-                <span class="splash-prompt">~/dev</span>
-                <span class="splash-caret"> $</span>
-                <span id="splash-typed-text"></span>
-                <span class="splash-cursor-blink">▋</span>
-            </div>
-            <h1 id="splash-name">JYOTIRMOY<span class="splash-dot-dev">.DEV</span></h1>
-            <p id="splash-tagline">BCA Student &nbsp;·&nbsp; Code Craftsman</p>
-            <button id="splash-skip-btn" onclick="dismissSplash()">
-                <span>Enter Portfolio</span>
-                <i class="fa-solid fa-arrow-right"></i>
-                <span class="splash-btn-shimmer"></span>
-            </button>
-        </div>
+        <!-- React mounts the scroll-morph-hero intro animation here -->
+        <div id="react-splash-root" class="w-full h-full"></div>
     </div>
+    <script type="module" src="/src/main.tsx"></script>
     <!-- /INTRO SPLASH -->
 
     <!-- Navigation -->
@@ -240,33 +211,18 @@
 
         <!-- 1. INTRO & MINDSET SECTION -->
         <header class="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-28 hero-bg">
+            <!-- Mounting point for 3D Shader Background -->
+            <div id="react-shader-bg-root" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;"></div>
             <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank"
                 class="absolute top-24 right-4 sm:right-6 z-30 w-14 h-14 sm:w-16 sm:h-16 bg-white/70 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 backdrop-blur-md rounded-full flex items-center justify-center text-base sm:text-lg font-display font-bold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 aria-label="View my CV">
                 <span class="group-hover:text-cyan-400 transition-colors">CV</span>
             </a>
 
-            <div class="hero-code-scene" aria-hidden="true">
-                <div class="hero-code-chip" style="--chip-x: 4%; --chip-y: 22%; --chip-delay: 0s;">const</div>
-                <div class="hero-code-chip" style="--chip-x: 90%; --chip-y: 74%; --chip-delay: .1s;">api()</div>
-                <div class="hero-code-chip" style="--chip-x: 58%; --chip-y: 92%; --chip-delay: .35s;">clean code</div>
+            <!-- Mounting point for 3D Spline Robot Scene -->
+            <div id="react-hero-root" class="hero-code-scene" style="pointer-events: auto; z-index: 0;"></div>
 
-                <div class="hero-code-panel">
-                    <div class="hero-code-panel-top">
-                        <span class="hero-code-dot"></span>
-                        <span class="hero-code-dot"></span>
-                        <span class="hero-code-dot"></span>
-                        <span class="hero-code-panel-label">stack signal</span>
-                    </div>
-                    <div class="hero-code-panel-body font-mono">
-                        <p><span class="hero-code-keyword">const</span> focus = <span class="hero-code-string">"clarity"</span>;</p>
-                        <p><span class="hero-code-keyword">if</span> (idea) <span class="hero-code-brace">{</span> shipProduct(); <span class="hero-code-brace">}</span></p>
-                        <p><span class="hero-code-keyword">return</span> quality <span class="hero-code-op">&amp;&amp;</span> performance;</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10 pointer-events-none">
 
                 <!-- Upper Hero: Profile + Intro (side by side on lg, stacked on mobile) -->
                 <div class="flex flex-col items-center text-center lg:flex-row lg:items-start lg:text-left gap-10 sm:gap-12 lg:gap-20">
@@ -278,7 +234,7 @@
                             <div class="profile-glow-backdrop absolute inset-0 -m-8 opacity-0 transition-all duration-500 rounded-full blur-3xl bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 pointer-events-none"></div>
                             
                             <!-- Dynamic 3D Card Container -->
-                            <div class="profile-3d-card relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer" id="profileImage">
+                            <div class="profile-3d-card relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer pointer-events-auto" id="profileImage">
                                 <!-- Floating Foreground Corner Accents (Front Layer) -->
                                 <div class="profile-corner-accent top-accent"></div>
                                 <div class="profile-corner-accent bottom-accent"></div>
@@ -316,7 +272,7 @@
                         </div>
 
                         <!-- Social Icons -->
-                        <div class="flex justify-center lg:justify-start gap-4 sm:gap-5 mt-8 sm:mt-10">
+                        <div class="flex justify-center lg:justify-start gap-4 sm:gap-5 mt-8 sm:mt-10 pointer-events-auto">
                             <a href="https://github.com/JyotirmoyLaha" target="_blank" rel="noopener noreferrer" class="social-icon-btn github-btn"
                                 data-tooltip="GitHub" aria-label="Visit my GitHub profile">
                                 <i class="fa-brands fa-github text-xl" aria-hidden="true"></i>
@@ -340,7 +296,7 @@
                         </div>
 
                         <!-- Terminal Card -->
-                        <div class="flex justify-center lg:justify-start mt-6 sm:mt-8">
+                        <div class="flex justify-center lg:justify-start mt-6 sm:mt-8 pointer-events-auto">
                             <div class="terminal-card" id="hero-terminal-card" role="button" tabindex="0" aria-label="Copy developer command to clipboard" data-command="npx jyotirmoy-laha">
                                 <div class="terminal-accent"></div>
                                 <span class="font-mono text-sm sm:text-lg md:text-xl text-cyan-400">jyotirmoy<span
