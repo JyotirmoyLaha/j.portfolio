@@ -36,8 +36,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 		if (!containerRef.current) return;
 
 		const SEPARATION = 150;
-		const AMOUNTX = 40;
-		const AMOUNTY = 60;
+		const AMOUNTX = 30;
+		const AMOUNTY = 45;
 
 		// Scene setup
 		const scene = new THREE.Scene();
@@ -54,9 +54,10 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
 		const renderer = new THREE.WebGLRenderer({
 			alpha: true,
-			antialias: true,
+			antialias: false,
+			powerPreference: 'high-performance',
 		});
-		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setClearColor(scene.fog.color, 0);
 
