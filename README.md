@@ -26,7 +26,7 @@
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gem%20Stone.png" width="25" /> &nbsp;About
 
-> A **high-performance, single-page developer portfolio** featuring an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant — built with clean, modern web practices optimized for speed, rendering fidelity, and full responsiveness.
+> A **high-performance, interactive 3D developer portfolio** built on a modern **Vite + React + TypeScript + Tailwind CSS** stack, featuring custom WebGL/Three.js shader backgrounds, Spline 3D canvas integrations, Framer Motion transitions, an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant.
 
 <br/>
 
@@ -47,9 +47,28 @@
 ```
 j.portfolio.github/
 │
-├── 📄 index.html                 ← SPA entry point
-├── 🎨 styles.css                 ← 1,700+ lines of custom CSS
-├── ⚡ script.js                  ← Core DOM logic & interactivity
+├── 📄 index.html                 ← SPA entry point & main page shell
+├── ⚙️ vite.config.ts             ← Vite project config
+├── 📄 tsconfig.json              ← TypeScript compiler settings
+├── 📄 package.json               ← Dependencies & NPM build scripts
+├── ⚡ postbuild.cjs              ← Asset compiler copying files to dist/
+│
+├── 📁 src/                       ← React & TypeScript frontend source
+│   ├── 📁 components/            ← Reusable layout & interactive components
+│   │   ├── 📄 SplineSceneBasic.tsx ← 3D Spline Canvas loader
+│   │   └── 📁 ui/
+│   │       ├── 📄 ShaderBackground.tsx     ← Three.js particle shader bg
+│   │       ├── 📄 scroll-morph-hero.tsx    ← Framer Motion intro animation
+│   │       ├── 📄 dotted-surface.tsx       ← Repulsive magnetic hover particle grid
+│   │       ├── 📄 spotlight.tsx            ← Grid mouse-hover focus accent
+│   │       └── 📄 card.tsx / splite.tsx    ← Base UI/Spline primitives
+│   ├── 📁 lib/                   ← Utility helper functions
+│   │   └── 📄 utils.ts           ← Tailwind merging utility (cn)
+│   ├── 📄 main.tsx               ← React entrypoint mounting components
+│   └── 📄 index.css              ← Tailwind directives & global utility classes
+│
+├── 🎨 styles.css                 ← Custom layout & theme CSS rules
+├── ⚡ script.js                  ← Core DOM handlers & routing
 ├── 📝 blog-posts.js              ← Static blog database
 │
 ├── 💻 cli-card/                  ← Node.js CLI business card (NPM)
@@ -85,24 +104,24 @@ j.portfolio.github/
   <tr>
     <td width="50%">
 
-### 🖼️ Interactive 3D Parallax Card
+### 🌀 WebGL & 3D Spline Scene
 
-- CSS 3D perspective context (`perspective: 1200px`)
-- Real-time cursor tracking with dynamic rotation (max 12°)
-- Parallax floating corners at `translateZ(35px)`
-- Specular gloss overlay with `--sheen-x/y` CSS vars
-- Gentle float animation, auto-disabled on hover
+- Custom WebGL/Three.js fragment shaders (`ShaderBackground.tsx`)
+- Interactive mouse-responsive particles & gradient shifts
+- 3D interactive models loaded via `@splinetool/react-spline`
+- Viewport-adaptive scaling and non-blocking loading
+- Theme-aware shader color palettes (light/dark mode)
 
 </td>
 <td width="50%">
 
-### 🛣️ Vanilla JS Hash Router
+### ✨ Scroll-Morph Splash Hero
 
-- Zero-dependency client-side routing
-- `history.pushState` + `popstate` navigation
-- Deep-linkable blog posts via `#blog/:id`
-- Scroll position preservation across transitions
-- No framework overhead — pure ES6+
+- Framer Motion-based scroll-morphing entry sequence
+- Premium spring physical animations and transition scaling
+- Interactive technology stack cards displaying core skills
+- Smooth entry dismissing splash overlay to main page
+- Smooth scroll integration (`Lenis`) preservation
 
 </td>
   </tr>
@@ -127,6 +146,30 @@ j.portfolio.github/
 - Auto-generates context vectors from live content
 - CORS + sliding window rate limiting (20 req/hr/IP)
 - Fully self-contained deployment
+
+</td>
+  </tr>
+  <tr>
+    <td width="50%">
+
+### 🖼️ Interactive 3D Parallax Card
+
+- CSS 3D perspective context (`perspective: 1200px`)
+- Real-time cursor tracking with dynamic rotation (max 12°)
+- Parallax floating corners at `translateZ(35px)`
+- Specular gloss overlay with `--sheen-x/y` CSS vars
+- Gentle float animation, auto-disabled on hover
+
+</td>
+<td width="50%">
+
+### 🛣️ Vanilla JS Hash Router
+
+- Zero-dependency client-side routing
+- `history.pushState` + `popstate` navigation
+- Deep-linkable blog posts via `#blog/:id`
+- Scroll position preservation across transitions
+- No framework overhead — pure ES6+
 
 </td>
   </tr>
@@ -219,7 +262,7 @@ npx jyotirmoy-laha --matrix
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" width="25" /> &nbsp;Getting Started
 
 <details open>
-<summary><b>1️⃣ Frontend — Static Server</b></summary>
+<summary><b>1️⃣ Frontend — React + Vite Dev Server</b></summary>
 <br/>
 
 ```bash
@@ -227,16 +270,33 @@ npx jyotirmoy-laha --matrix
 git clone https://github.com/JyotirmoyLaha/j.portfolio.github.git
 cd j.portfolio.github
 
-# Serve with Python
-python -m http.server 5500
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
 ```
 
-> 🌐 Open **`http://localhost:5500`** in your browser
+> 🌐 Open **`http://localhost:5173`** (or the port outputted by Vite) in your browser
 
 </details>
 
 <details>
-<summary><b>2️⃣ Chatbot Backend — FastAPI</b></summary>
+<summary><b>2️⃣ Frontend Compilation & Production Build</b></summary>
+<br/>
+
+```bash
+# Compile TypeScript and bundle with Vite
+npm run build
+```
+
+> [!TIP]
+> The build command compiles the TypeScript sources, runs the Vite bundler, and then runs a custom post-build script (`postbuild.cjs`) which copies all static assets (images, blog databases, custom stylesheets) into the `dist/` directory to prepare for single-command production deployment.
+
+</details>
+
+<details>
+<summary><b>3️⃣ Chatbot Backend — FastAPI</b></summary>
 <br/>
 
 ```bash
@@ -256,8 +316,8 @@ Create a **`.env`** file inside `portfolio-chatbot/backend/`:
 
 ```env
 GROQ_API_KEY=your_groq_api_key
-PORTFOLIO_URL=http://localhost:5500
-ALLOWED_ORIGIN=http://localhost:5500
+PORTFOLIO_URL=http://localhost:5173
+ALLOWED_ORIGIN=http://localhost:5173
 ```
 
 > [!IMPORTANT]
@@ -271,7 +331,7 @@ uvicorn main:app --reload --port 8000
 </details>
 
 <details>
-<summary><b>3️⃣ CLI Business Card — Node.js</b></summary>
+<summary><b>4️⃣ CLI Business Card — Node.js</b></summary>
 <br/>
 
 ```bash
