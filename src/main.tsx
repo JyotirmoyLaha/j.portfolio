@@ -15,7 +15,7 @@ const handleEnter = () => {
       const el = document.getElementById('intro-splash');
       if (el) {
         el.classList.add('splash-exit');
-        setTimeout(() => el.classList.add('splash-gone'), 420);
+        setTimeout(() => el.classList.add('splash-gone'), 750);
       }
     }
     // Notify components (like SplineSceneBasic) that the user has entered the site
