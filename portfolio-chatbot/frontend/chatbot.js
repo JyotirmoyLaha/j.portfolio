@@ -236,10 +236,10 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
       attributeFilter: ["style", "class"],
     });
 
+    // Safety net: always reveal after 12s regardless of splash state.
+    // The new React splash requires user interaction and may take longer.
     setTimeout(() => {
-      if (isSplashFullyGone(splash)) {
-        revealChatbot();
-      }
+      revealChatbot();
       observer.disconnect();
     }, 12000);
   }
