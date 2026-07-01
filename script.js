@@ -334,13 +334,7 @@ window.scrollTo(0, 0);
 
     /* ——— Init ——— */
     function initSplash() {
-        buildArc();
-        initParticles();
-        cycleStatus();
-        const t = document.getElementById('splash-typed-text');
-        if (t) setTimeout(() => typeText(t, 'boot --portfolio', 65), 950);
-        /* auto-dismiss after 6 s */
-        setTimeout(dismissSplash, 6000);
+        // Vanilla splash screen logic replaced by React scroll-morph-hero
     }
 
     window.dismissSplash = function () {
@@ -349,8 +343,17 @@ window.scrollTo(0, 0);
         const splash = document.getElementById('intro-splash');
         if (splash) splash.removeEventListener('mousemove', onDockMove);
         if (particleAnimId) cancelAnimationFrame(particleAnimId);
+
+        // Force scroll to top (hero section) immediately on dismissal
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        if (typeof lenis !== 'undefined' && lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+
         el.classList.add('splash-exit');
-        setTimeout(() => el.classList.add('splash-gone'), 920);
+        setTimeout(() => el.classList.add('splash-gone'), 420);
     };
 
     document.readyState === 'loading'
