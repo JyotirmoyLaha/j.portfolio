@@ -15,6 +15,8 @@ interface FlipCardProps {
     total: number;
     phase: AnimationPhase;
     target: { x: number; y: number; rotation: number; scale: number; opacity: number };
+    initialTarget: { x: number; y: number; rotation: number; scale: number; opacity: number };
+    isIntroFinished: boolean;
 }
 
 // --- FlipCard Component ---
@@ -24,10 +26,21 @@ const IMG_HEIGHT = 70;
 function FlipCard({
     logo,
     name,
+    index,
     target,
+    initialTarget,
+    isIntroFinished,
 }: FlipCardProps) {
     return (
         <motion.div
+            // Avoid animating from 0,0 on mount; place them statically at their initial scattered position
+            initial={{
+                x: initialTarget.x,
+                y: initialTarget.y,
+                rotate: initialTarget.rotation,
+                scale: initialTarget.scale,
+                opacity: initialTarget.opacity,
+            }}
             // Smoothly animate to the coordinates defined by the parent
             animate={{
                 x: target.x,
@@ -36,12 +49,21 @@ function FlipCard({
                 scale: target.scale,
                 opacity: target.opacity,
             }}
-            transition={{
-                type: "spring",
-                stiffness: 70,
-                damping: 18,
-                mass: 0.8,
-            }}
+            transition={
+                isIntroFinished
+                    ? {
+                          type: "tween",
+                          ease: "easeOut",
+                          duration: 0.1,
+                      }
+                    : {
+                          type: "spring",
+                          stiffness: 60,
+                          damping: 20,
+                          mass: 1,
+                          delay: index * 0.02, // Staggered entry delay to distribute CPU rendering workload
+                      }
+            }
 
             // Initial style
             style={{
@@ -53,7 +75,7 @@ function FlipCard({
             className="cursor-pointer group"
         >
             <motion.div
-                className="relative h-full w-full overflow-hidden rounded-2xl shadow-md bg-white/90 dark:bg-slate-900/90 border border-slate-200/50 dark:border-slate-800/80 backdrop-blur-sm flex items-center justify-center p-3.5 transition-all duration-300 group-hover:border-cyan-400 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.55)]"
+                className="relative h-full w-full overflow-hidden rounded-2xl shadow-md bg-white/95 dark:bg-slate-900/95 border border-slate-200/50 dark:border-slate-800/80 flex items-center justify-center p-3.5 transition-[border-color,box-shadow] duration-300 group-hover:border-cyan-400 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.55)]"
                 whileHover={{ 
                     scale: 1.25,
                     y: -10,
@@ -64,7 +86,7 @@ function FlipCard({
                     src={logo}
                     alt={name}
                     className={`h-full w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105 ${name.toLowerCase() === 'github' ? 'dark:invert' : ''}`}
-                    loading="lazy"
+                    loading="eager"
                 />
                 {/* Glow Overlay layer */}
                 <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" />
@@ -110,6 +132,7 @@ interface IntroAnimationProps {
 
 export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
     const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
+    const [isIntroFinished, setIsIntroFinished] = useState(false);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -216,7 +239,12 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
     useEffect(() => {
         const timer1 = setTimeout(() => setIntroPhase("line"), 600);
         const timer2 = setTimeout(() => setIntroPhase("circle"), 2200);
-        return () => { clearTimeout(timer1); clearTimeout(timer2); };
+        const timer3 = setTimeout(() => setIsIntroFinished(true), 3200); // 1s after circle starts forming
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            clearTimeout(timer3);
+        };
     }, []);
 
     // --- Random Scatter Positions ---
@@ -442,6 +470,8 @@ export default function IntroAnimation({ onEnter }: IntroAnimationProps) {
                                 total={TOTAL_IMAGES}
                                 phase={introPhase}
                                 target={target}
+                                initialTarget={scatterPositions[i]}
+                                isIntroFinished={isIntroFinished}
                             />
                         );
                     })}
