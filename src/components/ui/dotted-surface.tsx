@@ -57,7 +57,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 			antialias: false,
 			powerPreference: 'high-performance',
 		});
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setClearColor(scene.fog.color, 0);
 
