@@ -102,11 +102,11 @@
     <text x="35" y="16" text-anchor="middle" class="tech-name" fill="#ffffff">Three.js</text>
   </g>
 
-  <!-- Framer Motion -->
+  <!-- HTML5 & CSS3 -->
   <g transform="translate(525, 14)">
     <rect width="100" height="24" rx="6" class="pill-bg"/>
-    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#f43f5e" filter="url(#glowEffect)"/>
-    <text x="50" y="16" text-anchor="middle" class="tech-name" fill="#f43f5e">Framer Motion</text>
+    <rect x="0" y="0" width="3" height="24" rx="1.5" fill="#e34c26" filter="url(#glowEffect)"/>
+    <text x="50" y="16" text-anchor="middle" class="tech-name" fill="#e34c26">HTML5 &amp; CSS3</text>
   </g>
 
   <!-- Lenis & AOS -->
