@@ -26,7 +26,7 @@
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gem%20Stone.png" width="25" /> &nbsp;About
 
-> A **high-performance, interactive 3D developer portfolio** built on a modern **Vite + React + TypeScript + Tailwind CSS** stack, featuring custom WebGL/Three.js shader backgrounds, Spline 3D canvas integrations, Framer Motion transitions, an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant.
+> A **high-performance, interactive 3D developer portfolio** built on a modern **Vite + React + TypeScript + Tailwind CSS** stack, featuring custom WebGL/Three.js shader backgrounds, Spline 3D canvas integrations, an interactive semicircle/orbit splash screen, an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant.
 
 <br/>
 
@@ -58,7 +58,7 @@ j.portfolio.github/
 │   │   ├── 📄 SplineSceneBasic.tsx ← 3D Spline Canvas loader
 │   │   └── 📁 ui/
 │   │       ├── 📄 ShaderBackground.tsx     ← Three.js particle shader bg
-│   │       ├── 📄 scroll-morph-hero.tsx    ← Framer Motion intro animation
+│   │       ├── 📄 scroll-morph-hero.tsx    ← Scroll-driven morphing hero animation (React component)
 │   │       ├── 📄 dotted-surface.tsx       ← Repulsive magnetic hover particle grid
 │   │       ├── 📄 spotlight.tsx            ← Grid mouse-hover focus accent
 │   │       └── 📄 card.tsx / splite.tsx    ← Base UI/Spline primitives
@@ -115,13 +115,13 @@ j.portfolio.github/
 </td>
 <td width="50%">
 
-### ✨ Scroll-Morph Splash Hero
+### ✨ Semicircle/Orbit Splash Screen
 
-- Framer Motion-based scroll-morphing entry sequence
-- Premium spring physical animations and transition scaling
-- Interactive technology stack cards displaying core skills
-- Smooth entry dismissing splash overlay to main page
-- Smooth scroll integration (`Lenis`) preservation
+- Semicircle card arch on desktop and orbiting card circle on mobile
+- Staggered macOS-style spring reveal for tech stack devicon cards
+- High-performance, custom-rendered floating particle canvas background
+- Interactive macOS Dock-style magnification hover effect
+- Typewriter terminal booting commands with status loading sequence
 
 </td>
   </tr>
@@ -223,6 +223,11 @@ npx jyotirmoy-laha --matrix
   <tr>
     <td align="center"><b>🎨 Frontend</b></td>
     <td>
+      <img src="https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
+      <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
+      <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
+      <img src="https://img.shields.io/badge/Three.js-black?style=flat-square&logo=three.js&logoColor=white" />
+      <img src="https://img.shields.io/badge/Spline_3D-black?style=flat-square" />
       <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
       <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" />
       <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" />
