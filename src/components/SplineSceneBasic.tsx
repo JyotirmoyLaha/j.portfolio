@@ -7,7 +7,9 @@ export function SplineSceneBasic() {
     if (typeof window === 'undefined') return false;
     const splash = document.getElementById('intro-splash');
     if (!splash) return true;
-    return splash.classList.contains('splash-gone') || splash.style.display === 'none';
+    return splash.classList.contains('splash-gone') || 
+           splash.classList.contains('splash-exit') || 
+           splash.style.display === 'none';
   });
 
   useEffect(() => {
