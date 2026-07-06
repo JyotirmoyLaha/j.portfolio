@@ -69,6 +69,7 @@ window.scrollTo(0, 0);
     /* Live references for Dock hover calc */
     const cardEls = [];
     const cardTilts = [];
+    const cardCenters = [];
 
     /* â”€â”€ Mobile orbit: all 12 icons circle the centre text â”€â”€ */
     function buildMobileOrbit(arc, geo) {
@@ -186,10 +187,11 @@ window.scrollTo(0, 0);
             card.innerHTML = `<img class="card-icon" src="${lang.logo}" alt="${lang.label}" loading="lazy"><span>${lang.label}</span>`;
             arc.appendChild(card);
             cardEls.push(card);
+            cardCenters.push({ x: pos.x, y: pos.y });
 
             /* Staggered macOS-style spring reveal */
-            const delay = 60 + i * 120;
-            const dur = 520;
+            const delay = 60 + i * 90;
+            const dur = 500;
             setTimeout(() => {
                 card.style.transition = [
                     `transform ${dur}ms cubic-bezier(0.34,1.56,0.64,1)`,
@@ -201,6 +203,7 @@ window.scrollTo(0, 0);
                 setTimeout(() => {
                     card.style.animation = `cardFloat ${2.4 + (i % 4) * 0.3}s ease-in-out infinite`;
                     card.style.animationDelay = `${-(i % 6) * 0.4}s`;
+                    card.style.transition = 'box-shadow 0.3s ease, opacity 0.3s ease';
                 }, dur + 40);
             }, delay);
         });
@@ -222,9 +225,9 @@ window.scrollTo(0, 0);
 
     function onDockMove(e) {
         cardEls.forEach((card, i) => {
-            const r = card.getBoundingClientRect();
-            const dist = Math.hypot(e.clientX - (r.left + r.width / 2),
-                e.clientY - (r.top + r.height / 2));
+            const center = cardCenters[i];
+            if (!center) return;
+            const dist = Math.hypot(e.clientX - center.x, e.clientY - center.y);
             const t = Math.max(0, 1 - dist / DOCK_R);
             const sc = 1 + (DOCK_MAX - 1) * t * t;
 
@@ -240,10 +243,14 @@ window.scrollTo(0, 0);
 
     function onDockLeave() {
         cardEls.forEach((card, i) => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease';
             card.style.transform = `translate(-50%,-50%) rotate(${cardTilts[i]}deg) scale(1)`;
             card.style.zIndex = '1';
             card.style.boxShadow = '';
             card.style.animationPlayState = 'running';
+            setTimeout(() => {
+                card.style.transition = 'box-shadow 0.3s ease, opacity 0.3s ease';
+            }, 400);
         });
     }
 
@@ -334,7 +341,13 @@ window.scrollTo(0, 0);
 
     /* ——— Init ——— */
     function initSplash() {
-        // Vanilla splash screen logic replaced by React scroll-morph-hero
+        buildArc();
+        initParticles();
+        cycleStatus();
+        const t = document.getElementById('splash-typed-text');
+        if (t) setTimeout(() => typeText(t, 'boot --portfolio', 65), 950);
+        /* auto-dismiss after 6 s */
+        setTimeout(dismissSplash, 6000);
     }
 
     window.dismissSplash = function () {
@@ -353,6 +366,7 @@ window.scrollTo(0, 0);
         }
 
         el.classList.add('splash-exit');
+        window.dispatchEvent(new CustomEvent('portfolio-entered'));
         setTimeout(() => el.classList.add('splash-gone'), 750);
     };
 
