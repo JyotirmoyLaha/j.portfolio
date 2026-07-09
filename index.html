@@ -834,9 +834,23 @@
 
                 <!-- Streak Stats -->
                 <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    <div class="github-card">
-                        <img src="https://github-readme-streak-stats.herokuapp.com/?user=JyotirmoyLaha&theme=transparent&hide_border=true&ring=22d3ee&fire=10b981&currStreakLabel=22d3ee&sideLabels=64748b&currStreakNum=f472b6&sideNums=f472b6&dates=94a3b8&background=00000000"
-                            alt="Jyotirmoy Laha's GitHub contribution streak statistics showing current streak, longest streak, and total contributions" class="github-streak-img" loading="lazy">
+                    <div class="github-card flex flex-col sm:flex-row justify-around items-center p-6 sm:p-8 text-center gap-6 sm:gap-4 w-full">
+                        <div class="flex flex-col items-center flex-1">
+                            <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono">Total Contributions</span>
+                            <span class="text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-100 font-display mt-2" id="streak-total-contribs">--</span>
+                        </div>
+                        <div class="hidden sm:block h-12 w-px bg-slate-200 dark:bg-slate-700/60"></div>
+                        <div class="block sm:hidden w-full h-px bg-slate-100 dark:bg-slate-800/40"></div>
+                        <div class="flex flex-col items-center flex-1">
+                            <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono">Current Streak</span>
+                            <span class="text-3xl sm:text-4xl font-bold text-emerald-500 dark:text-emerald-400 font-display mt-2" id="streak-current">-- days</span>
+                        </div>
+                        <div class="hidden sm:block h-12 w-px bg-slate-200 dark:bg-slate-700/60"></div>
+                        <div class="block sm:hidden w-full h-px bg-slate-100 dark:bg-slate-800/40"></div>
+                        <div class="flex flex-col items-center flex-1">
+                            <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest font-mono">Longest Streak</span>
+                            <span class="text-3xl sm:text-4xl font-bold text-cyan-500 dark:text-cyan-400 font-display mt-2" id="streak-longest">-- days</span>
+                        </div>
                     </div>
                 </div>
             </div>
