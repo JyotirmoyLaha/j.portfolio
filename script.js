@@ -811,6 +811,83 @@ renderBlogMarquee();
             });
     }
 
+    function loadStreakStats() {
+        const totalLabel = document.getElementById('streak-total-contribs');
+        const currentLabel = document.getElementById('streak-current');
+        const longestLabel = document.getElementById('streak-longest');
+        if (!totalLabel || !currentLabel || !longestLabel) return;
+
+        fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}`)
+            .then(r => r.json())
+            .then(data => {
+                const contributions = data.contributions || [];
+                if (contributions.length === 0) return;
+
+                // Sort ascending by date for longest streak calculation
+                contributions.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                // 1. Total contributions
+                const totalContributions = contributions.reduce((sum, d) => sum + d.count, 0);
+                totalLabel.textContent = totalContributions;
+
+                // 2. Longest streak
+                let longestStreak = 0;
+                let currentStreakTemp = 0;
+                contributions.forEach(day => {
+                    if (day.count > 0) {
+                        currentStreakTemp++;
+                        if (currentStreakTemp > longestStreak) {
+                            longestStreak = currentStreakTemp;
+                        }
+                    } else {
+                        currentStreakTemp = 0;
+                    }
+                });
+                longestLabel.textContent = `${longestStreak} day${longestStreak !== 1 ? 's' : ''}`;
+
+                // 3. Current streak
+                // Sort descending to traverse backwards from most recent
+                const sortedDesc = [...contributions].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const todayStr = new Date().toISOString().split('T')[0];
+                const pastOrPresentDays = sortedDesc.filter(d => d.date <= todayStr);
+
+                let currentStreak = 0;
+
+                if (pastOrPresentDays.length > 0) {
+                    const firstDay = pastOrPresentDays[0];
+                    const secondDay = pastOrPresentDays[1];
+
+                    const isToday = firstDay.date === todayStr;
+                    // Check if the first day is yesterday (within 24 hours)
+                    const isYesterday = (new Date(todayStr) - new Date(firstDay.date)) <= 86400000;
+
+                    const hasContributedRecently = (firstDay.count > 0) || (isToday && secondDay && secondDay.count > 0);
+
+                    if (hasContributedRecently) {
+                        let checkIndex = 0;
+                        if (isToday && firstDay.count === 0) {
+                            checkIndex = 1;
+                        }
+
+                        for (let i = checkIndex; i < pastOrPresentDays.length; i++) {
+                            if (pastOrPresentDays[i].count > 0) {
+                                currentStreak++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+                currentLabel.textContent = `${currentStreak} day${currentStreak !== 1 ? 's' : ''}`;
+            })
+            .catch(err => {
+                console.error('Error loading streak stats:', err);
+                totalLabel.textContent = 'Err';
+                currentLabel.textContent = 'Err';
+                longestLabel.textContent = 'Err';
+            });
+    }
+
     function getLevel(count) {
         if (count === 0) return 0;
         if (count <= 3) return 1;
@@ -924,6 +1001,7 @@ renderBlogMarquee();
 
     // Load current year on init
     loadYear(CURRENT_YEAR);
+    loadStreakStats();
 })();
 
 // ===================== BROWSER HISTORY HANDLING =====================
