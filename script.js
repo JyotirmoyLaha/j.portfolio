@@ -1,385 +1,74 @@
-/* â”€â”€ Force scroll to top on every page load/refresh â”€â”€ */
+/* ── Force scroll to top on every page load/refresh ── */
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE_POINTER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 /* =========================================================
-   INTRO SPLASH SCREEN â€” Arc of language cards + typewriter
+   PRELOADER — counter, progress hairline, curtain exit
    ========================================================= */
+(function initPreloader() {
+    const splash = document.getElementById('intro-splash');
+    const countEl = document.getElementById('pl-count');
+    const barEl = document.getElementById('pl-bar-fill');
+    const statusEl = document.getElementById('pl-status');
 
-(function () {
-    'use strict';
+    const DURATION = REDUCED_MOTION ? 300 : 2600;
+    const STATUSES = [[0, 'Initializing'], [28, 'Loading assets'], [62, 'Compiling'], [90, 'Ready']];
+    let start = null;
+    let finished = false;
 
-    /* â”€â”€ Language card data â€” real devicon SVG logos â”€â”€ */
-    const CDN = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
-    const LANGS = [
-        { logo: `${CDN}/javascript/javascript-original.svg`, label: 'JavaScript', grad: ['#f7df1e22', '#f7df1e44'], glow: '#f7df1e' },
-        { logo: `${CDN}/python/python-original.svg`, label: 'Python', grad: ['#3572a522', '#3572a544'], glow: '#3572a5' },
-        { logo: `${CDN}/react/react-original.svg`, label: 'React', grad: ['#61dafb22', '#61dafb44'], glow: '#61dafb' },
-        { logo: `${CDN}/html5/html5-original.svg`, label: 'HTML5', grad: ['#e34c2622', '#e34c2644'], glow: '#e34c26' },
-        { logo: `${CDN}/css3/css3-original.svg`, label: 'CSS3', grad: ['#264de422', '#264de444'], glow: '#264de4' },
-        { logo: `${CDN}/firebase/firebase-original.svg`, label: 'Firebase', grad: ['#ffca2822', '#ffca2844'], glow: '#ffca28' },
-        { logo: `${CDN}/fastapi/fastapi-original.svg`, label: 'FastAPI', grad: ['#05998b22', '#05998b44'], glow: '#05998b' },
-        { logo: `${CDN}/git/git-original.svg`, label: 'Git', grad: ['#f1502f22', '#f1502f44'], glow: '#f1502f' },
-        { logo: `${CDN}/nodejs/nodejs-original.svg`, label: 'Node.js', grad: ['#6cc24a22', '#6cc24a44'], glow: '#6cc24a' },
-        { logo: `${CDN}/mysql/mysql-original.svg`, label: 'SQL', grad: ['#33697722', '#336977aa'], glow: '#336977' },
-        { logo: 'https://cdn.simpleicons.org/render/46E3B7', label: 'Render', grad: ['#46e3b722', '#46e3b744'], glow: '#46e3b7' },
-        { logo: `${CDN}/tailwindcss/tailwindcss-original.svg`, label: 'Tailwind', grad: ['#06b6d422', '#06b6d444'], glow: '#06b6d4' },
-    ];
+    const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-    /* â”€â”€ Geometry helpers â”€â”€ */
-    function getGeometry() {
-        const W = window.innerWidth, H = window.innerHeight;
-        /* Detect actual mobile devices even in "Request Desktop Site" mode */
-        const isMobileDevice = (navigator.maxTouchPoints > 0 || 'ontouchstart' in window)
-            && Math.min(screen.width, screen.height) < 768;
-        const mob = W < 640 || isMobileDevice;
-        if (mob) {
-            /* Adjust orbit radius for normal mobile vs desktop-mode-on-mobile */
-            const r = W < 640
-                ? Math.min(W * 0.38, 145)
-                : Math.min(W * 0.18, H * 0.20, 200);
-            return {
-                W, H, mob,
-                cx: W / 2,
-                cy: H * 0.50,               /* orbit centre = exact screen centre */
-                r,                           /* orbit radius â€” fits all 12 cards */
-            };
-        }
-        return {
-            W, H, mob,
-            cx: W / 2,
-            cy: H * 1.12,     /* arch pivot below viewport */
-            rx: W * 0.50,
-            ry: H * 0.90,
-        };
-    }
-    function cardPos(i, total, geo) {
-        /* Spread across -145Â° â†’ -35Â° (upper arch only, avoids extreme sides) */
-        const startAngle = -148;
-        const endAngle = -32;
-        const angleDeg = startAngle + (endAngle - startAngle) * (i / (total - 1));
-        const rad = angleDeg * Math.PI / 180;
-        return {
-            x: geo.cx + geo.rx * Math.cos(rad),
-            y: geo.cy + geo.ry * Math.sin(rad),
-            tilt: angleDeg + 90,   /* tangent tilt â€” card faces along the arc */
-        };
-    }
+    function tick(ts) {
+        if (finished) return;
+        if (start === null) start = ts;
+        const t = Math.min(1, (ts - start) / DURATION);
+        const value = Math.round(easeInOutCubic(t) * 100);
 
-    /* Live references for Dock hover calc */
-    const cardEls = [];
-    const cardTilts = [];
-    const cardCenters = [];
-
-    /* â”€â”€ Mobile orbit: all 12 icons circle the centre text â”€â”€ */
-    function buildMobileOrbit(arc, geo) {
-        const total = LANGS.length;
-        const r = geo.r;
-        const mobileCards = [];
-
-        LANGS.forEach((lang, i) => {
-            /* Evenly space around full 360Â° starting from top (âˆ’90Â°) */
-            const initAngle = (i / total) * 2 * Math.PI - Math.PI / 2;
-            const initX = geo.cx + r * Math.cos(initAngle);
-            const initY = geo.cy + r * Math.sin(initAngle);
-
-            const card = document.createElement('div');
-            card.className = 'splash-lang-card';
-            card.style.cssText = `
-                left:${initX}px; top:${initY}px;
-                transform:translate(-50%,-50%) scale(0.08);
-                opacity:0;
-                background:linear-gradient(135deg,${lang.grad[0]},${lang.grad[1]});
-                border-color:${lang.grad[1]};
-                transition:none;
-                will-change:transform,left,top;
-            `;
-            card.innerHTML = `<img class="card-icon" src="${lang.logo}" alt="${lang.label}" loading="lazy"><span>${lang.label}</span>`;
-            arc.appendChild(card);
-            mobileCards.push(card);
-
-            /* Staggered spring-in reveal */
-            const delay = 60 + i * 75;
-            const dur = 480;
-            setTimeout(() => {
-                card.style.transition = [
-                    `transform ${dur}ms cubic-bezier(0.34,1.56,0.64,1)`,
-                    `opacity   ${Math.round(dur * 0.4)}ms ease-out`,
-                ].join(',');
-                card.style.transform = 'translate(-50%,-50%) scale(0.82)';
-                card.style.opacity = '1';
-            }, delay);
-        });
-
-        /* Start orbiting after all reveals settle */
-        const startAfter = 60 + 11 * 75 + 560;
-        let orbitAngle = 0;
-        let lastTs = null;
-
-        setTimeout(() => {
-            /* Remove transition so rAF updates are instant */
-            mobileCards.forEach(el => { el.style.transition = 'none'; });
-
-            function orbitFrame(ts) {
-                if (!lastTs) lastTs = ts;
-                const dt = ts - lastTs;
-                lastTs = ts;
-                /* Full revolution every 22 s */
-                orbitAngle += (dt / 22000) * 2 * Math.PI;
-
-                mobileCards.forEach((el, i) => {
-                    const theta = orbitAngle + (i / total) * 2 * Math.PI - Math.PI / 2;
-                    el.style.left = (geo.cx + r * Math.cos(theta)) + 'px';
-                    el.style.top  = (geo.cy + r * Math.sin(theta)) + 'px';
-                    el.style.transform = 'translate(-50%,-50%) scale(0.82)';
-                });
-
-                if (!document.getElementById('intro-splash')?.classList.contains('splash-gone')) {
-                    requestAnimationFrame(orbitFrame);
+        if (countEl) countEl.textContent = String(value).padStart(3, '0');
+        if (barEl) barEl.style.transform = `scaleX(${value / 100})`;
+        if (statusEl) {
+            for (let i = STATUSES.length - 1; i >= 0; i--) {
+                if (value >= STATUSES[i][0]) {
+                    if (statusEl.textContent !== STATUSES[i][1]) statusEl.textContent = STATUSES[i][1];
+                    break;
                 }
             }
-            requestAnimationFrame(orbitFrame);
-        }, startAfter);
-    }
-
-    /* â”€â”€ Build arc (desktop) / orbit (mobile) â”€â”€ */
-    function buildArc() {
-        const arc = document.getElementById('splash-arc');
-        if (!arc) return;
-        const geo = getGeometry();
-
-        /* â”€â”€ Mobile: full circular orbit â”€â”€ */
-        if (geo.mob) {
-            buildMobileOrbit(arc, geo);
-            attachDockHover(); /* no-op on touch devices */
-            return;
         }
 
-        /* â”€â”€ Desktop: semicircle arch â”€â”€ */
-        const total = LANGS.length;
-        const startAngle = -148;
-        const endAngle = -32;
-
-        LANGS.forEach((lang, i) => {
-            const angleDeg = startAngle + (endAngle - startAngle) * (i / (total - 1));
-            const rad = angleDeg * Math.PI / 180;
-            const pos = {
-                x: geo.cx + geo.rx * Math.cos(rad),
-                y: geo.cy + geo.ry * Math.sin(rad),
-                tilt: angleDeg + 90,
-            };
-            cardTilts.push(pos.tilt);
-
-            const card = document.createElement('div');
-            card.className = 'splash-lang-card';
-
-            /* Start at final (x,y), slightly below + tiny scale â€” macOS spring-in style */
-            const dropPx = 22;
-            card.style.cssText = `
-                left:${pos.x}px; top:${pos.y}px;
-                transform:translate(-50%, calc(-50% + ${dropPx}px)) rotate(${pos.tilt}deg) scale(0.08);
-                opacity:0;
-                background:linear-gradient(135deg,${lang.grad[0]},${lang.grad[1]});
-                border-color:${lang.grad[1]};
-                transition:none;
-                will-change:transform,opacity;
-            `;
-            card.innerHTML = `<img class="card-icon" src="${lang.logo}" alt="${lang.label}" loading="lazy"><span>${lang.label}</span>`;
-            arc.appendChild(card);
-            cardEls.push(card);
-            cardCenters.push({ x: pos.x, y: pos.y });
-
-            /* Staggered macOS-style spring reveal */
-            const delay = 60 + i * 90;
-            const dur = 500;
-            setTimeout(() => {
-                card.style.transition = [
-                    `transform ${dur}ms cubic-bezier(0.34,1.56,0.64,1)`,
-                    `opacity   ${Math.round(dur * 0.38)}ms ease-out`,
-                    `box-shadow 0.3s ease`
-                ].join(',');
-                card.style.transform = `translate(-50%,-50%) rotate(${pos.tilt}deg) scale(1)`;
-                card.style.opacity = '1';
-                setTimeout(() => {
-                    card.style.animation = `cardFloat ${2.4 + (i % 4) * 0.3}s ease-in-out infinite`;
-                    card.style.animationDelay = `${-(i % 6) * 0.4}s`;
-                    card.style.transition = 'box-shadow 0.3s ease, opacity 0.3s ease';
-                }, dur + 40);
-            }, delay);
-        });
-
-        attachDockHover();
-    }
-
-
-    /* â”€â”€ macOS Dock hover: distance-based magnification â”€â”€ */
-    const DOCK_R = 165;
-    const DOCK_MAX = 1.55;
-
-    function attachDockHover() {
-        const splash = document.getElementById('intro-splash');
-        if (!splash) return;
-        splash.addEventListener('mousemove', onDockMove);
-        splash.addEventListener('mouseleave', onDockLeave);
-    }
-
-    function onDockMove(e) {
-        cardEls.forEach((card, i) => {
-            const center = cardCenters[i];
-            if (!center) return;
-            const dist = Math.hypot(e.clientX - center.x, e.clientY - center.y);
-            const t = Math.max(0, 1 - dist / DOCK_R);
-            const sc = 1 + (DOCK_MAX - 1) * t * t;
-
-            card.style.animationPlayState = t > 0.05 ? 'paused' : 'running';
-            card.style.transform = `translate(-50%,-50%) rotate(${cardTilts[i]}deg) scale(${sc.toFixed(3)})`;
-            card.style.zIndex = t > 0.05 ? '10' : '1';
-
-            card.style.boxShadow = t > 0.55
-                ? `0 18px 50px -8px ${LANGS[i].glow}99, 0 0 0 1px ${LANGS[i].glow}44`
-                : '';
-        });
-    }
-
-    function onDockLeave() {
-        cardEls.forEach((card, i) => {
-            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease';
-            card.style.transform = `translate(-50%,-50%) rotate(${cardTilts[i]}deg) scale(1)`;
-            card.style.zIndex = '1';
-            card.style.boxShadow = '';
-            card.style.animationPlayState = 'running';
-            setTimeout(() => {
-                card.style.transition = 'box-shadow 0.3s ease, opacity 0.3s ease';
-            }, 400);
-        });
-    }
-
-
-    /* ——— Typewriter ——— */
-    function typeText(el, text, spd) {
-        let i = 0;
-        (function tick() { if (i < text.length) { el.textContent += text[i++]; setTimeout(tick, spd); } })();
-    }
-
-    /* ——— Particle canvas ——— */
-    let particleAnimId = null;
-
-    function initParticles() {
-        const canvas = document.getElementById('splash-particles');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        let W, H;
-
-        function resize() {
-            W = window.innerWidth;
-            H = window.innerHeight;
-            canvas.width = W * dpr;
-            canvas.height = H * dpr;
-            canvas.style.width = W + 'px';
-            canvas.style.height = H + 'px';
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        const isMob = W < 640;
-        const COUNT = isMob ? 30 : 55;
-        const particles = [];
-
-        for (let i = 0; i < COUNT; i++) {
-            particles.push({
-                x: Math.random() * W,
-                y: Math.random() * H,
-                r: Math.random() * 1.2 + 0.4,
-                vx: (Math.random() - 0.5) * 0.15,
-                vy: -(Math.random() * 0.25 + 0.08),
-                alpha: Math.random() * 0.4 + 0.1,
-                hue: Math.random() > 0.6 ? 187 : (Math.random() > 0.5 ? 260 : 160), /* cyan / purple / green */
-            });
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
-                if (p.x < -10) p.x = W + 10;
-                if (p.x > W + 10) p.x = -10;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${p.hue}, 80%, 65%, ${p.alpha})`;
-                ctx.fill();
-            });
-            particleAnimId = requestAnimationFrame(draw);
-        }
-        particleAnimId = requestAnimationFrame(draw);
-    }
-
-    /* ——— Status text cycling ——— */
-    function cycleStatus() {
-        const statusText = document.querySelector('.splash-status-text');
-        if (!statusText) return;
-        const messages = ['loading modules', 'compiling assets', 'initializing portfolio', 'almost ready', 'ready'];
-        let idx = 0;
-        const interval = setInterval(() => {
-            idx++;
-            if (idx >= messages.length) { clearInterval(interval); return; }
-            statusText.style.opacity = '0';
-            setTimeout(() => {
-                statusText.textContent = messages[idx];
-                statusText.style.opacity = '1';
-                if (messages[idx] === 'ready') {
-                    const dot = document.querySelector('.splash-status-dot');
-                    if (dot) dot.style.background = '#10b981';
-                }
-            }, 200);
-        }, 1000);
-    }
-
-    /* ——— Init ——— */
-    function initSplash() {
-        buildArc();
-        initParticles();
-        cycleStatus();
-        const t = document.getElementById('splash-typed-text');
-        if (t) setTimeout(() => typeText(t, 'boot --portfolio', 65), 950);
-        /* auto-dismiss after 6 s */
-        setTimeout(dismissSplash, 6000);
+        if (t < 1) requestAnimationFrame(tick);
+        else setTimeout(window.dismissSplash, 380);
     }
 
     window.dismissSplash = function () {
-        const el = document.getElementById('intro-splash');
-        if (!el || el.classList.contains('splash-exit')) return;
-        const splash = document.getElementById('intro-splash');
-        if (splash) splash.removeEventListener('mousemove', onDockMove);
-        if (particleAnimId) cancelAnimationFrame(particleAnimId);
+        if (!splash || splash.classList.contains('splash-exit')) return;
+        finished = true;
 
-        // Force scroll to top (hero section) immediately on dismissal
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
         if (typeof lenis !== 'undefined' && lenis) {
-            lenis.scrollTo(0, { immediate: true });
+            lenis.scrollTo(0, { immediate: true, force: true });
+            lenis.start();
         }
 
-        el.classList.add('splash-exit');
-        window.dispatchEvent(new CustomEvent('portfolio-entered'));
-        setTimeout(() => el.classList.add('splash-gone'), 750);
+        splash.classList.add('splash-exit');
+        document.body.classList.remove('is-loading');
+
+        setTimeout(() => {
+            document.body.classList.add('entered');
+            window.dispatchEvent(new CustomEvent('portfolio-entered'));
+        }, 420);
+        setTimeout(() => splash.classList.add('splash-gone'), 1500);
     };
 
-    document.readyState === 'loading'
-        ? document.addEventListener('DOMContentLoaded', initSplash)
-        : initSplash();
+    if (!splash) {
+        document.body.classList.remove('is-loading');
+        document.body.classList.add('entered');
+        return;
+    }
+    requestAnimationFrame(tick);
 })();
-
-/* ========================================================= */
-
-// --- BLOG DATA & LOGIC ---
-// Blog posts data is in blog-posts.js (loaded before this script)
-
 
 // --- VIEW SWITCHING LOGIC ---
 
@@ -397,10 +86,10 @@ function switchView(viewName, pushHistory = true) {
         toggleMenu();
     }
 
-    // â”€â”€ Kill Lenis completely so it can't animate anything â”€â”€
+    // ── Kill Lenis completely so it can't animate anything ──
     lenis.destroy();
 
-    // â”€â”€ Force scroll to absolute top â”€â”€
+    // ── Force scroll to absolute top ──
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -429,12 +118,12 @@ function switchView(viewName, pushHistory = true) {
         showList(true);
     }
 
-    // â”€â”€ Force scroll to 0 again after DOM swap â”€â”€
+    // ── Force scroll to 0 again after DOM swap ──
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
 
-    // â”€â”€ Recreate Lenis fresh (starts at scroll 0) â”€â”€
+    // ── Recreate Lenis fresh (starts at scroll 0) ──
     reinitLenis();
 }
 
@@ -447,42 +136,42 @@ function navigateToSection(sectionId) {
         // Wait for switch then scroll
         setTimeout(() => {
             const element = document.getElementById(sectionId);
-            if (element) lenis.scrollTo(element, { duration: 1, offset: -80 });
+            if (element) lenis.scrollTo(element, { duration: 1.4, offset: -40, force: true });
         }, 150);
     } else {
         // Already in portfolio view, just scroll
         const element = document.getElementById(sectionId);
-        if (element) lenis.scrollTo(element, { duration: 1, offset: -80 });
+        if (element) lenis.scrollTo(element, { duration: 1.4, offset: -40, force: true });
     }
 }
 
 // --- BLOG FUNCTIONS ---
 let blogListScrollPos = 0; // Remember scroll position when opening a post
 
+function postSnippet(post, length) {
+    return post.content
+        .replace(/```[\s\S]*?```/g, '')
+        .replace(/`/g, '')
+        .trim()
+        .substring(0, length)
+        .trim() + '…';
+}
+
 function renderList() {
     const grid = document.getElementById('posts-grid');
     if (!grid) return;
     grid.innerHTML = blogPosts.map(post => `
-        <article class="group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full cursor-pointer" onclick="showDetail(${post.id})">
-            <div class="h-36 sm:h-48 bg-slate-100 relative overflow-hidden">
-                <img src="${post.image}" alt="${post.title}" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                <div class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold text-slate-600 shadow-sm border border-slate-100">
-                    ${post.category}
-                </div>
+        <article class="post-card" role="link" tabindex="0" onclick="showDetail(${post.id})"
+            onkeydown="if(event.key==='Enter'){showDetail(${post.id})}">
+            <div class="post-card-img">
+                <img src="${post.image}" alt="${post.title}" loading="lazy">
+                <span class="post-card-cat">${post.category}</span>
             </div>
-            <div class="p-4 sm:p-6 flex-1 flex flex-col">
-                <div class="text-[10px] sm:text-xs text-slate-400 mb-2 sm:mb-3 flex items-center gap-2">
-                    <i class="fa-regular fa-calendar"></i> ${post.date}
-                </div>
-                <h2 class="font-display text-base sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 group-hover:text-accent-primary transition-colors leading-snug">
-                    ${post.title}
-                </h2>
-                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 flex-1 line-clamp-3">
-                    ${post.content.replace(/```/g, '').substring(0, 100)}...
-                </p>
-                <div class="inline-flex items-center text-xs sm:text-sm font-semibold text-accent-primary hover:text-blue-700 transition-colors group/link">
-                    Read Article <i class="fa-solid fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                </div>
+            <div class="post-card-body">
+                <span class="post-card-date">${post.date}</span>
+                <h2 class="post-card-title">${post.title}</h2>
+                <p class="post-card-desc">${postSnippet(post, 140)}</p>
+                <span class="post-card-more">Read entry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
         </article>
     `).join('');
@@ -531,7 +220,7 @@ function showDetail(id, pushHistory = true) {
         history.pushState({ view: 'blog-detail', postId: id }, '', `#blog/${id}`);
     }
 
-    // Instant swap â€” no animation
+    // Instant swap — no animation
     blogList.classList.add('hidden');
     blogDetail.classList.remove('hidden');
     lenis.scrollTo(0, { immediate: true, duration: 0 });
@@ -549,7 +238,7 @@ function showList(fromPopstate = false) {
         return; // Let popstate handler call showList again with fromPopstate=true
     }
 
-    // Instant swap â€” no animation
+    // Instant swap — no animation
     blogDetail.classList.add('hidden');
     blogDetail.style.opacity = '';
     blogDetail.style.transform = '';
@@ -562,7 +251,6 @@ function showList(fromPopstate = false) {
     document.documentElement.scrollTop = blogListScrollPos;
 }
 
-// --- INIT SCRIPTS ---
 
 // ===================== LENIS SMOOTH SCROLL =====================
 let lenis;
@@ -594,180 +282,101 @@ function reinitLenis() {
 }
 reinitLenis();
 
-// ===================== SMART NAV HIDE ON SCROLL =====================
-(function () {
-    const nav = document.querySelector('nav');
+// Hold scrolling while the preloader is on screen
+if (document.body.classList.contains('is-loading')) lenis.stop();
+
+function scrollToTop() {
+    if (lenis) lenis.scrollTo(0, { duration: 1.6, force: true });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===================== NAV STATE + SCROLL PROGRESS =====================
+(function initNavScroll() {
+    const nav = document.querySelector('.site-nav');
+    const progress = document.querySelector('.scroll-progress span');
+    const menu = document.getElementById('mobile-menu');
     if (!nav) return;
     let lastScroll = 0;
     let ticking = false;
 
+    function update() {
+        const y = window.pageYOffset;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (progress) progress.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+
+        nav.classList.toggle('scrolled', y > 40);
+        const menuOpen = menu && !menu.classList.contains('hidden');
+        if (!menuOpen && y > lastScroll && y > 240) {
+            nav.style.transform = 'translateY(-100%)';
+        } else {
+            nav.style.transform = '';
+        }
+        lastScroll = y;
+        ticking = false;
+    }
+
     window.addEventListener('scroll', () => {
         if (!ticking) {
-            requestAnimationFrame(() => {
-                const currentScroll = window.pageYOffset;
-                if (currentScroll <= 10) {
-                    nav.style.transform = 'translateY(0) translateZ(0)';
-                } else if (currentScroll > lastScroll && currentScroll > 80) {
-                    nav.style.transform = 'translateY(-100%) translateZ(0)';
-                } else {
-                    nav.style.transform = 'translateY(0) translateZ(0)';
-                }
-                lastScroll = currentScroll;
-                ticking = false;
-            });
+            requestAnimationFrame(update);
             ticking = true;
         }
     }, { passive: true });
 })();
 
-// Initialize AOS with smoother settings
-AOS.init({
-    once: true,
-    offset: 40,
-    duration: 700,
-    easing: 'ease-out-quart',
-    delay: 0,
-});
-
-// Mobile Menu Toggle (smooth)
+// ===================== MOBILE MENU =====================
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
     const menuBtn = document.getElementById('menuToggleBtn');
+    if (!menu) return;
+
     if (menu.classList.contains('hidden')) {
         menu.classList.remove('hidden');
-        menu.style.maxHeight = '0';
-        menu.style.opacity = '0';
+        requestAnimationFrame(() => menu.classList.add('open'));
         if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
-        requestAnimationFrame(() => {
-            menu.style.transition = 'max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease';
-            menu.style.maxHeight = menu.scrollHeight + 'px';
-            menu.style.opacity = '1';
-        });
+        document.body.style.overflow = 'hidden';
+        if (lenis) lenis.stop();
     } else {
-        menu.style.transition = 'max-height 0.3s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.2s ease';
-        menu.style.maxHeight = '0';
-        menu.style.opacity = '0';
+        menu.classList.remove('open');
         if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        if (lenis) lenis.start();
         setTimeout(() => {
-            menu.classList.add('hidden');
-            menu.style.maxHeight = '';
-            menu.style.opacity = '';
-            menu.style.transition = '';
+            if (!menu.classList.contains('open')) menu.classList.add('hidden');
         }, 350);
     }
 }
 
-
-
-// ===================== DARK MODE TOGGLE =====================
-
-// Toggle Dark Mode Function
-function toggleDarkMode() {
-    const html = document.documentElement;
-    const body = document.body;
-    const currentMode = html.classList.contains('dark');
-
-    // Enable transition only during toggle
-    body.classList.add('theme-transitioning');
-
-    if (currentMode) {
-        html.classList.remove('dark');
-        updateDarkModeIcon(false);
-        localStorage.setItem('darkMode', 'false');
-    } else {
-        html.classList.add('dark');
-        updateDarkModeIcon(true);
-        localStorage.setItem('darkMode', 'true');
-    }
-
-    // Remove transition class after animation completes
-    setTimeout(() => {
-        body.classList.remove('theme-transitioning');
-    }, 450);
-}
-
-// Update Dark Mode Icon (handled via CSS now â€” no JS icon swap needed)
-function updateDarkModeIcon(isDark) {
-    // The sliding toggle is fully CSS-driven via the .dark class on <html>.
-    // No manual icon class changes required.
-}
-
-// Load Dark Mode Preference on Page Load
-function loadDarkModePreference() {
-    const darkModePreference = localStorage.getItem('darkMode');
-    const html = document.documentElement;
-
-    // Check for saved preference or system preference
-    if (darkModePreference === 'true') {
-        html.classList.add('dark');
-        updateDarkModeIcon(true);
-    } else if (darkModePreference === 'false') {
-        html.classList.remove('dark');
-        updateDarkModeIcon(false);
-    } else {
-        // Check system preference if no saved preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            html.classList.add('dark');
-            updateDarkModeIcon(true);
-            localStorage.setItem('darkMode', 'true');
-        }
-    }
-}
-
-// Initialize Dark Mode on Page Load
-loadDarkModePreference();
-
 // Initialize Render
 renderList();
 
-// ===================== BLOG POSTS MARQUEE (Portfolio view) =====================
+// ===================== JOURNAL MARQUEE (Portfolio view) =====================
 function renderBlogMarquee() {
     const track = document.getElementById('blog-marquee-track');
     if (!track || typeof blogPosts === 'undefined') return;
 
-    // Generate a single card HTML
     function cardHTML(post) {
-        const snippet = post.content
-            .replace(/```[\s\S]*?```/g, '')
-            .replace(/\\`\\`\\`[\s\S]*?\\`\\`\\`/g, '')
-            .replace(/`/g, '')
-            .trim()
-            .substring(0, 110)
-            .trim() + 'â€¦';
-
         return `
             <div class="blog-marquee-card" onclick="switchView('blog'); showDetail(${post.id})">
                 <div class="blog-marquee-card-img">
                     <img src="${post.image}" alt="${post.title}" loading="lazy">
                     <span class="blog-marquee-card-badge">${post.category}</span>
-                    <div class="blog-marquee-card-overlay">
-                        <span class="blog-marquee-card-overlay-title">${post.title}</span>
-                        <span class="blog-marquee-card-overlay-cta">Read More <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
                 </div>
                 <div class="blog-marquee-card-body">
-                    <span class="blog-marquee-card-date">
-                        <i class="fa-regular fa-calendar"></i> ${post.date}
-                    </span>
+                    <span class="blog-marquee-card-date">${post.date}</span>
                     <h3 class="blog-marquee-card-title">${post.title}</h3>
-                    <p class="blog-marquee-card-desc">${snippet}</p>
-                    <div class="blog-marquee-card-footer">
-                        <span class="blog-marquee-card-tag">${post.category}</span>
-                    </div>
+                    <p class="blog-marquee-card-desc">${postSnippet(post, 110)}</p>
                 </div>
             </div>`;
     }
 
-    // Build all cards then duplicate for seamless infinite loop
+    // Duplicate the set for a seamless infinite loop
     const allCardsHTML = blogPosts.map(cardHTML).join('');
-    track.innerHTML = allCardsHTML + allCardsHTML; // duplicate for infinite scroll
+    track.innerHTML = allCardsHTML + allCardsHTML;
 
-    // Set animation duration based on content width (slower = smoother)
     requestAnimationFrame(() => {
-        const totalWidth = track.scrollWidth / 2; // half since we duplicated
-        const speed = 40; // px per second â€” tune for desired pace
-        const duration = totalWidth / speed;
-        track.style.setProperty('--marquee-duration', `${duration}s`);
+        const totalWidth = track.scrollWidth / 2;
+        const speed = 45; // px per second
+        track.style.setProperty('--marquee-duration', `${totalWidth / speed}s`);
     });
 }
 renderBlogMarquee();
@@ -1057,386 +666,6 @@ renderBlogMarquee();
     }
 })();
 
-// ===================== SCROLL REVEAL (Smooth) =====================
-
-(function initScrollReveal() {
-    const reveals = document.querySelectorAll('.scroll-reveal');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Once visible, stay visible (like Framer Motion once:true)
-            }
-        });
-    }, {
-        threshold: 0.08,
-        rootMargin: '0px 0px -40px 0px'
-    });
-
-    reveals.forEach(el => observer.observe(el));
-})();
-
-// ===================== NAVIGATION BUBBLE INDICATOR =====================
-(function () {
-    const bubble = document.querySelector('.nav-bubble-indicator');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const logoLink = document.getElementById('logoLink');
-
-    if (!bubble || !logoLink) return;
-
-    let isHoveringNav = false;
-
-    // Function to position bubble on an element
-    const positionBubble = (element) => {
-        const rect = element.getBoundingClientRect();
-        const navContainer = document.querySelector('nav .max-w-6xl');
-        const containerRect = navContainer.getBoundingClientRect();
-
-        bubble.style.width = `${rect.width + 16}px`; // Add padding
-        bubble.style.left = `${rect.left - containerRect.left - 8}px`; // Center with padding
-        bubble.classList.add('active');
-    };
-
-    // Set default position on logo
-    const setDefaultPosition = () => {
-        if (!isHoveringNav) {
-            positionBubble(logoLink);
-        }
-    };
-
-    // Initialize on logo
-    setTimeout(() => {
-        positionBubble(logoLink);
-    }, 100);
-
-    // Move bubble on nav link hover
-    navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function () {
-            isHoveringNav = true;
-            positionBubble(this);
-        });
-
-        link.addEventListener('mouseleave', function () {
-            isHoveringNav = false;
-            // Return to logo immediately
-            setTimeout(() => {
-                if (!isHoveringNav) {
-                    positionBubble(logoLink);
-                }
-            }, 50);
-        });
-    });
-
-    // Reposition on window resize
-    window.addEventListener('resize', setDefaultPosition);
-})();
-
-// ===================== PROFILE IMAGE 3D TILT EFFECT =====================
-(function () {
-    const profileImage = document.getElementById('profileImage');
-    const wrapper = document.getElementById('profileMusicWrapper');
-    if (!profileImage || !wrapper) return;
-
-    const glow = wrapper.querySelector('.profile-glow-backdrop');
-    let leaveTimeout;
-
-    profileImage.addEventListener('mouseenter', function () {
-        clearTimeout(leaveTimeout);
-        this.classList.add('tilting');
-        this.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
-    });
-
-    profileImage.addEventListener('mousemove', function (e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        // Calculate rotation angles (max 12 degrees)
-        const rotateX = ((y - centerY) / centerY) * -12;
-        const rotateY = ((x - centerX) / centerX) * 12;
-
-        // Update sheen reflection position (percentages)
-        const sheenX = (x / rect.width) * 100;
-        const sheenY = (y / rect.height) * 100;
-        
-        this.style.setProperty('--sheen-x', `${sheenX}%`);
-        this.style.setProperty('--sheen-y', `${sheenY}%`);
-
-        // Update background glow coordinates
-        if (glow) {
-            const glowX = (x / rect.width) * 100;
-            const glowY = (y / rect.height) * 100;
-            glow.style.setProperty('--glow-x', `${glowX}%`);
-            glow.style.setProperty('--glow-y', `${glowY}%`);
-        }
-
-        // Apply 3D rotation and scale
-        this.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
-        
-        // Calculate dynamic shadow offsets matching tilt
-        const shadowX = -rotateY * 1.5;
-        const shadowY = rotateX * 1.5;
-        this.style.boxShadow = `
-            ${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.15),
-            ${shadowX * 1.5}px ${shadowY * 1.5}px 60px rgba(34, 211, 238, 0.2),
-            0 0 0 1px rgba(34, 211, 238, 0.15)
-        `;
-    });
-
-    profileImage.addEventListener('mouseleave', function () {
-        this.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-        this.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        this.style.boxShadow = '';
-
-        // Slowly remove the tilting class so it transitions back to float smoothly
-        leaveTimeout = setTimeout(() => {
-            this.style.transition = '';
-            this.classList.remove('tilting');
-        }, 600);
-    });
-})();
-
-// ===================== GLOWING CURSOR DOT (Desktop only) =====================
-(function initCursorGlow() {
-    // Skip on touch / mobile devices
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
-    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
-
-    // Create elements
-    const dot = document.createElement('div');
-    dot.className = 'cursor-dot';
-    document.body.appendChild(dot);
-
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
-    document.body.appendChild(ring);
-
-    // State
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
-
-    let isVisible = false;
-    let isClicking = false;
-    let rafId = null;
-
-    // Lerp factors
-    const RING_LERP = 0.15;
-
-    // Animation loop
-    function animate() {
-        if (isVisible) {
-            ringX += (mouseX - ringX) * RING_LERP;
-            ringY += (mouseY - ringY) * RING_LERP;
-
-            const dotScale = isClicking ? ' scale(0.75)' : '';
-            const ringScale = isClicking ? ' scale(0.85)' : '';
-
-            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)${dotScale}`;
-            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${ringScale}`;
-        }
-        rafId = requestAnimationFrame(animate);
-    }
-    rafId = requestAnimationFrame(animate);
-
-    // Track mouse position
-    document.addEventListener('mousemove', function (e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        if (!isVisible) {
-            isVisible = true;
-            dot.classList.add('visible');
-            ring.classList.add('visible');
-        }
-    }, { passive: true });
-
-    // Hide when mouse leaves viewport — reset positions off-screen
-    document.addEventListener('mouseleave', function () {
-        isVisible = false;
-        dot.classList.remove('visible');
-        ring.classList.remove('visible');
-
-        // Move everything off-screen so nothing lingers
-        mouseX = -100; mouseY = -100;
-        ringX = -100; ringY = -100;
-        dot.style.transform = 'translate3d(-100px, -100px, 0) translate(-50%, -50%)';
-        ring.style.transform = 'translate3d(-100px, -100px, 0) translate(-50%, -50%)';
-    });
-
-    // Show when mouse re-enters
-    document.addEventListener('mouseenter', function (e) {
-        // Snap positions to current mouse so nothing teleports
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        ringX = e.clientX;
-        ringY = e.clientY;
-
-        isVisible = true;
-        dot.classList.add('visible');
-        ring.classList.add('visible');
-    });
-
-    // Hover detection for clickable elements
-    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, [onclick], .project-card, .social-icon-btn, .theme-switch, .blog-marquee-card, .skill-pill';
-
-    document.addEventListener('mouseover', function (e) {
-        if (e.target.closest(hoverSelectors)) {
-            dot.classList.add('hovering');
-            ring.classList.add('hovering');
-        }
-    }, { passive: true });
-
-    document.addEventListener('mouseout', function (e) {
-        if (e.target.closest(hoverSelectors)) {
-            dot.classList.remove('hovering');
-            ring.classList.remove('hovering');
-        }
-    }, { passive: true });
-
-    // Subtle pulse on click
-    document.addEventListener('mousedown', function () {
-        isClicking = true;
-    });
-
-    document.addEventListener('mouseup', function () {
-        isClicking = false;
-    });
-})();
-
-// ===================== TERMINAL WINDOW TYPEWRITER SIMULATION =====================
-(function initTerminalTypewriter() {
-    const body = document.querySelector('.hero-code-panel-body');
-    if (!body) return;
-
-    // Define syntax-highlighted code sequences & simulated outputs
-    const SEQUENCES = [
-        {
-            code: [
-                '<span class="hero-code-keyword">const</span> focus = <span class="hero-code-string">"clarity"</span>;',
-                '<span class="hero-code-keyword">if</span> (idea) <span class="hero-code-brace">{</span> shipProduct(); <span class="hero-code-brace">}</span>',
-                '<span class="hero-code-keyword">return</span> quality <span class="hero-code-op">&&</span> performance;'
-            ],
-            output: [
-                '<span class="hero-code-output-run">> shipping product...</span>',
-                '<span class="hero-code-output-success">✓ Success: 100% Quality & Performance</span>'
-            ]
-        },
-        {
-            code: [
-                '<span class="hero-code-keyword">const</span> dev = <span class="hero-code-keyword">new</span> Developer(<span class="hero-code-string">"Jyotirmoy"</span>);',
-                'dev.addSkills(<span class="hero-code-string">"Python"</span>, <span class="hero-code-string">"JS"</span>, <span class="hero-code-string">"AI"</span>);',
-                'dev.buildAwesomeThings();'
-            ],
-            output: [
-                '<span class="hero-code-output-run">> compiling skills...</span>',
-                '<span class="hero-code-output-success">✓ Ready to collaborate!</span>'
-            ]
-        },
-        {
-            code: [
-                '<span class="hero-code-keyword">while</span> (coding) <span class="hero-code-brace">{</span>',
-                '    drinkCoffee();',
-                '    solveBugs();',
-                '    shipUpdates();',
-                '<span class="hero-code-brace">}</span>'
-            ],
-            output: [
-                '<span class="hero-code-output-run">> running developer loop...</span>',
-                '<span class="hero-code-output-success">☕ Status: Fully Charged!</span>'
-            ]
-        }
-    ];
-
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-    async function run() {
-        let seqIdx = 0;
-        
-        // Wait for splash screen to clear before starting
-        await sleep(4000);
-        
-        while (true) {
-            const seq = SEQUENCES[seqIdx];
-            body.innerHTML = ''; // clear static/previous content
-
-            // Type code lines
-            for (let i = 0; i < seq.code.length; i++) {
-                const line = document.createElement('p');
-                body.appendChild(line);
-                
-                // Add terminal cursor symbol
-                const caret = document.createElement('span');
-                caret.className = 'hero-code-caret';
-                caret.innerHTML = '▋';
-                line.appendChild(caret);
-
-                // Create text holder segment before cursor
-                const content = document.createElement('span');
-                line.insertBefore(content, caret);
-                content.innerHTML = seq.code[i];
-
-                // Gather all child text nodes recursively
-                const textNodes = [];
-                function findTextNodes(node) {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        textNodes.push(node);
-                    } else {
-                        for (let child of node.childNodes) {
-                            findTextNodes(child);
-                        }
-                    }
-                }
-                findTextNodes(content);
-
-                // Store text content then clear nodes for dynamic character injection
-                const originalTexts = textNodes.map(n => n.nodeValue);
-                textNodes.forEach(n => { n.nodeValue = ''; });
-
-                // Character typing loop
-                for (let k = 0; k < textNodes.length; k++) {
-                    const node = textNodes[k];
-                    const text = originalTexts[k];
-                    for (let c = 0; c < text.length; c++) {
-                        node.nodeValue += text[c];
-                        await sleep(25);
-                    }
-                }
-
-                // Remove caret from line before starting the next one
-                caret.remove();
-            }
-
-            // Simulated wait command
-            await sleep(500);
-
-            // Print commands running output
-            for (let i = 0; i < seq.output.length; i++) {
-                const outLine = document.createElement('p');
-                outLine.innerHTML = seq.output[i];
-                body.appendChild(outLine);
-                await sleep(300);
-            }
-
-            // Hold output on screen for a visual freeze
-            await sleep(5000);
-
-            // Transition fade-out before loop repeats
-            body.style.opacity = '0';
-            body.style.transition = 'opacity 0.6s ease-out';
-            await sleep(600);
-            body.style.opacity = '1';
-
-            // Iterate to next sequence
-            seqIdx = (seqIdx + 1) % SEQUENCES.length;
-        }
-    }
-
-    run();
-})();
 
 // ===================== HERO TERMINAL INTERACTIVE COPY =====================
 (function initHeroTerminalCopy() {
@@ -1531,3 +760,388 @@ renderBlogMarquee();
     });
 })();
 
+
+
+/* =========================================================
+   VISUAL LAYER — hero field, type, cursor, reveals
+   ========================================================= */
+
+// ===================== SPLIT HERO LETTERS =====================
+(function initSplitLetters() {
+    let index = 0;
+    document.querySelectorAll('.hero-title .split').forEach(el => {
+        const text = el.textContent;
+        el.textContent = '';
+        [...text].forEach(ch => {
+            const outer = document.createElement('span');
+            outer.className = 'char';
+            outer.style.setProperty('--i', index++);
+            const inner = document.createElement('span');
+            inner.className = 'char-inner';
+            inner.textContent = ch;
+            outer.appendChild(inner);
+            el.appendChild(outer);
+        });
+    });
+})();
+
+// ===================== HERO DOT FIELD (canvas) =====================
+(function initHeroField() {
+    const canvas = document.getElementById('hero-field');
+    const hero = document.querySelector('.hero');
+    if (!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+
+    let w = 0, h = 0, points = [];
+    let visible = true;
+    const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const t0 = performance.now();
+    const RADIUS = 170;
+    const GLOW = 280;
+
+    function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = hero.clientWidth;
+        h = hero.clientHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const gap = w < 700 ? 24 : 30;
+        points = [];
+        for (let y = gap / 2; y < h; y += gap) {
+            for (let x = gap / 2; x < w; x += gap) {
+                points.push({ ox: x, oy: y, x, y, vx: 0, vy: 0 });
+            }
+        }
+        if (REDUCED_MOTION) draw(t0);
+    }
+
+    function draw(now) {
+        const t = (now - t0) / 1000;
+        mouse.x += (mouse.tx - mouse.x) * 0.14;
+        mouse.y += (mouse.ty - mouse.y) * 0.14;
+
+        ctx.clearRect(0, 0, w, h);
+        const hot = [];
+
+        ctx.fillStyle = '#ecebe7';
+        for (let i = 0; i < points.length; i++) {
+            const p = points[i];
+            const dx = p.x - mouse.x;
+            const dy = p.y - mouse.y;
+            const d = Math.sqrt(dx * dx + dy * dy) || 1;
+
+            if (d < RADIUS) {
+                const f = 1 - d / RADIUS;
+                p.vx += (dx / d) * f * 2.6;
+                p.vy += (dy / d) * f * 2.6;
+            }
+            p.vx += (p.ox - p.x) * 0.05;
+            p.vy += (p.oy - p.y) * 0.05;
+            p.vx *= 0.84;
+            p.vy *= 0.84;
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Slow interference wave across the grid
+            const wave = (Math.sin(p.ox * 0.007 + t * 0.7) * Math.cos(p.oy * 0.009 - t * 0.5) + 1) / 2;
+            const prox = d < GLOW ? Math.pow(1 - d / GLOW, 1.6) : 0;
+
+            if (prox > 0.04) {
+                hot.push(p.x, p.y, prox);
+                continue;
+            }
+            const size = 0.9 + wave * 0.8;
+            ctx.globalAlpha = 0.06 + wave * 0.16;
+            ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
+        }
+
+        ctx.fillStyle = '#ff2d2d';
+        for (let i = 0; i < hot.length; i += 3) {
+            const prox = hot[i + 2];
+            const size = 1.2 + prox * 2.6;
+            ctx.globalAlpha = 0.2 + prox * 0.8;
+            ctx.fillRect(hot[i] - size / 2, hot[i + 1] - size / 2, size, size);
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    function loop(now) {
+        if (visible && !document.hidden) draw(now);
+        requestAnimationFrame(loop);
+    }
+
+    hero.addEventListener('mousemove', e => {
+        const r = hero.getBoundingClientRect();
+        mouse.tx = e.clientX - r.left;
+        mouse.ty = e.clientY - r.top;
+        if (mouse.x < -1000) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
+        hero.style.setProperty('--mx', `${mouse.tx}px`);
+        hero.style.setProperty('--my', `${mouse.ty}px`);
+    }, { passive: true });
+
+    hero.addEventListener('mouseleave', () => {
+        mouse.tx = -9999;
+        mouse.ty = -9999;
+    });
+
+    new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+    }).observe(hero);
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 150);
+    });
+
+    resize();
+    if (!REDUCED_MOTION) requestAnimationFrame(loop);
+})();
+
+// ===================== HERO LETTERS REPEL FROM CURSOR =====================
+(function initLetterRepel() {
+    if (!FINE_POINTER || REDUCED_MOTION) return;
+    const title = document.querySelector('.hero-title');
+    const hero = document.querySelector('.hero');
+    if (!title || !hero) return;
+    const chars = [...title.querySelectorAll('.char-inner')];
+    let mx = -9999, my = -9999, pending = false;
+
+    function update() {
+        pending = false;
+        chars.forEach(ch => {
+            const r = ch.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const dx = cx - mx;
+            const dy = cy - my;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            const R = r.height * 1.4;
+            if (d < R) {
+                const f = Math.pow(1 - d / R, 2);
+                ch.style.transform = `translate(${(dx / d) * f * 18}px, ${(dy / d) * f * 22}px)`;
+                ch.style.color = f > 0.35 ? 'var(--accent)' : '';
+            } else if (ch.style.transform) {
+                ch.style.transform = '';
+                ch.style.color = '';
+            }
+        });
+    }
+
+    hero.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (!pending) { pending = true; requestAnimationFrame(update); }
+    }, { passive: true });
+
+    hero.addEventListener('mouseleave', () => {
+        mx = my = -9999;
+        requestAnimationFrame(update);
+    });
+})();
+
+// ===================== OCCASIONAL GLITCH ON THE NAME =====================
+(function initGlitch() {
+    if (REDUCED_MOTION) return;
+    const title = document.querySelector('.hero-title');
+    if (!title) return;
+    function fire() {
+        title.classList.add('glitch');
+        setTimeout(() => title.classList.remove('glitch'), 480);
+        setTimeout(fire, 5000 + Math.random() * 6000);
+    }
+    window.addEventListener('portfolio-entered', () => setTimeout(fire, 2600), { once: true });
+})();
+
+// ===================== TEXT SCRAMBLE (role line) =====================
+(function initScramble() {
+    const el = document.getElementById('role-scramble');
+    if (!el) return;
+    const WORDS = ['code', 'products', 'AI tools', 'systems', 'experiences'];
+    const GLYPHS = '!<>-_\\/[]{}=+*^?#01';
+    let wordIndex = 0;
+
+    function scrambleTo(next) {
+        const from = el.textContent;
+        const length = Math.max(from.length, next.length);
+        const queue = [];
+        for (let i = 0; i < length; i++) {
+            const start = Math.floor(Math.random() * 14);
+            queue.push({ from: from[i] || '', to: next[i] || '', start, end: start + 8 + Math.floor(Math.random() * 14) });
+        }
+        let frame = 0;
+        (function step() {
+            let out = '';
+            let done = 0;
+            queue.forEach(q => {
+                if (frame >= q.end) { done++; out += q.to; }
+                else if (frame >= q.start) out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+                else out += q.from;
+            });
+            el.textContent = out;
+            frame++;
+            if (done < queue.length) requestAnimationFrame(step);
+        })();
+    }
+
+    window.addEventListener('portfolio-entered', () => {
+        if (REDUCED_MOTION) return;
+        setInterval(() => {
+            wordIndex = (wordIndex + 1) % WORDS.length;
+            scrambleTo(WORDS[wordIndex]);
+        }, 3000);
+    }, { once: true });
+})();
+
+// ===================== CLOCKS + YEARS =====================
+(function initClocks() {
+    const hud = document.getElementById('hud-clock');
+    const foot = document.getElementById('footer-clock');
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('#hud-year, #footer-year').forEach(el => { el.textContent = year; });
+
+    function tick() {
+        const now = new Date();
+        const opts = { timeZone: 'Asia/Kolkata', hour12: false };
+        if (hud) hud.textContent = now.toLocaleTimeString('en-GB', { ...opts, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        if (foot) foot.textContent = now.toLocaleTimeString('en-GB', { ...opts, hour: '2-digit', minute: '2-digit' }) + ' IST';
+    }
+    tick();
+    setInterval(tick, 1000);
+})();
+
+// ===================== SCROLL REVEAL =====================
+(function initReveal() {
+    const items = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window) || REDUCED_MOTION) {
+        items.forEach(el => el.classList.add('in'));
+        return;
+    }
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    function start() { items.forEach(el => observer.observe(el)); }
+    if (document.body.classList.contains('entered')) start();
+    else window.addEventListener('portfolio-entered', start, { once: true });
+})();
+
+// ===================== COUNT-UP NUMBERS =====================
+(function initCountUp() {
+    const els = document.querySelectorAll('[data-count]');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            observer.unobserve(entry.target);
+            const el = entry.target;
+            const target = parseInt(el.dataset.count, 10);
+            const start = performance.now();
+            const dur = REDUCED_MOTION ? 1 : 1600;
+            (function step(now) {
+                const t = Math.min(1, (now - start) / dur);
+                el.textContent = Math.round((1 - Math.pow(1 - t, 4)) * target);
+                if (t < 1) requestAnimationFrame(step);
+            })(start);
+        });
+    }, { threshold: 0.6 });
+    els.forEach(el => observer.observe(el));
+})();
+
+// ===================== CUSTOM CURSOR (desktop only) =====================
+(function initCursor() {
+    if (!FINE_POINTER) return;
+
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    const ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    const label = document.createElement('span');
+    label.className = 'cursor-label';
+    ring.appendChild(label);
+    document.body.append(dot, ring);
+    document.body.classList.add('has-cursor');
+
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    const HOVER = 'a, button, [role="button"], [role="link"], [onclick], .blog-marquee-card';
+
+    (function animate() {
+        rx += (mx - rx) * 0.16;
+        ry += (my - ry) * 0.16;
+        dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+        ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+        requestAnimationFrame(animate);
+    })();
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.classList.add('visible');
+        ring.classList.add('visible');
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+        dot.classList.remove('visible');
+        ring.classList.remove('visible');
+    });
+
+    document.addEventListener('mouseover', e => {
+        const labeled = e.target.closest('[data-cursor]');
+        if (labeled) {
+            label.textContent = labeled.dataset.cursor;
+            ring.classList.add('labeled');
+            dot.classList.add('labeled');
+            ring.classList.remove('hovering');
+            return;
+        }
+        ring.classList.remove('labeled');
+        dot.classList.remove('labeled');
+        ring.classList.toggle('hovering', !!e.target.closest(HOVER));
+    }, { passive: true });
+
+    document.addEventListener('mousedown', () => { ring.style.scale = '0.85'; });
+    document.addEventListener('mouseup', () => { ring.style.scale = ''; });
+})();
+
+// ===================== MAGNETIC BUTTONS =====================
+(function initMagnetic() {
+    if (!FINE_POINTER || REDUCED_MOTION) return;
+    document.querySelectorAll('.magnetic').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const r = el.getBoundingClientRect();
+            const x = e.clientX - (r.left + r.width / 2);
+            const y = e.clientY - (r.top + r.height / 2);
+            el.style.transition = 'transform 0.2s ease-out';
+            el.style.transform = `translate(${x * 0.28}px, ${y * 0.38}px)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            el.style.transition = 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)';
+            el.style.transform = '';
+        });
+    });
+})();
+
+// ===================== PORTRAIT TILT =====================
+(function initPortraitTilt() {
+    if (!FINE_POINTER || REDUCED_MOTION) return;
+    const portrait = document.getElementById('profileImage');
+    if (!portrait) return;
+    const img = portrait.querySelector('img');
+    portrait.addEventListener('mousemove', e => {
+        const r = portrait.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        img.style.transition = 'filter 0.8s, transform 0.3s ease-out';
+        img.style.transform = `scale(1.12) translate(${x * -14}px, ${y * -10}px)`;
+    });
+    portrait.addEventListener('mouseleave', () => {
+        img.style.transition = 'filter 0.8s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)';
+        img.style.transform = '';
+    });
+})();
