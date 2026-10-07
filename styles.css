@@ -246,7 +246,8 @@ html.lenis body {
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 9800;
+    /* Above every overlay (preloader 10000, chatbot 99999) so it is never lost */
+    z-index: 2147483000;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -321,6 +322,36 @@ html.lenis body {
     body.has-cursor [role="button"] {
         cursor: none;
     }
+
+    /* Text fields always keep the native I-beam */
+    body.has-cursor input,
+    body.has-cursor textarea,
+    body.has-cursor [contenteditable="true"] {
+        cursor: text;
+    }
+
+    /* The chatbot uses the native cursor; the custom one hides over it */
+    body.has-cursor #jchat-wrapper,
+    body.has-cursor #jchat-wrapper * {
+        cursor: auto;
+    }
+
+    body.has-cursor #jchat-wrapper button,
+    body.has-cursor #jchat-wrapper a,
+    body.has-cursor #jchat-wrapper [role="button"],
+    body.has-cursor #jchat-bubble {
+        cursor: pointer;
+    }
+
+    body.has-cursor #jchat-wrapper input,
+    body.has-cursor #jchat-wrapper textarea {
+        cursor: text;
+    }
+}
+
+.cursor-dot.suppressed,
+.cursor-ring.suppressed {
+    opacity: 0 !important;
 }
 
 /* ───────────────────────── Preloader ───────────────────────── */

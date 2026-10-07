@@ -1066,7 +1066,6 @@ renderBlogMarquee();
     label.className = 'cursor-label';
     ring.appendChild(label);
     document.body.append(dot, ring);
-    document.body.classList.add('has-cursor');
 
     let mx = -100, my = -100, rx = -100, ry = -100;
     const HOVER = 'a, button, [role="button"], [role="link"], [onclick], .blog-marquee-card';
@@ -1084,6 +1083,8 @@ renderBlogMarquee();
         my = e.clientY;
         dot.classList.add('visible');
         ring.classList.add('visible');
+        // Only hide the native pointer once the custom one is actually on screen
+        document.body.classList.add('has-cursor');
     }, { passive: true });
 
     document.addEventListener('mouseleave', () => {
@@ -1092,6 +1093,12 @@ renderBlogMarquee();
     });
 
     document.addEventListener('mouseover', e => {
+        // Native cursor takes over inside the chatbot and text fields
+        const native = !!e.target.closest('#jchat-wrapper, input, textarea, [contenteditable="true"]');
+        dot.classList.toggle('suppressed', native);
+        ring.classList.toggle('suppressed', native);
+        if (native) return;
+
         const labeled = e.target.closest('[data-cursor]');
         if (labeled) {
             label.textContent = labeled.dataset.cursor;
