@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Jyotirmoy — thanks for scrolling">
+  <defs>
+    <style>
+      .sans { font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace; letter-spacing: .18em; }
+      .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+      /* Red liquid rises through the outlined wordmark, holds, drains */
+      .fill { animation: fill 7s cubic-bezier(.76,0,.24,1) infinite; }
+      @keyframes fill { 0% { transform: translateY(230px); } 45%, 70% { transform: translateY(0); } 100% { transform: translateY(-230px); } }
+      .glow { animation: breathe 7s ease-in-out infinite; }
+      @keyframes breathe { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+    </style>
+    <radialGradient id="bloom" cx=".5" cy="1" r=".7">
+      <stop offset="0" stop-color="#ff2d2d" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#ff2d2d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff2d2d"/>
+      <stop offset="1" stop-color="#8a1014"/>
+    </linearGradient>
+    <clipPath id="word">
+      <text class="sans" x="40" y="236" font-size="232" font-weight="900" textLength="1120" lengthAdjust="spacingAndGlyphs">JYOTIRMOY</text>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="320" fill="#060607"/>
+  <rect class="glow" width="1200" height="320" fill="url(#bloom)"/>
+
+  <text class="serif" x="40" y="44" font-size="26" fill="#8d8c92">Thanks for scrolling.</text>
+  <text class="mono" x="1160" y="40" font-size="12" fill="#55555b" text-anchor="end">END OF FILE</text>
+
+  <g clip-path="url(#word)">
+    <rect class="fill" x="0" y="40" width="1200" height="230" fill="url(#liquid)"/>
+  </g>
+  <text class="sans" x="40" y="236" font-size="232" font-weight="900" fill="none" stroke="#ecebe7" stroke-opacity=".28" stroke-width="1.2" textLength="1120" lengthAdjust="spacingAndGlyphs">JYOTIRMOY</text>
+
+  <rect x="40" y="268" width="1120" height="1" fill="#ffffff" opacity=".1"/>
+  <g class="mono" font-size="12" fill="#55555b">
+    <text x="40" y="298">© 2026 JYOTIRMOY LAHA</text>
+    <text x="1160" y="298" text-anchor="end">DESIGNED &amp; BUILT BY HAND</text>
+  </g>
+</svg>

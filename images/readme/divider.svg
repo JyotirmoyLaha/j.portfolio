@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="40" viewBox="0 0 1200 40" role="img" aria-label="divider">
+  <defs>
+    <style>
+      .spark { animation: run 3.6s cubic-bezier(.76,0,.24,1) infinite; }
+      @keyframes run { 0% { transform: translateX(-260px); } 100% { transform: translateX(1200px); } }
+      .spin { animation: spin 10s linear infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff2d2d" stop-opacity="0"/>
+      <stop offset=".85" stop-color="#ff2d2d"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="20" width="1200" height="1" fill="#8d8c92" opacity=".25"/>
+  <rect class="spark" x="0" y="19" width="260" height="3" fill="url(#g)"/>
+  <rect x="580" y="8" width="40" height="24" fill="#060607"/>
+  <text class="spin" x="600" y="30" font-size="22" fill="#ff2d2d" text-anchor="middle" font-family="Arial, sans-serif">✳</text>
+</svg>

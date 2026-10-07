@@ -1,416 +1,333 @@
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- ✨ ANIMATED HEADER BANNER — 3D wireframe sphere + floating cubes  -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--
+  ┌──────────────────────────────────────────────────────────────┐
+  │  JYOTIRMOY LAHA — PORTFOLIO                                    │
+  │  Noir editorial system · one signal red · zero chill           │
+  └──────────────────────────────────────────────────────────────┘
+-->
 
 <p align="center">
-  <img src="images/header-animation.svg" alt="Jyotirmoy Laha — Developer Portfolio" width="100%" />
-</p>
-
-<!-- Badges Row -->
-<p align="center">
-  <a href="https://jyotirmoy-portfolio.onrender.com"><img src="https://img.shields.io/badge/🌐_Live_Demo-22d3ee?style=for-the-badge&logoColor=white" alt="Live Demo" /></a>
-  <a href="https://www.npmjs.com/package/jyotirmoy-laha"><img src="https://img.shields.io/npm/v/jyotirmoy-laha?style=for-the-badge&color=cb3837&logo=npm&label=CLI%20Card" alt="NPM Version" /></a>
-  <a href="https://www.linkedin.com/in/jyotirmoylaha2005/"><img src="https://img.shields.io/badge/LinkedIn-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-  <a href="mailto:jyotirmoylaha@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="https://jyotirmoy-portfolio.onrender.com">
+    <img src="images/readme/hero.svg" alt="JYOTIRMOY Laha — animated portfolio banner" width="100%" />
+  </a>
 </p>
 
 <p align="center">
-  <img src="https://badgen.net/github/stars/JyotirmoyLaha/j.portfolio?icon=github" alt="Stars" />
-  <img src="https://badgen.net/github/forks/JyotirmoyLaha/j.portfolio?icon=github" alt="Forks" />
-  <img src="https://badgen.net/github/last-commit/JyotirmoyLaha/j.portfolio?color=22d3ee&icon=github" alt="Last Commit" />
+  <a href="https://jyotirmoy-portfolio.onrender.com"><img src="https://img.shields.io/badge/ENTER_THE_SITE-↗-ff2d2d?style=for-the-badge&labelColor=060607" alt="Enter the site" /></a>
+  <a href="https://www.npmjs.com/package/jyotirmoy-laha"><img src="https://img.shields.io/npm/v/jyotirmoy-laha?style=for-the-badge&label=npx%20jyotirmoy-laha&labelColor=060607&color=ff2d2d&logo=npm&logoColor=white" alt="npm" /></a>
+  <a href="https://www.linkedin.com/in/jyotirmoylaha2005/"><img src="https://img.shields.io/badge/LinkedIn-060607?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="mailto:jyotirmoy713128@gmail.com"><img src="https://img.shields.io/badge/Email-060607?style=for-the-badge&logo=gmail&logoColor=ff2d2d" alt="Email" /></a>
 </p>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gem%20Stone.png" width="25" /> &nbsp;About
-
-> A **high-performance, interactive 3D developer portfolio** built on a modern **Vite + React + TypeScript + Tailwind CSS** stack, featuring custom WebGL/Three.js shader backgrounds, Spline 3D canvas integrations, an interactive semicircle/orbit splash screen, an integrated blog engine, a live GitHub contribution heatmap, and an AI-powered chatbot assistant.
-
-<br/>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- 🏗️ ANIMATED ARCHITECTURE DIAGRAM                                   -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" width="25" /> &nbsp;Architecture
-
 <p align="center">
-  <img src="images/architecture.svg" alt="System Architecture" width="100%" />
-</p>
-
-<details>
-<summary>📂 <b>Directory Structure</b></summary>
-<br/>
-
-```
-j.portfolio.github/
-│
-├── 📄 index.html                 ← SPA entry point & main page shell
-├── ⚙️ vite.config.ts             ← Vite project config
-├── 📄 tsconfig.json              ← TypeScript compiler settings
-├── 📄 package.json               ← Dependencies & NPM build scripts
-├── ⚡ postbuild.cjs              ← Asset compiler copying files to dist/
-│
-├── 📁 src/                       ← React & TypeScript frontend source
-│   ├── 📁 components/            ← Reusable layout & interactive components
-│   │   ├── 📄 SplineSceneBasic.tsx ← 3D Spline Canvas loader
-│   │   └── 📁 ui/
-│   │       ├── 📄 ShaderBackground.tsx     ← Three.js particle shader bg
-│   │       ├── 📄 scroll-morph-hero.tsx    ← Scroll-driven morphing hero animation (React component)
-│   │       ├── 📄 dotted-surface.tsx       ← Repulsive magnetic hover particle grid
-│   │       ├── 📄 spotlight.tsx            ← Grid mouse-hover focus accent
-│   │       └── 📄 card.tsx / splite.tsx    ← Base UI/Spline primitives
-│   ├── 📁 lib/                   ← Utility helper functions
-│   │   └── 📄 utils.ts           ← Tailwind merging utility (cn)
-│   ├── 📄 main.tsx               ← React entrypoint mounting components
-│   └── 📄 index.css              ← Tailwind directives & global utility classes
-│
-├── 🎨 styles.css                 ← Custom layout & theme CSS rules
-├── ⚡ script.js                  ← Core DOM handlers & routing
-├── 📝 blog-posts.js              ← Static blog database
-│
-├── 💻 cli-card/                  ← Node.js CLI business card (NPM)
-│   └── bin/index.js
-│
-└── 🤖 portfolio-chatbot/
-    ├── frontend/                 ← Chatbot UI components
-    └── backend/                  ← FastAPI + Groq LLM engine
-        ├── main.py
-        ├── requirements.txt
-        └── .env
-```
-
-</details>
-
-<br/>
-
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- ✨ ANIMATED FEATURE CARDS                                          -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" width="25" /> &nbsp;Core Features
-
-<p align="center">
-  <img src="images/features.svg" alt="Core Features" width="100%" />
+  <img src="https://img.shields.io/github/last-commit/JyotirmoyLaha/j.portfolio?style=flat-square&labelColor=060607&color=ff2d2d&label=last%20commit" alt="Last commit" />
+  <img src="https://img.shields.io/github/stars/JyotirmoyLaha/j.portfolio?style=flat-square&labelColor=060607&color=ecebe7&logo=github&logoColor=white" alt="Stars" />
+  <img src="https://img.shields.io/badge/frameworks_on_the_page-0-ff2d2d?style=flat-square&labelColor=060607" alt="Frameworks on the page: 0" />
+  <img src="https://img.shields.io/badge/theme-dark_only-ecebe7?style=flat-square&labelColor=060607" alt="Theme: dark only" />
 </p>
 
 <br/>
+
+<p align="center">
+  <sub><code>INDEX / 001</code> &nbsp;·&nbsp; <code>STATUS ● OPEN TO WORK</code> &nbsp;·&nbsp; <code>LOCAL TIME — IST</code></sub>
+</p>
+
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
+
+## `(00)` &nbsp;The brief
+
+> *"Make it formal. Make it polished. Make it so their jaw hits the floor."*
+
+So it got built like a film title sequence instead of a template. Near-black canvas. Hairline grid. One signal red, used like a warning light. Type so big it has to be clipped. Every pixel either earns its place or leaves.
 
 <table>
   <tr>
-    <td width="50%">
+    <td width="33%" valign="top">
+      <b>Formal</b><br/>
+      <sub>Numbered sections <code>(01)–(07)</code>, editorial grid, Inter Tight × Instrument Serif × JetBrains Mono.</sub>
+    </td>
+    <td width="33%" valign="top">
+      <b>Polished</b><br/>
+      <sub>Lenis smooth scroll, masked reveals, magnetic buttons, a cursor that knows what it's hovering.</sub>
+    </td>
+    <td width="33%" valign="top">
+      <b>Unsettling</b><br/>
+      <sub>Letters that flinch away from your cursor. A name that glitches when you're not looking.</sub>
+    </td>
+  </tr>
+</table>
 
-### 🌀 WebGL & 3D Spline Scene
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
-- Custom WebGL/Three.js fragment shaders (`ShaderBackground.tsx`)
-- Interactive mouse-responsive particles & gradient shifts
-- 3D interactive models loaded via `@splinetool/react-spline`
-- Viewport-adaptive scaling and non-blocking loading
-- Theme-aware shader color palettes (light/dark mode)
+## `(01)` &nbsp;Exhibit A
+
+<p align="center">
+  <a href="https://jyotirmoy-portfolio.onrender.com">
+    <img src="images/portfolio.webp" alt="Hero section of the portfolio: giant JYOTIRMOY / LAHA wordmark, black-and-white portrait, red dot field" width="100%" />
+  </a>
+  <br/>
+  <sub>↑ the actual hero. Not a mockup. Move your mouse over it on the live site and watch the dots run.</sub>
+</p>
+
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
+
+## `(02)` &nbsp;What happens when you open it
+
+```text
+t = 0.0s   ███  black. a counter starts: 000 → 100. status: Initializing → Loading assets → Compiling → Ready
+t = 2.6s   ▀▀▀  a red hairline flashes across the middle. the screen tears open — top half up, bottom half down
+t = 3.0s   J Y O T I R M O Y   letters rise one by one out of a mask
+t = 3.5s   ▣    the portrait wipes in, black & white, crop marks in the corners
+t = 4.0s   ✳    the asterisk starts spinning. the IST clock starts ticking. the role line begins to scramble
+t = ∞      ░░░  every 5–11 seconds the name glitches — red/cyan split, three frames, gone
+```
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+
+### ◼ The Hero
+- **Repelling dot field** — a canvas grid of 1,500+ points with spring physics; points scatter from your cursor and burn red as you get close
+- **Flinching letters** — each glyph of the name is pushed away from the pointer and turns red at close range
+- **Chromatic glitch** — `::before` / `::after` layers with clipped red/cyan offsets, on hover and on a random timer
+- **Text scramble** — "Converts *ideas* into `code` → `products` → `AI tools` → `systems` → `experiences`"
+- **Live HUD** — edition year + India Standard Time clock
 
 </td>
-<td width="50%">
+    <td width="50%" valign="top">
 
-### ✨ Semicircle/Orbit Splash Screen
-
-- Semicircle card arch on desktop and orbiting card circle on mobile
-- Staggered macOS-style spring reveal for tech stack devicon cards
-- High-performance, custom-rendered floating particle canvas background
-- Interactive macOS Dock-style magnification hover effect
-- Typewriter terminal booting commands with status loading sequence
+### ◼ The Feel
+- **Custom cursor** — dot + lagging ring; grows on links, becomes a red **VIEW** disc over project shots, steps aside for the native cursor in text fields and the chatbot
+- **Magnetic buttons** — CTAs lean toward the pointer
+- **Masked reveals** — headings rise with blur + skew as they enter view
+- **Scroll progress** — a 2px red line across the top of the page
+- **Film grain** — animated SVG noise over everything, 7% opacity
 
 </td>
   </tr>
   <tr>
-    <td width="50%">
+    <td width="50%" valign="top">
 
-### 📊 Live GitHub Contribution Heatmap
-
-- Async hydration from GitHub metrics API
-- Dynamic grid with 5-level opacity states
-- Viewport-aware tooltip integration
-- Lazy-loaded on section visibility
-- Real-time contribution data
+### ◼ The Work
+- Five projects, editorial rows: index · category · title · stack · links
+- Screenshots sit at **90% grayscale** until hovered, then bleed into color
+- A red rule sweeps across each row on hover
 
 </td>
-<td width="50%">
+    <td width="50%" valign="top">
 
-### 🤖 Context-Aware AI Chatbot
-
-- FastAPI backend with `BeautifulSoup4` scraper
-- Groq SDK + Llama model for instant inference
-- Auto-generates context vectors from live content
-- CORS + sliding window rate limiting (20 req/hr/IP)
-- Fully self-contained deployment
+### ◼ The Receipts
+- **Live GitHub heatmap**, re-colored in five shades of red, with a year switcher
+- **Streak stats** — total contributions, current streak, longest streak
+- **Count-up numbers** that only run when you scroll to them
 
 </td>
   </tr>
   <tr>
-    <td width="50%">
+    <td width="50%" valign="top">
 
-### 🖼️ Interactive 3D Parallax Card
-
-- CSS 3D perspective context (`perspective: 1200px`)
-- Real-time cursor tracking with dynamic rotation (max 12°)
-- Parallax floating corners at `translateZ(35px)`
-- Specular gloss overlay with `--sheen-x/y` CSS vars
-- Gentle float animation, auto-disabled on hover
+### ◼ The Journal
+- Built-in blog engine — posts live in `blog-posts.js`
+- Hash routing: `#blog`, `#blog/:id`, real back/forward support
+- Infinite marquee of entries on the home page
 
 </td>
-<td width="50%">
+    <td width="50%" valign="top">
 
-### 🛣️ Vanilla JS Hash Router
-
-- Zero-dependency client-side routing
-- `history.pushState` + `popstate` navigation
-- Deep-linkable blog posts via `#blog/:id`
-- Scroll position preservation across transitions
-- No framework overhead — pure ES6+
+### ◼ The Assistant
+- Floating chatbot answering questions about Jyotirmoy
+- **FastAPI + Groq** (`openai/gpt-oss-120b` by default) reading the live site for context
+- 20 requests / hour / IP, CORS-locked
 
 </td>
   </tr>
 </table>
 
-<br/>
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
-<details>
-<summary>💻 <b>Interactive CLI Business Card</b> — <code>npx jyotirmoy-laha</code></summary>
-<br/>
+## `(03)` &nbsp;Selected work
+
+| `#` | Project | What it is | Stack | |
+|:--:|---|---|---|---|
+| `01` | **Portfolio Website** | This thing. Splash, blog engine, smooth-scroll, built from scratch | HTML · CSS · JS | [live](https://jyotirmoy-portfolio.onrender.com/) · [src](https://github.com/JyotirmoyLaha/j.portfolio) |
+| `02` | **J.SkyCast** | Real-time weather dashboard on the OpenWeatherMap API | JS · API · Tailwind | [live](https://j-weather.onrender.com) · [src](https://github.com/JyotirmoyLaha/j.weather) |
+| `03` | **AI Resume Analyzer** | NLP resume parsing + scoring against job descriptions | Python · FastAPI · NLP | [live](https://ai-resume-analyzer-hhhb.onrender.com/) · [fe](https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend) · [be](https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend) |
+| `04` | **Mess Manager** | Hostel expense splitting with Firebase + Google Auth + PDF reports | JS · Firebase | [live](https://mess-maneger.onrender.com/) · [src](https://github.com/JyotirmoyLaha/mess-maneger) |
+| `05` | **StudyVerse** | Zen journal with Google SSO and real-time sync | JS · Firebase | [live](https://studyverse-vlzh.onrender.com/) · [src](https://github.com/JyotirmoyLaha/studyverse) |
+
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
+
+## `(04)` &nbsp;No website? Use the terminal.
+
+<p align="center">
+  <img src="images/readme/terminal.svg" alt="Terminal running npx jyotirmoy-laha" width="100%" />
+</p>
 
 ```bash
-# 🚀 Run it instantly — no install needed!
 npx jyotirmoy-laha
-
-# ✨ With the Matrix rain startup effect:
-npx jyotirmoy-laha --matrix
 ```
 
-| Feature | Details |
-|---|---|
-| **Zero Dependencies** | Pure Node.js `readline` + ANSI escape codes |
-| **Interactive Navigation** | Arrow-key & numeric menu selection |
-| **Cross-Platform** | Auto-detects OS for link launching |
-| **Dripping Laser FX** | Custom animated terminal intro sequence |
-| **Matrix Rain** | 3-second Matrix digital rain with `--matrix` flag |
+A business card that lives in your shell. Matrix rain → dripping logo → laser line → an arrow-key menu (About · Skills · Projects · Socials · Open Web Portfolio). Pure Node.js `readline` + ANSI escapes, no dependencies.
 
-</details>
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
-<br/>
+## `(05)` &nbsp;Under the hood
 
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- 💻 ANIMATED TECH STACK                                             -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Hammer%20and%20Wrench.png" width="25" /> &nbsp;Tech Stack
-
-<p align="center">
-  <img src="images/tech-stack.svg" alt="Tech Stack" width="100%" />
-</p>
-
-<br/>
+```text
+             ┌─────────────────────────────── browser ───────────────────────────────┐
+             │                                                                        │
+ index.html ─┤  styles.css   design tokens · noir palette · reveal system · layout    │
+             │  script.js    preloader · Lenis · router · heatmap · canvas field      │
+             │               split letters · scramble · cursor · magnetic · reveals   │
+             │  blog-posts.js   the journal's database                                │
+             │  chatbot.js  ──────── fetch ────────┐                                  │
+             └─────────────────────────────────────┼──────────────────────────────────┘
+                                                   ▼
+                              portfolio-chatbot/backend  (FastAPI)
+                              scrape live site ─► context ─► Groq LLM ─► answer
+```
 
 <table>
+  <tr><th align="left">Layer</th><th align="left">Tech</th></tr>
   <tr>
-    <th align="center">Layer</th>
-    <th align="center">Technologies</th>
-  </tr>
-  <tr>
-    <td align="center"><b>🎨 Frontend</b></td>
+    <td><b>Page</b></td>
     <td>
-      <img src="https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
-      <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
-      <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
-      <img src="https://img.shields.io/badge/Three.js-black?style=flat-square&logo=three.js&logoColor=white" />
-      <img src="https://img.shields.io/badge/Spline_3D-black?style=flat-square" />
-      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />
-      <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" />
-      <img src="https://img.shields.io/badge/Vanilla_CSS-1572B6?style=flat-square&logo=css3&logoColor=white" />
-      <img src="https://img.shields.io/badge/JavaScript_ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
-      <img src="https://img.shields.io/badge/Lenis-000000?style=flat-square" />
-      <img src="https://img.shields.io/badge/AOS-68BC71?style=flat-square" />
+      <img src="https://img.shields.io/badge/HTML5-060607?style=flat-square&logo=html5&logoColor=E34F26" />
+      <img src="https://img.shields.io/badge/CSS-060607?style=flat-square&logo=css3&logoColor=1572B6" />
+      <img src="https://img.shields.io/badge/Vanilla_JS-060607?style=flat-square&logo=javascript&logoColor=F7DF1E" />
+      <img src="https://img.shields.io/badge/Canvas_2D-060607?style=flat-square" />
+      <img src="https://img.shields.io/badge/Lenis-060607?style=flat-square" />
+      <img src="https://img.shields.io/badge/Font_Awesome-060607?style=flat-square&logo=fontawesome&logoColor=528DD7" />
     </td>
   </tr>
   <tr>
-    <td align="center"><b>⚙️ Backend</b></td>
+    <td><b>Tooling</b></td>
     <td>
-      <img src="https://img.shields.io/badge/Python_3-3776AB?style=flat-square&logo=python&logoColor=white" />
-      <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" />
-      <img src="https://img.shields.io/badge/SQLAlchemy-D71F00?style=flat-square" />
-      <img src="https://img.shields.io/badge/Groq_AI-000000?style=flat-square" />
-      <img src="https://img.shields.io/badge/Alembic-6BA81E?style=flat-square" />
+      <img src="https://img.shields.io/badge/Vite-060607?style=flat-square&logo=vite&logoColor=646CFF" />
+      <img src="https://img.shields.io/badge/TypeScript-060607?style=flat-square&logo=typescript&logoColor=3178C6" />
+      <img src="https://img.shields.io/badge/Node.js-060607?style=flat-square&logo=node.js&logoColor=339933" />
     </td>
   </tr>
   <tr>
-    <td align="center"><b>💻 CLI</b></td>
+    <td><b>Assistant</b></td>
     <td>
-      <img src="https://img.shields.io/badge/Node.js_18+-339933?style=flat-square&logo=node.js&logoColor=white" />
-      <img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white" />
-      <img src="https://img.shields.io/badge/ANSI_Escape-4A154B?style=flat-square" />
+      <img src="https://img.shields.io/badge/Python-060607?style=flat-square&logo=python&logoColor=3776AB" />
+      <img src="https://img.shields.io/badge/FastAPI-060607?style=flat-square&logo=fastapi&logoColor=009688" />
+      <img src="https://img.shields.io/badge/Groq-060607?style=flat-square" />
+      <img src="https://img.shields.io/badge/BeautifulSoup-060607?style=flat-square" />
     </td>
+  </tr>
+  <tr>
+    <td><b>Type</b></td>
+    <td><sub><b>Inter Tight</b> (display) · <i>Instrument Serif</i> (the italics) · <code>JetBrains Mono</code> (labels, HUD)</sub></td>
+  </tr>
+  <tr>
+    <td><b>Palette</b></td>
+    <td><code>#060607</code> canvas · <code>#ecebe7</code> ink · <code>#8d8c92</code> muted · <code>#ff2d2d</code> <b>signal</b></td>
   </tr>
 </table>
 
+<details>
+<summary><b>📂 Directory map</b></summary>
 <br/>
 
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
+```text
+j.portfolio.github/
+├── index.html              ← the whole site: preloader, hero, sections, journal, footer
+├── styles.css              ← noir design system (tokens → components → motion)
+├── script.js               ← all behaviour, no framework
+├── blog-posts.js           ← journal entries
+├── Jyotirmoy_Laha_Resume.pdf
+├── images/
+│   ├── readme/             ← animated SVGs for this README
+│   └── *.webp              ← project shots, portrait, blog covers
+├── portfolio-chatbot/
+│   ├── frontend/           ← chat widget (chatbot.js / chatbot.css)
+│   └── backend/            ← FastAPI + Groq (main.py, requirements.txt, .env.example)
+├── cli-card/               ← the `npx jyotirmoy-laha` package
+├── src/                    ← React + Spline experiments (not mounted by index.html)
+├── vite.config.ts · tsconfig.json · package.json
+└── postbuild.cjs           ← copies static assets into dist/ after the Vite build
+```
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- ⚙️ GETTING STARTED                                                 -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+</details>
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" width="25" /> &nbsp;Getting Started
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
+
+## `(06)` &nbsp;Run it yourself
 
 <details open>
-<summary><b>1️⃣ Frontend — React + Vite Dev Server</b></summary>
+<summary><b>Site</b></summary>
 <br/>
 
 ```bash
-# Clone the repository
 git clone https://github.com/JyotirmoyLaha/j.portfolio.github.git
 cd j.portfolio.github
-
-# Install dependencies
 npm install
-
-# Start Vite dev server
-npm run dev
+npm run dev          # → http://localhost:5173
 ```
-
-> 🌐 Open **`http://localhost:5173`** (or the port outputted by Vite) in your browser
-
-</details>
-
-<details>
-<summary><b>2️⃣ Frontend Compilation & Production Build</b></summary>
-<br/>
 
 ```bash
-# Compile TypeScript and bundle with Vite
-npm run build
+npm run build        # tsc → vite build → postbuild.cjs copies static assets into dist/
 ```
-
-> [!TIP]
-> The build command compiles the TypeScript sources, runs the Vite bundler, and then runs a custom post-build script (`postbuild.cjs`) which copies all static assets (images, blog databases, custom stylesheets) into the `dist/` directory to prepare for single-command production deployment.
 
 </details>
 
 <details>
-<summary><b>3️⃣ Chatbot Backend — FastAPI</b></summary>
+<summary><b>Chatbot backend</b></summary>
 <br/>
 
 ```bash
 cd portfolio-chatbot/backend
-
-# Create virtual environment
 python -m venv .venv
-
-# Activate (Windows)
-.venv\Scripts\activate
-
-# Install dependencies
+.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Create a **`.env`** file inside `portfolio-chatbot/backend/`:
+Create `portfolio-chatbot/backend/.env` (see `.env.example`):
 
 ```env
 GROQ_API_KEY=your_groq_api_key
 PORTFOLIO_URL=http://localhost:5173
 ALLOWED_ORIGIN=http://localhost:5173
+# optional — defaults to openai/gpt-oss-120b
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+```bash
+uvicorn main:app --reload --port 8000
 ```
 
 > [!IMPORTANT]
-> The chatbot backend relies on `GROQ_API_KEY` for AI completions. Get your free key at [console.groq.com](https://console.groq.com).
-
-```bash
-# Start the FastAPI server
-uvicorn main:app --reload --port 8000
-```
+> Get a free key at [console.groq.com](https://console.groq.com). The API allows 20 requests per hour per IP.
 
 </details>
 
 <details>
-<summary><b>4️⃣ CLI Business Card — Node.js</b></summary>
+<summary><b>CLI card</b></summary>
 <br/>
 
 ```bash
 cd cli-card
-
-# Link for local testing
-npm link
-jyotirmoy-laha
-
-# Or run directly
-node bin/index.js
-
-# With Matrix rain effect ✨
-node bin/index.js --matrix
+node bin/index.js     # or: npm link && jyotirmoy-laha
 ```
-
-> [!TIP]
-> Linking with `npm link` lets you test the `jyotirmoy-laha` command globally before publishing.
 
 </details>
 
-<br/>
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
+## `(07)` &nbsp;Accessibility, because scary ≠ hostile
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- 🌐 DEPLOYMENT                                                      -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+- `prefers-reduced-motion` freezes the dot field, stops the glitch, scramble and grain, and shows every reveal instantly
+- The custom cursor only exists on fine pointers. Touch devices never see it, and text fields always keep the native I-beam
+- Skip-to-content link, visible `:focus-visible` rings, keyboard-operable journal cards and copy button
+- No horizontal scroll at 390px. The hero name scales to fit the viewport
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Globe%20Showing%20Americas.png" width="25" /> &nbsp;Deployment
-
-<table>
-  <tr>
-    <th>Component</th>
-    <th>Platform</th>
-    <th>Configuration</th>
-  </tr>
-  <tr>
-    <td>🌐 <b>Frontend</b></td>
-    <td><img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=white" /> <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat-square&logo=github&logoColor=white" /></td>
-    <td>Ensure all paths are relative</td>
-  </tr>
-  <tr>
-    <td>🤖 <b>Chatbot API</b></td>
-    <td><img src="https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=white" /></td>
-    <td>Set <code>ALLOWED_ORIGIN</code> for production CORS</td>
-  </tr>
-  <tr>
-    <td>💻 <b>CLI Package</b></td>
-    <td><img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white" /></td>
-    <td>Published as <code>jyotirmoy-laha</code></td>
-  </tr>
-</table>
-
-<br/>
-
-
-
-<p align="center"><img src="images/divider.svg" width="100%" /></p>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- ANIMATED FOOTER                                                    -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
+<p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
 <p align="center">
-  <img src="images/footer.svg" alt="Footer" width="100%" />
+  <img src="images/readme/footer.svg" alt="JYOTIRMOY — thanks for scrolling" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://jyotirmoy-portfolio.onrender.com">
-    <img src="https://img.shields.io/badge/Visit_Portfolio-▸-22d3ee?style=for-the-badge" alt="Visit Portfolio" />
-  </a>
-</p>
-
-<p align="center">
-  <sub>⭐ Star this repo if you found it interesting!</sub>
+  <a href="https://jyotirmoy-portfolio.onrender.com"><img src="https://img.shields.io/badge/now_go_see_it_move-↗-ff2d2d?style=for-the-badge&labelColor=060607" alt="Visit the portfolio" /></a>
 </p>

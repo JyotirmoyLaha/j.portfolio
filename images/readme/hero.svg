@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="Jyotirmoy Laha — Developer Portfolio">
+  <defs>
+    <style>
+      .mono { font-family: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; letter-spacing: 0.18em; }
+      .sans { font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .serif { font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; font-style: italic; }
+
+      /* Name rises out of its mask */
+      .rise { transform: translateY(190px); animation: rise 1.4s cubic-bezier(.22,1,.36,1) forwards; }
+      .rise-2 { animation-delay: .18s; }
+      @keyframes rise { to { transform: translateY(0); } }
+
+      /* Chromatic glitch bursts */
+      .gl-r { opacity: 0; animation: glR 5.5s steps(1) 2s infinite; }
+      .gl-c { opacity: 0; animation: glC 5.5s steps(1) 2s infinite; }
+      @keyframes glR {
+        0%, 86%, 100% { opacity: 0; transform: translate(0,0); }
+        87% { opacity: .9; transform: translate(-7px, 0); clip-path: inset(10% 0 62% 0); }
+        89% { opacity: .9; transform: translate(6px, 0); clip-path: inset(58% 0 18% 0); }
+        91% { opacity: .9; transform: translate(-4px, 0); clip-path: inset(32% 0 40% 0); }
+        93% { opacity: 0; }
+      }
+      @keyframes glC {
+        0%, 86%, 100% { opacity: 0; transform: translate(0,0); }
+        87% { opacity: .7; transform: translate(7px, 0); clip-path: inset(64% 0 10% 0); }
+        89% { opacity: .7; transform: translate(-6px, 0); clip-path: inset(12% 0 66% 0); }
+        91% { opacity: .7; transform: translate(4px, 0); clip-path: inset(44% 0 30% 0); }
+        93% { opacity: 0; }
+      }
+
+      /* Ambient red glow drifting under the grid */
+      .glow { animation: drift 9s ease-in-out infinite alternate; transform-origin: center; }
+      @keyframes drift { 0% { transform: translate(-260px, 40px) scale(.9); } 100% { transform: translate(260px, -30px) scale(1.15); } }
+
+      .scan { animation: scan 6s linear infinite; }
+      @keyframes scan { 0% { transform: translateY(-40px); } 100% { transform: translateY(600px); } }
+
+      .pulse { animation: pulse 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes pulse { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(3.4); opacity: 0; } }
+
+      .spin { animation: spin 14s linear infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .bar { transform: scaleX(0); transform-origin: left; animation: bar 2.6s cubic-bezier(.76,0,.24,1) .3s forwards; }
+      @keyframes bar { to { transform: scaleX(1); } }
+
+      /* Counter 000 → 100 */
+      .n { opacity: 0; }
+      .n0 { animation: show 0.45s steps(1) 0.3s 1 forwards; }
+      .n1 { animation: show 0.45s steps(1) 0.75s 1 forwards; }
+      .n2 { animation: show 0.45s steps(1) 1.2s 1 forwards; }
+      .n3 { animation: show 0.45s steps(1) 1.65s 1 forwards; }
+      .n4 { animation: show 0.45s steps(1) 2.1s 1 forwards; }
+      .n5 { animation: stay 0.1s linear 2.55s 1 forwards; }
+      @keyframes show { 0% { opacity: 1; } 100% { opacity: 0; } }
+      @keyframes stay { from, to { opacity: 1; } }
+
+      /* Rotating word after "converts ideas into" */
+      .w { opacity: 0; animation: word 12s infinite; }
+      .w2 { animation-delay: 3s; } .w3 { animation-delay: 6s; } .w4 { animation-delay: 9s; }
+      @keyframes word { 0%, 2% { opacity: 0; } 4%, 23% { opacity: 1; } 25%, 100% { opacity: 0; } }
+
+      .caret { animation: blink 1s steps(1) infinite; }
+      .tight { letter-spacing: 0; }
+      @keyframes blink { 50% { opacity: 0; } }
+
+      .fade { opacity: 0; animation: fade 1.2s ease 1.3s forwards; }
+      @keyframes fade { to { opacity: 1; } }
+    </style>
+
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect x="11" y="11" width="1.4" height="1.4" fill="#ecebe7" opacity=".16"/>
+    </pattern>
+    <radialGradient id="redGlow">
+      <stop offset="0" stop-color="#ff2d2d" stop-opacity=".42"/>
+      <stop offset=".45" stop-color="#ff2d2d" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#ff2d2d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx=".5" cy=".5" r=".75">
+      <stop offset=".55" stop-color="#060607" stop-opacity="0"/>
+      <stop offset="1" stop-color="#060607" stop-opacity=".95"/>
+    </radialGradient>
+    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff2d2d" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ff2d2d" stop-opacity=".22"/>
+    </linearGradient>
+    <clipPath id="row1"><rect x="0" y="150" width="1200" height="182"/></clipPath>
+    <clipPath id="row2"><rect x="0" y="322" width="1200" height="136"/></clipPath>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1200" height="560" fill="#060607"/>
+  <g class="glow"><circle cx="600" cy="330" r="380" fill="url(#redGlow)"/></g>
+  <rect width="1200" height="560" fill="url(#dots)"/>
+  <rect class="scan" x="0" y="0" width="1200" height="40" fill="url(#scanGrad)"/>
+  <rect width="1200" height="560" fill="url(#vignette)"/>
+
+  <!-- HUD -->
+  <g class="mono" font-size="12" fill="#55555b">
+    <text x="48" y="56">INDEX / 001</text>
+    <text x="48" y="78">PORTFOLIO — EDITION 2026</text>
+    <text x="1152" y="56" text-anchor="end">INDIA — IST</text>
+  </g>
+  <g transform="translate(1012 73)">
+    <circle r="4" fill="#ff2d2d"/>
+    <circle class="pulse" r="4" fill="#ff2d2d"/>
+  </g>
+  <text class="mono" x="1152" y="78" text-anchor="end" font-size="12" fill="#8d8c92">OPEN TO WORK</text>
+
+  <g class="mono fade" font-size="13" fill="#8d8c92">
+    <rect x="48" y="128" width="44" height="1.5" fill="#ff2d2d"/>
+    <text x="108" y="133">DEVELOPER &amp; BCA STUDENT</text>
+  </g>
+
+  <!-- JYOTIRMOY -->
+  <g clip-path="url(#row1)">
+    <g class="rise">
+      <text class="sans gl-r" x="44" y="318" font-size="196" font-weight="900" fill="#ff2d2d" textLength="1112" lengthAdjust="spacingAndGlyphs">JYOTIRMOY</text>
+      <text class="sans gl-c" x="44" y="318" font-size="196" font-weight="900" fill="#33ccff" textLength="1112" lengthAdjust="spacingAndGlyphs">JYOTIRMOY</text>
+      <text class="sans" x="44" y="318" font-size="196" font-weight="900" fill="#ecebe7" textLength="1112" lengthAdjust="spacingAndGlyphs">JYOTIRMOY</text>
+    </g>
+  </g>
+
+  <!-- Laha + spinning mark -->
+  <g clip-path="url(#row2)">
+    <g class="rise rise-2">
+      <text class="serif" x="1100" y="446" font-size="150" fill="#ff2d2d" text-anchor="end">Laha</text>
+    </g>
+  </g>
+  <text class="spin" x="1128" y="370" font-size="54" fill="#ff2d2d" text-anchor="middle">✳</text>
+
+  <!-- Role line -->
+  <g class="fade">
+    <text class="sans" x="48" y="402" font-size="26" font-weight="600" fill="#ecebe7">Converts <tspan class="serif" font-weight="400" font-size="29">ideas</tspan> into</text>
+    <g class="mono" font-size="22" fill="#ff2d2d" letter-spacing="0">
+      <text class="w w1 tight" x="302" y="402">code</text>
+      <text class="w w2 tight" x="302" y="402">products</text>
+      <text class="w w3 tight" x="302" y="402">AI tools</text>
+      <text class="w w4 tight" x="302" y="402">systems</text>
+    </g>
+    <text class="mono caret" x="48" y="436" font-size="13" fill="#55555b">$ npx jyotirmoy-laha_</text>
+  </g>
+
+  <!-- Loader rail -->
+  <rect x="48" y="500" width="930" height="1" fill="#ffffff" opacity=".1"/>
+  <rect class="bar" x="48" y="500" width="930" height="1" fill="#ecebe7"/>
+  <g class="mono" font-size="40" fill="#ecebe7" letter-spacing="0">
+    <text class="n n0 tight" x="1110" y="514" text-anchor="end">000</text>
+    <text class="n n1 tight" x="1110" y="514" text-anchor="end">024</text>
+    <text class="n n2 tight" x="1110" y="514" text-anchor="end">051</text>
+    <text class="n n3 tight" x="1110" y="514" text-anchor="end">077</text>
+    <text class="n n4 tight" x="1110" y="514" text-anchor="end">096</text>
+    <text class="n n5 tight" x="1110" y="514" text-anchor="end">100</text>
+  </g>
+  <text class="mono tight" x="1116" y="494" font-size="16" fill="#ff2d2d" letter-spacing="0">%</text>
+</svg>

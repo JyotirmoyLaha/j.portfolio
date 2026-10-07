@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-label="Terminal running npx jyotirmoy-laha">
+  <defs>
+    <style>
+      .mono { font-family: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+      /* Typing: reveal the command one character at a time (18 chars) */
+      .type { animation: type 1.6s steps(18) .6s both; }
+      @keyframes type { from { width: 0; } to { width: 216px; } }
+      .l { opacity: 0; animation: line 12s infinite; }
+      .l1 { animation-delay: 2.4s; } .l2 { animation-delay: 2.8s; } .l3 { animation-delay: 3.2s; }
+      .l4 { animation-delay: 3.6s; } .l5 { animation-delay: 4.0s; } .l6 { animation-delay: 4.6s; }
+      @keyframes line { 0% { opacity: 0; transform: translateY(6px); } 3%, 100% { opacity: 1; transform: none; } }
+      .caret { animation: blink 1s steps(1) infinite; }
+      @keyframes blink { 50% { opacity: 0; } }
+      .rain { animation: fall 2.2s linear infinite; opacity: .5; }
+      .r2 { animation-delay: -.7s; } .r3 { animation-delay: -1.4s; } .r4 { animation-delay: -.3s; } .r5 { animation-delay: -1.9s; }
+      @keyframes fall { 0% { transform: translateY(-120px); opacity: 0; } 20% { opacity: .55; } 100% { transform: translateY(260px); opacity: 0; } }
+    </style>
+    <clipPath id="cmd"><rect class="type" x="104" y="96" width="216" height="30"/></clipPath>
+    <clipPath id="win"><rect x="40" y="20" width="1120" height="290" rx="10"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="330" fill="#060607"/>
+  <g clip-path="url(#win)">
+    <rect x="40" y="20" width="1120" height="290" fill="#0b0b0d"/>
+    <!-- matrix drizzle on the right edge -->
+    <g class="mono" font-size="14" fill="#ff2d2d">
+      <text class="rain"    x="1040" y="60">1<tspan x="1040" dy="18">0</tspan><tspan x="1040" dy="18">ア</tspan><tspan x="1040" dy="18">1</tspan></text>
+      <text class="rain r2" x="1070" y="60">ﾐ<tspan x="1070" dy="18">0</tspan><tspan x="1070" dy="18">1</tspan><tspan x="1070" dy="18">ｶ</tspan></text>
+      <text class="rain r3" x="1100" y="60">0<tspan x="1100" dy="18">ﾘ</tspan><tspan x="1100" dy="18">1</tspan></text>
+      <text class="rain r4" x="1130" y="60">ｼ<tspan x="1130" dy="18">1</tspan><tspan x="1130" dy="18">0</tspan><tspan x="1130" dy="18">ﾀ</tspan></text>
+      <text class="rain r5" x="1010" y="60">1<tspan x="1010" dy="18">ｺ</tspan><tspan x="1010" dy="18">0</tspan></text>
+    </g>
+  </g>
+  <rect x="40.5" y="20.5" width="1119" height="289" rx="10" fill="none" stroke="#ffffff" stroke-opacity=".1"/>
+  <rect x="40" y="58" width="1120" height="1" fill="#ffffff" opacity=".08"/>
+  <circle cx="66" cy="39" r="5" fill="#ff2d2d"/>
+  <circle cx="84" cy="39" r="5" fill="#3a3a40"/>
+  <circle cx="102" cy="39" r="5" fill="#3a3a40"/>
+  <text class="mono" x="600" y="44" font-size="12" fill="#55555b" text-anchor="middle" letter-spacing="2">~/anywhere — zsh</text>
+
+  <g class="mono" font-size="20">
+    <text x="72" y="118" fill="#ff2d2d">$</text>
+    <g clip-path="url(#cmd)"><text x="104" y="118" fill="#ecebe7">npx jyotirmoy-laha</text></g>
+  </g>
+
+  <g class="mono" font-size="15">
+    <text class="l l1" x="72" y="160" fill="#55555b">› matrix rain… dripping logo… laser line…</text>
+    <text class="l l2" x="72" y="192" fill="#ecebe7">  Jyotirmoy Laha <tspan fill="#8d8c92">— BCA Student &amp; Full-Stack Developer</tspan></text>
+    <text class="l l3" x="72" y="222" fill="#8d8c92">  <tspan fill="#ff2d2d">❯ About Me</tspan>   Skills &amp; Stack   Projects   Connect / Socials   Open Web Portfolio   Exit</text>
+    <text class="l l4" x="72" y="252" fill="#55555b">  ↑ / ↓ to move · enter to select · ctrl+c to quit</text>
+    <text class="l l5" x="72" y="282" fill="#ecebe7">✔ <tspan fill="#8d8c92">zero dependencies · pure Node.js · cross-platform</tspan></text>
+    <text class="l l6 caret" x="560" y="282" fill="#ff2d2d">▋</text>
+  </g>
+</svg>
