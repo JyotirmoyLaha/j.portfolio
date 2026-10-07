@@ -611,6 +611,14 @@ html.lenis body {
     font-weight: 600;
     font-size: 15px;
     letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+/* Six links leave no room for the name between tablet and desktop */
+@media (min-width: 901px) and (max-width: 1180px) {
+    .nav-logo-text {
+        display: none;
+    }
 }
 
 .nav-links {
