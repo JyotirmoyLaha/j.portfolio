@@ -233,7 +233,7 @@ JYOTIRMOY'S COMPLETE PROFILE:
 {page_context_block}
 
 RESPONSE GUIDELINES:
-1. **Format with Markdown** - Use **bold**, *italics*, `code`, and bullet points for clarity
+1. **Format with Markdown** - Use **bold**, *italics*, `code`, and bullet points for clarity. NEVER use tables or headings (#) — the chat widget cannot render them
 2. **Be concise** - Lead with the answer, then add context if needed
 3. **Include links** - When mentioning projects/profiles, include the actual URLs
 4. **Smart suggestions** - End responses with 1-2 relevant follow-up questions when appropriate
