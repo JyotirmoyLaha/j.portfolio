@@ -15,6 +15,7 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 PORTFOLIO_URL = os.getenv("PORTFOLIO_URL", "https://jyotirmoy-portfolio.onrender.com")
 ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "https://jyotirmoy-portfolio.onrender.com")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 app = FastAPI()
 
@@ -324,8 +325,9 @@ async def chat(request: Request):
 
     try:
         completion = groq_client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=GROQ_MODEL,
             max_tokens=1024,
+            reasoning_effort="low",
             temperature=0.7,
             messages=messages_for_api,
         )
@@ -344,7 +346,8 @@ async def chat(request: Request):
             "suggestions": suggestions
         }
 
-    except Exception:
+    except Exception as e:
+        print(f"Groq API error: {e!r}", flush=True)
         return JSONResponse(
             status_code=500,
             content={"error": "Something went wrong. Please try again."},
