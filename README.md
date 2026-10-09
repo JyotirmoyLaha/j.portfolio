@@ -136,7 +136,7 @@ t = ∞      ░░░  every 5–11 seconds the name glitches — red/cyan spli
 ### ◼ The Assistant
 - Floating chatbot answering questions about Jyotirmoy
 - **FastAPI + Groq** (`openai/gpt-oss-120b` by default) reading the live site for context
-- 20 requests / hour / IP, CORS-locked
+- 20 requests / hour / visitor, 300 / hour overall, CORS-locked
 
 </td>
   </tr>
@@ -298,7 +298,7 @@ uvicorn main:app --reload --port 8000
 ```
 
 > [!IMPORTANT]
-> Get a free key at [console.groq.com](https://console.groq.com). The API allows 20 requests per hour per IP.
+> Get a free key at [console.groq.com](https://console.groq.com). The API allows 20 requests per hour per visitor and 300 per hour in total (`GLOBAL_RATE_LIMIT`).
 
 </details>
 
@@ -321,6 +321,21 @@ node bin/index.js     # or: npm link && jyotirmoy-laha
 - The custom cursor only exists on fine pointers. Touch devices never see it, and text fields always keep the native I-beam
 - Skip-to-content link, visible `:focus-visible` rings, keyboard-operable journal cards and copy button
 - No horizontal scroll at 390px. The hero name scales to fit the viewport
+
+### Security
+
+- **Content-Security-Policy** in `index.html`: no inline scripts or handlers, only the hosts the page really uses. Every click goes through one delegated listener (`data-action`)
+- **Subresource Integrity** on the CDN files (Lenis, Font Awesome)
+- **Escaped rendering**: blog posts and chatbot replies are HTML-escaped; chatbot links only allow `http(s):` and `mailto:`
+- **Chatbot API**: page text is sent as fenced, untrusted user data (never system instructions), body capped at 16 KB, per-visitor + global rate limits keyed on Cloudflare's `CF-Connecting-IP`, non-blocking Groq calls
+
+> [!IMPORTANT]
+> Two protections only work as real HTTP response headers, not `<meta>` tags. On Render: **Static Site → Settings → Headers**, path `/*`:
+>
+> | Header | Value |
+> |---|---|
+> | `X-Frame-Options` | `DENY` |
+> | `Content-Security-Policy` | `frame-ancestors 'none'` |
 
 <p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
