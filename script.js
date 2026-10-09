@@ -1068,13 +1068,16 @@ renderBlogMarquee();
     document.body.append(dot, ring);
 
     let mx = -100, my = -100, rx = -100, ry = -100;
+    let pressed = false, scale = 1;
     const HOVER = 'a, button, [role="button"], [role="link"], [onclick], .blog-marquee-card';
 
     (function animate() {
         rx += (mx - rx) * 0.16;
         ry += (my - ry) * 0.16;
         dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-        ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+        // Scale goes after the translate so the press shrinks the ring in place
+        scale += ((pressed ? 0.8 : 1) - scale) * 0.25;
+        ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${scale})`;
         requestAnimationFrame(animate);
     })();
 
@@ -1112,8 +1115,9 @@ renderBlogMarquee();
         ring.classList.toggle('hovering', !!e.target.closest(HOVER));
     }, { passive: true });
 
-    document.addEventListener('mousedown', () => { ring.style.scale = '0.85'; });
-    document.addEventListener('mouseup', () => { ring.style.scale = ''; });
+    document.addEventListener('mousedown', () => { pressed = true; });
+    document.addEventListener('mouseup', () => { pressed = false; });
+    window.addEventListener('blur', () => { pressed = false; });
 })();
 
 // ===================== MAGNETIC BUTTONS =====================
