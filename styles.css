@@ -2793,16 +2793,10 @@ body.entered .hero-asterisk {
 }
 
 .detail-bar {
-    position: sticky;
-    top: var(--nav-h);
-    z-index: 5;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 0;
-    background: rgba(6, 6, 7, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
 }
 
