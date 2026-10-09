@@ -8,41 +8,35 @@
     <meta name="description" content="Portfolio of Jyotirmoy Laha — a BCA student and full-stack developer specializing in Python, JavaScript, AI/ML, and modern web development. Explore projects, skills, and blog posts.">
     <meta name="keywords" content="Jyotirmoy Laha, portfolio, developer, BCA, Python, JavaScript, full-stack, AI, ML, web development">
     <meta name="theme-color" content="#060607">
+
+    <!-- Security policy: no inline script/handlers, only the hosts this page actually uses.
+         ws://localhost:* is for the Vite dev server's live reload only.
+         frame-ancestors and X-Frame-Options are ignored in <meta>; they must be set as
+         response headers on the host (see the security notes in the README). -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://unpkg.com;
+        style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+        img-src 'self' data: https://cdn.jsdelivr.net https://cdn.simpleicons.org;
+        connect-src 'self' https://portfolio-chatbot-38ce.onrender.com https://github-contributions-api.jogruber.de ws://localhost:*;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        frame-src 'none';
+        upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="icon" type="image/webp" href="images/profile.webp">
     <link rel="apple-touch-icon" href="images/profile.webp">
 
-    <!-- Favicon canvas generator (round crop of profile photo) -->
-    <script>
-        (function () {
-            var img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = function () {
-                var canvas = document.createElement('canvas');
-                canvas.width = 32;
-                canvas.height = 32;
-                var ctx = canvas.getContext('2d');
-                var size = Math.min(img.width, img.height);
-                ctx.beginPath();
-                ctx.arc(16, 16, 16, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.clip();
-                ctx.drawImage(img, 0, 0, size, size, 0, 0, 32, 32);
-                var link = document.querySelector("link[rel='icon']");
-                if (link) {
-                    link.type = 'image/png';
-                    link.href = canvas.toDataURL('image/png');
-                }
-            };
-            img.src = 'images/profile.webp';
-        })();
-    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
@@ -50,7 +44,8 @@
     <link rel="stylesheet" href="portfolio-chatbot/frontend/chatbot.css">
     <link rel="stylesheet" href="styles.css">
 
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"
+        integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous" defer></script>
     <script src="blog-posts.js" defer></script>
     <script src="script.js" defer></script>
     <script src="portfolio-chatbot/frontend/chatbot.js" defer></script>
@@ -87,28 +82,28 @@
             </div>
         </div>
 
-        <button id="splash-skip-btn" onclick="dismissSplash()">Skip intro <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        <button id="splash-skip-btn" data-action="skip-intro">Skip intro <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
     </div>
 
     <!-- ======================= NAVIGATION ======================= -->
     <nav class="site-nav" aria-label="Primary">
         <div class="nav-inner">
-            <a href="javascript:void(0)" onclick="switchView('portfolio')" class="nav-logo" id="logoLink" aria-label="Jyotirmoy Laha — home">
+            <a href="#" data-action="view" data-arg="portfolio" class="nav-logo" id="logoLink" aria-label="Jyotirmoy Laha — home">
                 <span class="nav-logo-mark">JL</span>
                 <span class="nav-logo-text">Jyotirmoy Laha</span>
             </a>
 
             <div class="nav-center">
                 <div id="desktop-portfolio-nav" class="nav-links">
-                    <button onclick="navigateToSection('projects')" class="nav-link"><sup>01</sup>Work</button>
-                    <button onclick="navigateToSection('how-i-work')" class="nav-link"><sup>02</sup>Process</button>
-                    <button onclick="navigateToSection('skills')" class="nav-link"><sup>03</sup>Stack</button>
-                    <button onclick="navigateToSection('github')" class="nav-link"><sup>04</sup>Activity</button>
-                    <button onclick="navigateToSection('academic')" class="nav-link"><sup>05</sup>Education</button>
-                    <button onclick="switchView('blog')" class="nav-link"><sup>06</sup>Journal</button>
+                    <button data-action="section" data-arg="projects" class="nav-link"><sup>01</sup>Work</button>
+                    <button data-action="section" data-arg="how-i-work" class="nav-link"><sup>02</sup>Process</button>
+                    <button data-action="section" data-arg="skills" class="nav-link"><sup>03</sup>Stack</button>
+                    <button data-action="section" data-arg="github" class="nav-link"><sup>04</sup>Activity</button>
+                    <button data-action="section" data-arg="academic" class="nav-link"><sup>05</sup>Education</button>
+                    <button data-action="view" data-arg="blog" class="nav-link"><sup>06</sup>Journal</button>
                 </div>
                 <div id="desktop-blog-nav" class="nav-links hidden">
-                    <button onclick="switchView('portfolio')" class="nav-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>&nbsp; Portfolio</button>
+                    <button data-action="view" data-arg="portfolio" class="nav-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>&nbsp; Portfolio</button>
                     <span class="nav-link is-current">Journal</span>
                 </div>
             </div>
@@ -118,7 +113,7 @@
                 <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta magnetic" aria-label="View my CV">
                     <span>Résumé</span><span class="arr" aria-hidden="true">↗</span>
                 </a>
-                <button class="nav-burger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" id="menuToggleBtn">
+                <button class="nav-burger" data-action="menu" aria-label="Open navigation menu" aria-expanded="false" id="menuToggleBtn">
                     <span></span><span></span>
                 </button>
             </div>
@@ -127,16 +122,16 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden">
             <div id="mobile-portfolio-nav">
-                <button onclick="navigateToSection('projects'); toggleMenu()"><sup>01</sup>Work</button>
-                <button onclick="navigateToSection('how-i-work'); toggleMenu()"><sup>02</sup>Process</button>
-                <button onclick="navigateToSection('skills'); toggleMenu()"><sup>03</sup>Stack</button>
-                <button onclick="navigateToSection('github'); toggleMenu()"><sup>04</sup>Activity</button>
-                <button onclick="navigateToSection('academic'); toggleMenu()"><sup>05</sup>Education</button>
-                <button onclick="switchView('blog')"><sup>06</sup>Journal</button>
+                <button data-action="section" data-arg="projects" data-close-menu><sup>01</sup>Work</button>
+                <button data-action="section" data-arg="how-i-work" data-close-menu><sup>02</sup>Process</button>
+                <button data-action="section" data-arg="skills" data-close-menu><sup>03</sup>Stack</button>
+                <button data-action="section" data-arg="github" data-close-menu><sup>04</sup>Activity</button>
+                <button data-action="section" data-arg="academic" data-close-menu><sup>05</sup>Education</button>
+                <button data-action="view" data-arg="blog"><sup>06</sup>Journal</button>
                 <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank" rel="noopener noreferrer"><sup>↗</sup>Résumé</a>
             </div>
             <div id="mobile-blog-nav" class="hidden">
-                <button onclick="switchView('portfolio')"><sup>←</sup>Portfolio</button>
+                <button data-action="view" data-arg="portfolio"><sup>←</sup>Portfolio</button>
                 <button class="is-current"><sup>06</sup>Journal</button>
             </div>
         </div>
@@ -195,7 +190,7 @@
                     </p>
 
                     <div class="hero-actions" data-reveal="up" data-delay="3">
-                        <button class="btn btn-primary magnetic" onclick="navigateToSection('projects')">
+                        <button class="btn btn-primary magnetic" data-action="section" data-arg="projects">
                             <span>View selected work</span><i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
                         </button>
 
@@ -516,7 +511,7 @@
                         <div class="section-index" data-reveal="up"><span>(06)</span> Journal</div>
                         <h2 class="section-title" data-reveal="mask">Notes from<br><em>the trenches.</em></h2>
                     </div>
-                    <a href="javascript:void(0)" onclick="switchView('blog')" class="btn btn-ghost magnetic" data-reveal="up">
+                    <a href="#" data-action="view" data-arg="blog" class="btn btn-ghost magnetic" data-reveal="up">
                         <span>Read all entries</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -579,7 +574,7 @@
 
             <article id="blog-detail" class="hidden">
                 <div class="detail-bar">
-                    <button onclick="showList()" class="detail-back">
+                    <button data-action="show-list" class="detail-back">
                         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to journal
                     </button>
                     <span class="detail-tag">Reading</span>
@@ -611,7 +606,7 @@
                     <span class="footer-clock" id="footer-clock">--:--</span>
                 </div>
                 <div class="footer-col footer-col-end">
-                    <button class="back-top magnetic" onclick="scrollToTop()" aria-label="Back to top">
+                    <button class="back-top magnetic" data-action="top" aria-label="Back to top">
                         <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
                     </button>
                 </div>

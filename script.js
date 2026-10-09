@@ -2,6 +2,29 @@
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
+/* ── Favicon: round crop of the profile photo ── */
+(function initFavicon() {
+    const img = new Image();
+    img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = 32;
+        canvas.height = 32;
+        const ctx = canvas.getContext('2d');
+        const size = Math.min(img.width, img.height);
+        ctx.beginPath();
+        ctx.arc(16, 16, 16, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, 0, 0, size, size, 0, 0, 32, 32);
+        const link = document.querySelector("link[rel='icon']");
+        if (link) {
+            link.type = 'image/png';
+            link.href = canvas.toDataURL('image/png');
+        }
+    };
+    img.src = 'images/profile.webp';
+})();
+
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FINE_POINTER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
@@ -148,28 +171,44 @@ function navigateToSection(sectionId) {
 // --- BLOG FUNCTIONS ---
 let blogListScrollPos = 0; // Remember scroll position when opening a post
 
+// Everything from blog-posts.js is escaped before it touches innerHTML
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+// Prose may use <strong>…</strong>; that one tag is let back in after escaping
+function formatProse(text) {
+    return escapeHTML(text).replace(/&lt;(\/?)strong&gt;/g, '<$1strong>');
+}
+
 function postSnippet(post, length) {
-    return post.content
+    const plain = post.content
         .replace(/```[\s\S]*?```/g, '')
         .replace(/`/g, '')
+        .replace(/<\/?strong>/g, '')
         .trim()
         .substring(0, length)
         .trim() + '…';
+    return escapeHTML(plain);
 }
 
 function renderList() {
     const grid = document.getElementById('posts-grid');
     if (!grid) return;
     grid.innerHTML = blogPosts.map(post => `
-        <article class="post-card" role="link" tabindex="0" onclick="showDetail(${post.id})"
-            onkeydown="if(event.key==='Enter'){showDetail(${post.id})}">
+        <article class="post-card" role="link" tabindex="0" data-action="post" data-arg="${Number(post.id)}">
             <div class="post-card-img">
-                <img src="${post.image}" alt="${post.title}" loading="lazy">
-                <span class="post-card-cat">${post.category}</span>
+                <img src="${escapeHTML(post.image)}" alt="${escapeHTML(post.title)}" loading="lazy">
+                <span class="post-card-cat">${escapeHTML(post.category)}</span>
             </div>
             <div class="post-card-body">
-                <span class="post-card-date">${post.date}</span>
-                <h2 class="post-card-title">${post.title}</h2>
+                <span class="post-card-date">${escapeHTML(post.date)}</span>
+                <h2 class="post-card-title">${escapeHTML(post.title)}</h2>
                 <p class="post-card-desc">${postSnippet(post, 140)}</p>
                 <span class="post-card-more">Read entry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
@@ -188,7 +227,7 @@ function showDetail(id, pushHistory = true) {
     parts.forEach((part, index) => {
         if (index % 2 === 1) {
             // This is a code block
-            formattedContent += `<pre class="bg-slate-900 text-blue-200 p-4 sm:p-6 rounded-lg sm:rounded-xl my-4 sm:my-6 font-mono text-xs sm:text-sm overflow-x-auto shadow-inner leading-relaxed border border-slate-700 whitespace-pre-wrap break-words sm:whitespace-pre sm:break-normal">${part.trim()}</pre>`;
+            formattedContent += `<pre>${escapeHTML(part.trim())}</pre>`;
         } else {
             // This is regular text
             const lines = part.split('\n');
@@ -196,10 +235,10 @@ function showDetail(id, pushHistory = true) {
                 const trimmed = line.trim();
                 if (trimmed.startsWith('- ')) {
                     // List items
-                    formattedContent += `<li class="ml-4 list-disc marker:text-accent-primary">${trimmed.substring(2)}</li>`;
+                    formattedContent += `<li>${formatProse(trimmed.substring(2))}</li>`;
                 } else if (trimmed.length > 0) {
                     // Regular paragraphs
-                    formattedContent += `<p>${line}</p>`;
+                    formattedContent += `<p>${formatProse(line)}</p>`;
                 }
             });
         }
@@ -346,6 +385,45 @@ function toggleMenu() {
     }
 }
 
+// ===================== DELEGATED ACTIONS =====================
+// No inline onclick handlers anywhere, so the CSP can forbid inline script.
+function runAction(el, event) {
+    const arg = el.dataset.arg;
+    switch (el.dataset.action) {
+        case 'section':
+            event.preventDefault();
+            // Close the menu first: reopening Lenis resets it, which would cancel the scroll
+            if ('closeMenu' in el.dataset) toggleMenu();
+            navigateToSection(arg);
+            break;
+        case 'view':
+            event.preventDefault();
+            switchView(arg);
+            break;
+        case 'menu': toggleMenu(); break;
+        case 'skip-intro': dismissSplash(); break;
+        case 'show-list': showList(); break;
+        case 'top': scrollToTop(); break;
+        case 'post': showDetail(Number(arg)); break;
+        case 'open-post':
+            switchView('blog');
+            showDetail(Number(arg));
+            break;
+    }
+}
+
+document.addEventListener('click', event => {
+    const el = event.target.closest('[data-action]');
+    if (el) runAction(el, event);
+});
+
+// Cards are role="link" divs, so Enter has to open them too
+document.addEventListener('keydown', event => {
+    if (event.key !== 'Enter') return;
+    const el = event.target.closest('[data-action="post"], [data-action="open-post"]');
+    if (el) runAction(el, event);
+});
+
 // Initialize Render
 renderList();
 
@@ -356,14 +434,14 @@ function renderBlogMarquee() {
 
     function cardHTML(post) {
         return `
-            <div class="blog-marquee-card" onclick="switchView('blog'); showDetail(${post.id})">
+            <div class="blog-marquee-card" role="link" tabindex="0" data-action="open-post" data-arg="${Number(post.id)}">
                 <div class="blog-marquee-card-img">
-                    <img src="${post.image}" alt="${post.title}" loading="lazy">
-                    <span class="blog-marquee-card-badge">${post.category}</span>
+                    <img src="${escapeHTML(post.image)}" alt="${escapeHTML(post.title)}" loading="lazy">
+                    <span class="blog-marquee-card-badge">${escapeHTML(post.category)}</span>
                 </div>
                 <div class="blog-marquee-card-body">
-                    <span class="blog-marquee-card-date">${post.date}</span>
-                    <h3 class="blog-marquee-card-title">${post.title}</h3>
+                    <span class="blog-marquee-card-date">${escapeHTML(post.date)}</span>
+                    <h3 class="blog-marquee-card-title">${escapeHTML(post.title)}</h3>
                     <p class="blog-marquee-card-desc">${postSnippet(post, 110)}</p>
                 </div>
             </div>`;
@@ -1069,7 +1147,7 @@ renderBlogMarquee();
 
     let mx = -100, my = -100, rx = -100, ry = -100;
     let pressed = false, scale = 1;
-    const HOVER = 'a, button, [role="button"], [role="link"], [onclick], .blog-marquee-card';
+    const HOVER = 'a, button, [role="button"], [role="link"], [data-action]';
 
     (function animate() {
         rx += (mx - rx) * 0.16;
