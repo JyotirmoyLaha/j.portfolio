@@ -64,11 +64,13 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
   function parseMarkdown(text) {
     if (!text) return "";
     
-    // Escape HTML first
+    // Escape HTML first — quotes too, so nothing can break out of an attribute
     let html = text
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
     
     // Code blocks (```)
     html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre class="jchat-code-block"><code>$2</code></pre>');
@@ -84,12 +86,15 @@ const CHATBOT_API_URL = "https://portfolio-chatbot-38ce.onrender.com/chat";
     html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
     html = html.replace(/(?<![a-zA-Z])_([^_]+)_(?![a-zA-Z])/g, "<em>$1</em>");
     
-    // Links [text](url)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="jchat-link">$1</a>');
-    
-    // Auto-link URLs not already inside an anchor tag
-    html = html.replace(/(https?:\/\/[^\s<"]+)(?![^<]*<\/a>)/g, (match) => {
-      return `<a href="${match}" target="_blank" rel="noopener" class="jchat-link">${match}</a>`;
+    // Links [text](url) — only http(s) and mailto; anything else (javascript:, data:…) stays plain text
+    html = html.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (match, label, url) => {
+      if (!/^(https?:\/\/|mailto:)/i.test(url)) return label;
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="jchat-link">${label}</a>`;
+    });
+
+    // Auto-link URLs not already inside an anchor tag (stop at an escaped quote)
+    html = html.replace(/(https?:\/\/(?:(?!&quot;|&#39;)[^\s<"])+)(?![^<]*<\/a>)/g, (match) => {
+      return `<a href="${match}" target="_blank" rel="noopener noreferrer" class="jchat-link">${match}</a>`;
     });
     
     // Bullet lists
