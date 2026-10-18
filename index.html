@@ -48,6 +48,7 @@
         integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous" defer></script>
     <script src="blog-posts.js" defer></script>
     <script src="script.js" defer></script>
+    <script src="works-gl.js" defer></script>
     <script src="portfolio-chatbot/frontend/chatbot.js" defer></script>
 </head>
 
@@ -230,105 +231,119 @@
                     <p class="section-lede" data-reveal="up" data-delay="1">A curated selection of my work — from AI tooling to real-time apps. Each one started as a problem worth thinking through.</p>
                 </div>
 
-                <div class="works">
+                <!-- Thumbnails only; the full write-up for each lives in a <template> below
+                     and opens in #work-detail. works-gl.js draws the images on a WebGL canvas
+                     that tracks these cards; the <img> tags stay as the no-WebGL fallback. -->
+                <div class="pgrid" id="pgrid">
 
-                    <article class="work" data-reveal="up">
-                        <div class="work-meta">
-                            <span class="work-num">01</span>
-                            <span class="work-cat">Web · Personal</span>
+                    <a class="pcard" href="#work/portfolio" data-slug="portfolio" data-tone="#0e0d10" aria-label="Portfolio Website — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/portfolio.webp" alt="Portfolio Website preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
-                        <div class="work-body">
-                            <h3 class="work-title">Portfolio Website</h3>
-                            <p class="work-desc">Personal portfolio featuring <strong>dark mode, smooth-scroll animations</strong>, a custom blog engine, and a splash screen — built from scratch with clean, modular code.</p>
-                            <ul class="work-tags"><li>HTML5</li><li>Tailwind</li><li>JavaScript</li></ul>
-                            <div class="work-links">
-                                <a href="https://jyotirmoy-portfolio.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/j.portfolio" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                            </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">01</span><span class="pcard-cat">Web · Personal</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">Portfolio Website</span></h3>
                         </div>
-                        <a class="work-media" href="https://jyotirmoy-portfolio.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Portfolio Website live demo" data-cursor="View">
-                            <img src="images/portfolio.webp" alt="Portfolio Website preview" loading="lazy">
-                        </a>
-                    </article>
+                    </a>
 
-                    <article class="work" data-reveal="up">
-                        <div class="work-meta">
-                            <span class="work-num">02</span>
-                            <span class="work-cat">Web · API</span>
+                    <a class="pcard" href="#work/skycast" data-slug="skycast" data-tone="#070b12" aria-label="J.SkyCast — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/skycast.webp" alt="J.SkyCast preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
-                        <div class="work-body">
-                            <h3 class="work-title">J.SkyCast</h3>
-                            <p class="work-desc">Weather dashboard using the <strong>OpenWeatherMap API</strong> for real-time city-based forecasts with dynamic condition icons and a fully responsive layout.</p>
-                            <ul class="work-tags"><li>JavaScript</li><li>API</li><li>Tailwind</li></ul>
-                            <div class="work-links">
-                                <a href="https://j-weather.onrender.com" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/j.weather" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                            </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">02</span><span class="pcard-cat">Web · API</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">J.SkyCast</span></h3>
                         </div>
-                        <a class="work-media" href="https://j-weather.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Open J.SkyCast live demo" data-cursor="View">
-                            <img src="images/skycast.webp" alt="J.SkyCast preview" loading="lazy">
-                        </a>
-                    </article>
+                    </a>
 
-                    <article class="work" data-reveal="up">
-                        <div class="work-meta">
-                            <span class="work-num">03</span>
-                            <span class="work-cat">AI · Full-stack</span>
+                    <a class="pcard" href="#work/resume-analyzer" data-slug="resume-analyzer" data-tone="#110e21" aria-label="AI Resume Analyzer — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/resume-analyzer.webp" alt="AI Resume Analyzer preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
-                        <div class="work-body">
-                            <h3 class="work-title">AI Resume Analyzer</h3>
-                            <p class="work-desc">Full-stack app that uses <strong>NLP to parse resumes</strong>, extract key skills, and score them against target job descriptions — with an HTML/CSS/JS frontend and FastAPI backend.</p>
-                            <ul class="work-tags"><li>Python</li><li>FastAPI</li><li>NLP</li></ul>
-                            <div class="work-links">
-                                <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend" target="_blank" rel="noopener noreferrer" class="work-link">Frontend <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                                <a href="https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend" target="_blank" rel="noopener noreferrer" class="work-link">Backend <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                            </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">03</span><span class="pcard-cat">AI · Full-stack</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">AI Resume Analyzer</span></h3>
                         </div>
-                        <a class="work-media" href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="Open AI Resume Analyzer live demo" data-cursor="View">
-                            <img src="images/resume-analyzer.webp" alt="AI Resume Analyzer preview" loading="lazy">
-                        </a>
-                    </article>
+                    </a>
 
-                    <article class="work" data-reveal="up">
-                        <div class="work-meta">
-                            <span class="work-num">04</span>
-                            <span class="work-cat">Web · Realtime</span>
+                    <a class="pcard" href="#work/mess-manager" data-slug="mess-manager" data-tone="#0c1222" aria-label="Mess Manager — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/mess-maneger.webp" alt="Mess Manager preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
-                        <div class="work-body">
-                            <h3 class="work-title">Mess Manager</h3>
-                            <p class="work-desc">Hostel mess expense tracker with <strong>Firebase Realtime DB, Google Auth</strong>, and on-demand PDF report generation — simplifies group expense splitting.</p>
-                            <ul class="work-tags"><li>JavaScript</li><li>Firebase</li><li>Tailwind</li></ul>
-                            <div class="work-links">
-                                <a href="https://mess-maneger.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/mess-maneger" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                            </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">04</span><span class="pcard-cat">Web · Realtime</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">Mess Manager</span></h3>
                         </div>
-                        <a class="work-media" href="https://mess-maneger.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Mess Manager live demo" data-cursor="View">
-                            <img src="images/mess-maneger.webp" alt="Mess Manager preview" loading="lazy">
-                        </a>
-                    </article>
+                    </a>
 
-                    <article class="work" data-reveal="up">
-                        <div class="work-meta">
-                            <span class="work-num">05</span>
-                            <span class="work-cat">Web · Realtime</span>
+                    <a class="pcard" href="#work/studyverse" data-slug="studyverse" data-tone="#0e0b12" aria-label="StudyVerse — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/studyversee.webp" alt="StudyVerse preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
-                        <div class="work-body">
-                            <h3 class="work-title">StudyVerse</h3>
-                            <p class="work-desc">Zen-inspired personal journal with <strong>Google SSO and real-time sync</strong> via Firebase — clean cherry blossom UI designed for a distraction-free writing experience.</p>
-                            <ul class="work-tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Firebase</li></ul>
-                            <div class="work-links">
-                                <a href="https://studyverse-vlzh.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
-                                <a href="https://github.com/JyotirmoyLaha/studyverse" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
-                            </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">05</span><span class="pcard-cat">Web · Realtime</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">StudyVerse</span></h3>
                         </div>
-                        <a class="work-media" href="https://studyverse-vlzh.onrender.com/" target="_blank" rel="noopener noreferrer" aria-label="Open StudyVerse live demo" data-cursor="View">
-                            <img src="images/studyversee.webp" alt="StudyVerse preview" loading="lazy">
-                        </a>
-                    </article>
+                    </a>
 
                 </div>
+
+                <!-- Project write-ups, cloned into #work-detail when a card opens -->
+                <template id="work-tpl-portfolio">
+                    <p class="wd-desc">Personal portfolio featuring <strong>dark mode, smooth-scroll animations</strong>, a custom blog engine, and a splash screen — built from scratch with clean, modular code.</p>
+                    <ul class="work-tags"><li>HTML5</li><li>Tailwind</li><li>JavaScript</li></ul>
+                    <div class="wd-links">
+                        <a href="https://jyotirmoy-portfolio.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/j.portfolio" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
+
+                <template id="work-tpl-skycast">
+                    <p class="wd-desc">Weather dashboard using the <strong>OpenWeatherMap API</strong> for real-time city-based forecasts with dynamic condition icons and a fully responsive layout.</p>
+                    <ul class="work-tags"><li>JavaScript</li><li>API</li><li>Tailwind</li></ul>
+                    <div class="wd-links">
+                        <a href="https://j-weather.onrender.com" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/j.weather" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
+
+                <template id="work-tpl-resume-analyzer">
+                    <p class="wd-desc">Full-stack app that uses <strong>NLP to parse resumes</strong>, extract key skills, and score them against target job descriptions — with an HTML/CSS/JS frontend and FastAPI backend.</p>
+                    <ul class="work-tags"><li>Python</li><li>FastAPI</li><li>NLP</li></ul>
+                    <div class="wd-links">
+                        <a href="https://ai-resume-analyzer-hhhb.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend" target="_blank" rel="noopener noreferrer" class="work-link">Frontend <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                        <a href="https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend" target="_blank" rel="noopener noreferrer" class="work-link">Backend <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
+
+                <template id="work-tpl-mess-manager">
+                    <p class="wd-desc">Hostel mess expense tracker with <strong>Firebase Realtime DB, Google Auth</strong>, and on-demand PDF report generation — simplifies group expense splitting.</p>
+                    <ul class="work-tags"><li>JavaScript</li><li>Firebase</li><li>Tailwind</li></ul>
+                    <div class="wd-links">
+                        <a href="https://mess-maneger.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/mess-maneger" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
+
+                <template id="work-tpl-studyverse">
+                    <p class="wd-desc">Zen-inspired personal journal with <strong>Google SSO and real-time sync</strong> via Firebase — clean cherry blossom UI designed for a distraction-free writing experience.</p>
+                    <ul class="work-tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Firebase</li></ul>
+                    <div class="wd-links">
+                        <a href="https://studyverse-vlzh.onrender.com/" target="_blank" rel="noopener noreferrer" class="work-link primary">Live site <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/studyverse" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
             </div>
         </section>
 
@@ -557,6 +572,38 @@
             </div>
         </section>
 
+    </div>
+
+    <!-- ======================= PROJECT DETAIL ======================= -->
+    <!-- Filled from the card + its <template> by works-gl.js -->
+    <div id="work-detail" class="wd" role="dialog" aria-modal="true" aria-labelledby="wd-title" hidden data-lenis-prevent>
+        <div class="wd-bar">
+            <span class="wd-count"><span id="wd-count-now">01</span> / <span id="wd-count-total">05</span></span>
+            <button class="wd-close" type="button" data-wd-close>Close <span aria-hidden="true">✕</span></button>
+        </div>
+
+        <div class="container">
+            <header class="wd-head">
+                <div class="section-index wd-anim"><span id="wd-num">(01)</span> <span id="wd-cat"></span></div>
+                <h2 class="wd-title" id="wd-title"></h2>
+            </header>
+
+            <figure class="wd-hero">
+                <img id="wd-img" alt="">
+            </figure>
+
+            <div class="wd-body">
+                <span class="wd-label wd-anim">Overview</span>
+                <div class="wd-content wd-anim" id="wd-content"></div>
+            </div>
+        </div>
+
+        <button class="wd-next" type="button" data-wd-next>
+            <span class="container wd-next-inner">
+                <span class="wd-label" id="wd-next-label">Next project</span>
+                <span class="wd-next-title"><span id="wd-next-title"></span> <span class="arr" id="wd-next-arrow" aria-hidden="true">→</span></span>
+            </span>
+        </button>
     </div>
 
     <!-- ======================= BLOG VIEW ======================= -->

@@ -1588,84 +1588,207 @@ body.entered .hero-asterisk {
 }
 
 /* ───────────────────────── Work ───────────────────────── */
-.works {
-    border-top: 1px solid var(--line);
-}
-
-.work {
-    position: relative;
+/* Two staggered columns of thumbnails. With WebGL on (.is-gl) the images are drawn
+   by works-gl.js on a fixed canvas that tracks .pcard-media; the <img> stays for
+   layout, alt text and as the fallback. */
+.pgrid {
+    --pgrid-stagger: clamp(48px, 9vw, 160px);
+    --pcard-radius: 10px;
     display: grid;
-    grid-template-columns: 140px minmax(0, 1fr) minmax(0, 1.15fr);
-    gap: clamp(24px, 4vw, 64px);
-    padding: clamp(36px, 5vw, 64px) 0;
-    border-bottom: 1px solid var(--line);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(20px, 3.5vw, 56px);
+    row-gap: clamp(56px, 7vw, 112px);
+    padding-bottom: var(--pgrid-stagger);
 }
 
-.work::before {
-    content: '';
+.pcard {
+    position: relative;
+    display: block;
+    color: inherit;
+    outline-offset: 10px;
+}
+
+.pcard:nth-child(even) {
+    transform: translateY(var(--pgrid-stagger));
+}
+
+.pcard-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--pcard-radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+}
+
+.pcard-media img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(0.9) brightness(0.7) contrast(1.1);
+    transition: filter 0.9s var(--ease), opacity 0.4s;
+}
+
+.pcard:hover .pcard-media img,
+.pcard:focus-visible .pcard-media img {
+    filter: none;
+}
+
+/* The canvas draws the image (and the frame) once its texture is ready */
+.pgrid.is-gl .pcard-media {
+    background: transparent;
+    border-color: transparent;
+}
+
+.pgrid.is-gl .pcard.is-gl-ready .pcard-media img {
+    opacity: 0;
+}
+
+/* Without WebGL the thumbnail wipes up from the bottom instead */
+.pgrid:not(.is-gl) .pcard-media {
+    clip-path: inset(100% 0 0 0 round var(--pcard-radius));
+    transition: clip-path 1.3s var(--ease);
+}
+
+.pgrid:not(.is-gl) .pcard.is-revealed .pcard-media {
+    clip-path: inset(0 0 0 0 round var(--pcard-radius));
+}
+
+/* Crop marks just outside the image, echoing the hero portrait */
+.pcard-corner {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: -1px;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.9s var(--ease);
+    width: 12px;
+    height: 12px;
+    border: 0 solid var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.6s var(--ease);
+    pointer-events: none;
 }
 
-.work:hover::before {
-    transform: scaleX(1);
+.pcard-corner-tl { top: -10px; left: -10px; border-top-width: 1px; border-left-width: 1px; transform: translate(8px, 8px); }
+.pcard-corner-tr { top: -10px; right: -10px; border-top-width: 1px; border-right-width: 1px; transform: translate(-8px, 8px); }
+.pcard-corner-bl { bottom: -10px; left: -10px; border-bottom-width: 1px; border-left-width: 1px; transform: translate(8px, -8px); }
+.pcard-corner-br { bottom: -10px; right: -10px; border-bottom-width: 1px; border-right-width: 1px; transform: translate(-8px, -8px); }
+
+.pcard:hover .pcard-corner,
+.pcard:focus-visible .pcard-corner {
+    opacity: 1;
+    transform: none;
 }
 
-.work-meta {
+.pcard-foot {
+    display: grid;
+    gap: 12px;
+    padding-top: 24px;
+}
+
+.pcard-line {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.work-num {
-    font-family: var(--f-mono);
-    font-size: 13px;
-    color: var(--accent);
-}
-
-.work-cat {
+    gap: 14px;
     font-family: var(--f-mono);
     font-size: 11px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--dim);
 }
 
-.work-body {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+.pcard-num {
+    color: var(--accent);
 }
 
-.work-title {
-    font-size: clamp(2rem, 4vw, 3.6rem);
+.pcard-title {
+    position: relative;
+    font-size: clamp(1.8rem, 3.4vw, 3.2rem);
     font-weight: 600;
     letter-spacing: -0.045em;
     line-height: 1;
+}
+
+.pcard-arrow {
+    position: absolute;
+    left: 0;
+    top: 0.04em;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateX(-0.5em);
+    transition: opacity 0.4s, transform 0.6s var(--ease);
+}
+
+.pcard-title-text {
+    display: inline-flex;
+    flex-wrap: wrap;
     transition: transform 0.6s var(--ease);
 }
 
-.work:hover .work-title {
-    transform: translateX(8px);
+.pcard:hover .pcard-arrow,
+.pcard:focus-visible .pcard-arrow {
+    opacity: 1;
+    transform: none;
 }
 
-.work-desc {
-    color: var(--muted);
-    font-size: 1.02rem;
-    line-height: 1.7;
-    max-width: 46ch;
+.pcard:hover .pcard-title-text,
+.pcard:focus-visible .pcard-title-text {
+    transform: translateX(1.15em);
 }
 
-.work-desc strong {
-    color: var(--text);
-    font-weight: 500;
+/* Letters are split by works-gl.js: .pc-ch masks, .pc-roll rises on reveal,
+   and the two stacked copies roll up on hover */
+.pc-ch {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+}
+
+.pc-roll {
+    position: relative;
+    display: block;
+    transform: translateY(115%) rotate(6deg);
+    transform-origin: left bottom;
+    transition: transform 1s var(--ease);
+    transition-delay: calc(var(--i) * 28ms + 120ms);
+}
+
+.pcard.is-revealed .pc-roll {
+    transform: none;
+}
+
+.pc-roll > span {
+    display: block;
+    transition: transform 0.55s var(--ease);
+    transition-delay: calc(var(--i) * 16ms);
+}
+
+.pc-roll > span + span {
+    position: absolute;
+    left: 0;
+    top: 110%;
+}
+
+.pcard:hover .pc-roll > span,
+.pcard:focus-visible .pc-roll > span {
+    transform: translateY(-110%);
+}
+
+.pc-sp {
+    display: inline-block;
+    width: 0.26em;
+}
+
+@media (max-width: 700px) {
+    .pgrid {
+        grid-template-columns: minmax(0, 1fr);
+        padding-bottom: 0;
+    }
+
+    .pcard:nth-child(even) {
+        transform: none;
+    }
+
+    .pcard-media img {
+        filter: none;
+    }
 }
 
 .work-tags {
@@ -1682,14 +1805,6 @@ body.entered .hero-asterisk {
     font-size: 11px;
     letter-spacing: 0.04em;
     color: var(--muted);
-}
-
-.work-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 24px;
-    margin-top: auto;
-    padding-top: 8px;
 }
 
 .work-link {
@@ -1718,62 +1833,236 @@ body.entered .hero-asterisk {
     transform: translate(2px, -2px);
 }
 
-.work-media {
-    position: relative;
-    display: block;
-    aspect-ratio: 16 / 10;
-    border-radius: 6px;
-    overflow: hidden;
-    background: var(--surface);
-    border: 1px solid var(--line);
+/* "Continue" moves focus to the next section; it is a landing point, not a control */
+section[tabindex="-1"]:focus {
+    outline: none;
 }
 
-.work-media img {
+/* ── Fixed canvas for the thumbnails (works-gl.js) ── */
+.works-gl {
+    position: fixed;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    filter: grayscale(0.9) brightness(0.7) contrast(1.1);
-    transform: scale(1.06);
-    transition: filter 0.9s var(--ease), transform 1.4s var(--ease);
-}
-
-.work-media::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(6, 6, 7, 0.6));
+    z-index: 5;
     pointer-events: none;
-    transition: opacity 0.6s;
 }
 
-.work:hover .work-media img {
-    filter: grayscale(0) brightness(1) contrast(1);
-    transform: scale(1);
+/* While a card zooms in or out it covers the nav too */
+.works-gl.is-front {
+    z-index: 950;
 }
 
-.work:hover .work-media::after {
+/* ── Project detail ── */
+.wd {
+    --wd-tone: var(--bg);
+    position: fixed;
+    inset: 0;
+    z-index: 960;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--wd-tone);
     opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s var(--ease), visibility 0s 0.5s, background-color 0.8s var(--ease);
 }
 
-@media (max-width: 1000px) {
-    .work {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
+.wd.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s var(--ease), visibility 0s, background-color 0.8s var(--ease);
+}
 
-    .work-meta {
-        flex-direction: row;
-        justify-content: space-between;
-    }
+/* WebGL hand-off: the canvas already shows the tone colour, so swap without a fade */
+.wd.is-instant {
+    transition: background-color 0.8s var(--ease);
+}
 
-    .work-media {
-        order: -1;
-    }
+.wd-bar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px var(--gutter);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: linear-gradient(var(--wd-tone) 40%, transparent);
+}
 
-    .work-media img {
-        filter: none;
-        transform: none;
+.wd-count #wd-count-now {
+    color: var(--accent);
+}
+
+.wd-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+
+.wd-close:hover {
+    border-color: var(--accent);
+    background: rgba(255, 45, 45, 0.08);
+    color: var(--accent);
+}
+
+.wd-head {
+    display: grid;
+    gap: clamp(16px, 2vw, 28px);
+    padding: clamp(40px, 9vh, 120px) 0 clamp(28px, 4vw, 56px);
+}
+
+.wd-title {
+    font-size: clamp(2.8rem, 9vw, 9rem);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+}
+
+.wd-ch {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+    vertical-align: top;
+}
+
+.wd-ch > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.4s var(--ease);
+}
+
+.wd.is-in .wd-ch > span {
+    transform: none;
+    transition: transform 1.1s var(--ease);
+    transition-delay: calc(var(--i) * 24ms + 80ms);
+}
+
+/* The full screenshot at its own shape; only the grid thumbnails are cropped */
+.wd-hero {
+    margin: 0;
+    border-radius: var(--pcard-radius, 10px);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--line);
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.45s var(--ease);
+}
+
+.wd-hero img {
+    width: 100%;
+    height: auto;
+    transform: scale(1.18);
+    transition: transform 0.45s var(--ease);
+}
+
+.wd.is-in .wd-hero {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1.3s var(--ease) 0.3s;
+}
+
+.wd.is-in .wd-hero img {
+    transform: none;
+    transition: transform 1.8s var(--ease) 0.3s;
+}
+
+.wd-body {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 64px);
+    padding: clamp(48px, 7vw, 104px) 0;
+}
+
+.wd-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.wd-content {
+    display: grid;
+    gap: 28px;
+    max-width: 62ch;
+}
+
+.wd-desc {
+    font-size: clamp(1.25rem, 2.1vw, 1.9rem);
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    color: var(--muted);
+}
+
+.wd-desc strong {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.wd-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+}
+
+.wd-anim {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.35s, transform 0.35s var(--ease);
+}
+
+.wd.is-in .wd-anim {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.9s var(--ease) 0.45s, transform 1.1s var(--ease) 0.45s;
+}
+
+.wd-next {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-top: 1px solid var(--line);
+    padding: clamp(40px, 6vw, 88px) 0 clamp(56px, 8vw, 120px);
+}
+
+.wd-next-inner {
+    display: grid;
+    gap: 14px;
+}
+
+.wd-next-title {
+    font-size: clamp(2rem, 6vw, 5.5rem);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    transition: color 0.4s;
+}
+
+.wd-next:hover .wd-next-title {
+    color: var(--accent);
+}
+
+.wd-next:hover .arr {
+    transform: translateX(10px);
+}
+
+@media (max-width: 700px) {
+    .wd-body {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 

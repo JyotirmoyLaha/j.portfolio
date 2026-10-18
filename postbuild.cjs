@@ -46,6 +46,7 @@ if (!fs.existsSync(distDir)) {
 // 2. Copy root static files
 const staticFiles = [
   'script.js',
+  'works-gl.js',
   'styles.css',
   'blog-posts.js',
   'Jyotirmoy_Laha_Resume.pdf'
