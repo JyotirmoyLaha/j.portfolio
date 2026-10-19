@@ -47,6 +47,7 @@ if (!fs.existsSync(distDir)) {
 const staticFiles = [
   'script.js',
   'works-gl.js',
+  'site-fx.js',
   'styles.css',
   'blog-posts.js',
   'Jyotirmoy_Laha_Resume.pdf'

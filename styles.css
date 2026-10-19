@@ -2890,9 +2890,16 @@ section[tabindex="-1"]:focus {
     color: #fff;
 }
 
+/* The giant name is sized from the container, not the viewport: with vw it outgrew the
+   1400px container on wide screens, spilled right and the last Y lost its fill */
+.site-footer .container {
+    container-type: inline-size;
+}
+
 .footer-giant {
     margin: clamp(40px, 6vw, 80px) 0 clamp(16px, 2vw, 28px);
     font-size: clamp(3rem, 16.6vw, 17rem);
+    font-size: 18cqw;
     font-weight: 800;
     line-height: 0.8;
     letter-spacing: -0.065em;
@@ -3222,5 +3229,164 @@ section[tabindex="-1"]:focus {
         opacity: 1;
         transform: none;
         filter: none;
+    }
+}
+
+/* ───────────────────────── Site FX (site-fx.js) ───────────────────────── */
+/* Interface sound toggle: flat bars when off, a slow equalizer when on */
+.nav-sound {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line-2);
+    border-radius: 50%;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.nav-sound span {
+    width: 2px;
+    height: 4px;
+    border-radius: 1px;
+    background: var(--muted);
+    transition: background 0.3s, height 0.3s var(--ease);
+}
+
+.nav-sound:hover {
+    border-color: var(--text);
+}
+
+.nav-sound.is-on {
+    border-color: var(--accent);
+    background: rgba(255, 45, 45, 0.08);
+}
+
+.nav-sound.is-on span {
+    background: var(--accent);
+    animation: sound-bar 1.1s var(--ease-in-out) infinite alternate;
+}
+
+.nav-sound.is-on span:nth-child(2) { animation-delay: -0.35s; }
+.nav-sound.is-on span:nth-child(3) { animation-delay: -0.7s; }
+.nav-sound.is-on span:nth-child(4) { animation-delay: -0.15s; }
+
+@keyframes sound-bar {
+    0% { height: 4px; }
+    100% { height: 14px; }
+}
+
+/* View transition: two curtains close on the destination name, then part */
+.pw {
+    position: fixed;
+    inset: 0;
+    z-index: 9100;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.pw.is-active {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.pw-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 50.5%;
+    background: var(--bg);
+    transition: transform 0.7s var(--ease-in-out);
+}
+
+.pw-top {
+    top: 0;
+    transform: translateY(-101%);
+}
+
+.pw-bottom {
+    bottom: 0;
+    transform: translateY(101%);
+}
+
+.pw-bottom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease);
+}
+
+.pw.is-closing .pw-top,
+.pw.is-closing .pw-bottom {
+    transform: none;
+}
+
+.pw.is-closing .pw-bottom::before {
+    transform: scaleX(1);
+    transition: transform 0.9s var(--ease) 0.45s;
+}
+
+.pw-label {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.pw-kicker {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.pw-title {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    font-size: clamp(3rem, 11vw, 10rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+}
+
+.pw-title span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.45s var(--ease);
+}
+
+.pw.is-closing .pw-kicker {
+    opacity: 1;
+    transition: opacity 0.4s 0.4s;
+}
+
+.pw.is-closing .pw-title span {
+    transform: none;
+    transition: transform 0.9s var(--ease) 0.35s;
+}
+
+.pw.is-opening .pw-title span {
+    transform: translateY(-110%);
+}
+
+@media (max-width: 900px) {
+    .nav-sound {
+        width: 44px;
+        height: 44px;
     }
 }

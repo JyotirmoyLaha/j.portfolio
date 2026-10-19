@@ -49,6 +49,7 @@
     <script src="blog-posts.js" defer></script>
     <script src="script.js" defer></script>
     <script src="works-gl.js" defer></script>
+    <script src="site-fx.js" defer></script>
     <script src="portfolio-chatbot/frontend/chatbot.js" defer></script>
 </head>
 
@@ -111,6 +112,9 @@
 
             <div class="nav-right">
                 <span class="nav-status"><span class="pulse-dot"></span>Open to work</span>
+                <button class="nav-sound" id="sound-toggle" type="button" aria-pressed="false" aria-label="Interface sound">
+                    <span></span><span></span><span></span><span></span>
+                </button>
                 <a href="Jyotirmoy_Laha_Resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta magnetic" aria-label="View my CV">
                     <span>Résumé</span><span class="arr" aria-hidden="true">↗</span>
                 </a>
@@ -604,6 +608,16 @@
                 <span class="wd-next-title"><span id="wd-next-title"></span> <span class="arr" id="wd-next-arrow" aria-hidden="true">→</span></span>
             </span>
         </button>
+    </div>
+
+    <!-- ======================= VIEW TRANSITION ======================= -->
+    <div id="page-wipe" class="pw" aria-hidden="true">
+        <div class="pw-panel pw-top"></div>
+        <div class="pw-panel pw-bottom"></div>
+        <div class="pw-label">
+            <span class="pw-kicker">Now entering</span>
+            <span class="pw-title"><span id="pw-title">Journal</span></span>
+        </div>
     </div>
 
     <!-- ======================= BLOG VIEW ======================= -->
