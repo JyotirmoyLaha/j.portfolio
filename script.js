@@ -398,7 +398,7 @@ function runAction(el, event) {
             break;
         case 'view':
             event.preventDefault();
-            switchView(arg);
+            withPageWipe(arg === 'blog' ? 'Journal' : 'Portfolio', () => switchView(arg));
             break;
         case 'menu': toggleMenu(); break;
         case 'skip-intro': dismissSplash(); break;
@@ -406,10 +406,18 @@ function runAction(el, event) {
         case 'top': scrollToTop(); break;
         case 'post': showDetail(Number(arg)); break;
         case 'open-post':
-            switchView('blog');
-            showDetail(Number(arg));
+            withPageWipe('Journal', () => {
+                switchView('blog');
+                showDetail(Number(arg));
+            });
             break;
     }
+}
+
+// site-fx.js adds the curtain transition; without it the swap is instant
+function withPageWipe(label, swap) {
+    if (typeof window.pageWipe === 'function') window.pageWipe(label, swap);
+    else swap();
 }
 
 document.addEventListener('click', event => {
