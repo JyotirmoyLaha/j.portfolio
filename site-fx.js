@@ -152,4 +152,115 @@
             }));
         }, CLOSE_MS + 250);
     };
+
+    if (reduceMotion) return;
+
+    // ───────────── headline reveals ─────────────
+    // Titles and ledes are split into masked words that rise line by line when
+    // script.js adds .in. Words inside <em> stay inside it, so styling is untouched.
+    function splitWords(el) {
+        const masks = [];
+        (function walk(node) {
+            [...node.childNodes].forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const frag = document.createDocumentFragment();
+                    child.textContent.split(/(\s+)/).forEach(part => {
+                        if (!part) return;
+                        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+                        const mask = document.createElement('span');
+                        mask.className = 'rw';
+                        const inner = document.createElement('span');
+                        inner.className = 'rw-i';
+                        inner.textContent = part;
+                        mask.appendChild(inner);
+                        frag.appendChild(mask);
+                        masks.push(mask);
+                    });
+                    child.replaceWith(frag);
+                } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== 'BR') {
+                    walk(child);
+                }
+            });
+        })(el);
+        return masks;
+    }
+
+    // Stagger by the rendered line, so wrapping on small screens still reads top to bottom
+    function staggerByLine(masks, lineStep, wordStep) {
+        let line = -1, lastTop = null, inLine = 0;
+        masks.forEach(mask => {
+            const top = mask.offsetTop;
+            if (lastTop === null || Math.abs(top - lastTop) > 4) { line++; inLine = 0; lastTop = top; }
+            mask.firstChild.style.setProperty('--d', `${line * lineStep + inLine * wordStep}ms`);
+            inLine++;
+        });
+    }
+
+    const splitGroups = [];
+    document.querySelectorAll('.section-title[data-reveal="mask"], .cta-title[data-reveal="mask"]').forEach(el => {
+        el.classList.add('is-split', 'is-split-title');
+        splitGroups.push({ masks: splitWords(el), line: 110, word: 45 });
+    });
+    document.querySelectorAll('.section-lede[data-reveal]').forEach(el => {
+        el.classList.add('is-split', 'is-split-lede');
+        splitGroups.push({ masks: splitWords(el), line: 80, word: 0 });
+    });
+
+    const restagger = () => splitGroups.forEach(g => staggerByLine(g.masks, g.line, g.word));
+    restagger();
+    let restaggerTimer;
+    window.addEventListener('resize', () => { clearTimeout(restaggerTimer); restaggerTimer = setTimeout(restagger, 200); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(restagger);
+
+    // ───────────── rolling link labels ─────────────
+    // Each letter is a column of two copies; hovering rolls them up one after another
+    function splitRoll(el) {
+        const node = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+        if (!node) return;
+        const text = node.textContent.trim();
+        const roll = document.createElement('span');
+        roll.className = 'lroll';
+        [...text].forEach((ch, i) => {
+            const col = document.createElement('span');
+            col.className = 'lroll-ch';
+            col.style.setProperty('--i', i);
+            const a = document.createElement('span');
+            a.textContent = ch === ' ' ? ' ' : ch;
+            const b = document.createElement('span');
+            b.textContent = a.textContent;
+            b.setAttribute('aria-hidden', 'true');
+            col.append(a, b);
+            roll.appendChild(col);
+        });
+        node.replaceWith(roll);
+    }
+    document.querySelectorAll('#desktop-portfolio-nav .nav-link, .footer-col a').forEach(splitRoll);
+
+    // ───────────── marquees follow scroll speed ─────────────
+    // Scrolling speeds the bands up, scrolling back reverses them, and fast scrolls lean the type
+    const band = document.querySelector('.band');
+    const bandTrack = document.querySelector('.band-track');
+    const blogTrack = document.getElementById('blog-marquee-track');
+    let lastY = window.scrollY;
+    let lastT = performance.now();
+    let speed = 0;
+
+    function marqueeFrame(now) {
+        requestAnimationFrame(marqueeFrame);
+        const dt = Math.min(0.05, Math.max(0.001, (now - lastT) / 1000));
+        lastT = now;
+        const y = window.scrollY;
+        const v = (y - lastY) / dt; // px per second, + while scrolling down
+        lastY = y;
+        speed += (v - speed) * (1 - Math.exp(-6 * dt));
+        if (Math.abs(speed) < 1) speed = 0;
+
+        const rate = 1 + Math.max(-6, Math.min(6, speed / 500));
+        [bandTrack, blogTrack].forEach(track => {
+            if (!track || !track.getAnimations) return;
+            track.getAnimations().forEach(anim => { if (anim.playbackRate !== rate) anim.playbackRate = rate; });
+        });
+        if (band) band.style.setProperty('--band-skew', `${Math.max(-10, Math.min(10, -speed / 250)).toFixed(2)}deg`);
+    }
+    requestAnimationFrame(marqueeFrame);
 })();
