@@ -3390,3 +3390,78 @@ section[tabindex="-1"]:focus {
         height: 44px;
     }
 }
+
+/* Headline reveals: split titles and ledes rise word by word, line by line.
+   The block itself no longer fades or blurs; each masked word carries the motion. */
+[data-reveal].is-split {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+.rw {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+}
+
+.rw-i {
+    display: inline-block;
+    transform-origin: left bottom;
+    transition: transform 0.6s var(--ease);
+}
+
+.is-split-title .rw-i {
+    transform: translateY(115%) rotate(5deg);
+}
+
+.is-split-lede .rw-i {
+    transform: translateY(110%);
+}
+
+.is-split.in .rw-i {
+    transform: none;
+    transition: transform 1.15s var(--ease);
+    transition-delay: var(--d, 0ms);
+}
+
+/* Rolling link labels (nav and footer) */
+.lroll {
+    display: inline-flex;
+    vertical-align: bottom;
+}
+
+.lroll-ch {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1.25;
+}
+
+.lroll-ch > span {
+    display: block;
+    transition: transform 0.5s var(--ease);
+    transition-delay: calc(var(--i) * 18ms);
+}
+
+.lroll-ch > span + span {
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+.nav-link:hover .lroll-ch > span,
+.nav-link:focus-visible .lroll-ch > span,
+.footer-col a:hover .lroll-ch > span,
+.footer-col a:focus-visible .lroll-ch > span {
+    transform: translateY(-100%);
+}
+
+/* Marquee type leans with scroll speed (site-fx.js sets --band-skew) */
+.band span,
+.band i {
+    display: inline-block;
+    transform: skewX(var(--band-skew, 0deg));
+}
