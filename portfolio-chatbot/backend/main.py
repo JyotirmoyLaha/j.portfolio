@@ -159,32 +159,37 @@ College Subjects (Curriculum): DBMS, Software Engineering, Operating System
 Self-Learning (alongside college): Advanced Python, AI/ML, Web Technologies, Core CS fundamentals
 
 [PROJECTS]
-1. Portfolio Website — HTML5, Tailwind CSS, JavaScript
+1. Phatak Live (Rail-Gate Knower) — Android app showing whether any railway level crossing (phatak) in India is open, closing soon or closed, when it reopens, and the train behind it. Gate status is computed from train movements and timetables, adjusted with live train delays. Works in English, Hindi and Bengali; no ads, no tracking.
+   Stack: Kotlin, Jetpack Compose, Android
+   Download APK: https://github.com/JyotirmoyLaha/phatak-live/releases/latest
+   GitHub: https://github.com/JyotirmoyLaha/phatak-live
+
+2. Portfolio Website — HTML5, Tailwind CSS, JavaScript
    Live Demo: https://jyotirmoy-portfolio.onrender.com/
    GitHub: https://github.com/JyotirmoyLaha/j.portfolio
 
-2. J.SkyCast — Dynamic weather tracking dashboard with real-time API data
+3. J.SkyCast — Dynamic weather tracking dashboard with real-time API data
    Stack: JavaScript, Weather API, Tailwind CSS
    Live Demo: https://j-weather.onrender.com/
    GitHub: https://github.com/JyotirmoyLaha/j.weather
 
-3. AI Resume Analyzer — NLP-based resume evaluation platform, identifies skill gaps against job roles
+4. AI Resume Analyzer — NLP-based resume evaluation platform, identifies skill gaps against job roles
    Stack: Python, FastAPI, NLP
    Live Demo: https://ai-resume-analyzer-hhhb.onrender.com/
    GitHub Frontend: https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend
    GitHub Backend: https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend
 
-4. Mess Manager — Firebase real-time expense tracker for hostel groups, Google auth, PDF reports
+5. Mess Manager — Firebase real-time expense tracker for hostel groups, Google auth, PDF reports
    Stack: JavaScript, Firebase, Tailwind CSS
    Live Demo: https://mess-maneger.onrender.com/
    GitHub: https://github.com/JyotirmoyLaha/mess-maneger
 
-5. StudyVerse — Zen-inspired personal journal, cherry blossom aesthetic, Firebase, Google auth
+6. StudyVerse — Zen-inspired personal journal, cherry blossom aesthetic, Firebase, Google auth
    Stack: HTML, CSS, JavaScript, Firebase
    Live Demo: https://studyverse-vlzh.onrender.com/
    GitHub: https://github.com/JyotirmoyLaha/studyverse
 
-6. In Progress — Something new being built, details coming soon
+7. In Progress — Something new being built, details coming soon
 
 [SKILLS]
 Frontend: HTML5, CSS3, JavaScript, React, React Native, Expo, Tailwind CSS, Vite

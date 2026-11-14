@@ -240,6 +240,18 @@
                      that tracks these cards; the <img> tags stay as the no-WebGL fallback. -->
                 <div class="pgrid" id="pgrid">
 
+                    <a class="pcard" href="#work/phatak-live" data-slug="phatak-live" data-tone="#08101f" aria-label="Phatak Live — open project details">
+                        <div class="pcard-media" data-cursor="Open">
+                            <img src="images/phatak-live.webp" alt="Phatak Live preview" loading="lazy" decoding="async">
+                            <span class="pcard-corner pcard-corner-tl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-tr" aria-hidden="true"></span>
+                            <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
+                        </div>
+                        <div class="pcard-foot">
+                            <div class="pcard-line"><span class="pcard-num">01</span><span class="pcard-cat">Android · Kotlin</span></div>
+                            <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">Phatak Live</span></h3>
+                        </div>
+                    </a>
+
                     <a class="pcard" href="#work/portfolio" data-slug="portfolio" data-tone="#0e0d10" aria-label="Portfolio Website — open project details">
                         <div class="pcard-media" data-cursor="Open">
                             <img src="images/portfolio.webp" alt="Portfolio Website preview" loading="lazy" decoding="async">
@@ -247,7 +259,7 @@
                             <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
                         <div class="pcard-foot">
-                            <div class="pcard-line"><span class="pcard-num">01</span><span class="pcard-cat">Web · Personal</span></div>
+                            <div class="pcard-line"><span class="pcard-num">02</span><span class="pcard-cat">Web · Personal</span></div>
                             <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">Portfolio Website</span></h3>
                         </div>
                     </a>
@@ -259,7 +271,7 @@
                             <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
                         <div class="pcard-foot">
-                            <div class="pcard-line"><span class="pcard-num">02</span><span class="pcard-cat">Web · API</span></div>
+                            <div class="pcard-line"><span class="pcard-num">03</span><span class="pcard-cat">Web · API</span></div>
                             <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">J.SkyCast</span></h3>
                         </div>
                     </a>
@@ -271,7 +283,7 @@
                             <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
                         <div class="pcard-foot">
-                            <div class="pcard-line"><span class="pcard-num">03</span><span class="pcard-cat">AI · Full-stack</span></div>
+                            <div class="pcard-line"><span class="pcard-num">04</span><span class="pcard-cat">AI · Full-stack</span></div>
                             <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">AI Resume Analyzer</span></h3>
                         </div>
                     </a>
@@ -283,7 +295,7 @@
                             <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
                         <div class="pcard-foot">
-                            <div class="pcard-line"><span class="pcard-num">04</span><span class="pcard-cat">Web · Realtime</span></div>
+                            <div class="pcard-line"><span class="pcard-num">05</span><span class="pcard-cat">Web · Realtime</span></div>
                             <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">Mess Manager</span></h3>
                         </div>
                     </a>
@@ -295,7 +307,7 @@
                             <span class="pcard-corner pcard-corner-bl" aria-hidden="true"></span><span class="pcard-corner pcard-corner-br" aria-hidden="true"></span>
                         </div>
                         <div class="pcard-foot">
-                            <div class="pcard-line"><span class="pcard-num">05</span><span class="pcard-cat">Web · Realtime</span></div>
+                            <div class="pcard-line"><span class="pcard-num">06</span><span class="pcard-cat">Web · Realtime</span></div>
                             <h3 class="pcard-title"><span class="pcard-arrow" aria-hidden="true">→</span><span class="pcard-title-text">StudyVerse</span></h3>
                         </div>
                     </a>
@@ -303,6 +315,15 @@
                 </div>
 
                 <!-- Project write-ups, cloned into #work-detail when a card opens -->
+                <template id="work-tpl-phatak-live">
+                    <p class="wd-desc">Android app that tells you whether a <strong>railway level crossing is open, closing soon or closed</strong>, when it reopens, and the train behind it, for any rail gate in India. Gate status is worked out from train movements: the gate is placed on the track between stations, each train's time is interpolated by distance, and live departures apply real delays. English, Hindi and Bengali, no ads, no tracking.</p>
+                    <ul class="work-tags"><li>Kotlin</li><li>Jetpack Compose</li><li>Android</li><li>Live rail data</li></ul>
+                    <div class="wd-links">
+                        <a href="https://github.com/JyotirmoyLaha/phatak-live/releases/latest" target="_blank" rel="noopener noreferrer" class="work-link primary">Download APK <span class="arr" aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/JyotirmoyLaha/phatak-live" target="_blank" rel="noopener noreferrer" class="work-link">Source <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    </div>
+                </template>
+
                 <template id="work-tpl-portfolio">
                     <p class="wd-desc">Personal portfolio featuring <strong>dark mode, smooth-scroll animations</strong>, a custom blog engine, and a splash screen — built from scratch with clean, modular code.</p>
                     <ul class="work-tags"><li>HTML5</li><li>Tailwind</li><li>JavaScript</li></ul>
@@ -569,7 +590,7 @@
                 </div>
 
                 <div class="cta-stats" data-reveal="up">
-                    <div><span class="cta-stat-number" data-count="5">0</span><sup>+</sup><span class="cta-stat-label">Projects shipped</span></div>
+                    <div><span class="cta-stat-number" data-count="6">0</span><sup>+</sup><span class="cta-stat-label">Projects shipped</span></div>
                     <div><span class="cta-stat-number" data-count="10">0</span><sup>+</sup><span class="cta-stat-label">Technologies</span></div>
                     <div><span class="cta-stat-number">∞</span><span class="cta-stat-label">Curiosity</span></div>
                 </div>
@@ -582,7 +603,7 @@
     <!-- Filled from the card + its <template> by works-gl.js -->
     <div id="work-detail" class="wd" role="dialog" aria-modal="true" aria-labelledby="wd-title" hidden data-lenis-prevent>
         <div class="wd-bar">
-            <span class="wd-count"><span id="wd-count-now">01</span> / <span id="wd-count-total">05</span></span>
+            <span class="wd-count"><span id="wd-count-now">01</span> / <span id="wd-count-total">06</span></span>
             <button class="wd-close" type="button" data-wd-close>Close <span aria-hidden="true">✕</span></button>
         </div>
 
