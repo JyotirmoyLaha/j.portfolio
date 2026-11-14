@@ -108,7 +108,7 @@ t = ∞      ░░░  every 5–11 seconds the name glitches — red/cyan spli
     <td width="50%" valign="top">
 
 ### ◼ The Work
-- Five projects, editorial rows: index · category · title · stack · links
+- Six projects, editorial rows: index · category · title · stack · links
 - Screenshots sit at **90% grayscale** until hovered, then bleed into color
 - A red rule sweeps across each row on hover
 
@@ -148,11 +148,12 @@ t = ∞      ░░░  every 5–11 seconds the name glitches — red/cyan spli
 
 | `#` | Project | What it is | Stack | |
 |:--:|---|---|---|---|
-| `01` | **Portfolio Website** | This thing. Splash, blog engine, smooth-scroll, built from scratch | HTML · CSS · JS | [live](https://jyotirmoy-portfolio.onrender.com/) · [src](https://github.com/JyotirmoyLaha/j.portfolio) |
-| `02` | **J.SkyCast** | Real-time weather dashboard on the OpenWeatherMap API | JS · API · Tailwind | [live](https://j-weather.onrender.com) · [src](https://github.com/JyotirmoyLaha/j.weather) |
-| `03` | **AI Resume Analyzer** | NLP resume parsing + scoring against job descriptions | Python · FastAPI · NLP | [live](https://ai-resume-analyzer-hhhb.onrender.com/) · [fe](https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend) · [be](https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend) |
-| `04` | **Mess Manager** | Hostel expense splitting with Firebase + Google Auth + PDF reports | JS · Firebase | [live](https://mess-maneger.onrender.com/) · [src](https://github.com/JyotirmoyLaha/mess-maneger) |
-| `05` | **StudyVerse** | Zen journal with Google SSO and real-time sync | JS · Firebase | [live](https://studyverse-vlzh.onrender.com/) · [src](https://github.com/JyotirmoyLaha/studyverse) |
+| `01` | **Phatak Live** | Android app: is the railway gate open, when it reopens, and the train behind it, for any rail gate in India | Kotlin · Compose | [apk](https://github.com/JyotirmoyLaha/phatak-live/releases/latest) · [src](https://github.com/JyotirmoyLaha/phatak-live) |
+| `02` | **Portfolio Website** | This thing. Splash, blog engine, smooth-scroll, built from scratch | HTML · CSS · JS | [live](https://jyotirmoy-portfolio.onrender.com/) · [src](https://github.com/JyotirmoyLaha/j.portfolio) |
+| `03` | **J.SkyCast** | Real-time weather dashboard on the OpenWeatherMap API | JS · API · Tailwind | [live](https://j-weather.onrender.com) · [src](https://github.com/JyotirmoyLaha/j.weather) |
+| `04` | **AI Resume Analyzer** | NLP resume parsing + scoring against job descriptions | Python · FastAPI · NLP | [live](https://ai-resume-analyzer-hhhb.onrender.com/) · [fe](https://github.com/JyotirmoyLaha/ai_resume_analyzer_frontend) · [be](https://github.com/JyotirmoyLaha/ai-resume-analyzer-backend) |
+| `05` | **Mess Manager** | Hostel expense splitting with Firebase + Google Auth + PDF reports | JS · Firebase | [live](https://mess-maneger.onrender.com/) · [src](https://github.com/JyotirmoyLaha/mess-maneger) |
+| `06` | **StudyVerse** | Zen journal with Google SSO and real-time sync | JS · Firebase | [live](https://studyverse-vlzh.onrender.com/) · [src](https://github.com/JyotirmoyLaha/studyverse) |
 
 <p align="center"><img src="images/readme/divider.svg" width="100%" alt="" /></p>
 
